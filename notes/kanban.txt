@@ -14,4 +14,14 @@
 # backlog
 ##########################################################
 
+* initialize kgraph and validate connection
 
+* load initial linear test data case
+  - nodes and edges with time field (proper name?)
+  - linear ascending values for the nodes in a linear path
+  - both past and future time values
+  
+* Initial design of an initial "thought"
+
+* initial write-up document
+  - basic description of "A block-based genetic algorithm time-series forecasting graph processor"
