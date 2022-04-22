@@ -28,10 +28,7 @@
 
 * create initial fitness function
 
-
-  
-* Initial design of an initial "thought"
-
+* create initial school TODO: find the right name for this - put the book in my bag)
 
 
 * add README content: * genetic algorithm:
@@ -47,7 +44,3 @@
 * add README content: ### Under-Researched Areas
 
 * add README content: ### Interactive Capable
-
-## More...
-
-### Solutions
