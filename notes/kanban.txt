@@ -28,8 +28,11 @@
 
 * create initial fitness function
 
-* create initial school TODO: find the right name for this - put the book in my bag)
+* create initial offspring generator
 
+* create initial garden TODO: find the right name for this)
+
+* support genetic operations on offspring generators
 
 * add README content: * genetic algorithm:
 
