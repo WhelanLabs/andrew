@@ -2,6 +2,8 @@
 # Release 1.0.0
 ##########################################################
 
+* initial write-up document
+  - basic description of "A block-based genetic algorithm time-series forecasting graph processor"
 
 
 ##########################################################
@@ -23,5 +25,22 @@
   
 * Initial design of an initial "thought"
 
-* initial write-up document
-  - basic description of "A block-based genetic algorithm time-series forecasting graph processor"
+
+
+* add README content: * genetic algorithm:
+
+* add README content: * time-series:
+
+* add README content: * forecasting:
+
+* add README content: * graph processing:
+
+* add README content: ## Motivations
+
+* add README content: ### Under-Researched Areas
+
+* add README content: ### Interactive Capable
+
+## More...
+
+### Solutions
