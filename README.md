@@ -16,7 +16,7 @@ Andrew is a block-based genetic algorithm time-series forecasting graph processi
 
 ## Motivations
 
-### Under-Researched Areas
+### Under-Researched Topics
 
 ### Interactive Capable
 
