@@ -27,7 +27,7 @@
     		<dependency>
 			<groupId>com.whelanlabs.kgraph</groupId>
 			<artifactId>kgraph</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
   </dependencies>
 

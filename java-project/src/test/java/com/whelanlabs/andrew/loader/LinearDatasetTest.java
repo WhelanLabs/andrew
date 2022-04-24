@@ -15,7 +15,7 @@ public class LinearDatasetTest {
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
-      App app = new App("linear_dataset_tests");
+      app = new App("linear_dataset_tests");
       app.getGraph().flush();
    }
 
@@ -25,23 +25,22 @@ public class LinearDatasetTest {
    }
 
    @Test
-   public void load_datasetNotLoaded_loaded() throws Exception {
+   public void load_datasetNotpreviouslyLoaded_loaded() throws Exception {
       app.getGraph().flush();
       app.loadDataset(new LinearDataset());
       Long graphCount = app.getGraph().getTotalCount();
       assert (graphCount > 0) : "graphCount = " + graphCount;
-      fail("Not yet implemented");
    }
 
    @Test
-   public void load_datasetLoaded_loaded() throws Exception {
+   public void load_datasetPreviouslyLoaded_loaded() throws Exception {
       app.getGraph().flush();
       app.loadDataset(new LinearDataset());
+      Long graphCount1 = app.getGraph().getTotalCount();
+      assert (graphCount1 > 0) : "graphCount1 = " + graphCount1;
       app.loadDataset(new LinearDataset());
-      Long graphCount = app.getGraph().getTotalCount();
-      assert (graphCount > 0) : "graphCount = " + graphCount;
-      fail("Not yet implemented");
-      fail("Not yet implemented");
+      Long graphCount2 = app.getGraph().getTotalCount();
+      assert (graphCount1 == graphCount2 ) : "{graphCount1, graphCount2} = " + graphCount1 + ", " + graphCount2;
    }
 
 }
