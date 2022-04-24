@@ -25,8 +25,8 @@ public class App {
 
    public void loadDataset(Dataset dataset) {
       String datasetInfoID = dataset.getDatasetInfoID();
-      QueryClause linearDatasetInfoQuery = new QueryClause("dataset_id", QueryClause.Operator.EQUALS, datasetInfoID);
-      List<Node> datasetInfo = getGraph().queryNodes("dataSet_info", linearDatasetInfoQuery);
+      QueryClause datasetInfoQuery = new QueryClause("dataset_id", QueryClause.Operator.EQUALS, datasetInfoID);
+      List<Node> datasetInfo = getGraph().queryNodes("dataSet_info", datasetInfoQuery);
       if (datasetInfo.size() > 1) {
          throw new RuntimeException("Dataset " + datasetInfoID + " misloaded.");
       } else if (0 == datasetInfo.size()) {
@@ -38,12 +38,14 @@ public class App {
 
          // load dataset edges
          List<Edge> edges = dataset.getEdgesToLoad();
-         Node[] edgesArray = new Node[edges.size()];
-         edgesArray = nodes.toArray(edgesArray);
-         _kGraph.upsert(nodesArray);
+         Edge[] edgesArray = new Edge[edges.size()];
+         edgesArray = edges.toArray(edgesArray);
+         _kGraph.upsert(edgesArray);
          
          // lastly, create the dataSet_info node
-         
+         Node datasetInfoNode = new Node(datasetInfoID, "dataSet_info");
+         datasetInfoNode.addAttribute("dataset_id", datasetInfoID);
+         _kGraph.upsert(datasetInfoNode);
       }
    }
 
