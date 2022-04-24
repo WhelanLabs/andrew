@@ -17,7 +17,7 @@
 # backlog
 ##########################################################
 
-
+* create graphs for both data and for the garden.
 
 * load initial linear test data case
   - nodes and edges with time field (proper name?)
@@ -28,10 +28,15 @@
 
 * create initial fitness function
 
-* create initial school TODO: find the right name for this - put the book in my bag)
+* create initial offspring generator
 
+* create initial garden TODO: find the right name for this)
+
+* support genetic operations on offspring generators
 
 * add README content: * genetic algorithm:
+
+* add README content for "the garden"
 
 * add README content: * time-series:
 
