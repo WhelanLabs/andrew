@@ -5,9 +5,7 @@ import java.util.List;
 
 import com.whelanlabs.andrew.Dataset;
 import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
-import com.whelanlabs.kgraph.engine.QueryClause;
 
 public class LinearDataset extends Dataset {
 
@@ -24,6 +22,7 @@ public class LinearDataset extends Dataset {
       for(int i=1; i<=size ; i++) {
          Node result = new Node("LinearDatasetNode_"+i, "LinearDatasetNode");
          result.addAttribute("time", i);
+         result.addAttribute("value", i+9);
          results.add(result);
       }
       return results;
@@ -33,11 +32,16 @@ public class LinearDataset extends Dataset {
    protected List<Edge> getEdgesToLoad() {
       List<Edge> results = new ArrayList<>();
       for(int i=1; i<size ; i++) {
-         Edge result = new Edge("LinearDatasetEdge__"+i + "_to_" + (i+1), "LinearDatasetNode_"+i, "LinearDatasetNode_"+(i+1), "LinearDatasetNode", "LinearDatasetNode", "LinearDatasetEdge");
-         result.addAttribute("time", i);
+         Edge result = new Edge("LinearDatasetEdge_"+i + "_to_" + (i+1), "LinearDatasetNode_"+i, "LinearDatasetNode_"+(i+1), "LinearDatasetNode", "LinearDatasetNode", "LinearDatasetEdge");
+         result.addAttribute("time", i+1);
          results.add(result);
       }
       return results;
+   }
+
+   @Override
+   protected Object getMaxTime() {
+      return size;
    }
 
 

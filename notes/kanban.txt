@@ -7,25 +7,21 @@
 
 * initialize kgraph and validate connection
 
+* load initial linear test data case
+  - linear ascending values for the nodes in a linear path
+  - nodes and edges contain time values
+  
 ##########################################################
 # WIP
 ##########################################################
 
-* load initial linear test data case
-  - nodes and edges with time field (proper name?)
-  - linear ascending values for the nodes in a linear path
-  - both past and future time values
+
 
 ##########################################################
 # backlog
 ##########################################################
 
 * create graphs for both data and for the garden.
-
-* load initial linear test data case
-  - nodes and edges with time field (proper name?)
-  - linear ascending values for the nodes in a linear path
-  - both past and future time values
   
 * create initial genetic solution
 

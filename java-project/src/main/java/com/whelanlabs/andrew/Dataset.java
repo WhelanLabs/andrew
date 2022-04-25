@@ -12,4 +12,6 @@ public abstract class Dataset {
    protected abstract List<Node> getNodesToLoad();
 
    protected abstract List<Edge> getEdgesToLoad();
+
+   protected abstract Object getMaxTime();
 }

@@ -2,7 +2,6 @@ package com.whelanlabs.andrew;
 
 import java.util.List;
 
-import com.whelanlabs.andrew.loader.LinearDataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
@@ -45,6 +44,7 @@ public class App {
          // lastly, create the dataSet_info node
          Node datasetInfoNode = new Node(datasetInfoID, "dataSet_info");
          datasetInfoNode.addAttribute("dataset_id", datasetInfoID);
+         datasetInfoNode.addAttribute("max_time", dataset.getMaxTime());
          _kGraph.upsert(datasetInfoNode);
       }
    }

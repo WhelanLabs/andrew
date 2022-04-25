@@ -1,13 +1,10 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.loader.LinearDataset;
-import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
 
 /**
@@ -47,7 +44,7 @@ public class AppTest
        // 1000 nodes, 999 edges, 1 dataSet_info node
        assert (graphCount == 2000) : "graphCount = " + graphCount;
     }
-
+    
     @Test
     public void load_datasetPreviouslyLoaded_loaded() throws Exception {
        app.getGraph().flush();
