@@ -2,9 +2,9 @@
 
 ## Overview
 
-Andrew is a block-based genetic algorithm time-series forecasting graph processing AI.
+Andrew is a code-block-based genetic algorithm time-series forecasting graph processing AI.
 
-* block-based: the constructs that are the building block for each genetic solution are blocks of code that have have an input shape and an output shape.  The blocks are similar to blocks in the programming language Scratch.  The limitation of possible connections of blocks allow for resulting solutions to be well-formed.  The parameters to blocks have defined valid values; this allows genetic operationsto occur on parameters while maintaining valid values.
+* code-block-based: the constructs that are the building block for each genetic solution are blocks of code that have have an input shape and an output shape.  The blocks are similar to blocks in the programming language Scratch.  The limitation of possible connections of blocks allow for resulting solutions to be well-formed.  The parameters to blocks have defined valid values; this allows genetic operationsto occur on parameters while maintaining valid values.
 
 * genetic algorithm:
 
