@@ -11,6 +11,8 @@
   - linear ascending values for the nodes in a linear path
   - nodes and edges contain time values
   
+* create graphs for both data and for the garden.
+  
 ##########################################################
 # WIP
 ##########################################################
@@ -21,8 +23,7 @@
 # backlog
 ##########################################################
 
-* create graphs for both data and for the garden.
-  
+
 * create initial genetic solution
 
 * create initial fitness function

@@ -12,20 +12,26 @@ import com.whelanlabs.kgraph.engine.QueryClause;
  *
  */
 public class App {
-   private KnowledgeGraph _kGraph = null;
+   private KnowledgeGraph _dataGraph = null;
+   private KnowledgeGraph _gardenGraph = null;
 
    public App(String databaseName) throws Exception {
-      _kGraph = new KnowledgeGraph(databaseName);
+      _dataGraph = new KnowledgeGraph(databaseName);
+      _gardenGraph = new KnowledgeGraph(databaseName + "_garden");
    }
 
-   public KnowledgeGraph getGraph() {
-      return _kGraph;
+   public KnowledgeGraph getDataGraph() {
+      return _dataGraph;
    }
 
+   public KnowledgeGraph getGardenGraph() {
+      return _gardenGraph;
+   }
+   
    public void loadDataset(Dataset dataset) {
       String datasetInfoID = dataset.getDatasetInfoID();
       QueryClause datasetInfoQuery = new QueryClause("dataset_id", QueryClause.Operator.EQUALS, datasetInfoID);
-      List<Node> datasetInfo = getGraph().queryNodes("dataSet_info", datasetInfoQuery);
+      List<Node> datasetInfo = getDataGraph().queryNodes("dataSet_info", datasetInfoQuery);
       if (datasetInfo.size() > 1) {
          throw new RuntimeException("Dataset " + datasetInfoID + " misloaded.");
       } else if (0 == datasetInfo.size()) {
@@ -33,19 +39,19 @@ public class App {
          List<Node> nodes = dataset.getNodesToLoad();
          Node[] nodesArray = new Node[nodes.size()];
          nodesArray = nodes.toArray(nodesArray);
-         _kGraph.upsert(nodesArray);
+         _dataGraph.upsert(nodesArray);
 
          // load dataset edges
          List<Edge> edges = dataset.getEdgesToLoad();
          Edge[] edgesArray = new Edge[edges.size()];
          edgesArray = edges.toArray(edgesArray);
-         _kGraph.upsert(edgesArray);
+         _dataGraph.upsert(edgesArray);
          
          // lastly, create the dataSet_info node
          Node datasetInfoNode = new Node(datasetInfoID, "dataSet_info");
          datasetInfoNode.addAttribute("dataset_id", datasetInfoID);
          datasetInfoNode.addAttribute("max_time", dataset.getMaxTime());
-         _kGraph.upsert(datasetInfoNode);
+         _dataGraph.upsert(datasetInfoNode);
       }
    }
 
