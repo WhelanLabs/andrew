@@ -20,13 +20,21 @@ Andrew is a code-block-based genetic algorithm time-series forecasting graph pro
 
 ### Interactive Capable
 
-## More...
+## Logical Constructs
 
 ### Solutions
 
 ### Fitness Functions
 In addition to supporting genetic operations in the genetic solutions, the fitness functions also support genetic operations within their defined ranges.  This allows fitness functions to compete.  As an example, imagine a base fitness function that looks to identify stocks that will do the best in 1-year period; it may be that a fitness function that scores on a quarterly basis will be able to idetify higher annualized rates of return.  As long as the underlying scoring criteria is correct (in this case: rate of return), changing the parameters of the fitness functions might produce improved overall results. <P/>
 [Note: It is of interest that a program can have an ability to somewhat change its goals.]
+
+## Architecture
+
+### Graphs
+
+#### Knowladge Graph
+
+#### Garden Graph
 
 ## Building the Project
 
