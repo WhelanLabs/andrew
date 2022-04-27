@@ -12,8 +12,8 @@
   - nodes and edges contain time values
   
 * create graphs for both data and for the garden.
-  
-* create initial fitness function
+
+* create initial thought
 
 ##########################################################
 # WIP
@@ -25,10 +25,9 @@
 # backlog
 ##########################################################
 
+* have goal time represented in GMT time.
 
-* create initial genetic solution
-
-
+* create initial fitness function
 
 * create initial offspring generator
 
@@ -51,3 +50,5 @@
 * add README content: ### Under-Researched Areas
 
 * add README content: ### Interactive Capable
+
+* README content for composition of genetic solution solutions from genetic solutions.

@@ -4,7 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.whelanlabs.andrew.loader.LinearDataset;
+import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Node;
 
 /**
