@@ -24,7 +24,7 @@ public class Thought {
       Node result = new Node(ElementHelper.generateKey(), startingPoint.getType() );
       Map<String, Object> startingProps = startingPoint.getProperties();
       result.setProperties(startingProps);
-      result.addAttribute("time", goal.getTimeAsGMTString());
+      result.addAttribute("time", goal.getTimeAsLong());
       
       return result;
    }
