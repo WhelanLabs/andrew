@@ -6,43 +6,50 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
+import com.arangodb.model.TraversalOptions.Direction;
+
 public class Goal {
 
-   Long _time;
-   
+   private String _targetProperty;
+
+   private String _relationType;
+
+   private Direction _direction;
+
+   private Integer _distance;
+
    static DateTimeFormatter standardFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-   
-   public Goal(Long goalDate) {
-      _time = goalDate;
-   }
-   
-   public Goal(LocalDateTime goalDate) {
-      _time = goalDate.toEpochSecond(ZoneOffset.UTC);
-   }
-   
-   /**
-    * Gets the time as GMT string. (yyyy-MM-dd'T'HH:mm:ss)
-    *
-    * @return the time as GMT string
-    */
-   public String getTimeAsGMTString() {
-      LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(_time, 0, ZoneOffset.UTC);
-      return localDateTime.format(standardFormatter);
+
+   public Goal(String relationType, Direction direction, Integer distance, String targetProperty) {
+      
+      if(!(direction == Direction.inbound || direction == Direction.outbound) ) {
+         throw new RuntimeException("invalid direction (" + direction + ")");
+      }
+      
+      if(distance <1 ) {
+         throw new RuntimeException("invalid distance (" + distance + ")");
+      }
+      
+      _relationType =  relationType; 
+      _direction = direction; 
+      _distance = distance;
+      _targetProperty = targetProperty;
    }
 
-   public LocalDateTime getTimeAsLocalDateTime() {
-      LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(_time, 0, ZoneOffset.UTC);
-      return localDateTime;
+   public String getTargetProperty() {
+      return _targetProperty;
    }
    
-   /**
-    * Gets the time.
-    *
-    * Time is the number of seconds since Epoch.
-    * @return the time
-    */
-   public Long getTimeAsLong() {
-      return _time;
+   public String getRelationType() {
+      return _relationType;
+   }
+   
+   public Direction getDirection() {
+      return _direction;
+   }
+   
+   public Integer getDistance() {
+      return _distance;
    }
 
 }
