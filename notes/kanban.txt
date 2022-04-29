@@ -15,24 +15,24 @@
 
 * create initial thought
 
-* have goal time represented in GMT time.
+* have goal location represented in graph distance.
 
 ##########################################################
 # WIP
 ##########################################################
 
-
+* create initial fitness function
 
 ##########################################################
 # backlog
 ##########################################################
 
 
-* create initial fitness function
+* ponder the value of predicting the past
 
 * create initial offspring generator
 
-* create initial garden TODO: find the right name for this)
+* create initial garden
 
 * support genetic operations on offspring generators
 
