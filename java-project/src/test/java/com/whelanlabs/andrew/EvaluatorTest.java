@@ -29,12 +29,12 @@ public class EvaluatorTest {
       guess.addAttribute("value", Float.valueOf("3.14159"));
       Node answer = new Node(ElementHelper.generateKey(), nodeType);
       answer.addAttribute("value", Float.valueOf("3.14159"));
-      Criteria criteria = new Criteria();
-      Float fitness = evaluator.evualate(guess, answer, goal, criteria );
+      Criteria criteria = new AbsDistanceCriteria();
+      Double fitness = evaluator.evualate(guess, answer, goal, criteria );
       
       assert(fitness != null);
       float tolerableDifference = (float) 0.00001;
-      assert(Math.abs(fitness -1) < tolerableDifference);
+      assert(Math.abs(fitness) < tolerableDifference);
    }
 
 }

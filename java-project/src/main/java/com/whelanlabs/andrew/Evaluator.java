@@ -4,8 +4,11 @@ import com.whelanlabs.kgraph.engine.Node;
 
 public class Evaluator {
 
-   public Float evualate(Node guess, Node answer, Goal goal, Criteria criteria) {
-      // how to evualate?  Distance? Relative Distance
-      return null;
+   public Double evualate(Node guess, Node answer, Goal goal, Criteria criteria) {
+      Number estimated = (Number)guess.getAttribute(goal.getTargetProperty());
+      Number actual = (Number)answer.getAttribute(goal.getTargetProperty());
+
+      Double result = criteria.calculateFitness(estimated, actual);
+      return result;
    }
 }

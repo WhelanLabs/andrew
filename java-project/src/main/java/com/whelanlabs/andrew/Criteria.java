@@ -1,5 +1,7 @@
 package com.whelanlabs.andrew;
 
-public class Criteria {
+public interface Criteria {
+
+   Double calculateFitness(Number estimated, Number actual);
 
 }

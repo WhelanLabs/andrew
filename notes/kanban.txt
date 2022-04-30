@@ -17,11 +17,13 @@
 
 * have goal location represented in graph distance.
 
+* create initial fitness function
+
 ##########################################################
 # WIP
 ##########################################################
 
-* create initial fitness function
+
 
 ##########################################################
 # backlog
