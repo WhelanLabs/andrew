@@ -19,18 +19,18 @@
 
 * create initial fitness function
 
+* ponder the value of predicting the past ("backcasting")
+
+
 ##########################################################
 # WIP
 ##########################################################
 
-
+* create a thought process
 
 ##########################################################
 # backlog
 ##########################################################
-
-
-* ponder the value of predicting the past
 
 * create initial offspring generator
 

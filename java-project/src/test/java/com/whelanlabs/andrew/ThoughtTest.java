@@ -43,7 +43,7 @@ public class ThoughtTest {
       Integer distance = 1;
       String targetProperty = "value";
       
-      Thought thought = new Thought();
+      Thought thought = new Thought(null);
       Node startingPoint = new Node(ElementHelper.generateKey(), ElementHelper.generateName());
       startingPoint.addAttribute(targetProperty, Float.valueOf("3.14159"));
       

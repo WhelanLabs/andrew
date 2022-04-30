@@ -1,0 +1,8 @@
+Base the language on Antlr.
+
+What version of Antlr to use?  Maybe 3 since modification of the document tree will be needed.
+
+Initial example:  Given a distance to a goal from a starting point, travers in the opposite direction the same distance diff the current target attribute value with the past value, and forcast a linear relationship.
+
+initial pseudocode:
+forcastValue = (2 * Node($startNode)) - (traverse($startNode, $relname, $direction, $distance).value($targetAttr))

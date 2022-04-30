@@ -9,7 +9,12 @@ import com.whelanlabs.kgraph.engine.Node;
  * The Class Thought.
  */
 public class Thought {
+   
+   private ThoughtProcess _process;
 
+   public Thought(ThoughtProcess process) {
+      _process = process;
+   }
    
    /**
     * Forecast.
