@@ -3,13 +3,13 @@
 ##########################################################
 
 * initial write-up document
-  - basic description of "A block-based genetic algorithm time-series forecasting graph processor"
+  • basic description of "A block-based genetic algorithm time-series forecasting graph processor"
 
 * initialize kgraph and validate connection
 
 * load initial linear test data case
-  - linear ascending values for the nodes in a linear path
-  - nodes and edges contain time values
+  • linear ascending values for the nodes in a linear path
+  • nodes and edges contain time values
   
 * create graphs for both data and for the garden.
 
@@ -26,7 +26,11 @@
 # WIP
 ##########################################################
 
-* create a thought process
+* create a thought process (see also: https://github.com/seratch/antlr-maven-example )
+  • make an initial documented guess at a thought process language
+  • add ANTLR3 to the project
+  - generate initial thought process language
+  - add build and test (grammar and runtime parse)
 
 ##########################################################
 # backlog

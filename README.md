@@ -40,10 +40,11 @@ In addition to supporting genetic operations in the genetic solutions, the fitne
 ## Building the Project
 
 ### main build command
-mvn clean install
+	mvn clean install
+
 
 ### Start ArangoDB in Docker:
-   1. D:\sandbox\2022_andrew\notes> docker run -p 8529:8529 -e ARANGO_ROOT_PASSWORD=openSesame arangodb/arangodb:3.8.2
+	docker run -p 8529:8529 -e ARANGO_ROOT_PASSWORD=openSesame arangodb/arangodb:3.8.2
 
 
 ### In order to build the uber jar run:
@@ -52,4 +53,15 @@ mvn clean install
 
 ### To display available updates to Maven depenedencies:
  (see also: https://www.baeldung.com/maven-dependency-latest-version)
-	* mvn versions:display-dependency-updates
+ 
+	mvn versions:display-dependency-updates
+	
+	
+## To build licensing information:
+The results are written to [ ./java-project/target/site/dependencies.html ].
+
+	mvn site
+
+
+## To build Javadoc
+	mvn javadoc:javadoc
