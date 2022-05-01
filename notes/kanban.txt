@@ -26,15 +26,12 @@
 # WIP
 ##########################################################
 
-* create a thought process (see also: https://github.com/seratch/antlr-maven-example )
-  • make an initial documented guess at a thought process language
-  • add ANTLR3 to the project
-  - generate initial thought process language (from documented guess)
-  - add build and test (grammar and runtime parse)
 
 ##########################################################
 # backlog
 ##########################################################
+
+* add thought expression grammer project as a dependency
 
 * create initial offspring generator
 
