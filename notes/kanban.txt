@@ -26,6 +26,10 @@
 # WIP
 ##########################################################
 
+* create a thought process (see also: https://github.com/seratch/antlr-maven-example )
+  • make an initial documented guess at a thought process language
+  - generate initial thought process language (from documented guess)
+  - add build and test (grammar and runtime parse)
 
 ##########################################################
 # backlog
