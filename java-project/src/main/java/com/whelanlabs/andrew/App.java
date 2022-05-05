@@ -12,23 +12,27 @@ import com.whelanlabs.kgraph.engine.QueryClause;
  *
  */
 public class App {
-   private KnowledgeGraph _dataGraph = null;
-   private KnowledgeGraph _gardenGraph = null;
+   private static KnowledgeGraph _dataGraph = null;
+   private static KnowledgeGraph _gardenGraph = null;
 
-   public App(String databaseName) throws Exception {
+   private App() {
+      // do nothing.  Static global class.
+   }
+   
+   public static void initialize(String databaseName) throws Exception {
       _dataGraph = new KnowledgeGraph(databaseName);
       _gardenGraph = new KnowledgeGraph(databaseName + "_garden");
    }
 
-   public KnowledgeGraph getDataGraph() {
+   public static KnowledgeGraph getDataGraph() {
       return _dataGraph;
    }
 
-   public KnowledgeGraph getGardenGraph() {
+   public static KnowledgeGraph getGardenGraph() {
       return _gardenGraph;
    }
    
-   public void loadDataset(Dataset dataset) {
+   public static void loadDataset(Dataset dataset) {
       String datasetInfoID = dataset.getDatasetInfoID();
       QueryClause datasetInfoQuery = new QueryClause("dataset_id", QueryClause.Operator.EQUALS, datasetInfoID);
       List<Node> datasetInfo = getDataGraph().queryNodes("dataSet_info", datasetInfoQuery);

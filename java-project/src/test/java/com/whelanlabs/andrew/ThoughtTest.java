@@ -23,6 +23,8 @@ public class ThoughtTest {
    
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
+      String databaseName = "andrew_test_database";
+      App.initialize(databaseName);
    }
 
    @AfterClass

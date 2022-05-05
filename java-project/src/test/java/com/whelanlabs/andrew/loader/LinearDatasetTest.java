@@ -16,28 +16,28 @@ import com.whelanlabs.kgraph.engine.Node;
 
 public class LinearDatasetTest {
 
-   private static App app;
+   private static App App;
 
    private static Logger logger = LogManager.getLogger(LinearDatasetTest.class);
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
-      app = new App("linear_dataset_tests");
-      app.getDataGraph().flush();
+      App.initialize("linear_dataset_tests");
+      App.getDataGraph().flush();
    }
 
    @AfterClass
    public static void tearDownAfterClass() throws Exception {
-      app.getDataGraph().cleanup();
+      App.getDataGraph().cleanup();
    }
 
    @Test
    public void expand_datasetLoaded_getOtherSide() throws Exception {
-      app.getDataGraph().flush();
-      app.loadDataset(new LinearDataset());
+      App.getDataGraph().flush();
+      App.loadDataset(new LinearDataset());
 
-      Node startingNode = app.getDataGraph().getNodeByKey("LinearDatasetNode_100", "LinearDatasetNode");
-      List<Triple<Node, Edge, Node>> results1 = app.getDataGraph().expandRight(startingNode, "LinearDatasetEdge", null, null);
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_100", "LinearDatasetNode");
+      List<Triple<Node, Edge, Node>> results1 = App.getDataGraph().expandRight(startingNode, "LinearDatasetEdge", null, null);
 
       assert (results1.size() == 1) : "results1 = " + results1;
       // test otherside
@@ -51,7 +51,7 @@ public class LinearDatasetTest {
       Integer v1 = (Integer) results1.get(0).getLeft().getAttribute("value");
       Integer v2 = (Integer) results1.get(0).getRight().getAttribute("value");
 
-      List<Triple<Node, Edge, Node>> results2 = app.getDataGraph().expandRight(results1.get(0).getRight(), "LinearDatasetEdge", null, null);
+      List<Triple<Node, Edge, Node>> results2 = App.getDataGraph().expandRight(results1.get(0).getRight(), "LinearDatasetEdge", null, null);
       // test otherside (again)
       assert (results2.size() == 1) : "results2 = " + results2;
       Integer v3 = (Integer) results2.get(0).getRight().getAttribute("value");

@@ -1,19 +1,21 @@
 package com.whelanlabs.andrew;
 
+import java.util.List;
 import java.util.Map;
 
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.kgraph.engine.QueryClause;
 
 /**
  * The Class Thought.
  */
 public class Thought {
    
-   private ThoughtProcess _process;
+   private String _thoughtID;
 
-   public Thought(ThoughtProcess process) {
-      _process = process;
+   public Thought(String thoughtID) {
+      _thoughtID = thoughtID;
    }
    
    /**
@@ -30,6 +32,9 @@ public class Thought {
       Map<String, Object> startingProps = startingPoint.getProperties();
       result.setProperties(startingProps);
       result.addAttribute("time", goal.getTargetProperty());
+      
+      QueryClause queryClause = new QueryClause("_id", QueryClause.Operator.EQUALS, "bar");
+      List<Node> results = App.getDataGraph().queryNodes("testType", queryClause);
       
       return result;
    }
