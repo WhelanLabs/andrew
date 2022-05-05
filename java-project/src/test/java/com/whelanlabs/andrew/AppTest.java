@@ -27,6 +27,7 @@ public class AppTest
     @Test
     public void getDataGraphConnection_valid_success() throws Exception
     {
+       App.getDataGraph().flush();
        Long graphCount = App.getDataGraph().getTotalCount();
         assert( 0 == graphCount ): "graphCount = " + graphCount;
     }
