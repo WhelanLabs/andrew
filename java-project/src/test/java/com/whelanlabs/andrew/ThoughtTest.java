@@ -32,11 +32,6 @@ public class ThoughtTest {
    }
 
    @Test
-   public void test() {
-      assert(true);
-   }
-
-   @Test
    public void forecast_simpleInputs_simpleOutputs() {
       // forecast given a simple thought and simple data. 
       

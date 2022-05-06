@@ -5,6 +5,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.kgraph.engine.Edge;
+import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 
 /**
@@ -77,5 +79,44 @@ public class AppTest
        
        App.getDataGraph().upsert(datasetInfoNode1, datasetInfoNode2);
        App.loadDataset(dataset);
+    }
+    
+    @Test
+    public void buildThought_valid_success() throws Exception {
+       buildThought();
+       assert(false); // replace with well-formed check
+    }
+    
+    public void buildThought() {
+       // Note: see thought_process_language.html for reference
+       
+       // create a thought node
+       final Node thought = new Node("firstTestThought", "thought");
+       
+       // create steps     
+       // TODO: make these reusable nodes with backing code.  how?
+       final Node A1_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_step");
+       final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_step");
+       final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_step");
+       final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_step");
+       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_step");
+       
+       final Node end = new Node(ElementHelper.generateKey(), "thought_result");
+       
+       // link the thought process using valid sequence relationships
+       Edge edge1 = new Edge(ElementHelper.generateKey(), thought, A1_getNumberAttrinbute, "thought_sequence");
+       edge1.addAttribute("thought_key", thought.getKey());
+       Edge edge2 = new Edge(ElementHelper.generateKey(), A1_getNumberAttrinbute, A2_valueX2, "thought_sequence");
+       edge2.addAttribute("thought_key", thought.getKey());
+       Edge edge3 = new Edge(ElementHelper.generateKey(), A2_valueX2, AB1_subtract, "thought_sequence");
+       edge3.addAttribute("thought_key", thought.getKey());
+       Edge edge4 = new Edge(ElementHelper.generateKey(), thought, B1_traverse, "thought_sequence");
+       edge4.addAttribute("thought_key", thought.getKey());
+       Edge edge5 = new Edge(ElementHelper.generateKey(), B1_traverse, B2_getNumberAttrinbute, "thought_sequence");
+       edge5.addAttribute("thought_key", thought.getKey());
+       Edge edge6 = new Edge(ElementHelper.generateKey(), B2_getNumberAttrinbute, AB1_subtract, "thought_sequence");
+       edge6.addAttribute("thought_key", thought.getKey());
+       Edge edge7 = new Edge(ElementHelper.generateKey(), AB1_subtract, end, "thought_sequence");
+       edge7.addAttribute("thought_key", thought.getKey());
     }
 }
