@@ -41,7 +41,9 @@ public class ThoughtTest {
       Integer distance = 1;
       String targetProperty = "value";
 
-      Thought thought = new Thought(null);
+      
+      Thought initialTestThought = buildInitialTestThought();
+      Thought thought = new Thought(initialTestThought.getKey());
       Node startingPoint = new Node(ElementHelper.generateKey(), ElementHelper.generateName());
       startingPoint.addAttribute(targetProperty, Float.valueOf("3.14159"));
 
@@ -64,7 +66,7 @@ public class ThoughtTest {
 
       Long pre_count = pre_thought_count + pre_thought_operation_count + pre_thought_sequence_count + pre_thought_result_count;
       
-      buildThought();
+      Thought initialThought = buildInitialTestThought();
       
       Long post_thought_count = App.getGardenGraph().getCount("thought");
       Long post_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
@@ -74,28 +76,40 @@ public class ThoughtTest {
       Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
             
       assert (pre_count +14 == post_count): "{" + pre_count + ", " +post_count + "}";
+      
+      Integer entityComplexity = initialThought.getEntityComplexity();
+      
+      assert (post_count - pre_count == entityComplexity): "{" + post_count + ", " + pre_count + ", " + entityComplexity + "}";
    }
 
    @Test
    public void runThought_valid_success() throws Exception {
-      buildThought();
+      buildInitialTestThought();
       // TODO: run thought
       assert (false); // replace with well-formed check
    }
 
-   public void buildThought() {
+   public Thought buildInitialTestThought() {
       // Note: see thought_process_language.html for reference
 
+      String thoughtId = "firstTestThought";
+      
       // create a thought node
-      final Node thought = new Node("firstTestThought", "thought");
+      final Node thought = new Node(thoughtId, "thought");
 
       // create steps
       final Node A1_getNumberAttribute = new Node("getNumberAttribute", "thought_operation");
+      A1_getNumberAttribute.addAttribute("thought_key", thought.getKey());
       final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_operation");
+      B1_traverse.addAttribute("thought_key", thought.getKey());
       final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_operation");
+      B2_getNumberAttrinbute.addAttribute("thought_key", thought.getKey());
       final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_operation");
+      A2_valueX2.addAttribute("thought_key", thought.getKey());
       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
+      AB1_subtract.addAttribute("thought_key", thought.getKey());
       final Node end = new Node(ElementHelper.generateKey(), "thought_result");
+      end.addAttribute("thought_key", thought.getKey());
 
       // link the thought process using valid sequence relationships
       Edge edge1 = new Edge(ElementHelper.generateKey(), thought, A1_getNumberAttribute, "thought_sequence");
@@ -115,5 +129,7 @@ public class ThoughtTest {
 
       App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
       App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
+      
+      return new Thought(thoughtId);
    }
 }
