@@ -21,24 +21,22 @@
 
 * ponder the value of predicting the past ("backcasting")
 
-
-##########################################################
-# WIP
-##########################################################
-
 * create initial garden
 
 * create a thought process (see also: https://github.com/seratch/antlr-maven-example )
   • identify a good example of what a thought should do (good initial example)
   • generate initial thought process design (design approach)
-  - add build and test - buildThought()
+  • add build and test - buildThought()
 
 ##########################################################
-# backlog
+# WIP
 ##########################################################
 
 * run a thought and measure the result against the goal
 
+##########################################################
+# backlog
+##########################################################
 
 * create initial offspring generator
 

@@ -54,14 +54,32 @@ public class ThoughtTest {
 
    @Test
    public void buildThought_valid_success() throws Exception {
+      
+      App.getGardenGraph().flush();
+      
+      Long pre_thought_count = App.getGardenGraph().getCount("thought");
+      Long pre_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
+      Long pre_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
+      Long pre_thought_result_count = App.getGardenGraph().getCount("thought_result");
+
+      Long pre_count = pre_thought_count + pre_thought_operation_count + pre_thought_sequence_count + pre_thought_result_count;
+      
       buildThought();
-      // no exception? It must have worked.
+      
+      Long post_thought_count = App.getGardenGraph().getCount("thought");
+      Long post_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
+      Long post_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
+      Long post_thought_result_count = App.getGardenGraph().getCount("thought_result");
+
+      Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
+            
+      assert (pre_count +14 == post_count): "{" + pre_count + ", " +post_count + "}";
    }
 
    @Test
    public void runThought_valid_success() throws Exception {
       buildThought();
-      //TODO: run thought
+      // TODO: run thought
       assert (false); // replace with well-formed check
    }
 
@@ -72,7 +90,6 @@ public class ThoughtTest {
       final Node thought = new Node("firstTestThought", "thought");
 
       // create steps
-      // TODO: make these reusable nodes with backing code. how?
       final Node A1_getNumberAttribute = new Node("getNumberAttribute", "thought_operation");
       final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_operation");
       final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_operation");
@@ -80,8 +97,6 @@ public class ThoughtTest {
       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
       final Node end = new Node(ElementHelper.generateKey(), "thought_result");
 
-      App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
-      
       // link the thought process using valid sequence relationships
       Edge edge1 = new Edge(ElementHelper.generateKey(), thought, A1_getNumberAttribute, "thought_sequence");
       edge1.addAttribute("thought_key", thought.getKey());
@@ -98,6 +113,7 @@ public class ThoughtTest {
       Edge edge7 = new Edge(ElementHelper.generateKey(), AB1_subtract, end, "thought_sequence");
       edge7.addAttribute("thought_key", thought.getKey());
 
+      App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
       App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
    }
 }
