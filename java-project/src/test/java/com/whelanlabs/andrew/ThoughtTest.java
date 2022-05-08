@@ -78,9 +78,10 @@ public class ThoughtTest {
       final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_operation");
       final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_operation");
       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
-
       final Node end = new Node(ElementHelper.generateKey(), "thought_result");
 
+      App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
+      
       // link the thought process using valid sequence relationships
       Edge edge1 = new Edge(ElementHelper.generateKey(), thought, A1_getNumberAttribute, "thought_sequence");
       edge1.addAttribute("thought_key", thought.getKey());
@@ -97,7 +98,6 @@ public class ThoughtTest {
       Edge edge7 = new Edge(ElementHelper.generateKey(), AB1_subtract, end, "thought_sequence");
       edge7.addAttribute("thought_key", thought.getKey());
 
-      App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
       App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
    }
 }

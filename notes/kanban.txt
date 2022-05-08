@@ -26,20 +26,23 @@
 # WIP
 ##########################################################
 
+* create initial garden
+
 * create a thought process (see also: https://github.com/seratch/antlr-maven-example )
-  • make an initial documented guess at a thought process language
-  - generate initial thought process language (from documented guess)
-  - add build and test
+  • identify a good example of what a thought should do (good initial example)
+  • generate initial thought process design (design approach)
+  - add build and test - buildThought()
 
 ##########################################################
 # backlog
 ##########################################################
 
-* add thought expression grammer project as a dependency
+* run a thought and measure the result against the goal
+
 
 * create initial offspring generator
 
-* create initial garden
+* make an evualator
 
 * support genetic operations on offspring generators
 
