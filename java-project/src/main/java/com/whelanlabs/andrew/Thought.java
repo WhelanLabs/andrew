@@ -1,7 +1,13 @@
 package com.whelanlabs.andrew;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang3.tuple.Triple;
 
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
@@ -65,10 +71,47 @@ public class Thought {
       result.setProperties(startingProps);
       result.addAttribute("time", goal.getTargetProperty());
       
-      QueryClause queryClause = new QueryClause("_id", QueryClause.Operator.EQUALS, "bar");
-      List<Node> results = App.getDataGraph().queryNodes("testType", queryClause);
+      List<List<Node>> layeredOperations = getOperationsByMaxLayer();
+      
+      // TODO: process the thought by layer
       
       return result;
+   }
+
+   private List<List<Node>> getOperationsByMaxLayer() {
+      // Note: see p.14 of LBB for details.
+      List<List<Node>> results = new ArrayList<>();
+      
+      Integer currentLevel = 0;
+      List<Node> startingPoints = new ArrayList<>();
+      Map<String, Integer> nodeMaxLevel = new HashMap<>();
+      nodeMaxLevel.put(_thoughtNode.getKey() + ":" + _thoughtNode.getType(), currentLevel);
+      startingPoints.add(_thoughtNode);
+
+      while(startingPoints.size() > 0) {
+         List<Node> nextStartingPoints = new ArrayList<>();
+         currentLevel +=1;
+         for(Node startingPoint : startingPoints) {
+            List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(startingPoint, "thought_sequence", null, null);
+            for(Triple<Node, Edge, Node> expansion : expansions) {
+               Node right = expansion.getRight();
+               nextStartingPoints.add(right);
+               nodeMaxLevel.put(right.getKey() + ":" + right.getType(), currentLevel);
+            }
+         }
+         startingPoints = nextStartingPoints;
+      }
+      Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
+      while(maxLevelIterator.hasNext()) {
+         String current = maxLevelIterator.next();
+         String currentId = current.split(":")[0];
+         Integer currentIdLevel = nodeMaxLevel.get(currentId);
+         List<Node> nodeLevelcontents = results.get(currentIdLevel);
+         
+         // TODO: add the current node to the proper level
+      }
+      
+      return null;
    }
 
    public String getKey() {

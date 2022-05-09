@@ -84,7 +84,8 @@ public class ThoughtTest {
 
    @Test
    public void runThought_valid_success() throws Exception {
-      buildInitialTestThought();
+      Thought thought = buildInitialTestThought();
+
       // TODO: run thought
       assert (false); // replace with well-formed check
    }
@@ -92,10 +93,10 @@ public class ThoughtTest {
    public Thought buildInitialTestThought() {
       // Note: see thought_process_language.html for reference
 
-      String thoughtId = "firstTestThought";
+      String thoughtKey = "firstTestThought";
       
       // create a thought node
-      final Node thought = new Node(thoughtId, "thought");
+      final Node thought = new Node(thoughtKey, "thought");
 
       // create steps
       final Node A1_getNumberAttribute = new Node("getNumberAttribute", "thought_operation");
@@ -130,6 +131,6 @@ public class ThoughtTest {
       App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
       App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
       
-      return new Thought(thoughtId);
+      return new Thought(thoughtKey);
    }
 }
