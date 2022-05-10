@@ -16,7 +16,7 @@ import com.whelanlabs.kgraph.engine.Node;
 
 public class LinearDatasetTest {
 
-   private static App App;
+   //private static App App;
 
    private static Logger logger = LogManager.getLogger(LinearDatasetTest.class);
 

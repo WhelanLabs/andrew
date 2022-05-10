@@ -2,6 +2,7 @@ package com.whelanlabs.andrew;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -71,19 +72,21 @@ public class Thought {
       result.setProperties(startingProps);
       result.addAttribute("time", goal.getTargetProperty());
       
-      List<List<Node>> layeredOperations = getOperationsByMaxLayer();
+      Map<Integer, Set<String>> layeredOperations = getOperationsByMaxLayer();
       
       // TODO: process the thought by layer
       
       return result;
    }
 
-   private List<List<Node>> getOperationsByMaxLayer() {
+   protected Map<Integer, Set<String>> getOperationsByMaxLayer() {
       // Note: see p.14 of LBB for details.
-      List<List<Node>> results = new ArrayList<>();
+      Map<Integer, Set<String>> results = new HashMap<>();
       
       Integer currentLevel = 0;
       List<Node> startingPoints = new ArrayList<>();
+      
+      // The max distance from the start node for any path
       Map<String, Integer> nodeMaxLevel = new HashMap<>();
       nodeMaxLevel.put(_thoughtNode.getKey() + ":" + _thoughtNode.getType(), currentLevel);
       startingPoints.add(_thoughtNode);
@@ -104,18 +107,20 @@ public class Thought {
       Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
       while(maxLevelIterator.hasNext()) {
          String current = maxLevelIterator.next();
-         String currentId = current.split(":")[0];
-         Integer currentIdLevel = nodeMaxLevel.get(currentId);
-         List<Node> nodeLevelcontents = results.get(currentIdLevel);
+         //String currentId = current.split(":")[0];
+         Integer currentIdLevel = nodeMaxLevel.get(current);
+         Set<String> nodeLevelcontents = results.get(currentIdLevel);
          
-         // TODO: add the current node to the proper level
+         if(null == nodeLevelcontents) {
+            nodeLevelcontents = new HashSet<>();
+         }
+         nodeLevelcontents.add(current);
+         results.put(currentIdLevel, nodeLevelcontents);
       }
-      
-      return null;
+      return results;
    }
 
    public String getKey() {
-      // TODO Auto-generated method stub
       return _thoughtNode.getKey();
    }
 }

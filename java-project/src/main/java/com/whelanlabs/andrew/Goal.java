@@ -1,10 +1,6 @@
 package com.whelanlabs.andrew;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 import com.arangodb.model.TraversalOptions.Direction;
 

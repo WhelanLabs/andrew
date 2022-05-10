@@ -1,12 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.*;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
@@ -40,12 +33,13 @@ public class GoalTest {
 
    @Test(expected = RuntimeException.class)
    public void newGoal_badDistance_exception() {
-      Goal goal = new Goal("next", Direction.outbound, 0, "value");
+      new Goal("next", Direction.outbound, 0, "value");
+      logger.debug("never to reach here...");
    }
    
    @Test(expected = RuntimeException.class)
    public void newGoal_badDirection_exception() {
-      Goal goal = new Goal("next", Direction.any, 1, "value");
+      new Goal("next", Direction.any, 1, "value");
    }
    
 }

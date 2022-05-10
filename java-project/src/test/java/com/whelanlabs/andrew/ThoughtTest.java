@@ -1,22 +1,19 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.*;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.arangodb.model.TraversalOptions.Direction;
+import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
-
-import org.apache.logging.log4j.Logger;
 
 public class ThoughtTest {
 
@@ -85,15 +82,29 @@ public class ThoughtTest {
    @Test
    public void runThought_valid_success() throws Exception {
       Thought thought = buildInitialTestThought();
-
-      // TODO: run thought
-      assert (false); // replace with well-formed check
+      
+      App.getDataGraph().flush();
+      App.loadDataset(new LinearDataset());
+      
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      Integer forwardDistance = 10;
+      Goal goal = new Goal("LinearDatasetEdge", Direction.outbound, forwardDistance, "value");
+      Node result = thought.forecast(startingNode, goal);
+      
+      assert (null != result);
+      
+      Integer resultValue = (Integer)result.getAttribute("value");
+      assert (null != resultValue);
+      logger.debug("resultValue = " + resultValue);
+      Integer startingValue = (Integer)startingNode.getAttribute("value");
+      assert (startingValue + forwardDistance == resultValue): "{" + startingValue + ", " + forwardDistance + ", " + resultValue + "}";
+      
    }
-
+   
    public Thought buildInitialTestThought() {
       // Note: see thought_process_language.html for reference
 
-      String thoughtKey = "firstTestThought";
+      String thoughtKey = ElementHelper.generateKey();
       
       // create a thought node
       final Node thought = new Node(thoughtKey, "thought");
@@ -132,5 +143,18 @@ public class ThoughtTest {
       App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
       
       return new Thought(thoughtKey);
+   }
+   
+   @Test
+   public void getOperationsByMaxLayer_initialTestThought_success() {
+      
+      Thought thought = buildInitialTestThought();
+      Map<Integer, Set<String>> opsByLayer = thought.getOperationsByMaxLayer();
+      
+      assert (null != opsByLayer);
+      assert (5 == opsByLayer.size()): opsByLayer;
+      
+      Set<String> layerTwo = opsByLayer.get(2);
+      assert (2 == layerTwo.size()): "size = " + layerTwo.size() + ", contents = " + layerTwo;
    }
 }
