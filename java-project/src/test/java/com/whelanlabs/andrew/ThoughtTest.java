@@ -81,7 +81,7 @@ public class ThoughtTest {
 
    @Test
    public void runThought_valid_success() throws Exception {
-      Thought thought = buildInitialTestThought();
+      Thought thought = buildModifiedInitialTestThought();
       
       App.getDataGraph().flush();
       App.loadDataset(new LinearDataset());
@@ -101,6 +101,62 @@ public class ThoughtTest {
       
    }
    
+   public Thought buildModifiedInitialTestThought() {
+      // Note: see "modified initial example" flow from thought_process_language.html for reference.
+
+      String thoughtKey = ElementHelper.generateKey();
+      
+      // create a thought node
+      final Node thought = new Node(thoughtKey, "thought");
+
+      // create steps
+      final Node A1_getNumberAttribute = new Node(ElementHelper.generateKey(), "thought_operation");
+      A1_getNumberAttribute.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "getNumberAttribute");
+      
+      final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_operation");
+      B1_traverse.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "traverse");
+
+      final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_operation");
+      B2_getNumberAttrinbute.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "getNumberAttrinbute");
+
+      final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_operation");
+      A2_valueX2.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "multiplication");
+
+      final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
+      AB1_subtract.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "subtract");
+
+      final Node end = new Node(ElementHelper.generateKey(), "thought_result");
+      end.addAttribute("thought_key", thought.getKey());
+
+      // link the thought process using valid sequence relationships
+      Edge edge1 = new Edge(ElementHelper.generateKey(), thought, A1_getNumberAttribute, "thought_sequence");
+      edge1.addAttribute("thought_key", thought.getKey());
+      edge1.addAttribute("output", "GOAL.$targetProperty");
+      
+      Edge edge2 = new Edge(ElementHelper.generateKey(), A1_getNumberAttribute, A2_valueX2, "thought_sequence");
+      edge2.addAttribute("thought_key", thought.getKey());
+      Edge edge3 = new Edge(ElementHelper.generateKey(), A2_valueX2, AB1_subtract, "thought_sequence");
+      edge3.addAttribute("thought_key", thought.getKey());
+      Edge edge4 = new Edge(ElementHelper.generateKey(), thought, B1_traverse, "thought_sequence");
+      edge4.addAttribute("thought_key", thought.getKey());
+      Edge edge5 = new Edge(ElementHelper.generateKey(), B1_traverse, B2_getNumberAttrinbute, "thought_sequence");
+      edge5.addAttribute("thought_key", thought.getKey());
+      Edge edge6 = new Edge(ElementHelper.generateKey(), B2_getNumberAttrinbute, AB1_subtract, "thought_sequence");
+      edge6.addAttribute("thought_key", thought.getKey());
+      Edge edge7 = new Edge(ElementHelper.generateKey(), AB1_subtract, end, "thought_sequence");
+      edge7.addAttribute("thought_key", thought.getKey());
+
+      App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
+      App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
+      
+      return new Thought(thoughtKey);
+   }
+   
    public Thought buildInitialTestThought() {
       // Note: see thought_process_language.html for reference
 
@@ -112,20 +168,32 @@ public class ThoughtTest {
       // create steps
       final Node A1_getNumberAttribute = new Node(ElementHelper.generateKey(), "thought_operation");
       A1_getNumberAttribute.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "getNumberAttribute");
+      
       final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_operation");
       B1_traverse.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "traverse");
+
       final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_operation");
       B2_getNumberAttrinbute.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "getNumberAttrinbute");
+
       final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_operation");
       A2_valueX2.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "multiplication");
+
       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
       AB1_subtract.addAttribute("thought_key", thought.getKey());
+      A1_getNumberAttribute.addAttribute("thought_operation", "subtract");
+
       final Node end = new Node(ElementHelper.generateKey(), "thought_result");
       end.addAttribute("thought_key", thought.getKey());
 
       // link the thought process using valid sequence relationships
       Edge edge1 = new Edge(ElementHelper.generateKey(), thought, A1_getNumberAttribute, "thought_sequence");
       edge1.addAttribute("thought_key", thought.getKey());
+      edge1.addAttribute("output", "GOAL.$targetProperty");
+      
       Edge edge2 = new Edge(ElementHelper.generateKey(), A1_getNumberAttribute, A2_valueX2, "thought_sequence");
       edge2.addAttribute("thought_key", thought.getKey());
       Edge edge3 = new Edge(ElementHelper.generateKey(), A2_valueX2, AB1_subtract, "thought_sequence");
