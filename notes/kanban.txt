@@ -27,6 +27,8 @@
   • identify a good example of what a thought should do (good initial example)
   • generate initial thought process design (design approach)
   • add build and test - buildThought()
+  
+* develop sequencing to process a thought - getOperationsByMaxLayer()
 
 ##########################################################
 # WIP

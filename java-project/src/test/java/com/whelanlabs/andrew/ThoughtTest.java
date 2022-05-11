@@ -110,7 +110,7 @@ public class ThoughtTest {
       final Node thought = new Node(thoughtKey, "thought");
 
       // create steps
-      final Node A1_getNumberAttribute = new Node("getNumberAttribute", "thought_operation");
+      final Node A1_getNumberAttribute = new Node(ElementHelper.generateKey(), "thought_operation");
       A1_getNumberAttribute.addAttribute("thought_key", thought.getKey());
       final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_operation");
       B1_traverse.addAttribute("thought_key", thought.getKey());
@@ -146,8 +146,9 @@ public class ThoughtTest {
    }
    
    @Test
-   public void getOperationsByMaxLayer_initialTestThought_success() {
+   public void getOperationsByMaxLayer_initialTestThought_success() throws Exception {
       
+      //App.getGardenGraph().flush();
       Thought thought = buildInitialTestThought();
       Map<Integer, Set<String>> opsByLayer = thought.getOperationsByMaxLayer();
       

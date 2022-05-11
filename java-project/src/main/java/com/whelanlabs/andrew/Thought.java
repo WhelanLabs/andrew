@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
@@ -24,6 +26,8 @@ public class Thought {
    private List<Node> _thoughtOperations;
    private List<Edge> _thoughtSequences;
    private Node _thoughtResult;
+
+   private static Logger logger = LogManager.getLogger(Thought.class);
 
    public Thought(String thoughtKey) {
       // set the thought node
@@ -104,6 +108,9 @@ public class Thought {
          }
          startingPoints = nextStartingPoints;
       }
+      
+      logger.debug("nodeMaxLevel = " + nodeMaxLevel);
+      
       Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
       while(maxLevelIterator.hasNext()) {
          String current = maxLevelIterator.next();
