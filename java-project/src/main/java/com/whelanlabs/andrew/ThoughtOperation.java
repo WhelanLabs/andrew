@@ -17,7 +17,6 @@ import java.util.List;
 public class ThoughtOperation {
 
    public static Object getNumberAttribute(List<Object> inputs) {
-
       return null;
    }
 
