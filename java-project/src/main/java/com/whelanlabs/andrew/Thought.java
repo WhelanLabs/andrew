@@ -76,16 +76,17 @@ public class Thought {
       result.setProperties(startingProps);
       result.addAttribute("time", goal.getTargetProperty());
       
-      Map<Integer, Set<String>> layeredOperations = getOperationsByMaxLayer();
+      List<Set<String>> layeredOperations = getOperationsByMaxLayer();
       
-      // TODO: process the thought by layer
+      // TODO: process by layer
+      //Integer numLayers
       
       return result;
    }
 
-   protected Map<Integer, Set<String>> getOperationsByMaxLayer() {
+   protected List<Set<String>> getOperationsByMaxLayer() {
       // Note: see p.14 of LBB for details.
-      Map<Integer, Set<String>> results = new HashMap<>();
+      Map<Integer, Set<String>> resultsMap = new HashMap<>();
       
       Integer currentLevel = 0;
       List<Node> startingPoints = new ArrayList<>();
@@ -116,13 +117,19 @@ public class Thought {
          String current = maxLevelIterator.next();
          //String currentId = current.split(":")[0];
          Integer currentIdLevel = nodeMaxLevel.get(current);
-         Set<String> nodeLevelcontents = results.get(currentIdLevel);
+         Set<String> nodeLevelcontents = resultsMap.get(currentIdLevel);
          
          if(null == nodeLevelcontents) {
             nodeLevelcontents = new HashSet<>();
          }
          nodeLevelcontents.add(current);
-         results.put(currentIdLevel, nodeLevelcontents);
+         resultsMap.put(currentIdLevel, nodeLevelcontents);
+      }
+      Integer numLayers = resultsMap.size();
+      List<Set<String>> results = new ArrayList<>();
+      for(int i=0; i<numLayers; i++) {
+         Set<String> thisLayer = resultsMap.get(i);
+         results.add(thisLayer);
       }
       return results;
    }

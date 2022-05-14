@@ -1,5 +1,6 @@
 package com.whelanlabs.andrew;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -234,7 +235,7 @@ public class ThoughtTest {
       
       //App.getGardenGraph().flush();
       Thought thought = buildInitialTestThought();
-      Map<Integer, Set<String>> opsByLayer = thought.getOperationsByMaxLayer();
+       List<Set<String>> opsByLayer = thought.getOperationsByMaxLayer();
       
       assert (null != opsByLayer);
       assert (5 == opsByLayer.size()): opsByLayer;
