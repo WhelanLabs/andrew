@@ -76,15 +76,20 @@ public class Thought {
       result.setProperties(startingProps);
       result.addAttribute("time", goal.getTargetProperty());
       
-      List<Set<String>> layeredOperations = getOperationsByMaxLayer();
+      List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
       
       // TODO: process by layer
-      //Integer numLayers
+      for(Set<Node> currentOperations: layeredOperations) {
+         for(Node operation: currentOperations) {
+            
+            //getInputs
+         }
+      }
       
       return result;
    }
 
-   protected List<Set<String>> getOperationsByMaxLayer() {
+   protected List<Set<Node>> getOperationsByMaxLayer() {
       // Note: see p.14 of LBB for details.
       Map<Integer, Set<String>> resultsMap = new HashMap<>();
       
@@ -126,10 +131,16 @@ public class Thought {
          resultsMap.put(currentIdLevel, nodeLevelcontents);
       }
       Integer numLayers = resultsMap.size();
-      List<Set<String>> results = new ArrayList<>();
+      List<Set<Node>> results = new ArrayList<>();
       for(int i=0; i<numLayers; i++) {
          Set<String> thisLayer = resultsMap.get(i);
-         results.add(thisLayer);
+         Set<Node> thisLayerNodes = new HashSet<>();
+         for(String nodeString : thisLayer) {
+            String nodeKey = nodeString.split(":")[0];
+            String nodeType = nodeString.split(":")[1];
+            thisLayerNodes.add(App.getGardenGraph().getNodeByKey(nodeKey, nodeType));
+         }
+         results.add(thisLayerNodes);
       }
       return results;
    }

@@ -235,12 +235,12 @@ public class ThoughtTest {
       
       //App.getGardenGraph().flush();
       Thought thought = buildInitialTestThought();
-       List<Set<String>> opsByLayer = thought.getOperationsByMaxLayer();
+       List<Set<Node>> opsByLayer = thought.getOperationsByMaxLayer();
       
       assert (null != opsByLayer);
       assert (5 == opsByLayer.size()): opsByLayer;
       
-      Set<String> layerTwo = opsByLayer.get(2);
+      Set<Node> layerTwo = opsByLayer.get(2);
       assert (2 == layerTwo.size()): "size = " + layerTwo.size() + ", contents = " + layerTwo;
    }
 }
