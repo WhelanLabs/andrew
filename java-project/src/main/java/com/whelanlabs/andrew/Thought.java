@@ -26,6 +26,7 @@ public class Thought {
    private List<Node> _thoughtOperations;
    private List<Edge> _thoughtSequences;
    private Node _thoughtResult;
+   private Node _goal;
 
    private static Logger logger = LogManager.getLogger(Thought.class);
 
@@ -42,6 +43,10 @@ public class Thought {
 
       // set the thought result
       _thoughtResult = App.getGardenGraph().queryNodes("thought_result", queryClause).get(0);
+      
+      // set the thought's goal
+      List<Triple<Node, Edge, Node>> triple = App.getGardenGraph().expandLeft(_thoughtNode, "approach", null, null);
+      _goal = triple.get(0).getRight();
    }
 
    public Integer getEntityComplexity() {
@@ -70,11 +75,13 @@ public class Thought {
     * @param goal the goal
     * @return the node
     */
-   public Node forecast(Node startingPoint, Goal goal) {
+   public Object forecast(Node startingPoint) {
+      Map<String, Object> workingMemory = new HashMap<>();
+      
       Node result = new Node(ElementHelper.generateKey(), startingPoint.getType());
-      Map<String, Object> startingProps = startingPoint.getProperties();
-      result.setProperties(startingProps);
-      result.addAttribute("time", goal.getTargetProperty());
+      
+      workingMemory = addContext(workingMemory, startingPoint.getProperties(), "STARTING_POINT");
+      workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
@@ -92,6 +99,14 @@ public class Thought {
       }
 
       return result;
+   }
+
+   private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> startingProps, String elementKey) {
+      Set<String> keyset = startingProps.keySet();
+      for(String key : keyset) {
+         workingMemory.put(elementKey + "." + key, startingProps.get(key));
+      }
+      return workingMemory;
    }
 
    protected List<Set<Node>> getOperationsByMaxLayer() {

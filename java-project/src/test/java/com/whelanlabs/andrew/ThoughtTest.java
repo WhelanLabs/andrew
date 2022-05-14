@@ -34,22 +34,22 @@ public class ThoughtTest {
    public void forecast_simpleInputs_simpleOutputs() {
       // forecast given a simple thought and simple data.
 
-      String rel = "next";
-      Direction direction = Direction.outbound;
-      Integer distance = 1;
-      String targetProperty = "value";
-
-      
-      Thought initialTestThought = buildInitialTestThought();
-      Thought thought = new Thought(initialTestThought.getKey());
-      Node startingPoint = new Node(ElementHelper.generateKey(), ElementHelper.generateName());
-      startingPoint.addAttribute(targetProperty, Float.valueOf("3.14159"));
-
-      Goal goal = new Goal(rel, direction, distance, targetProperty);
-      Node result = thought.forecast(startingPoint, goal);
-      logger.debug("result = " + result);
-
-      assert (result != null);
+//      String rel = "next";
+//      Direction direction = Direction.outbound;
+//      Integer distance = 1;
+//      String targetProperty = "value";
+//
+//      
+//      Thought initialTestThought = buildInitialTestThought();
+//      Thought thought = new Thought(initialTestThought.getKey());
+//      Node startingPoint = new Node(ElementHelper.generateKey(), ElementHelper.generateName());
+//      startingPoint.addAttribute(targetProperty, Float.valueOf("3.14159"));
+//
+//      Goal goal = new Goal(rel, direction, distance, targetProperty);
+//      Node result = thought.forecast(startingPoint, goal);
+//      logger.debug("result = " + result);
+//
+//      assert (result != null);
    }
 
    @Test
@@ -89,16 +89,14 @@ public class ThoughtTest {
       
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
       Integer forwardDistance = 10;
-      Goal goal = new Goal("LinearDatasetEdge", Direction.outbound, forwardDistance, "value");
-      Node result = thought.forecast(startingNode, goal);
+      // Goal goal = new Goal("LinearDatasetEdge", Direction.outbound, forwardDistance, "value");
+      Float result = (Float)thought.forecast(startingNode);
       
       assert (null != result);
       
-      Integer resultValue = (Integer)result.getAttribute("value");
-      assert (null != resultValue);
-      logger.debug("resultValue = " + resultValue);
+      logger.debug("result = " + result);
       Integer startingValue = (Integer)startingNode.getAttribute("value");
-      assert (startingValue + forwardDistance == resultValue): "{" + startingValue + ", " + forwardDistance + ", " + resultValue + "}";
+      assert (startingValue + forwardDistance == result): "{" + startingValue + ", " + forwardDistance + ", " + result + "}";
       
    }
    
@@ -108,8 +106,13 @@ public class ThoughtTest {
       String thoughtKey = ElementHelper.generateKey();
       
       //create the goal
-      // TODO: should goals have descriptive keys?
       final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      goalNode.addAttribute("relationType", "LinearDatasetEdge");
+      goalNode.addAttribute("direction", Direction.outbound.toString());
+      goalNode.addAttribute("distance", 10);
+      goalNode.addAttribute("targetProperty", "value");
+      goalNode.addAttribute("resultClass", "Float");
+
       
       // create a thought node
       final Node n1 = new Node(thoughtKey, "thought");
@@ -135,7 +138,7 @@ public class ThoughtTest {
       
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
-      e1.addAttribute("input", "GOAL.$targetAttribute" );
+      e1.addAttribute("input", "NODE.targetAttribute" );
       e1.addAttribute("output", "number_one");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
@@ -145,18 +148,18 @@ public class ThoughtTest {
 
       Edge e3 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e3.addAttribute("thought_key", n1.getKey());
-      e3.addAttribute("input", "GOAL.$edgeType" );
+      e3.addAttribute("input", "NODE.edgeType" );
       e3.addAttribute("output", "edge_type");
       
       Edge e4 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e4.addAttribute("thought_key", n1.getKey());
-      e4.addAttribute("input", "GOAL.$direction" );
+      e4.addAttribute("input", "NODE.direction" );
       // TODO: make the traversal go in the opposite direction of the goal OR make the distance negative
       e4.addAttribute("output", "direction");
 
       Edge e5 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e5.addAttribute("thought_key", n1.getKey());
-      e5.addAttribute("input", "GOAL.$distance" );
+      e5.addAttribute("input", "NODE.$distance" );
       e5.addAttribute("output", "distance");
       
       Edge e6 = new Edge(ElementHelper.generateKey(), n2, n4, "thought_sequence");
@@ -174,8 +177,8 @@ public class ThoughtTest {
       e8.addAttribute("input", "XXX" );
       e8.addAttribute("output", "XXX");
 
-      App.getGardenGraph().upsert(n1, n2, n3, n4, n5);
-      App.getGardenGraph().upsert(e1, e2, e3, e4, e5, e6, e7, e8);
+      App.getGardenGraph().upsert(goalNode, n1, n2, n3, n4, n5);
+      App.getGardenGraph().upsert(e0, e1, e2, e3, e4, e5, e6, e7, e8);
       
       return new Thought(thoughtKey);
    }
@@ -188,6 +191,14 @@ public class ThoughtTest {
       // create a thought node
       final Node thought = new Node(thoughtKey, "thought");
 
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      goalNode.addAttribute("relationType", "LinearDatasetEdge");
+      goalNode.addAttribute("direction", Direction.outbound.toString());
+      goalNode.addAttribute("distance", 10);
+      goalNode.addAttribute("targetProperty", "value");
+      
+      Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, thought, "approach");
+      
       // create steps
       final Node A1_getNumberAttribute = new Node(ElementHelper.generateKey(), "thought_operation");
       A1_getNumberAttribute.addAttribute("thought_key", thought.getKey());
@@ -230,8 +241,8 @@ public class ThoughtTest {
       Edge edge7 = new Edge(ElementHelper.generateKey(), AB1_subtract, end, "thought_sequence");
       edge7.addAttribute("thought_key", thought.getKey());
 
-      App.getGardenGraph().upsert(thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
-      App.getGardenGraph().upsert(edge1, edge2, edge3, edge4, edge5, edge6, edge7);
+      App.getGardenGraph().upsert(goalNode, thought, A1_getNumberAttribute, B1_traverse, B2_getNumberAttrinbute, A2_valueX2, AB1_subtract, end);
+      App.getGardenGraph().upsert(e0, edge1, edge2, edge3, edge4, edge5, edge6, edge7);
       
       return new Thought(thoughtKey);
    }
