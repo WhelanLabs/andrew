@@ -3,6 +3,8 @@ package com.whelanlabs.andrew;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.whelanlabs.kgraph.engine.Node;
+
 /*
  * TODO: This class is an abomination.  The contents of the methods and the 
  * descriptions for I/O interfaces should be managed within the thought_operation
@@ -14,7 +16,13 @@ import java.util.List;
  * running a Groovy processor for the thought operation methods.)
  */
 
-public class ThoughtOperation {
+public class Operation {
+
+   private Node _node;
+
+   public Operation(Node node) {
+      _node = node;
+   }
 
    public static Object getNumberAttribute(List<Object> inputs) {
       return null;

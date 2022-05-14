@@ -107,6 +107,10 @@ public class ThoughtTest {
 
       String thoughtKey = ElementHelper.generateKey();
       
+      //create the goal
+      // TODO: should goals have descriptive keys?
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      
       // create a thought node
       final Node n1 = new Node(thoughtKey, "thought");
 
@@ -127,6 +131,8 @@ public class ThoughtTest {
       n5.addAttribute("thought_key", n1.getKey());
 
       // link the thought process using valid sequence relationships
+      Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
+      
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
       e1.addAttribute("input", "GOAL.$targetAttribute" );
