@@ -120,15 +120,15 @@ public class ThoughtTest {
       // create steps
       final Node n2 = new Node(ElementHelper.generateKey(), "thought_operation");
       n2.addAttribute("thought_key", n1.getKey());
-      n2.addAttribute("thought_operation", "multiplication");
+      n2.addAttribute("operationName", "multiplication");
       
       final Node n3 = new Node(ElementHelper.generateKey(), "thought_operation");
       n3.addAttribute("thought_key", n1.getKey());
-      n3.addAttribute("thought_operation", "traverse");
+      n3.addAttribute("operationName", "traverse");
       
       final Node n4 = new Node(ElementHelper.generateKey(), "thought_operation");
       n4.addAttribute("thought_key", n1.getKey());
-      n4.addAttribute("thought_operation", "subtract");
+      n4.addAttribute("operationName", "subtract");
 
       final Node n5 = new Node(ElementHelper.generateKey(), "thought_result");
       n5.addAttribute("thought_key", n1.getKey());
@@ -202,23 +202,23 @@ public class ThoughtTest {
       // create steps
       final Node A1_getNumberAttribute = new Node(ElementHelper.generateKey(), "thought_operation");
       A1_getNumberAttribute.addAttribute("thought_key", thought.getKey());
-      A1_getNumberAttribute.addAttribute("thought_operation", "getNumberAttribute");
+      A1_getNumberAttribute.addAttribute("operationName", "getNumberAttribute");
       
       final Node B1_traverse = new Node(ElementHelper.generateKey(), "thought_operation");
       B1_traverse.addAttribute("thought_key", thought.getKey());
-      A1_getNumberAttribute.addAttribute("thought_operation", "traverse");
+      A1_getNumberAttribute.addAttribute("operationName", "traverse");
 
       final Node B2_getNumberAttrinbute = new Node(ElementHelper.generateKey(), "thought_operation");
       B2_getNumberAttrinbute.addAttribute("thought_key", thought.getKey());
-      A1_getNumberAttribute.addAttribute("thought_operation", "getNumberAttrinbute");
+      A1_getNumberAttribute.addAttribute("operationName", "getNumberAttrinbute");
 
       final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_operation");
       A2_valueX2.addAttribute("thought_key", thought.getKey());
-      A1_getNumberAttribute.addAttribute("thought_operation", "multiplication");
+      A1_getNumberAttribute.addAttribute("operationName", "multiplication");
 
       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
       AB1_subtract.addAttribute("thought_key", thought.getKey());
-      A1_getNumberAttribute.addAttribute("thought_operation", "subtract");
+      A1_getNumberAttribute.addAttribute("operationName", "subtract");
 
       final Node end = new Node(ElementHelper.generateKey(), "thought_result");
       end.addAttribute("thought_key", thought.getKey());

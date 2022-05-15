@@ -16,11 +16,11 @@ import com.whelanlabs.kgraph.engine.Node;
  * running a Groovy processor for the thought operation methods.)
  */
 
-public class Operation {
+public class Operations {
 
    private Node _node;
 
-   public Operation(Node node) {
+   public Operations(Node node) {
       _node = node;
    }
 

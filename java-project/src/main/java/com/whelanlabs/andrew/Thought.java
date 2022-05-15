@@ -1,5 +1,6 @@
 package com.whelanlabs.andrew;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +44,7 @@ public class Thought {
 
       // set the thought result
       _thoughtResult = App.getGardenGraph().queryNodes("thought_result", queryClause).get(0);
-      
+
       // set the thought's goal
       List<Triple<Node, Edge, Node>> triple = App.getGardenGraph().expandLeft(_thoughtNode, "approach", null, null);
       _goal = triple.get(0).getRight();
@@ -74,24 +75,31 @@ public class Thought {
     * @param startingPoint the starting point
     * @param goal the goal
     * @return the node
+    * @throws Exception 
     */
-   public Object forecast(Node startingPoint) {
+   public Object forecast(Node startingPoint) throws Exception {
       Map<String, Object> workingMemory = new HashMap<>();
-      
-      Node result = new Node(ElementHelper.generateKey(), startingPoint.getType());
-      
+
+      Object result = null;
+
+      // get the initial layer inputs from the goal
       workingMemory = addContext(workingMemory, startingPoint.getProperties(), "STARTING_POINT");
       workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
-      // get the initial layer inputs from the goal
-
       // process the thought by layer...
       for (Set<Node> currentOperations : layeredOperations) {
          // process the nodes of a layer
+         logger.debug("layer contents = " + currentOperations);
+
          for (Node node : currentOperations) {
-            Operation thoughtOperation = new Operation(node);
+            if ("thought_operation".equals(node.getType())) {
+               Object opResult = processOperation(node, workingMemory);
+               workingMemory = addResultContext(workingMemory, opResult, node.getKey());
+
+            }
+
             // getInputs
          }
 
@@ -101,9 +109,42 @@ public class Thought {
       return result;
    }
 
+   private Object processOperation(Node node, Map<String, Object> workingMemory) throws Exception {
+      String operationName = (String)node.getAttribute("operationName");
+      Map<String, Object> inputs = getOperationInputs(node, workingMemory);
+      logger.debug("operation inputs = " + inputs);
+      
+      // reflection to call the method with inputs.
+      Method operationMethod = Operations.class.getMethod(operationName, float.class, long.class);
+      
+      return null;
+   }
+
+   private Map<String, Object> getOperationInputs(Node node, Map<String, Object> workingMemory) {
+      Map<String, Object> results = new HashMap<>();
+      // query for the upstream thought_sequence edges
+      List<Triple<Node, Edge, Node>> triples = App.getGardenGraph().expandLeft(node, "testEdgeType", null, null);
+      
+      // process the edges 
+      for(Triple<Node, Edge, Node> triple : triples) {
+         Edge edge = triple.getMiddle();
+         String edgeInputAttrName = (String)edge.getAttribute("input");
+         String edgeOutputAttrName = (String)edge.getAttribute("output");
+         String edgeInputKey = (String)edge.getAttribute("_left");
+         Object operationInputValue = workingMemory.get(edgeInputKey + "." + edgeInputAttrName);
+         results.put(edgeOutputAttrName, operationInputValue);
+      }
+      return results;
+   }
+
+   private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Object opResult, String elementKey) {
+      workingMemory.put(elementKey + ".result", opResult);
+      return workingMemory;
+   }
+
    private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> startingProps, String elementKey) {
       Set<String> keyset = startingProps.keySet();
-      for(String key : keyset) {
+      for (String key : keyset) {
          workingMemory.put(elementKey + "." + key, startingProps.get(key));
       }
       return workingMemory;

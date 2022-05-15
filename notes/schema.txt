@@ -1,0 +1,12 @@
+Node type: "goal"
+	attribute: "relationType"
+	attribute: "direction"
+	attribute: "distance"
+	attribute: "targetProperty"
+	  
+Node type: "thought_operation"
+	attribute: "thought_key"
+	attribute: "thought_operation"
+
+
+
