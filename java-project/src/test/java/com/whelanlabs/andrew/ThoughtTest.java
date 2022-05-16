@@ -120,7 +120,7 @@ public class ThoughtTest {
       // create steps
       final Node n2 = new Node(ElementHelper.generateKey(), "thought_operation");
       n2.addAttribute("thought_key", n1.getKey());
-      n2.addAttribute("operationName", "multiplication");
+      n2.addAttribute("operationName", "multiply");
       
       final Node n3 = new Node(ElementHelper.generateKey(), "thought_operation");
       n3.addAttribute("thought_key", n1.getKey());
@@ -132,6 +132,7 @@ public class ThoughtTest {
 
       final Node n5 = new Node(ElementHelper.generateKey(), "thought_result");
       n5.addAttribute("thought_key", n1.getKey());
+      n5.addAttribute("operationName", "end");
 
       // link the thought process using valid sequence relationships
       Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
@@ -139,43 +140,48 @@ public class ThoughtTest {
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
       e1.addAttribute("input", "NODE.targetAttribute" );
-      e1.addAttribute("output", "number_one");
+      e1.addAttribute("output", "numberA");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e2.addAttribute("thought_key", n1.getKey());
       e2.addAttribute("input", "NUMBER.2" );
-      e2.addAttribute("output", "number_two");
+      e2.addAttribute("output", "numberB");
 
       Edge e3 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e3.addAttribute("thought_key", n1.getKey());
-      e3.addAttribute("input", "NODE.edgeType" );
-      e3.addAttribute("output", "edge_type");
+      e3.addAttribute("input", "NODE.startingNode" );
+      e3.addAttribute("output", "startingNode");
       
       Edge e4 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
+      e3.addAttribute("thought_key", n1.getKey());
+      e3.addAttribute("input", "NODE.edgeType" );
+      e3.addAttribute("output", "traversalEdgeName");
+      
+      Edge e5 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e4.addAttribute("thought_key", n1.getKey());
       e4.addAttribute("input", "NODE.direction" );
       // TODO: make the traversal go in the opposite direction of the goal OR make the distance negative
       e4.addAttribute("output", "direction");
 
-      Edge e5 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
+      Edge e6 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e5.addAttribute("thought_key", n1.getKey());
       e5.addAttribute("input", "NODE.$distance" );
       e5.addAttribute("output", "distance");
       
-      Edge e6 = new Edge(ElementHelper.generateKey(), n2, n4, "thought_sequence");
+      Edge e7 = new Edge(ElementHelper.generateKey(), n2, n4, "thought_sequence");
       e6.addAttribute("thought_key", n1.getKey());
-      e6.addAttribute("input", "XXX" );
-      e6.addAttribute("output", "XXX");
+      e6.addAttribute("input", "RESULT.$targetAttribute" );
+      e6.addAttribute("output", "numberA");
 
-      Edge e7 = new Edge(ElementHelper.generateKey(), n3, n4, "thought_sequence");
+      Edge e8 = new Edge(ElementHelper.generateKey(), n3, n4, "thought_sequence");
       e7.addAttribute("thought_key", n1.getKey());
-      e7.addAttribute("input", "XXX" );
-      e7.addAttribute("output", "XXX");
+      e7.addAttribute("input", "RESULT" );
+      e7.addAttribute("output", "numberB");
       
-      Edge e8 = new Edge(ElementHelper.generateKey(), n4, n5, "thought_sequence");
+      Edge e9 = new Edge(ElementHelper.generateKey(), n4, n5, "thought_sequence");
       e8.addAttribute("thought_key", n1.getKey());
-      e8.addAttribute("input", "XXX" );
-      e8.addAttribute("output", "XXX");
+      e8.addAttribute("input", "RESULT" );
+      e8.addAttribute("output", "inputA");
 
       App.getGardenGraph().upsert(goalNode, n1, n2, n3, n4, n5);
       App.getGardenGraph().upsert(e0, e1, e2, e3, e4, e5, e6, e7, e8);
@@ -214,7 +220,7 @@ public class ThoughtTest {
 
       final Node A2_valueX2 = new Node(ElementHelper.generateKey(), "thought_operation");
       A2_valueX2.addAttribute("thought_key", thought.getKey());
-      A1_getNumberAttribute.addAttribute("operationName", "multiplication");
+      A1_getNumberAttribute.addAttribute("operationName", "multiply");
 
       final Node AB1_subtract = new Node(ElementHelper.generateKey(), "thought_operation");
       AB1_subtract.addAttribute("thought_key", thought.getKey());

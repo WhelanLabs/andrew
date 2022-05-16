@@ -1,7 +1,7 @@
 package com.whelanlabs.andrew;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.whelanlabs.kgraph.engine.Node;
 
@@ -20,23 +20,56 @@ public class Operations {
 
    private Node _node;
 
+   
+   
    public Operations(Node node) {
       _node = node;
    }
 
-   public static Object getNumberAttribute(List<Object> inputs) {
+   public static Map<String, Object> getNumberAttribute(Map<String, Object> inputs) {
       return null;
    }
 
-   public static List<String> listInputTypes(String operationName) {
-      List<String> results = new ArrayList<>();
+   public static Map<String, Object> traverse(Map<String, Object> inputs) {
+      return null;
+   }
+   
+   public static Map<String, Object> multiply(Map<String, Object> inputs) {
+      return null;
+   }
+   
+   public static Map<String, Object> subtract(Map<String, Object> inputs) {
+      return null;
+   }
+   
+   public static Map<String, Object> end(Map<String, Object> inputs) {
+      return null;
+   }
+   
+   public static Map<String, String> listInputTypes(String operationName) {
+      Map<String, String> results = new HashMap<>();
 
       switch (operationName) {
          case "getNumberAttribute":
-            results.add("meh");
+            results.put("targetNode", "node");
+            results.put("targetAttribute", "attributeName");
             break;
-         case "Tuesday":
-            results.add("meh");
+         case "traverse":
+            results.put("startingNode", "node");
+            results.put("traversalEdgeName", "edgeType");
+            results.put("direction", "traversalDirection");
+            results.put("distance", "integer");
+            break;
+         case "multiply":
+            results.put("numberA", "number");
+            results.put("numberB", "number");
+            break;
+         case "subtract":
+            results.put("numberA", "number");
+            results.put("numberB", "number");
+            break;
+         case "end":
+            results.put("inputA", "object");
             break;
          default:
             throw new IllegalArgumentException("Invalid day of the week: ");

@@ -97,7 +97,6 @@ public class Thought {
             if ("thought_operation".equals(node.getType())) {
                Object opResult = processOperation(node, workingMemory);
                workingMemory = addResultContext(workingMemory, opResult, node.getKey());
-
             }
 
             // getInputs
@@ -112,10 +111,11 @@ public class Thought {
    private Object processOperation(Node node, Map<String, Object> workingMemory) throws Exception {
       String operationName = (String)node.getAttribute("operationName");
       Map<String, Object> inputs = getOperationInputs(node, workingMemory);
+      logger.debug("operation Name = " + operationName);
       logger.debug("operation inputs = " + inputs);
       
       // reflection to call the method with inputs.
-      Method operationMethod = Operations.class.getMethod(operationName, float.class, long.class);
+      Method operationMethod = Operations.class.getMethod(operationName, Map.class);
       
       return null;
    }
