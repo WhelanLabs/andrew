@@ -6,7 +6,9 @@ Node type: "goal"
 	  
 Node type: "thought_operation"
 	attribute: "thought_key"
-	attribute: "thought_operation"
+	attribute: "operationName"
 
-
-
+Edge type: "thought_sequence"
+	attribute: "thought_key"
+	attribute: "input"
+	attribute: "output"
