@@ -3,6 +3,9 @@ package com.whelanlabs.andrew;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.whelanlabs.kgraph.engine.Node;
 
 /*
@@ -19,31 +22,51 @@ import com.whelanlabs.kgraph.engine.Node;
 public class Operations {
 
    private Node _node;
-
+   private static Logger logger = LogManager.getLogger(Operations.class);
    
    
    public Operations(Node node) {
       _node = node;
    }
 
-   public static Map<String, Object> getNumberAttribute(Map<String, Object> inputs) {
-      return null;
+   public static Map<String, Object> getNumberAttribute(Node node, Map<String, Object> inputs) {
+      Map<String, Object> results = new HashMap<>();
+      Node targetNode = (Node)inputs.get(node.getKey() + "." + "targetNode");
+      String attributeName = (String)inputs.get(node.getKey() + "." + "attributeName");
+      String result = (String)targetNode.getAttribute(attributeName);
+      results.put("result", result);
+      return results;
    }
 
-   public static Map<String, Object> traverse(Map<String, Object> inputs) {
-      return null;
+   public static Map<String, Object> traverse(Node node, Map<String, Object> inputs) {
+      Map<String, Object> results = new HashMap<>();
+      // TODO: implement.
+      
+      return results;
    }
    
-   public static Map<String, Object> multiply(Map<String, Object> inputs) {
-      return null;
+   public static Map<String, Object> multiply(Node node, Map<String, Object> inputs) {
+      Map<String, Object> results = new HashMap<>();
+      Float floatA = (Float)inputs.get(node.getKey() + "." + "floatA");
+      Float floatB = (Float)inputs.get(node.getKey() + "." + "floatB");
+      logger.debug("multiply( " + floatA + ", " + floatB + " )");
+      Float result = floatA * floatB;
+      results.put("result", result);
+      return results;
    }
    
-   public static Map<String, Object> subtract(Map<String, Object> inputs) {
-      return null;
+   public static Map<String, Object> subtract(Node node, Map<String, Object> inputs) {
+      Map<String, Object> results = new HashMap<>();
+      Float floatA = (Float)inputs.get(node.getKey() + "." + "floatA");
+      Float floatB = (Float)inputs.get(node.getKey() + "." + "floatB");
+      Float result = floatA - floatB;
+      results.put("result", result);
+      return results;
    }
    
-   public static Map<String, Object> end(Map<String, Object> inputs) {
-      return null;
+   public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
+      logger.debug("results = " + inputs);
+      return inputs;
    }
    
    public static Map<String, String> listInputTypes(String operationName) {
@@ -61,12 +84,12 @@ public class Operations {
             results.put("distance", "integer");
             break;
          case "multiply":
-            results.put("numberA", "number");
-            results.put("numberB", "number");
+            results.put("floatA", "float");
+            results.put("floatB", "float");
             break;
          case "subtract":
-            results.put("numberA", "number");
-            results.put("numberB", "number");
+            results.put("floatA", "float");
+            results.put("floatB", "float");
             break;
          case "end":
             results.put("inputA", "object");

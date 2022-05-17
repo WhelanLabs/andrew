@@ -83,7 +83,7 @@ public class Thought {
       Object result = null;
 
       // get the initial layer inputs from the goal
-      workingMemory = addContext(workingMemory, startingPoint.getProperties(), "STARTING_POINT");
+      workingMemory = addContext(workingMemory, startingPoint.getProperties(), startingPoint.getKey());
       workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
@@ -92,14 +92,26 @@ public class Thought {
       for (Set<Node> currentOperations : layeredOperations) {
          // process the nodes of a layer
          logger.debug("layer contents = " + currentOperations);
-
+         Set<String> nextLevelInputNodeKeys = new HashSet<>();
          for (Node node : currentOperations) {
             if ("thought_operation".equals(node.getType())) {
                Map<String, Object> opResult = processOperation(node, workingMemory);
-               workingMemory = addResultContext(workingMemory, opResult, node.getKey());
+               workingMemory = addContext(workingMemory, opResult, node.getKey());
+               nextLevelInputNodeKeys.add(node.getKey());
             }
 
             // getInputs
+            for(String nextLevelInputNodeKey : nextLevelInputNodeKeys) {
+               QueryClause queryClause = new QueryClause("_left", QueryClause.Operator.EQUALS, "bar");
+               List<Edge> inputEdges = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
+               for(Edge inputEdge : inputEdges ) {
+                  String inputProp = (String)inputEdge.getAttribute("input");
+                  String outputProp = (String)inputEdge.getAttribute("output");
+                  Object value = workingMemory.get(nextLevelInputNodeKey + "." + inputProp);
+                  String rightKey = (String)inputEdge.getAttribute("_right");
+                  workingMemory.put(rightKey + "." + outputProp, value);
+               }
+            }
          }
 
          // get the inputs for the next layer via edge processing
@@ -110,44 +122,44 @@ public class Thought {
 
    private Map<String, Object> processOperation(Node node, Map<String, Object> workingMemory) throws Exception {
       String operationName = (String)node.getAttribute("operationName");
-      Map<String, Object> inputs = getOperationInputs(node, workingMemory);
+      // Map<String, Object> inputs = getOperationInputs(node, workingMemory);
       logger.debug("operation Name = " + operationName);
-      logger.debug("operation inputs = " + inputs);
+      logger.debug("workingMemory = " + workingMemory);
       
       // reflection to call the method with inputs.
-      Method operationMethod = Operations.class.getMethod(operationName, Map.class);
+      Method operationMethod = Operations.class.getMethod(operationName, Node.class, Map.class);
 
-      Map<String, Object> result = (Map<String, Object>) operationMethod.invoke(null, inputs);
+      Map<String, Object> result = (Map<String, Object>) operationMethod.invoke(null, node, workingMemory);
       
       return result;
    }
 
-   private Map<String, Object> getOperationInputs(Node node, Map<String, Object> workingMemory) {
-      Map<String, Object> results = new HashMap<>();
-      // query for the upstream thought_sequence edges
-      List<Triple<Node, Edge, Node>> triples = App.getGardenGraph().expandLeft(node, "testEdgeType", null, null);
-      
-      // process the edges 
-      for(Triple<Node, Edge, Node> triple : triples) {
-         Edge edge = triple.getMiddle();
-         String edgeInputAttrName = (String)edge.getAttribute("input");
-         String edgeOutputAttrName = (String)edge.getAttribute("output");
-         String edgeInputKey = (String)edge.getAttribute("_left");
-         Object operationInputValue = workingMemory.get(edgeInputKey + "." + edgeInputAttrName);
-         results.put(edgeOutputAttrName, operationInputValue);
-      }
-      return results;
-   }
+//   private Map<String, Object> getOperationInputs(Node node, Map<String, Object> workingMemory) {
+//      Map<String, Object> results = new HashMap<>();
+//      // query for the upstream thought_sequence edges
+//      List<Triple<Node, Edge, Node>> triples = App.getGardenGraph().expandLeft(node, "testEdgeType", null, null);
+//      
+//      // process the edges 
+//      for(Triple<Node, Edge, Node> triple : triples) {
+//         Edge edge = triple.getMiddle();
+//         String edgeInputAttrName = (String)edge.getAttribute("input");
+//         String edgeOutputAttrName = (String)edge.getAttribute("output");
+//         String edgeInputKey = (String)edge.getAttribute("_left");
+//         Object operationInputValue = workingMemory.get(edgeInputKey + "." + edgeInputAttrName);
+//         results.put(edgeOutputAttrName, operationInputValue);
+//      }
+//      return results;
+//   }
 
    private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Object opResult, String elementKey) {
       workingMemory.put(elementKey + ".result", opResult);
       return workingMemory;
    }
 
-   private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> startingProps, String elementKey) {
-      Set<String> keyset = startingProps.keySet();
+   private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
+      Set<String> keyset = propertyMap.keySet();
       for (String key : keyset) {
-         workingMemory.put(elementKey + "." + key, startingProps.get(key));
+         workingMemory.put(elementKey + "." + key, propertyMap.get(key));
       }
       return workingMemory;
    }
