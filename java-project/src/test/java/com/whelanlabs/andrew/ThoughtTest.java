@@ -139,7 +139,7 @@ public class ThoughtTest {
       
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
-      e1.addAttribute("input", "NODE.targetAttribute" );
+      e1.addAttribute("input", "targetPropValue" );
       e1.addAttribute("output", "numberA");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");

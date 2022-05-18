@@ -98,17 +98,24 @@ public class Thought {
                Map<String, Object> opResult = processOperation(node, workingMemory);
                workingMemory = addContext(workingMemory, opResult, node.getKey());
                nextLevelInputNodeKeys.add(node.getKey());
+            } else if ("thought".equals(node.getType())) {
+               List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
+               Node goal = goalTriples.get(0).getRight();
+               String targetPropName = (String) goal.getAttribute("targetProperty");
+               logger.debug("targetPropName = " + targetPropName);
+               Object startingTargetPropValue = startingPoint.getAttribute(targetPropName);
+               workingMemory = addContext(workingMemory, "targetPropValue", startingTargetPropValue, node.getKey());
             }
 
             // getInputs
-            for(String nextLevelInputNodeKey : nextLevelInputNodeKeys) {
-               QueryClause queryClause = new QueryClause("_left", QueryClause.Operator.EQUALS, "bar");
+            for (String nextLevelInputNodeKey : nextLevelInputNodeKeys) {
+               QueryClause queryClause = new QueryClause("_right", QueryClause.Operator.EQUALS, node.getKey());
                List<Edge> inputEdges = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
-               for(Edge inputEdge : inputEdges ) {
-                  String inputProp = (String)inputEdge.getAttribute("input");
-                  String outputProp = (String)inputEdge.getAttribute("output");
-                  Object value = workingMemory.get(nextLevelInputNodeKey + "." + inputProp);
-                  String rightKey = (String)inputEdge.getAttribute("_right");
+               for (Edge inputEdge : inputEdges) {
+                  String inputProp = (String) inputEdge.getAttribute("input");
+                  String outputProp = (String) inputEdge.getAttribute("output");
+                  Object value = workingMemory.get(inputEdge.getAttribute("_left") + "." + inputProp);
+                  String rightKey = (String) inputEdge.getAttribute("_right");
                   workingMemory.put(rightKey + "." + outputProp, value);
                }
             }
@@ -121,16 +128,16 @@ public class Thought {
    }
 
    private Map<String, Object> processOperation(Node node, Map<String, Object> workingMemory) throws Exception {
-      String operationName = (String)node.getAttribute("operationName");
+      String operationName = (String) node.getAttribute("operationName");
       // Map<String, Object> inputs = getOperationInputs(node, workingMemory);
       logger.debug("operation Name = " + operationName);
       logger.debug("workingMemory = " + workingMemory);
-      
+
       // reflection to call the method with inputs.
       Method operationMethod = Operations.class.getMethod(operationName, Node.class, Map.class);
 
       Map<String, Object> result = (Map<String, Object>) operationMethod.invoke(null, node, workingMemory);
-      
+
       return result;
    }
 
@@ -153,6 +160,11 @@ public class Thought {
 
    private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Object opResult, String elementKey) {
       workingMemory.put(elementKey + ".result", opResult);
+      return workingMemory;
+   }
+
+   private Map<String, Object> addContext(Map<String, Object> workingMemory, String propertyName, Object propertyValue, String elementKey) {
+      workingMemory.put(elementKey + "." + propertyName, propertyValue);
       return workingMemory;
    }
 

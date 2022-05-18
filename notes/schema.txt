@@ -3,7 +3,11 @@ Node type: "goal"
 	attribute: "direction"
 	attribute: "distance"
 	attribute: "targetProperty"
-	  
+	attribute: "resultClass"
+	
+Node type: "thought"
+
+	
 Node type: "thought_operation"
 	attribute: "thought_key"
 	attribute: "operationName"
