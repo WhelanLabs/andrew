@@ -140,48 +140,48 @@ public class ThoughtTest {
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
       e1.addAttribute("input", "targetPropValue" );
-      e1.addAttribute("output", "numberA");
+      e1.addAttribute("output", "floatA");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e2.addAttribute("thought_key", n1.getKey());
       e2.addAttribute("input", "NUMBER.2" );
-      e2.addAttribute("output", "numberB");
+      e2.addAttribute("output", "floatB");
 
       Edge e3 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e3.addAttribute("thought_key", n1.getKey());
-      e3.addAttribute("input", "NODE.startingNode" );
+      e3.addAttribute("input", "startingNode" );
       e3.addAttribute("output", "startingNode");
       
       Edge e4 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e3.addAttribute("thought_key", n1.getKey());
-      e3.addAttribute("input", "NODE.edgeType" );
+      e3.addAttribute("input", "edgeType" );
       e3.addAttribute("output", "traversalEdgeName");
       
       Edge e5 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e4.addAttribute("thought_key", n1.getKey());
-      e4.addAttribute("input", "NODE.direction" );
+      e4.addAttribute("input", "direction" );
       // TODO: make the traversal go in the opposite direction of the goal OR make the distance negative
       e4.addAttribute("output", "direction");
 
       Edge e6 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e5.addAttribute("thought_key", n1.getKey());
-      e5.addAttribute("input", "NODE.$distance" );
+      e5.addAttribute("input", "distance" );
       e5.addAttribute("output", "distance");
       
       Edge e7 = new Edge(ElementHelper.generateKey(), n2, n4, "thought_sequence");
       e6.addAttribute("thought_key", n1.getKey());
-      e6.addAttribute("input", "RESULT.$targetAttribute" );
-      e6.addAttribute("output", "numberA");
+      e6.addAttribute("input", "targetPropValue" );
+      e6.addAttribute("output", "floatA");
 
       Edge e8 = new Edge(ElementHelper.generateKey(), n3, n4, "thought_sequence");
       e7.addAttribute("thought_key", n1.getKey());
       e7.addAttribute("input", "RESULT" );
-      e7.addAttribute("output", "numberB");
+      e7.addAttribute("output", "floatB");
       
       Edge e9 = new Edge(ElementHelper.generateKey(), n4, n5, "thought_sequence");
       e8.addAttribute("thought_key", n1.getKey());
       e8.addAttribute("input", "RESULT" );
-      e8.addAttribute("output", "inputA");
+      e8.addAttribute("output", "floatA");
 
       App.getGardenGraph().upsert(goalNode, n1, n2, n3, n4, n5);
       App.getGardenGraph().upsert(e0, e1, e2, e3, e4, e5, e6, e7, e8);

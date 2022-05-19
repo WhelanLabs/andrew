@@ -78,6 +78,8 @@ public class Thought {
     * @throws Exception 
     */
    public Object forecast(Node startingPoint) throws Exception {
+      logger.debug("_thoughtSequences = " + _thoughtSequences);
+      
       Map<String, Object> workingMemory = new HashMap<>();
 
       Object result = null;
@@ -90,15 +92,26 @@ public class Thought {
 
       // process the thought by layer...
       for (Set<Node> currentOperations : layeredOperations) {
+         
          // process the nodes of a layer
          logger.debug("layer contents = " + currentOperations);
          Set<String> nextLevelInputNodeKeys = new HashSet<>();
          for (Node node : currentOperations) {
+            logger.debug("add nextLevelInputNodeKeys: " + node);
+            nextLevelInputNodeKeys.add(node.getKey());
+            
+            
             if ("thought_operation".equals(node.getType())) {
+               
+               // process the operation
                Map<String, Object> opResult = processOperation(node, workingMemory);
+               
+               // add the result of the operation to working memory
                workingMemory = addContext(workingMemory, opResult, node.getKey());
-               nextLevelInputNodeKeys.add(node.getKey());
+               
+               
             } else if ("thought".equals(node.getType())) {
+               // have the thought consume some goal details
                List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
                Node goal = goalTriples.get(0).getRight();
                String targetPropName = (String) goal.getAttribute("targetProperty");
@@ -107,16 +120,21 @@ public class Thought {
                workingMemory = addContext(workingMemory, "targetPropValue", startingTargetPropValue, node.getKey());
             }
 
-            // getInputs
+            // use the tailing edges to add next-level inputs to working memory
             for (String nextLevelInputNodeKey : nextLevelInputNodeKeys) {
-               QueryClause queryClause = new QueryClause("_right", QueryClause.Operator.EQUALS, node.getKey());
+               logger.debug("generating inputs based on outputs from " + nextLevelInputNodeKey + ".");
+               QueryClause queryClause = new QueryClause("_from", QueryClause.Operator.EQUALS, node.getId());
+               logger.debug("inputEdges queryClause name and value: " + queryClause.getName() + ", " + queryClause.getValue());
                List<Edge> inputEdges = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
+               logger.debug("next level input edges: " + inputEdges);
                for (Edge inputEdge : inputEdges) {
                   String inputProp = (String) inputEdge.getAttribute("input");
                   String outputProp = (String) inputEdge.getAttribute("output");
-                  Object value = workingMemory.get(inputEdge.getAttribute("_left") + "." + inputProp);
-                  String rightKey = (String) inputEdge.getAttribute("_right");
-                  workingMemory.put(rightKey + "." + outputProp, value);
+                  String fromKey = inputEdge.getFrom().split("/")[1];
+                  Object value = workingMemory.get(fromKey + "." + inputProp);
+                  String toKey = (String) inputEdge.getTo().split("/")[1];
+                  logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp );
+                  workingMemory.put(toKey + "." + outputProp, value);
                }
             }
          }
@@ -164,14 +182,18 @@ public class Thought {
    }
 
    private Map<String, Object> addContext(Map<String, Object> workingMemory, String propertyName, Object propertyValue, String elementKey) {
-      workingMemory.put(elementKey + "." + propertyName, propertyValue);
+      String varName = elementKey + "." + propertyName;
+      logger.debug("adding to working memory: " + varName + " =  " + propertyValue);
+      workingMemory.put(varName, propertyValue);
       return workingMemory;
    }
 
    private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
       Set<String> keyset = propertyMap.keySet();
       for (String key : keyset) {
-         workingMemory.put(elementKey + "." + key, propertyMap.get(key));
+         String varName = elementKey + "." + key;
+         logger.debug("adding to working memory: " + varName + " =  " + propertyMap.get(key));
+         workingMemory.put(varName, propertyMap.get(key));
       }
       return workingMemory;
    }
@@ -202,7 +224,7 @@ public class Thought {
          startingPoints = nextStartingPoints;
       }
 
-      logger.debug("nodeMaxLevel = " + nodeMaxLevel);
+      //logger.debug("nodeMaxLevel = " + nodeMaxLevel);
 
       Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
       while (maxLevelIterator.hasNext()) {
