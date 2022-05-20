@@ -2,6 +2,7 @@ package com.whelanlabs.andrew;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -129,9 +130,11 @@ public class Thought {
                logger.debug("next level input edges: " + inputEdges);
                for (Edge inputEdge : inputEdges) {
                   String inputProp = (String) inputEdge.getAttribute("input");
+                  
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
-                  Object value = workingMemory.get(fromKey + "." + inputProp);
+                  Object value = getInputValue(workingMemory, fromKey, inputProp );
+                  // Object value = workingMemory.get(fromKey + "." + inputProp);
                   String toKey = (String) inputEdge.getTo().split("/")[1];
                   logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp );
                   workingMemory.put(toKey + "." + outputProp, value);
@@ -142,6 +145,21 @@ public class Thought {
          // get the inputs for the next layer via edge processing
       }
 
+      return result;
+   }
+
+   private Object getInputValue(Map<String, Object> workingMemory, String fromKey, String inputProp) {
+      logger.debug("getInputValue inputProp = " + inputProp);
+      Object result = null;
+      if(!inputProp.contains(".")) {
+         result = workingMemory.get(fromKey + "." + inputProp);
+      }
+      else if(inputProp.startsWith("NUMBER.") ) {
+         String[] numStringArray = inputProp.split("\\.");
+         logger.debug("numStringArray = " + Arrays.toString(numStringArray));
+         String numString = numStringArray[1];
+         result = Float.valueOf(numString);
+      }
       return result;
    }
 

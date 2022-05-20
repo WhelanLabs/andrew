@@ -1,18 +1,32 @@
-Node type: "goal"
-	attribute: "relationType"
-	attribute: "direction"
-	attribute: "distance"
-	attribute: "targetProperty"
-	attribute: "resultClass"
-	
-Node type: "thought"
+{
+	"node_types" [
 
-	
-Node type: "thought_operation"
-	attribute: "thought_key"
-	attribute: "operationName"
+		{"name": "goal",
+			"attributes" [
+				{"name": "relationType"},
+				{"name": "direction"},
+				{"name": "distance"},
+				{"name": "targetProperty"},
+				{"name": "resultClass"}
+			]
+		},
 
+		{"name": "thought"},
+
+#####   TODO: formatting after here needs work.
+
+
+
+
+	{"node_type": "thought_operation"
+		{"attribute": "thought_key"}
+		{"attribute": "operationName"}
+	}
+]
+
+"edge_types" [
 Edge type: "thought_sequence"
-	attribute: "thought_key"
-	attribute: "input"
-	attribute: "output"
+	{"attribute": "thought_key"}
+	{"attribute": "input",  "description": "the attribute generated from the upstream node"}
+	{"attribute": "output", "description": "the attribute used in the downstream node"}
+}
