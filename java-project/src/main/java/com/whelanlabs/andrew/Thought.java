@@ -156,7 +156,6 @@ public class Thought {
       }
       else if(inputProp.startsWith("NUMBER.") ) {
          String[] numStringArray = inputProp.split("\\.");
-         logger.debug("numStringArray = " + Arrays.toString(numStringArray));
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
       }
@@ -165,7 +164,6 @@ public class Thought {
 
    private Map<String, Object> processOperation(Node node, Map<String, Object> workingMemory) throws Exception {
       String operationName = (String) node.getAttribute("operationName");
-      // Map<String, Object> inputs = getOperationInputs(node, workingMemory);
       logger.debug("operation Name = " + operationName);
       logger.debug("workingMemory = " + workingMemory);
 

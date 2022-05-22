@@ -34,7 +34,7 @@ public class Operations {
       Node targetNode = (Node)inputs.get(node.getKey() + "." + "targetNode");
       String attributeName = (String)inputs.get(node.getKey() + "." + "attributeName");
       String result = (String)targetNode.getAttribute(attributeName);
-      results.put("result", result);
+      results.put("RESULT", result);
       return results;
    }
 
@@ -53,7 +53,7 @@ public class Operations {
       Float floatA = ((Number)inputs.get(node.getKey() + "." + "floatA")).floatValue();
       Float floatB = ((Number)inputs.get(node.getKey() + "." + "floatB")).floatValue();
       Float result = floatA * floatB;
-      results.put("result", result);
+      results.put("RESULT", result);
       return results;
    }
    
@@ -61,13 +61,14 @@ public class Operations {
       Map<String, Object> results = new HashMap<>();
       Float floatA = (Float)inputs.get(node.getKey() + "." + "floatA");
       Float floatB = (Float)inputs.get(node.getKey() + "." + "floatB");
+      logger.debug("subtract: " + floatA + " - " + floatB );
       Float result = floatA - floatB;
-      results.put("result", result);
+      results.put("RESULT", result);
       return results;
    }
    
    public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
-      logger.debug("results = " + inputs);
+      logger.debug("RESULT = " + inputs);
       return inputs;
    }
    
