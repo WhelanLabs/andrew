@@ -1,11 +1,15 @@
 package com.whelanlabs.andrew;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.arangodb.model.TraversalOptions.Direction;
+import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
 /*
@@ -23,55 +27,83 @@ public class Operations {
 
    private Node _node;
    private static Logger logger = LogManager.getLogger(Operations.class);
-   
-   
+
    public Operations(Node node) {
       _node = node;
    }
 
-   public static Map<String, Object> getNumberAttribute(Node node, Map<String, Object> inputs) {
+   public static Map<String, Object> getNumberAttribute(Node currentNode, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
-      Node targetNode = (Node)inputs.get(node.getKey() + "." + "targetNode");
-      String attributeName = (String)inputs.get(node.getKey() + "." + "attributeName");
-      String result = (String)targetNode.getAttribute(attributeName);
+      Node targetNode = (Node) inputs.get(currentNode.getKey() + "." + "targetNode");
+      String attributeName = (String) inputs.get(currentNode.getKey() + "." + "attributeName");
+      String result = (String) targetNode.getAttribute(attributeName);
       results.put("RESULT", result);
       return results;
    }
 
-   public static Map<String, Object> traverse(Node node, Map<String, Object> inputs) {
+   public static Map<String, Object> traverse(Node currentNode, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
-      // TODO: implement.
+
+      Node startingNode = (Node) inputs.get(currentNode.getKey() + "." + "startingNode");
+      String direction = (String) inputs.get(currentNode.getKey() + "." + "direction");
+      String relationName = (String) inputs.get(currentNode.getKey() + "." + "traversalEdgeName");
+      Integer distance = ((Number) inputs.get(currentNode.getKey() + "." + "distance")).intValue();
+
+      logger.debug("traverse() ");
+      logger.debug("   startingNode = " + startingNode);
+      logger.debug("   direction = " + direction);
+      logger.debug("   relationName = " + relationName);
+      logger.debug("   distance = " + distance);
+
+      // TODO: support negative distances
+
+      Node previousNode = startingNode;
+      List<Triple<Node, Edge, Node>> expansions = null;
+            
       
+      for (int i = 0; i < distance; i++) {
+
+         if (Direction.outbound.toString().equals(direction)) {
+            expansions = App.getDataGraph().expandRight(previousNode, relationName, null, null);
+         } else if (Direction.inbound.toString().equals(direction)) {
+            expansions = App.getDataGraph().expandLeft(previousNode, relationName, null, null);
+         } else {
+            throw new IllegalArgumentException("Invalid direction. (" + direction + ")");
+         }
+         previousNode = expansions.get(0).getRight();
+      }
+
+      results.put("RESULT", previousNode);
       return results;
    }
-   
+
    public static Map<String, Object> multiply(Node node, Map<String, Object> inputs) {
       logger.debug("multiply() ");
       logger.debug("node = " + node);
       logger.debug("inputs = " + inputs);
       Map<String, Object> results = new HashMap<>();
-      Float floatA = ((Number)inputs.get(node.getKey() + "." + "floatA")).floatValue();
-      Float floatB = ((Number)inputs.get(node.getKey() + "." + "floatB")).floatValue();
+      Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
+      Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
       Float result = floatA * floatB;
       results.put("RESULT", result);
       return results;
    }
-   
+
    public static Map<String, Object> subtract(Node node, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
-      Float floatA = (Float)inputs.get(node.getKey() + "." + "floatA");
-      Float floatB = (Float)inputs.get(node.getKey() + "." + "floatB");
-      logger.debug("subtract: " + floatA + " - " + floatB );
+      Float floatA = (Float) inputs.get(node.getKey() + "." + "floatA");
+      Float floatB = (Float) inputs.get(node.getKey() + "." + "floatB");
+      logger.debug("subtract: " + floatA + " - " + floatB);
       Float result = floatA - floatB;
       results.put("RESULT", result);
       return results;
    }
-   
+
    public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
       logger.debug("RESULT = " + inputs);
       return inputs;
    }
-   
+
    public static Map<String, String> listInputTypes(String operationName) {
       Map<String, String> results = new HashMap<>();
 

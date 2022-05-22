@@ -119,6 +119,18 @@ public class Thought {
                logger.debug("targetPropName = " + targetPropName);
                Object startingTargetPropValue = startingPoint.getAttribute(targetPropName);
                workingMemory = addContext(workingMemory, "targetPropValue", startingTargetPropValue, node.getKey());
+               
+               Node startingNode = (Node) goal.getAttribute("startingNode");
+               workingMemory = addContext(workingMemory, "startingNode", startingNode, node.getKey());
+               
+               String direction = (String) goal.getAttribute("direction");
+               workingMemory = addContext(workingMemory, "direction", direction, node.getKey());
+               
+               String relationName = (String) goal.getAttribute("relationName");
+               workingMemory = addContext(workingMemory, "relationName", relationName, node.getKey());
+               
+               Integer distance = (Integer) goal.getAttribute("distance");
+               workingMemory = addContext(workingMemory, "distance", distance, node.getKey());
             }
 
             // use the tailing edges to add next-level inputs to working memory
@@ -159,18 +171,25 @@ public class Thought {
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
       }
+//      else if(inputProp.startsWith("GOAL.") ) {
+//         result = workingMemory.get("GOAL." + inputProp);
+//         logger.debug("### result = " + result);
+//      }
+      else {
+         throw new RuntimeException("invalid input (" + inputProp + ")");
+      }
       return result;
    }
 
-   private Map<String, Object> processOperation(Node node, Map<String, Object> workingMemory) throws Exception {
-      String operationName = (String) node.getAttribute("operationName");
+   private Map<String, Object> processOperation(Node currentNode, Map<String, Object> workingMemory) throws Exception {
+      String operationName = (String) currentNode.getAttribute("operationName");
       logger.debug("operation Name = " + operationName);
       logger.debug("workingMemory = " + workingMemory);
 
       // reflection to call the method with inputs.
       Method operationMethod = Operations.class.getMethod(operationName, Node.class, Map.class);
 
-      Map<String, Object> result = (Map<String, Object>) operationMethod.invoke(null, node, workingMemory);
+      Map<String, Object> result = (Map<String, Object>) operationMethod.invoke(null, currentNode, workingMemory);
 
       return result;
    }
