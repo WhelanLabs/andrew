@@ -82,9 +82,11 @@ public class ThoughtTest {
 
    @Test
    public void runThought_valid_success() throws Exception {
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+
       Thought thought = buildModifiedInitialTestThought();
       
-      App.getDataGraph().flush();
       App.loadDataset(new LinearDataset());
       
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
@@ -158,8 +160,8 @@ public class ThoughtTest {
       
       Edge e4 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e4.addAttribute("thought_key", n1.getKey());
-      e4.addAttribute("input", "edgeType" );
-      e4.addAttribute("output", "traversalEdgeName");
+      e4.addAttribute("input", "relationType" );
+      e4.addAttribute("output", "traversalEdgeType");
       
       Edge e5 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
       e5.addAttribute("thought_key", n1.getKey());

@@ -46,13 +46,13 @@ public class Operations {
 
       Node startingNode = (Node) inputs.get(currentNode.getKey() + "." + "startingNode");
       String direction = (String) inputs.get(currentNode.getKey() + "." + "direction");
-      String relationName = (String) inputs.get(currentNode.getKey() + "." + "traversalEdgeName");
+      String relationType = (String) inputs.get(currentNode.getKey() + "." + "traversalEdgeType");
       Integer distance = ((Number) inputs.get(currentNode.getKey() + "." + "distance")).intValue();
 
       logger.debug("traverse() ");
       logger.debug("   startingNode = " + startingNode);
       logger.debug("   direction = " + direction);
-      logger.debug("   relationName = " + relationName);
+      logger.debug("   relationType = " + relationType);
       logger.debug("   distance = " + distance);
 
       // TODO: support negative distances
@@ -62,11 +62,11 @@ public class Operations {
             
       
       for (int i = 0; i < distance; i++) {
-
+         logger.debug("   traversal #" + i);
          if (Direction.outbound.toString().equals(direction)) {
-            expansions = App.getDataGraph().expandRight(previousNode, relationName, null, null);
+            expansions = App.getDataGraph().expandRight(previousNode, relationType, null, null);
          } else if (Direction.inbound.toString().equals(direction)) {
-            expansions = App.getDataGraph().expandLeft(previousNode, relationName, null, null);
+            expansions = App.getDataGraph().expandLeft(previousNode, relationType, null, null);
          } else {
             throw new IllegalArgumentException("Invalid direction. (" + direction + ")");
          }
@@ -114,7 +114,7 @@ public class Operations {
             break;
          case "traverse":
             results.put("startingNode", "node");
-            results.put("traversalEdgeName", "edgeType");
+            results.put("traversalEdgeType", "edgeType");
             results.put("direction", "traversalDirection");
             results.put("distance", "integer");
             break;

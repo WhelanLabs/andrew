@@ -79,6 +79,7 @@ public class Thought {
     * @throws Exception 
     */
    public Object forecast(Node startingPoint) throws Exception {
+      logger.debug("forecast startingPoint = " + startingPoint);
       logger.debug("_thoughtSequences = " + _thoughtSequences);
       
       Map<String, Object> workingMemory = new HashMap<>();
@@ -88,6 +89,9 @@ public class Thought {
       // get the initial layer inputs from the goal
       workingMemory = addContext(workingMemory, startingPoint.getProperties(), startingPoint.getKey());
       workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
+      
+      workingMemory = addContext(workingMemory, "startingNode", startingPoint, "GOAL");
+
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
@@ -112,22 +116,26 @@ public class Thought {
                
                
             } else if ("thought".equals(node.getType())) {
+               logger.debug("thought node = " + node);
+               
                // have the thought consume some goal details
                List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
                Node goal = goalTriples.get(0).getRight();
+               logger.debug("goal node = " + goal);
+               
                String targetPropName = (String) goal.getAttribute("targetProperty");
                logger.debug("targetPropName = " + targetPropName);
                Object startingTargetPropValue = startingPoint.getAttribute(targetPropName);
                workingMemory = addContext(workingMemory, "targetPropValue", startingTargetPropValue, node.getKey());
                
-               Node startingNode = (Node) goal.getAttribute("startingNode");
-               workingMemory = addContext(workingMemory, "startingNode", startingNode, node.getKey());
+               // Node startingNode = (Node) goal.getAttribute("startingNode");
+               workingMemory = addContext(workingMemory, "startingNode", startingPoint, node.getKey());
                
                String direction = (String) goal.getAttribute("direction");
                workingMemory = addContext(workingMemory, "direction", direction, node.getKey());
                
-               String relationName = (String) goal.getAttribute("relationName");
-               workingMemory = addContext(workingMemory, "relationName", relationName, node.getKey());
+               String relationType = (String) goal.getAttribute("relationType");
+               workingMemory = addContext(workingMemory, "relationType", relationType, node.getKey());
                
                Integer distance = (Integer) goal.getAttribute("distance");
                workingMemory = addContext(workingMemory, "distance", distance, node.getKey());
