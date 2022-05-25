@@ -91,9 +91,12 @@ public class Operations {
 
    public static Map<String, Object> subtract(Node node, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
-      Float floatA = (Float) inputs.get(node.getKey() + "." + "floatA");
-      Float floatB = (Float) inputs.get(node.getKey() + "." + "floatB");
+      
+      Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
+      Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
       logger.debug("subtract: " + floatA + " - " + floatB);
+      logger.debug("   current node: " + node.getKey());
+
       Float result = floatA - floatB;
       results.put("RESULT", result);
       return results;

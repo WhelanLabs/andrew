@@ -150,7 +150,8 @@ public class Thought {
                logger.debug("next level input edges: " + inputEdges);
                for (Edge inputEdge : inputEdges) {
                   String inputProp = (String) inputEdge.getAttribute("input");
-                  
+                  String edgeName = (String) inputEdge.getAttribute("name");
+                  logger.debug("edgeName = " + edgeName );
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
                   Object value = getInputValue(workingMemory, fromKey, inputProp );
@@ -171,10 +172,8 @@ public class Thought {
    private Object getInputValue(Map<String, Object> workingMemory, String fromKey, String inputProp) {
       logger.debug("getInputValue inputProp = " + inputProp);
       Object result = null;
-      if(!inputProp.contains(".")) {
-         result = workingMemory.get(fromKey + "." + inputProp);
-      }
-      else if(inputProp.startsWith("NUMBER.") ) {
+
+      if(inputProp.startsWith("NUMBER.") ) {
          String[] numStringArray = inputProp.split("\\.");
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
@@ -184,7 +183,7 @@ public class Thought {
 //         logger.debug("### result = " + result);
 //      }
       else {
-         throw new RuntimeException("invalid input (" + inputProp + ")");
+         result = workingMemory.get(fromKey + "." + inputProp);
       }
       return result;
    }
@@ -235,8 +234,19 @@ public class Thought {
       Set<String> keyset = propertyMap.keySet();
       for (String key : keyset) {
          String varName = elementKey + "." + key;
-         logger.debug("adding to working memory: " + varName + " =  " + propertyMap.get(key));
-         workingMemory.put(varName, propertyMap.get(key));
+         Object value = propertyMap.get(key);
+
+         if (value instanceof Node) {
+            Map<String, Object> valueProps = ((Node) value).getProperties();
+            Set<String> valuePropsKeyset = valueProps.keySet();
+            for (String valueKey : valuePropsKeyset) {
+               workingMemory = addContext(workingMemory, key + "." + valueKey, valueProps.get(valueKey), elementKey);
+            }
+          }
+         else {
+            logger.debug("adding to working memory: " + varName + " =  " + value);
+            workingMemory.put(varName, value);
+         }
       }
       return workingMemory;
    }
