@@ -78,67 +78,68 @@ public class Thought {
     * @return the node
     * @throws Exception 
     */
-   public Object forecast(Node startingPoint) throws Exception {
+   public Map<String, Object> forecast(Node startingPoint) throws Exception {
       logger.debug("forecast startingPoint = " + startingPoint);
       logger.debug("_thoughtSequences = " + _thoughtSequences);
-      
+
       Map<String, Object> workingMemory = new HashMap<>();
 
-      Object result = null;
+      Map<String, Object> result = new HashMap<>();
 
       // get the initial layer inputs from the goal
       workingMemory = addContext(workingMemory, startingPoint.getProperties(), startingPoint.getKey());
       workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
-      
-      workingMemory = addContext(workingMemory, "startingNode", startingPoint, "GOAL");
 
+      workingMemory = addContext(workingMemory, "startingNode", startingPoint, "GOAL");
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
       // process the thought by layer...
       for (Set<Node> currentOperations : layeredOperations) {
-         
+
          // process the nodes of a layer
          logger.debug("layer contents = " + currentOperations);
          Set<String> nextLevelInputNodeKeys = new HashSet<>();
          for (Node node : currentOperations) {
             logger.debug("add nextLevelInputNodeKeys: " + node);
             nextLevelInputNodeKeys.add(node.getKey());
-            
-            
+
             if ("thought_operation".equals(node.getType())) {
-               
+
                // process the operation
                Map<String, Object> opResult = processOperation(node, workingMemory);
-               
+
                // add the result of the operation to working memory
                workingMemory = addContext(workingMemory, opResult, node.getKey());
-               
-               
+
             } else if ("thought".equals(node.getType())) {
                logger.debug("thought node = " + node);
-               
+
                // have the thought consume some goal details
                List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
                Node goal = goalTriples.get(0).getRight();
                logger.debug("goal node = " + goal);
-               
+
                String targetPropName = (String) goal.getAttribute("targetProperty");
                logger.debug("targetPropName = " + targetPropName);
                Object startingTargetPropValue = startingPoint.getAttribute(targetPropName);
                workingMemory = addContext(workingMemory, "targetPropValue", startingTargetPropValue, node.getKey());
-               
+
                // Node startingNode = (Node) goal.getAttribute("startingNode");
                workingMemory = addContext(workingMemory, "startingNode", startingPoint, node.getKey());
-               
+
                String direction = (String) goal.getAttribute("direction");
                workingMemory = addContext(workingMemory, "direction", direction, node.getKey());
-               
+
                String relationType = (String) goal.getAttribute("relationType");
                workingMemory = addContext(workingMemory, "relationType", relationType, node.getKey());
-               
+
                Integer distance = (Integer) goal.getAttribute("distance");
                workingMemory = addContext(workingMemory, "distance", distance, node.getKey());
+            } else if ("thought_result".equals(node.getType())) {
+               Map<String, Object> opResult = processOperation(node, workingMemory);
+               result = addResultContext(result, opResult, node.getKey());
+               return result;
             }
 
             // use the tailing edges to add next-level inputs to working memory
@@ -151,19 +152,17 @@ public class Thought {
                for (Edge inputEdge : inputEdges) {
                   String inputProp = (String) inputEdge.getAttribute("input");
                   String edgeName = (String) inputEdge.getAttribute("name");
-                  logger.debug("edgeName = " + edgeName );
+                  logger.debug("edgeName = " + edgeName);
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
-                  Object value = getInputValue(workingMemory, fromKey, inputProp );
+                  Object value = getInputValue(workingMemory, fromKey, inputProp);
                   // Object value = workingMemory.get(fromKey + "." + inputProp);
                   String toKey = (String) inputEdge.getTo().split("/")[1];
-                  logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp );
+                  logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp);
                   workingMemory.put(toKey + "." + outputProp, value);
                }
             }
          }
-
-         // get the inputs for the next layer via edge processing
       }
 
       return result;
@@ -173,7 +172,7 @@ public class Thought {
       logger.debug("getInputValue inputProp = " + inputProp);
       Object result = null;
 
-      if(inputProp.startsWith("NUMBER.") ) {
+      if (inputProp.startsWith("NUMBER.")) {
          String[] numStringArray = inputProp.split("\\.");
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
@@ -218,8 +217,25 @@ public class Thought {
 //      return results;
 //   }
 
-   private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Object opResult, String elementKey) {
-      workingMemory.put(elementKey + ".result", opResult);
+   private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
+      Set<String> keyset = propertyMap.keySet();
+      String varName = null;
+      for (String key : keyset) {
+         varName = elementKey + "." + key;
+         Object value = propertyMap.get(key);
+         if (value instanceof Node) {
+            Map<String, Object> valueProps = ((Node) value).getProperties();
+            Set<String> valuePropsKeyset = valueProps.keySet();
+            for (String valueKey : valuePropsKeyset) {
+               String resultKey = (key + "." + valueKey).replace(elementKey, "RESULT");
+               workingMemory = addContext(workingMemory, resultKey, valueProps.get(valueKey), elementKey);
+            }
+         } else {
+            String resultKey = varName.replace(elementKey, "RESULT");
+            logger.debug("adding to working memory: " + resultKey + " =  " + value);
+            workingMemory.put(resultKey, value);
+         }
+      }
       return workingMemory;
    }
 
@@ -232,18 +248,17 @@ public class Thought {
 
    private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
       Set<String> keyset = propertyMap.keySet();
+      String varName = null;
       for (String key : keyset) {
-         String varName = elementKey + "." + key;
+         varName = elementKey + "." + key;
          Object value = propertyMap.get(key);
-
          if (value instanceof Node) {
             Map<String, Object> valueProps = ((Node) value).getProperties();
             Set<String> valuePropsKeyset = valueProps.keySet();
             for (String valueKey : valuePropsKeyset) {
                workingMemory = addContext(workingMemory, key + "." + valueKey, valueProps.get(valueKey), elementKey);
             }
-          }
-         else {
+         } else {
             logger.debug("adding to working memory: " + varName + " =  " + value);
             workingMemory.put(varName, value);
          }
@@ -277,7 +292,7 @@ public class Thought {
          startingPoints = nextStartingPoints;
       }
 
-      //logger.debug("nodeMaxLevel = " + nodeMaxLevel);
+      // logger.debug("nodeMaxLevel = " + nodeMaxLevel);
 
       Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
       while (maxLevelIterator.hasNext()) {
