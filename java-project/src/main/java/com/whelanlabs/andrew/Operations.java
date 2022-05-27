@@ -25,20 +25,10 @@ import com.whelanlabs.kgraph.engine.Node;
 
 public class Operations {
 
-   private Node _node;
    private static Logger logger = LogManager.getLogger(Operations.class);
 
-   public Operations(Node node) {
-      _node = node;
-   }
-
-   public static Map<String, Object> getNumberAttribute(Node currentNode, Map<String, Object> inputs) {
-      Map<String, Object> results = new HashMap<>();
-      Node targetNode = (Node) inputs.get(currentNode.getKey() + "." + "targetNode");
-      String attributeName = (String) inputs.get(currentNode.getKey() + "." + "attributeName");
-      String result = (String) targetNode.getAttribute(attributeName);
-      results.put("RESULT", result);
-      return results;
+   private Operations() {
+      // static class
    }
 
    public static Map<String, Object> traverse(Node currentNode, Map<String, Object> inputs) {
@@ -112,38 +102,6 @@ public class Operations {
 
    public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
       return inputs;
-   }
-
-   public static Map<String, String> listInputTypes(String operationName) {
-      Map<String, String> results = new HashMap<>();
-
-      switch (operationName) {
-         case "getNumberAttribute":
-            results.put("targetNode", "node");
-            results.put("targetAttribute", "attributeName");
-            break;
-         case "traverse":
-            results.put("startingNode", "node");
-            results.put("traversalEdgeType", "edgeType");
-            results.put("direction", "traversalDirection");
-            results.put("distance", "integer");
-            break;
-         case "multiply":
-            results.put("floatA", "float");
-            results.put("floatB", "float");
-            break;
-         case "subtract":
-            results.put("floatA", "float");
-            results.put("floatB", "float");
-            break;
-         case "end":
-            results.put("inputA", "object");
-            break;
-         default:
-            throw new IllegalArgumentException("Invalid day of the week: ");
-      }
-
-      return results;
    }
 
 }

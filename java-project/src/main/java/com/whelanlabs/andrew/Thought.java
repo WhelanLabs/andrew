@@ -320,8 +320,5 @@ public class Thought {
       }
       return results;
    }
-
-   public String getKey() {
-      return _thoughtNode.getKey();
-   }
+   
 }
