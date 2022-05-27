@@ -189,6 +189,7 @@ public class Thought {
 
    private Map<String, Object> processOperation(Node currentNode, Map<String, Object> workingMemory) throws Exception {
       String operationName = (String) currentNode.getAttribute("operationName");
+      logger.debug("processOperation for Node Name: " + currentNode.getAttribute("name"));
       logger.debug("operation Name = " + operationName);
       logger.debug("workingMemory = " + workingMemory);
 
@@ -219,20 +220,18 @@ public class Thought {
 
    private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
       Set<String> keyset = propertyMap.keySet();
-      String varName = null;
       for (String key : keyset) {
-         varName = elementKey + "." + key;
          Object value = propertyMap.get(key);
          if (value instanceof Node) {
             Map<String, Object> valueProps = ((Node) value).getProperties();
             Set<String> valuePropsKeyset = valueProps.keySet();
             for (String valueKey : valuePropsKeyset) {
                String resultKey = (key + "." + valueKey).replace(elementKey, "RESULT");
-               workingMemory = addContext(workingMemory, resultKey, valueProps.get(valueKey), elementKey);
+               workingMemory = addContext(workingMemory, resultKey, valueProps.get(valueKey), "RESULT");
             }
          } else {
-            String resultKey = varName.replace(elementKey, "RESULT");
-            logger.debug("adding to working memory: " + resultKey + " =  " + value);
+            String resultKey = key.replace(elementKey, "RESULT");
+            logger.debug("adding result to working memory: " + resultKey + " =  " + value);
             workingMemory.put(resultKey, value);
          }
       }

@@ -55,7 +55,15 @@ public class Operations {
       logger.debug("   relationType = " + relationType);
       logger.debug("   distance = " + distance);
 
-      // TODO: support negative distances
+      // support negative distances
+      if(distance <0) {
+         if (Direction.outbound.toString().equals(direction)) {
+            direction = Direction.inbound.toString();
+         } else if (Direction.inbound.toString().equals(direction)) {
+            direction = Direction.outbound.toString();
+         }
+         distance = distance * (-1);
+      }
 
       Node previousNode = startingNode;
       List<Triple<Node, Edge, Node>> expansions = null;
@@ -103,7 +111,6 @@ public class Operations {
    }
 
    public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
-      logger.debug("RESULT = " + inputs);
       return inputs;
    }
 

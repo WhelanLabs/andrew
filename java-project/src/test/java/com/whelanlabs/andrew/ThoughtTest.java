@@ -95,10 +95,16 @@ public class ThoughtTest {
       Map<String, Object> result = thought.forecast(startingNode);
       
       assert (null != result);
-      
       logger.debug("result = " + result);
-      Integer startingValue = (Integer)startingNode.getAttribute("value");
-      //assert (startingValue + forwardDistance == result): "{" + startingValue + ", " + forwardDistance + ", " + result + "}";
+      
+      Number guess = (Number)result.get("RESULT.output");
+      //logger.debug("guess = " + guess);
+      
+      Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510", "LinearDatasetNode");
+      Number answer = (Number)answerNode.getAttribute("value");
+      //logger.debug("answer = " + answer);
+      
+      assert ( Math.abs(guess.floatValue() - answer.floatValue()) < 1): "{" + guess + ", " + answer + "}";
       
    }
    
@@ -145,7 +151,7 @@ public class ThoughtTest {
       final Node n6 = new Node(ElementHelper.generateKey(), "thought_operation");
       n6.addAttribute("thought_key", n1.getKey());
       n6.addAttribute("name", "n6" );
-      n6.addAttribute("operationName", "getAttributeValue");
+      n6.addAttribute("operationName", "multiply");
       
       // link the thought process using valid sequence relationships
       Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
@@ -181,11 +187,11 @@ public class ThoughtTest {
       e5.addAttribute("input", "direction" );
       e5.addAttribute("output", "direction");
 
-      Edge e6 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
+      Edge e6 = new Edge(ElementHelper.generateKey(), n1, n6, "thought_sequence");
       e6.addAttribute("thought_key", n1.getKey());
       e6.addAttribute("name", "e6" );
       e6.addAttribute("input", "distance" );
-      e6.addAttribute("output", "distance");
+      e6.addAttribute("output", "floatA");
       
       Edge e7 = new Edge(ElementHelper.generateKey(), n2, n4, "thought_sequence");
       e7.addAttribute("thought_key", n1.getKey());
@@ -203,23 +209,23 @@ public class ThoughtTest {
       e9.addAttribute("thought_key", n1.getKey());
       e9.addAttribute("name", "e9" );
       e9.addAttribute("input", "RESULT" );
-      e9.addAttribute("output", "floatA");
+      e9.addAttribute("output", "output");
 
       Edge e10 = new Edge(ElementHelper.generateKey(), n1, n6, "thought_sequence");
       e10.addAttribute("thought_key", n1.getKey());
       e10.addAttribute("name", "e10" );
-      e10.addAttribute("input", "GOAL.targetProperty" );
-      e10.addAttribute("output", "propertyName");
+      e10.addAttribute("input", "NUMBER.-1" );
+      e10.addAttribute("output", "floatB");
       
-      Edge e11 = new Edge(ElementHelper.generateKey(), n6, n4, "thought_sequence");
+      Edge e11 = new Edge(ElementHelper.generateKey(), n6, n3, "thought_sequence");
       e11.addAttribute("thought_key", n1.getKey());
       e11.addAttribute("name", "e11" );
-      e11.addAttribute("input", "RESULT.value" );
-      e11.addAttribute("output", "floatB");
+      e11.addAttribute("input", "RESULT" );
+      e11.addAttribute("output", "distance");
       
       
-      App.getGardenGraph().upsert(goalNode, n1, n2, n3, n4, n5); // skip: , n6
-      App.getGardenGraph().upsert(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9); // skip: , e10, e11
+      App.getGardenGraph().upsert(goalNode, n1, n2, n3, n4, n5, n6);
+      App.getGardenGraph().upsert(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11);
       
       return new Thought(thoughtKey);
    }
