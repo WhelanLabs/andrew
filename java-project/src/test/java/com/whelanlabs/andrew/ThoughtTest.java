@@ -15,6 +15,7 @@ import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.kgraph.engine.QueryClause;
 
 public class ThoughtTest {
 
@@ -74,10 +75,6 @@ public class ThoughtTest {
       Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
             
       assert (pre_count +14 == post_count): "{" + pre_count + ", " +post_count + "}";
-      
-      Integer entityComplexity = initialThought.getEntityComplexity();
-      
-      assert (post_count - pre_count == entityComplexity): "{" + post_count + ", " + pre_count + ", " + entityComplexity + "}";
    }
 
    @Test
@@ -87,7 +84,7 @@ public class ThoughtTest {
 
       Thought thought = buildModifiedInitialTestThought();
       
-      App.loadDataset(new LinearDataset());
+      App.loadDatasetToDataGraph(new LinearDataset());
       
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
       Integer forwardDistance = 10;
@@ -108,6 +105,115 @@ public class ThoughtTest {
       
    }
    
+   @Test(expected = RuntimeException.class)
+   public void runThought_invalidNodeType_exception() throws Exception {
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+
+      Thought thought = buildModifiedInitialTestThoughtWithBadNode();
+      
+      App.loadDatasetToDataGraph(new LinearDataset());
+      
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      Integer forwardDistance = 10;
+      // Goal goal = new Goal("LinearDatasetEdge", Direction.outbound, forwardDistance, "value");
+      Map<String, Object> result = thought.forecast(startingNode);
+   }
+   
+   @Test(expected = RuntimeException.class)
+   public void runThought_noEnd_exception() throws Exception {
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+
+      Thought thought = buildModifiedInitialTestThoughtWithNoEnd();
+      
+      App.loadDatasetToDataGraph(new LinearDataset());
+      
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      Integer forwardDistance = 10;
+      // Goal goal = new Goal("LinearDatasetEdge", Direction.outbound, forwardDistance, "value");
+      Map<String, Object> result = thought.forecast(startingNode);
+   }
+   
+   
+   private Thought buildModifiedInitialTestThoughtWithNoEnd() {
+      String thoughtKey = ElementHelper.generateKey();
+      
+      //create the goal
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      goalNode.addAttribute("relationType", "LinearDatasetEdge");
+      goalNode.addAttribute("direction", Direction.outbound.toString());
+      goalNode.addAttribute("name", "goalNode" );
+      goalNode.addAttribute("distance", 10);
+      goalNode.addAttribute("targetProperty", "value");
+      goalNode.addAttribute("resultClass", "Float");
+
+      
+      // create a thought node
+      final Node n1 = new Node(thoughtKey, "thought");
+      n1.addAttribute("name", "n1" );
+
+      // create steps
+      final Node n2 = new Node(ElementHelper.generateKey(), "thought_operation");
+      n2.addAttribute("thought_key", n1.getKey());
+      n2.addAttribute("name", "n2" );
+      n2.addAttribute("operationName", "doNothing");
+      
+      Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
+      e1.addAttribute("thought_key", n1.getKey());
+      e1.addAttribute("name", "e1" );
+      e1.addAttribute("input", "targetPropValue" );
+      e1.addAttribute("output", "floatA");
+      
+      // link the thought process using valid sequence relationships
+      Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
+      e0.addAttribute("name", "e0" );
+      
+      App.getGardenGraph().upsert(goalNode, n1, n2);
+      App.getGardenGraph().upsert(e0, e1);
+      
+      return new Thought(thoughtKey);
+   }
+
+   private Thought buildModifiedInitialTestThoughtWithBadNode() {
+      String thoughtKey = ElementHelper.generateKey();
+      
+      //create the goal
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      goalNode.addAttribute("relationType", "LinearDatasetEdge");
+      goalNode.addAttribute("direction", Direction.outbound.toString());
+      goalNode.addAttribute("name", "goalNode" );
+      goalNode.addAttribute("distance", 10);
+      goalNode.addAttribute("targetProperty", "value");
+      goalNode.addAttribute("resultClass", "Float");
+
+      
+      // create a thought node
+      final Node n1 = new Node(thoughtKey, "thought");
+      n1.addAttribute("name", "n1" );
+
+      // create steps
+      final Node n2 = new Node(ElementHelper.generateKey(), "bad_type");
+      n2.addAttribute("thought_key", n1.getKey());
+      n2.addAttribute("name", "n2" );
+      n2.addAttribute("operationName", "multiply");
+      
+      Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
+      e1.addAttribute("thought_key", n1.getKey());
+      e1.addAttribute("name", "e1" );
+      e1.addAttribute("input", "targetPropValue" );
+      e1.addAttribute("output", "floatA");
+      
+      // link the thought process using valid sequence relationships
+      Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
+      e0.addAttribute("name", "e0" );
+      
+      App.getGardenGraph().upsert(goalNode, n1, n2);
+      App.getGardenGraph().upsert(e0, e1);
+      
+      return new Thought(thoughtKey);
+   }
+
    public Thought buildModifiedInitialTestThought() {
       // Note: see "modified initial example" flow from thought_process_language.html for reference.
 

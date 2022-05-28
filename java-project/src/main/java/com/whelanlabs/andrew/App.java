@@ -32,7 +32,7 @@ public class App {
       return _gardenGraph;
    }
    
-   public static void loadDataset(Dataset dataset) {
+   public static void loadDatasetToDataGraph(Dataset dataset) {
       String datasetInfoID = dataset.getDatasetInfoID();
       QueryClause datasetInfoQuery = new QueryClause("dataset_id", QueryClause.Operator.EQUALS, datasetInfoID);
       List<Node> datasetInfo = getDataGraph().queryNodes("dataSet_info", datasetInfoQuery);

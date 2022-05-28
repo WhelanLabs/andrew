@@ -24,10 +24,10 @@ import com.whelanlabs.kgraph.engine.QueryClause;
  */
 public class Thought {
 
-   private Node _thoughtNode;
-   private List<Node> _thoughtOperations;
-   private List<Edge> _thoughtSequences;
-   private Node _thoughtResult;
+   protected Node _thoughtNode;
+//   protected List<Node> _thoughtOperations;
+//   private List<Edge> _thoughtSequences;
+//   private Node _thoughtResult;
    private Node _goal;
 
    private static Logger logger = LogManager.getLogger(Thought.class);
@@ -37,35 +37,18 @@ public class Thought {
       _thoughtNode = App.getGardenGraph().getNodeByKey(thoughtKey, "thought");
       QueryClause queryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, thoughtKey);
 
-      // set the thought sequences
-      _thoughtSequences = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
-
-      // set the thought operations
-      _thoughtOperations = App.getGardenGraph().queryNodes("thought_operation", queryClause);
-
-      // set the thought result
-      _thoughtResult = App.getGardenGraph().queryNodes("thought_result", queryClause).get(0);
+//      // set the thought sequences
+//      _thoughtSequences = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
+//
+//      // set the thought operations
+//      _thoughtOperations = App.getGardenGraph().queryNodes("thought_operation", queryClause);
+//
+//      // set the thought result
+//      _thoughtResult = App.getGardenGraph().queryNodes("thought_result", queryClause).get(0);
 
       // set the thought's goal
       List<Triple<Node, Edge, Node>> triple = App.getGardenGraph().expandLeft(_thoughtNode, "approach", null, null);
       _goal = triple.get(0).getRight();
-   }
-
-   public Integer getEntityComplexity() {
-      Integer result = 0;
-
-      if (_thoughtNode != null) {
-         result += 1;
-      }
-
-      result += _thoughtOperations.size();
-      result += _thoughtSequences.size();
-
-      if (_thoughtResult != null) {
-         result += 1;
-      }
-
-      return result;
    }
 
    /**
@@ -80,7 +63,7 @@ public class Thought {
     */
    public Map<String, Object> forecast(Node startingPoint) throws Exception {
       logger.debug("forecast startingPoint = " + startingPoint);
-      logger.debug("_thoughtSequences = " + _thoughtSequences);
+      //logger.debug("_thoughtSequences = " + _thoughtSequences);
 
       Map<String, Object> workingMemory = new HashMap<>();
 
@@ -103,8 +86,10 @@ public class Thought {
          for (Node node : currentOperations) {
             logger.debug("add nextLevelInputNodeKeys: " + node);
             nextLevelInputNodeKeys.add(node.getKey());
+            
+            String thoughtType = node.getType();
 
-            if ("thought_operation".equals(node.getType())) {
+            if ("thought_operation".equals(thoughtType)) {
 
                // process the operation
                Map<String, Object> opResult = processOperation(node, workingMemory);
@@ -112,7 +97,7 @@ public class Thought {
                // add the result of the operation to working memory
                workingMemory = addContext(workingMemory, opResult, node.getKey());
 
-            } else if ("thought".equals(node.getType())) {
+            } else if ("thought".equals(thoughtType)) {
                logger.debug("thought node = " + node);
 
                // have the thought consume some goal details
@@ -136,10 +121,13 @@ public class Thought {
 
                Integer distance = (Integer) goal.getAttribute("distance");
                workingMemory = addContext(workingMemory, "distance", distance, node.getKey());
-            } else if ("thought_result".equals(node.getType())) {
+            } else if ("thought_result".equals(thoughtType)) {
                Map<String, Object> opResult = processOperation(node, workingMemory);
                result = addResultContext(result, opResult, node.getKey());
                return result;
+            }
+            else {
+               throw new RuntimeException("Invalid Node type. (" + node.getType() + ")");
             }
 
             // use the tailing edges to add next-level inputs to working memory
@@ -165,7 +153,7 @@ public class Thought {
          }
       }
 
-      return result;
+      throw new RuntimeException("Thought has no end.");
    }
 
    private Object getInputValue(Map<String, Object> workingMemory, String fromKey, String inputProp) {
@@ -177,10 +165,6 @@ public class Thought {
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
       }
-//      else if(inputProp.startsWith("GOAL.") ) {
-//         result = workingMemory.get("GOAL." + inputProp);
-//         logger.debug("### result = " + result);
-//      }
       else {
          result = workingMemory.get(fromKey + "." + inputProp);
       }
@@ -200,23 +184,6 @@ public class Thought {
 
       return result;
    }
-
-//   private Map<String, Object> getOperationInputs(Node node, Map<String, Object> workingMemory) {
-//      Map<String, Object> results = new HashMap<>();
-//      // query for the upstream thought_sequence edges
-//      List<Triple<Node, Edge, Node>> triples = App.getGardenGraph().expandLeft(node, "testEdgeType", null, null);
-//      
-//      // process the edges 
-//      for(Triple<Node, Edge, Node> triple : triples) {
-//         Edge edge = triple.getMiddle();
-//         String edgeInputAttrName = (String)edge.getAttribute("input");
-//         String edgeOutputAttrName = (String)edge.getAttribute("output");
-//         String edgeInputKey = (String)edge.getAttribute("_left");
-//         Object operationInputValue = workingMemory.get(edgeInputKey + "." + edgeInputAttrName);
-//         results.put(edgeOutputAttrName, operationInputValue);
-//      }
-//      return results;
-//   }
 
    private Map<String, Object> addResultContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
       Set<String> keyset = propertyMap.keySet();
@@ -290,8 +257,6 @@ public class Thought {
          }
          startingPoints = nextStartingPoints;
       }
-
-      // logger.debug("nodeMaxLevel = " + nodeMaxLevel);
 
       Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
       while (maxLevelIterator.hasNext()) {

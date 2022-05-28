@@ -87,6 +87,12 @@ public class Operations {
       return results;
    }
 
+   public static Map<String, Object> doNothing(Node node, Map<String, Object> inputs) {
+      logger.debug("doNothing() ");
+      Map<String, Object> results = new HashMap<>();
+      return results;
+   }
+   
    public static Map<String, Object> subtract(Node node, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
       

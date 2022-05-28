@@ -34,7 +34,7 @@ public class LinearDatasetTest {
    @Test
    public void expand_datasetLoaded_getOtherSide() throws Exception {
       App.getDataGraph().flush();
-      App.loadDataset(new LinearDataset());
+      App.loadDatasetToDataGraph(new LinearDataset());
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_100", "LinearDatasetNode");
       List<Triple<Node, Edge, Node>> results1 = App.getDataGraph().expandRight(startingNode, "LinearDatasetEdge", null, null);

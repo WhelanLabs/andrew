@@ -40,7 +40,7 @@ public class AppTest {
    @Test
    public void load_datasetNotpreviouslyLoaded_loaded() throws Exception {
       App.getDataGraph().flush();
-      App.loadDataset(new LinearDataset());
+      App.loadDatasetToDataGraph(new LinearDataset());
       Long graphCount = App.getDataGraph().getTotalCount();
 
       // 1000 nodes, 999 edges, 1 dataSet_info node
@@ -50,12 +50,12 @@ public class AppTest {
    @Test
    public void load_datasetPreviouslyLoaded_loaded() throws Exception {
       App.getDataGraph().flush();
-      App.loadDataset(new LinearDataset());
+      App.loadDatasetToDataGraph(new LinearDataset());
       Long graphCount1 = App.getDataGraph().getTotalCount();
 
       // 1000 nodes, 999 edges, 1 dataSet_info node
       assert (graphCount1 == 2000) : "graphCount1 = " + graphCount1;
-      App.loadDataset(new LinearDataset());
+      App.loadDatasetToDataGraph(new LinearDataset());
       Long graphCount2 = App.getDataGraph().getTotalCount();
 
       // 1000 nodes, 999 edges, 1 dataSet_info node
@@ -73,7 +73,7 @@ public class AppTest {
       datasetInfoNode2.addAttribute("dataset_id", dataset.getDatasetInfoID());
 
       App.getDataGraph().upsert(datasetInfoNode1, datasetInfoNode2);
-      App.loadDataset(dataset);
+      App.loadDatasetToDataGraph(dataset);
    }
 
 }
