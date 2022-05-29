@@ -83,4 +83,22 @@ public class OperationsTest {
       assert ("LinearDatasetNode_501".equals(((Node)results.get("RESULT")).getKey())): "{" + results + "}";
    }
    
+   @Test(expected = IllegalArgumentException.class)
+   public void traverse_invalidDirection_getResult() {
+
+      // setup data
+      App.loadDatasetToDataGraph(new LinearDataset());
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      
+      Map<String, Object> inputs = new HashMap<>();
+      inputs.put(startingNode.getKey() + "." + "startingNode", startingNode);
+      inputs.put(startingNode.getKey() + "." + "direction", "invalid_direction");
+      inputs.put(startingNode.getKey() + "." + "traversalEdgeType", "LinearDatasetEdge");
+      inputs.put(startingNode.getKey() + "." + "distance", 1);
+      
+      Map<String, Object> results = Operations.traverse(startingNode, inputs);
+      
+      assert ("LinearDatasetNode_501".equals(((Node)results.get("RESULT")).getKey())): "{" + results + "}";
+   }
+   
 }
