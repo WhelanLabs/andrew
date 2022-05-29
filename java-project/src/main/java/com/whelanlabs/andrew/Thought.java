@@ -32,19 +32,17 @@ public class Thought {
 
    private static Logger logger = LogManager.getLogger(Thought.class);
 
+   public Thought(Node thoughtNode) {
+      _thoughtNode = thoughtNode;
+      
+      // set the thought's goal
+      List<Triple<Node, Edge, Node>> triple = App.getGardenGraph().expandLeft(_thoughtNode, "approach", null, null);
+      _goal = triple.get(0).getRight();
+   }
+   
    public Thought(String thoughtKey) {
       // set the thought node
       _thoughtNode = App.getGardenGraph().getNodeByKey(thoughtKey, "thought");
-      QueryClause queryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, thoughtKey);
-
-//      // set the thought sequences
-//      _thoughtSequences = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
-//
-//      // set the thought operations
-//      _thoughtOperations = App.getGardenGraph().queryNodes("thought_operation", queryClause);
-//
-//      // set the thought result
-//      _thoughtResult = App.getGardenGraph().queryNodes("thought_result", queryClause).get(0);
 
       // set the thought's goal
       List<Triple<Node, Edge, Node>> triple = App.getGardenGraph().expandLeft(_thoughtNode, "approach", null, null);
@@ -284,6 +282,10 @@ public class Thought {
          results.add(thisLayerNodes);
       }
       return results;
+   }
+
+   public Node getGoal() {
+      return _goal;
    }
    
 }

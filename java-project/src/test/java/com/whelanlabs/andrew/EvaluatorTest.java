@@ -1,5 +1,7 @@
 package com.whelanlabs.andrew;
 
+import static org.junit.Assert.fail;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,20 +21,17 @@ public class EvaluatorTest {
    }
 
    @Test
-   public void evaluate_perfectFit_one() {
-//      Evaluator evaluator = new Evaluator();
-//      Goal goal = new Goal("next", Direction.outbound, 1, "value");
-//      String nodeType = ElementHelper.generateName();
-//      Node guess = new Node(ElementHelper.generateKey(), nodeType);
-//      guess.addAttribute("value", Float.valueOf("3.14159"));
-//      Node answer = new Node(ElementHelper.generateKey(), nodeType);
-//      answer.addAttribute("value", Float.valueOf("3.14159"));
-//      Criteria criteria = new AbsDistanceCriteria();
-//      Double fitness = evaluator.evualate(guess, answer, goal, criteria );
-//      
-//      assert(fitness != null);
-//      float tolerableDifference = (float) 0.00001;
-//      assert(Math.abs(fitness) < tolerableDifference);
+   public void evaluate_oneThoght_getResult() {
+      
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+      Evaluator evaluator = new Evaluator(thought.getGoal());
+      
+      // TODO: create test range.
+      TestRange testRange = null;
+      
+      evaluator.evaluateThoughts(testRange, 3);
+      
+      fail("test not complete.");
    }
 
 }

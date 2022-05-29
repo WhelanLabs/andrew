@@ -16,11 +16,13 @@ public class AppTest {
    public static void setUpBeforeClass() throws Exception {
       App.initialize("linear_dataset_tests");
       App.getDataGraph().flush();
+      App.getGardenGraph().flush();
    }
 
    @AfterClass
    public static void tearDownAfterClass() throws Exception {
       App.getDataGraph().cleanup();
+      App.getGardenGraph().flush();
    }
 
    @Test

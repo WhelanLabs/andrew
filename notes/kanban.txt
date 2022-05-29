@@ -37,7 +37,7 @@
 * run a thought and measure the result against the goal
 
 ##########################################################
-# backlog
+# functional backlog
 ##########################################################
 
 * create initial offspring generator
@@ -63,3 +63,15 @@
 * add README content: ### Interactive Capable
 
 * README content for composition of genetic solution solutions from genetic solutions.
+
+
+##########################################################
+# performance backlog
+##########################################################
+
+* go through code, identify each for loop, and consider parallel processing it using a reusable thread pool.
+  (limit the total number of threads...)  This is likely to result in multiple work items.
+  
+* speed up unit tests by reducing the number of flushes necessary.
+
+
