@@ -39,6 +39,13 @@ public class Operations {
       String relationType = (String) inputs.get(currentNode.getKey() + "." + "traversalEdgeType");
       Integer distance = ((Number) inputs.get(currentNode.getKey() + "." + "distance")).intValue();
 
+      Node previousNode = traverse(startingNode, direction, relationType, distance);
+
+      results.put("RESULT", previousNode);
+      return results;
+   }
+
+   public static Node traverse(Node startingNode, String direction, String relationType, Integer distance) {
       logger.debug("traverse() ");
       logger.debug("   startingNode = " + startingNode);
       logger.debug("   direction = " + direction);
@@ -70,9 +77,7 @@ public class Operations {
          }
          previousNode = expansions.get(0).getRight();
       }
-
-      results.put("RESULT", previousNode);
-      return results;
+      return previousNode;
    }
 
    public static Map<String, Object> multiply(Node node, Map<String, Object> inputs) {

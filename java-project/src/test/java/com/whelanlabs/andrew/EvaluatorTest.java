@@ -2,6 +2,8 @@ package com.whelanlabs.andrew;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,7 +37,7 @@ public class EvaluatorTest {
       // TODO: create test range.
       Integer maxTime = 500; // test data goes to time~=1000
       
-      evaluator.evaluateThoughts(maxTime, 3);
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts(maxTime, 3);
       
       fail("test not complete.");
    }

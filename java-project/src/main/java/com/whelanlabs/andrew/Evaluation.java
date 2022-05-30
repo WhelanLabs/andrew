@@ -5,15 +5,21 @@ import com.whelanlabs.kgraph.engine.Node;
 public class Evaluation {
 
    private Node _thought;
-   private Float _score;
+   private Number _guess;
+   private Number _actual;
 
-   public Evaluation(Node thought, Float score) {
+   public Evaluation(Node thought, Number guess, Number actual) {
       _thought = thought;
-      _score = score;
+      _guess = guess;
+      _actual = actual;
    }
    
-   public Float getScore() {
-      return _score;
+   public Number getGuess() {
+      return _guess;
+   }
+   
+   public Number getActual() {
+      return _actual;
    }
    
    public Node getThought() {

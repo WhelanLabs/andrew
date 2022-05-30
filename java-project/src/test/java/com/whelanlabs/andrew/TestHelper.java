@@ -21,6 +21,7 @@ public class TestHelper {
       goalNode.addAttribute("direction", Direction.outbound.toString());
       goalNode.addAttribute("name", "goalNode" );
       goalNode.addAttribute("distance", 10);
+      goalNode.addAttribute("startingType", "LinearDatasetNode");
       goalNode.addAttribute("targetProperty", "value");
       goalNode.addAttribute("resultClass", "Float");
 
@@ -97,6 +98,7 @@ public class TestHelper {
       
       //create the goal
       final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      goalNode.addAttribute("startingType", "LinearDatasetNode");
       goalNode.addAttribute("relationType", "LinearDatasetEdge");
       goalNode.addAttribute("direction", Direction.outbound.toString());
       goalNode.addAttribute("name", "goalNode" );

@@ -8,63 +8,91 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.arangodb.ArangoCursor;
 import com.arangodb.ArangoDBException;
+import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.BaseDocument;
 import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
 
 public class Evaluator {
 
    private Node _goal;
+   private static Logger logger = LogManager.getLogger(Evaluator.class);
 
    public Evaluator(Node goal) {
       _goal = goal;
    }
 
    public List<Evaluation> evaluateThoughts(Integer maxTime, Integer numTests) throws Exception {
+      logger.debug("evaluateThoughts: " + maxTime + ", " + numTests);
+
+      List<Node> startingNodes = new ArrayList<>();
+
       List<Evaluation> results = new ArrayList<>();
 
-      List<Triple<Node, Edge, Node>> expansions = App.getDataGraph().expandRight(_goal, "approach", null, null);
+      List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
+      logger.debug("expansions: " + expansions);
+
 
       List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
 
       Random random = new Random();
 
       for (int i = 0; i < numTests; i++) {
-         Integer randomNumber = random.nextInt(maxTime);
+         Integer randomTime = random.nextInt(maxTime);
+         logger.debug("randomTime: " + randomTime);
 
-         // TODO: push this down into KGraph.
+         // TODO: port the following code to KGraph once it is working.
 
          /* TODO: use AQL to sort and limit based on the closest time
           * before or equal to the limit.
           */
          try {
-            // TODO: Should the DB be exposed? code change needed?
-            KnowledgeGraph arangoDB = App.getDataGraph();
-            Object database = arangoDB.db("dbName");
+            // startingType
+            String startingType = (String) _goal.getAttribute("startingType");
+            logger.debug("_goal: " + _goal);
+            logger.debug("startingType: " + startingType);
 
-            String query = "FOR t IN firstCollection FILTER t.name == @name RETURN t";
-            Map<String, Object> bindVars = Collections.singletonMap("name", "Homer");
-            ArangoCursor<BaseDocument> cursor = database.query(query, bindVars, null, BaseDocument.class);
+            ArangoDatabase arangoUserDB = App.getDataGraph()._userDB;
+
+            String query = "FOR t IN " + startingType + " FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+            logger.debug("query: " + query);
+
+            Map<String, Object> bindVars = Collections.singletonMap("time", randomTime);
+            ArangoCursor<Node> cursor = arangoUserDB.query(query, bindVars, null, Node.class);
             cursor.forEachRemaining(aDocument -> {
-               System.out.println("Key: " + aDocument.getKey());
+               logger.debug("result: " + aDocument);
+               startingNodes.add(aDocument);
             });
          } catch (ArangoDBException e) {
-            System.err.println("Failed to execute query. " + e.getMessage());
-         }
-
-         Node startingNode = null;
-
-         for (Node thoughtNode : thoughts) {
-            Thought thought = new Thought(thoughtNode);
-            thought.forecast(startingNode);
+            logger.error("Failed to execute query. " + e.getMessage());
          }
       }
 
-      return null;
+      logger.debug("startingNodes: " + startingNodes);
+      for (Node startingNode : startingNodes) {
+         
+      // TODO: traverse to the actual result
+         // Operations.traverse(Node startingNode, String direction, String relationType, Integer distance);
+         String direction = (String)_goal.getAttribute("direction");
+         String relationType = (String)_goal.getAttribute("relationType");
+         Integer distance = (Integer)_goal.getAttribute("distance");
+         String targetProperty = (String)_goal.getAttribute("targetProperty");
+         Number actualResult = (Number)Operations.traverse(startingNode, direction, relationType, distance).getAttribute(targetProperty);
+         
+         for (Node thoughtNode : thoughts) {
+            Thought thought = new Thought(thoughtNode);
+            Number forecastResult = (Number)thought.forecast(startingNode).get("RESULT.output");
+
+            results.add(new Evaluation(thoughtNode, forecastResult, actualResult));
+         }
+      }
+      
+      return results;
    }
 
 }
