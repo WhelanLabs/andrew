@@ -36,15 +36,15 @@
 # WIP
 ##########################################################
 
-* score the thoughts for a goal.
+* Make a scoring machine and score the thoughts for a goal.
 
 ##########################################################
 # functional backlog
 ##########################################################
 
-* create initial offspring generator
+* break the classes into different packages
 
-* make an evualator
+* create initial offspring generator
 
 * support genetic operations on offspring generators
 
