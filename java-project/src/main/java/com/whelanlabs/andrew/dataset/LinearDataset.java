@@ -21,7 +21,7 @@ public class LinearDataset extends Dataset {
       List<Node> results = new ArrayList<>();
       for(int i=1; i<=size ; i++) {
          Node result = new Node("LinearDatasetNode_"+i, "LinearDatasetNode");
-         result.addAttribute("time", i);
+         result.addAttribute("time", i+1);
          result.addAttribute("value", i+9);
          results.add(result);
       }
@@ -33,7 +33,7 @@ public class LinearDataset extends Dataset {
       List<Edge> results = new ArrayList<>();
       for(int i=1; i<size ; i++) {
          Edge result = new Edge("LinearDatasetEdge_"+i + "_to_" + (i+1), "LinearDatasetNode_"+i, "LinearDatasetNode_"+(i+1), "LinearDatasetNode", "LinearDatasetNode", "LinearDatasetEdge");
-         result.addAttribute("time", i+1);
+         result.addAttribute("time", i+2);
          results.add(result);
       }
       return results;

@@ -30,11 +30,13 @@
   
 * develop sequencing to process a thought - getOperationsByMaxLayer()
 
+* run a thought and measure the result against the goal
+
 ##########################################################
 # WIP
 ##########################################################
 
-* run a thought and measure the result against the goal
+* score the thoughts for a goal.
 
 ##########################################################
 # functional backlog

@@ -27,8 +27,8 @@ public class Evaluator {
       _goal = goal;
    }
 
-   public List<Evaluation> evaluateThoughts(Integer maxTime, Integer numTests) throws Exception {
-      logger.debug("evaluateThoughts: " + maxTime + ", " + numTests);
+   public List<Evaluation> evaluateThoughts(Integer minTime, Integer maxTime, Integer numTests) throws Exception {
+      logger.debug("evaluateThoughts: " + minTime + ", " + maxTime + ", " + numTests);
 
       List<Node> startingNodes = new ArrayList<>();
 
@@ -37,13 +37,12 @@ public class Evaluator {
       List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
       logger.debug("expansions: " + expansions);
 
-
       List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
 
       Random random = new Random();
 
       for (int i = 0; i < numTests; i++) {
-         Integer randomTime = random.nextInt(maxTime);
+         Integer randomTime = random.nextInt(maxTime-minTime) + minTime;
          logger.debug("randomTime: " + randomTime);
 
          // TODO: port the following code to KGraph once it is working.
@@ -51,7 +50,6 @@ public class Evaluator {
          /* TODO: use AQL to sort and limit based on the closest time
           * before or equal to the limit.
           */
-         try {
             // startingType
             String startingType = (String) _goal.getAttribute("startingType");
             logger.debug("_goal: " + _goal);
@@ -68,30 +66,31 @@ public class Evaluator {
                logger.debug("result: " + aDocument);
                startingNodes.add(aDocument);
             });
-         } catch (ArangoDBException e) {
-            logger.error("Failed to execute query. " + e.getMessage());
-         }
       }
 
       logger.debug("startingNodes: " + startingNodes);
       for (Node startingNode : startingNodes) {
-         
-      // TODO: traverse to the actual result
-         // Operations.traverse(Node startingNode, String direction, String relationType, Integer distance);
-         String direction = (String)_goal.getAttribute("direction");
-         String relationType = (String)_goal.getAttribute("relationType");
-         Integer distance = (Integer)_goal.getAttribute("distance");
-         String targetProperty = (String)_goal.getAttribute("targetProperty");
-         Number actualResult = (Number)Operations.traverse(startingNode, direction, relationType, distance).getAttribute(targetProperty);
-         
+
+         // TODO: traverse to the actual result
+         // Operations.traverse(Node startingNode, String direction, String relationType,
+         // Integer distance);
+         String direction = (String) _goal.getAttribute("direction");
+         String relationType = (String) _goal.getAttribute("relationType");
+         Integer distance = (Integer) _goal.getAttribute("distance");
+         String targetProperty = (String) _goal.getAttribute("targetProperty");
+         Number actualResult = (Number) Operations.traverse(startingNode, direction, relationType, distance).getAttribute(targetProperty);
+
          for (Node thoughtNode : thoughts) {
             Thought thought = new Thought(thoughtNode);
-            Number forecastResult = (Number)thought.forecast(startingNode).get("RESULT.output");
-
+            Number forecastResult = null;
+            try {
+               forecastResult = (Number) thought.forecast(startingNode).get("RESULT.output");
+            } catch (Exception e) {
+               logger.warn("Forecast failed: " + e.getMessage() + "\n" + "startingNode = " + startingNode + "\n" + "thoughtNode = " + thoughtNode);
+            }
             results.add(new Evaluation(thoughtNode, forecastResult, actualResult));
          }
       }
-      
       return results;
    }
 

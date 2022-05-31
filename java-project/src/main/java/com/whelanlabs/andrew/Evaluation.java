@@ -25,4 +25,12 @@ public class Evaluation {
    public Node getThought() {
       return _thought;
    }
+   
+   public String toString(){
+      return "{ " + 
+         "guess:\"" + getGuess() +
+         "\", actual:\"" + getActual() +
+         "\", thought:\"" + getThought() +
+       "\"}";
+     }
 }

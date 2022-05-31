@@ -44,9 +44,9 @@ public class LinearDatasetTest {
       logger.debug("results1 = " + results1);
 
       // test for time values
-      assert (Integer.valueOf(100).equals(results1.get(0).getLeft().getAttribute("time")));
-      assert (Integer.valueOf(101).equals(results1.get(0).getRight().getAttribute("time")));
-      assert (Integer.valueOf(101).equals(results1.get(0).getMiddle().getAttribute("time")));
+      assert (Integer.valueOf(101).equals(results1.get(0).getLeft().getAttribute("time"))): results1.get(0).getLeft().getAttribute("time");
+      assert (Integer.valueOf(102).equals(results1.get(0).getRight().getAttribute("time"))): results1.get(0).getRight().getAttribute("time");
+      assert (Integer.valueOf(102).equals(results1.get(0).getMiddle().getAttribute("time"))): results1.get(0).getMiddle().getAttribute("time");
 
       Integer v1 = (Integer) results1.get(0).getLeft().getAttribute("value");
       Integer v2 = (Integer) results1.get(0).getRight().getAttribute("value");
