@@ -48,8 +48,6 @@ public class GeneralScoringMachineTest {
       
       assert (thoughtScores.size() == 3) : thoughtScores;
       assert ("thoughtName".equals(thoughtScores.get(0).getThoughtName())) : thoughtScores;
-      
-      fail("not yet implemented");
    }
 
 }
