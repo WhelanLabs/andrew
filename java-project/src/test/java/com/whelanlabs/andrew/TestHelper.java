@@ -277,5 +277,49 @@ public class TestHelper {
       
       return new Thought(thoughtKey);
    }
+
+
+   public static Thought buildMultiplicationThought(Node goal, Float multiplier) {
+      String thoughtKey = ElementHelper.generateKey();
+      
+      // create a thought node
+      final Node n1 = new Node(thoughtKey, "thought");
+      n1.addAttribute("name", "n1" );
+      
+      final Node n2 = new Node(ElementHelper.generateKey(), "thought_operation");
+      n2.addAttribute("thought_key", n1.getKey());
+      n2.addAttribute("name", "n6" );
+      n2.addAttribute("operationName", "multiply");
+      
+      final Node end = new Node(ElementHelper.generateKey(), "thought_result");
+      end.addAttribute("thought_key", n1.getKey());
+      end.addAttribute("name", "end" );
+      end.addAttribute("operationName", "end");
+      
+      // link the thought process using valid sequence relationships
+      Edge e0 = new Edge(ElementHelper.generateKey(), goal, n1, "approach");
+      e0.addAttribute("name", "e0" );
+
+      Edge e1 = new Edge(ElementHelper.generateKey(), n1, end, "thought_sequence");
+      e1.addAttribute("name", "e1" );
+      e1.addAttribute("input", "targetPropValue" );
+      e1.addAttribute("output", "floatA");
+      
+      Edge e2 = new Edge(ElementHelper.generateKey(), n1, end, "thought_sequence");
+      String multiplierString = "NUMBER." + multiplier;
+      e2.addAttribute("name", "e2" );
+      e2.addAttribute("input", multiplierString );
+      e2.addAttribute("output", "floatB");
+      
+      Edge e3 = new Edge(ElementHelper.generateKey(), n1, end, "thought_sequence");
+      e3.addAttribute("name", "e3" );
+      e3.addAttribute("input", "targetPropValue" );
+      e3.addAttribute("output", "output");
+      
+      App.getGardenGraph().upsert(n1, n2, end);
+      App.getGardenGraph().upsert(e0, e1, e2, e3);
+      
+      return new Thought(thoughtKey);
+   }
  
 }
