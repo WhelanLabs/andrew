@@ -4,14 +4,18 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.LinearDataset;
 
-public class GeneralScoringMachineTest {
+public class AveragePercentageScoringMachineTest {
 
+   private static Logger logger = LogManager.getLogger(AveragePercentageScoringMachineTest.class);
+   
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
       String databaseName = "andrew_test_database";
@@ -43,11 +47,13 @@ public class GeneralScoringMachineTest {
 
       assert (evualationResults.size() == 30) : evualationResults.size();
       
-      ScoringMachine scoringMachine = new GeneralScoringMachine();
-      List<ThoughtScore> thoughtScores = scoringMachine.scoreAndRank(evualationResults);
+      logger.debug("evualationResults = " + evualationResults );
       
+      ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
+      List<ThoughtScore> thoughtScores = scoringMachine.scoreAndRank(evualationResults);
+
       assert (thoughtScores.size() == 3) : thoughtScores;
-      assert ("thoughtName".equals(thoughtScores.get(0).getThoughtName())) : thoughtScores;
+      assert ("thoughtName".equals(thoughtScores.get(0).getThoughtKey())) : thoughtScores;
    }
 
 }

@@ -1,10 +1,33 @@
 package com.whelanlabs.andrew;
 
-public class ThoughtScore {
+public class ThoughtScore implements Comparable<ThoughtScore> {
 
-   public String getThoughtName() {
-      // TODO Auto-generated method stub
-      return null;
+   private String _thoughtKey;
+   private Float _score;
+
+   public ThoughtScore(String thoughtKey, Float score) {
+      _thoughtKey = thoughtKey;
+      _score = score;
+   }
+   
+   public String getThoughtKey() {
+      return _thoughtKey;
+   }
+   
+   public Float getThoughtScore() {
+      return _score;
+   }
+
+   @Override
+   public int compareTo(ThoughtScore o) {
+      return this.getThoughtScore().compareTo(o.getThoughtScore());
+   }
+   
+   public String toString() {
+      return "{ " + 
+            "thoughtKey:\"" + getThoughtKey() +
+            "\", score:\"" + getThoughtScore() +
+          "\"}";
    }
 
 }
