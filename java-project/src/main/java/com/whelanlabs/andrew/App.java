@@ -2,6 +2,7 @@ package com.whelanlabs.andrew;
 
 import java.util.List;
 
+import com.whelanlabs.andrew.dataset.Dataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;

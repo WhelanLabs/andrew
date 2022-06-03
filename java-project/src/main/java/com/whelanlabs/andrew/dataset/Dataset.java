@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew;
+package com.whelanlabs.andrew.dataset;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ public abstract class Dataset {
 
    public abstract String getDatasetInfoID();
 
-   protected abstract List<Node> getNodesToLoad();
+   public abstract List<Node> getNodesToLoad();
 
-   protected abstract List<Edge> getEdgesToLoad();
+   public abstract List<Edge> getEdgesToLoad();
 
-   protected abstract Object getMaxTime();
+   public abstract Object getMaxTime();
 }

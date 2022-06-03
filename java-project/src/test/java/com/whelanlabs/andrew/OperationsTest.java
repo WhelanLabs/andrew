@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.arangodb.model.TraversalOptions.Direction;
-import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.andrew.dataset.sample.LinearDataset;
 import com.whelanlabs.kgraph.engine.Node;
 
 public class OperationsTest {

@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew;
+package com.whelanlabs.andrew.process.selection;
 
 public class ThoughtScore implements Comparable<ThoughtScore> {
 

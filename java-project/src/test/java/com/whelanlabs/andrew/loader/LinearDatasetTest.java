@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.App;
-import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.andrew.dataset.sample.LinearDataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 

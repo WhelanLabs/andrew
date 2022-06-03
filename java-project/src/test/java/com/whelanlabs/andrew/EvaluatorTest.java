@@ -11,7 +11,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.arangodb.model.TraversalOptions.Direction;
-import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.andrew.dataset.sample.LinearDataset;
+import com.whelanlabs.andrew.process.evaluate.Evaluation;
+import com.whelanlabs.andrew.process.evaluate.Evaluator;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 

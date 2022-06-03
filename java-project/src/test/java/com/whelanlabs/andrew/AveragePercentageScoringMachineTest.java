@@ -11,7 +11,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.andrew.dataset.sample.LinearDataset;
+import com.whelanlabs.andrew.process.evaluate.Evaluation;
+import com.whelanlabs.andrew.process.evaluate.Evaluator;
+import com.whelanlabs.andrew.process.selection.AveragePercentageScoringMachine;
+import com.whelanlabs.andrew.process.selection.ScoringMachine;
+import com.whelanlabs.andrew.process.selection.ThoughtScore;
 
 public class AveragePercentageScoringMachineTest {
 

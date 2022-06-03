@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew;
+package com.whelanlabs.andrew.process.evaluate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +15,9 @@ import com.arangodb.ArangoCursor;
 import com.arangodb.ArangoDBException;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.BaseDocument;
+import com.whelanlabs.andrew.App;
+import com.whelanlabs.andrew.Operations;
+import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
@@ -46,21 +49,16 @@ public class Evaluator {
          logger.debug("randomTime: " + randomTime);
 
          // TODO: port the following code to KGraph once it is working.
-
-         /* TODO: use AQL to sort and limit based on the closest time
-          * before or equal to the limit.
-          */
-            // startingType
             String startingType = (String) _goal.getAttribute("startingType");
             logger.debug("_goal: " + _goal);
             logger.debug("startingType: " + startingType);
-
-            ArangoDatabase arangoUserDB = App.getDataGraph()._userDB;
 
             String query = "FOR t IN " + startingType + " FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
             logger.debug("query: " + query);
 
             Map<String, Object> bindVars = Collections.singletonMap("time", randomTime);
+            
+            ArangoDatabase arangoUserDB = App.getDataGraph()._userDB;
             ArangoCursor<Node> cursor = arangoUserDB.query(query, bindVars, null, Node.class);
             cursor.forEachRemaining(aDocument -> {
                logger.debug("result: " + aDocument);
@@ -71,9 +69,6 @@ public class Evaluator {
       logger.debug("startingNodes: " + startingNodes);
       for (Node startingNode : startingNodes) {
 
-         // TODO: traverse to the actual result
-         // Operations.traverse(Node startingNode, String direction, String relationType,
-         // Integer distance);
          String direction = (String) _goal.getAttribute("direction");
          String relationType = (String) _goal.getAttribute("relationType");
          Integer distance = (Integer) _goal.getAttribute("distance");
