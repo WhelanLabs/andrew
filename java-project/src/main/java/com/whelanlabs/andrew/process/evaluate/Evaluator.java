@@ -58,12 +58,7 @@ public class Evaluator {
 
             Map<String, Object> bindVars = Collections.singletonMap("time", randomTime);
             
-            ArangoDatabase arangoUserDB = App.getDataGraph()._userDB;
-            ArangoCursor<Node> cursor = arangoUserDB.query(query, bindVars, null, Node.class);
-            cursor.forEachRemaining(aDocument -> {
-               logger.debug("result: " + aDocument);
-               startingNodes.add(aDocument);
-            });
+            startingNodes.addAll(App.getDataGraph().query(query, bindVars));
       }
 
       logger.debug("startingNodes: " + startingNodes);
@@ -88,5 +83,7 @@ public class Evaluator {
       }
       return results;
    }
+
+
 
 }

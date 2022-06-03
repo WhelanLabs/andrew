@@ -34,7 +34,7 @@ public class AveragePercentageScoringMachineTest {
    }
 
    @Test
-   public void scoreAndRank_threeThoghts_getgetRelativeScores() throws Exception {
+   public void scoreAndRank_threeThoughts_getgetRelativeScores() throws Exception {
 
       Thought t1 = TestHelper.buildModifiedInitialTestThought();
       
