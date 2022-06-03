@@ -22,10 +22,9 @@ public class AveragePercentageScoringMachine implements ScoringMachine {
             score = 0f;
          }
          
-         Float guess = ((Number)evualationResult.getGuess()).floatValue();
-         Float actual = ((Number)evualationResult.getActual()).floatValue();
-
          if (null == score) {
+            Float guess = ((Number)evualationResult.getGuess()).floatValue();
+            Float actual = ((Number)evualationResult.getActual()).floatValue();
             score = Math.min(guess, actual)/Math.max(guess, actual);
          }
          if(runningTotals.containsKey(thoughtKey)) {

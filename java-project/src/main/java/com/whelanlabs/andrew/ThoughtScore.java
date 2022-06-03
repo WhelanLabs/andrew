@@ -23,11 +23,11 @@ public class ThoughtScore implements Comparable<ThoughtScore> {
       return this.getThoughtScore().compareTo(o.getThoughtScore());
    }
    
-   public String toString() {
-      return "{ " + 
-            "thoughtKey:\"" + getThoughtKey() +
-            "\", score:\"" + getThoughtScore() +
-          "\"}";
-   }
+//   public String toString() {
+//      return "{ " + 
+//            "thoughtKey:\"" + getThoughtKey() +
+//            "\", score:\"" + getThoughtScore() +
+//          "\"}";
+//   }
 
 }

@@ -32,17 +32,19 @@
 
 * run a thought and measure the result against the goal
 
+* Make a scoring machine and score the thoughts for a goal.
+
 ##########################################################
 # WIP
 ##########################################################
 
-* Make a scoring machine and score the thoughts for a goal.
+* break the classes into different packages
 
 ##########################################################
 # functional backlog
 ##########################################################
 
-* break the classes into different packages
+
 
 * create initial offspring generator
 

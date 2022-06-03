@@ -278,6 +278,22 @@ public class TestHelper {
       return new Thought(thoughtKey);
    }
 
+   
+   public static Thought buildMultiplicationThought(Float multiplier) {
+      //create the goal
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      goalNode.addAttribute("startingType", "LinearDatasetNode");
+      goalNode.addAttribute("relationType", "LinearDatasetEdge");
+      goalNode.addAttribute("direction", Direction.outbound.toString());
+      goalNode.addAttribute("name", "goalNode" );
+      goalNode.addAttribute("distance", 10);
+      goalNode.addAttribute("targetProperty", "value");
+      goalNode.addAttribute("resultClass", "Float");
+      
+      App.getGardenGraph().upsert(goalNode);
+      
+      return buildMultiplicationThought(goalNode, multiplier);
+   }
 
    public static Thought buildMultiplicationThought(Node goal, Float multiplier) {
       String thoughtKey = ElementHelper.generateKey();
@@ -300,20 +316,20 @@ public class TestHelper {
       Edge e0 = new Edge(ElementHelper.generateKey(), goal, n1, "approach");
       e0.addAttribute("name", "e0" );
 
-      Edge e1 = new Edge(ElementHelper.generateKey(), n1, end, "thought_sequence");
+      Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("name", "e1" );
       e1.addAttribute("input", "targetPropValue" );
       e1.addAttribute("output", "floatA");
       
-      Edge e2 = new Edge(ElementHelper.generateKey(), n1, end, "thought_sequence");
+      Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       String multiplierString = "NUMBER." + multiplier;
       e2.addAttribute("name", "e2" );
       e2.addAttribute("input", multiplierString );
       e2.addAttribute("output", "floatB");
       
-      Edge e3 = new Edge(ElementHelper.generateKey(), n1, end, "thought_sequence");
+      Edge e3 = new Edge(ElementHelper.generateKey(), n2, end, "thought_sequence");
       e3.addAttribute("name", "e3" );
-      e3.addAttribute("input", "targetPropValue" );
+      e3.addAttribute("input", "RESULT" );
       e3.addAttribute("output", "output");
       
       App.getGardenGraph().upsert(n1, n2, end);

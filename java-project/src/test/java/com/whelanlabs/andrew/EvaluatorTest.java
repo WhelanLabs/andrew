@@ -43,7 +43,7 @@ public class EvaluatorTest {
 
       assert (evualationResults.size() == 3) : evualationResults;
    }
-
+   
    @Test
    public void evaluate_thoughtProcessGoesOutOfBounds_getNullGuess() throws Exception {
 

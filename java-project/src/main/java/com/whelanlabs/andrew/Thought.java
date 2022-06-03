@@ -40,6 +40,14 @@ public class Thought {
       _goal = triple.get(0).getRight();
    }
    
+   public String getKey() {
+      return _thoughtNode.getKey();
+   }
+   
+   public Node getThoughtNode() {
+      return _thoughtNode;
+   }
+   
    public Thought(String thoughtKey) {
       // set the thought node
       _thoughtNode = App.getGardenGraph().getNodeByKey(thoughtKey, "thought");
@@ -159,7 +167,7 @@ public class Thought {
       Object result = null;
 
       if (inputProp.startsWith("NUMBER.")) {
-         String[] numStringArray = inputProp.split("\\.");
+         String[] numStringArray = inputProp.split("\\.", 2);
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
       }

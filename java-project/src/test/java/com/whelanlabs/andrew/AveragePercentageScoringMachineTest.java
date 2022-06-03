@@ -2,6 +2,7 @@ package com.whelanlabs.andrew;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -36,14 +37,13 @@ public class AveragePercentageScoringMachineTest {
       Thought t2 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.0f);
       
       // TODO: add thought #3 - return starting node value X 1.04
-      Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.04f);
+      Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.1f);
       
       Evaluator evaluator = new Evaluator(t1.getGoal());
 
       Integer maxTime = 500; // test data goes to time~=1000
 
       List<Evaluation> evualationResults = evaluator.evaluateThoughts(20, maxTime, 10);
-      // logger.debug("evualationResults: " + evualationResults);
 
       assert (evualationResults.size() == 30) : evualationResults.size();
       
@@ -53,7 +53,25 @@ public class AveragePercentageScoringMachineTest {
       List<ThoughtScore> thoughtScores = scoringMachine.scoreAndRank(evualationResults);
 
       assert (thoughtScores.size() == 3) : thoughtScores;
-      assert ("thoughtName".equals(thoughtScores.get(0).getThoughtKey())) : thoughtScores;
+      assert (t1.getKey().equals(thoughtScores.get(0).getThoughtKey())) : thoughtScores;
+      
+      logger.debug("thoughtScores = " + thoughtScores );
    }
 
+   @Test
+   public void scoreAndRank_guessIsNull_scoreIsZero() throws Exception {
+
+      List<Evaluation> evualationResults = new ArrayList<>();
+      Thought thought = TestHelper.buildMultiplicationThought(1.0f);
+      Evaluation nullEval = new Evaluation(thought.getThoughtNode(), null, 7);
+      evualationResults.add(nullEval);
+      
+      ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
+      List<ThoughtScore> thoughtScores = scoringMachine.scoreAndRank(evualationResults);
+
+      assert (thoughtScores.size() == 1) : thoughtScores;
+      assert (0 == thoughtScores.get(0).getThoughtScore()) : thoughtScores;
+      
+      logger.debug("thoughtScores = " + thoughtScores );
+   }
 }

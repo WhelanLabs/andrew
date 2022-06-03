@@ -100,6 +100,35 @@ public class ThoughtTest {
       
    }
    
+   @Test
+   public void runThought_multiplyThought_success() throws Exception {
+      
+      Float multiplier = 1.04f;
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+
+      Thought thought = TestHelper.buildMultiplicationThought(multiplier);
+      
+      App.loadDatasetToDataGraph(new LinearDataset());
+      
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+
+      Map<String, Object> result = thought.forecast(startingNode);
+      
+      assert (null != result);
+      logger.debug("result = " + result);
+      
+      Number guess = (Number)result.get("RESULT.output");
+      logger.debug("guess = " + guess);
+      
+      // Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510", "LinearDatasetNode");
+      Number initialValue = (Number)startingNode.getAttribute("value");
+      logger.debug("initialValue = " + initialValue);
+      
+      assert ( Math.abs(guess.floatValue() - (initialValue.floatValue() * multiplier)) < 0.5): "{" + guess + ", " + initialValue + "}";
+      
+   }
+   
    @Test(expected = RuntimeException.class)
    public void runThought_invalidNodeType_exception() throws Exception {
       App.getDataGraph().flush();
