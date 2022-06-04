@@ -5,7 +5,7 @@ import java.util.List;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
-public abstract class Dataset {
+public interface Dataset {
 
    public abstract String getDatasetInfoID();
 

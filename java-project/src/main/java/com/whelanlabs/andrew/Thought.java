@@ -25,9 +25,6 @@ import com.whelanlabs.kgraph.engine.QueryClause;
 public class Thought {
 
    protected Node _thoughtNode;
-//   protected List<Node> _thoughtOperations;
-//   private List<Edge> _thoughtSequences;
-//   private Node _thoughtResult;
    private Node _goal;
 
    private static Logger logger = LogManager.getLogger(Thought.class);

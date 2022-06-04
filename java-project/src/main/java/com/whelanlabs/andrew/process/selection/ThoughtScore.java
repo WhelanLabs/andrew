@@ -22,12 +22,5 @@ public class ThoughtScore implements Comparable<ThoughtScore> {
    public int compareTo(ThoughtScore o) {
       return this.getThoughtScore().compareTo(o.getThoughtScore());
    }
-   
-//   public String toString() {
-//      return "{ " + 
-//            "thoughtKey:\"" + getThoughtKey() +
-//            "\", score:\"" + getThoughtScore() +
-//          "\"}";
-//   }
 
 }

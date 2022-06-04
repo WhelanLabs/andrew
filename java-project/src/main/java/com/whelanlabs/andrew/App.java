@@ -8,10 +8,6 @@ import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
-/**
- * Hello world!
- *
- */
 public class App {
    private static KnowledgeGraph _dataGraph = null;
    private static KnowledgeGraph _gardenGraph = null;

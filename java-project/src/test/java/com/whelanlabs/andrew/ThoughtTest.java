@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.whelanlabs.andrew.dataset.sample.LinearDataset;
+import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Node;
 
 public class ThoughtTest {
@@ -25,28 +25,6 @@ public class ThoughtTest {
 
    @AfterClass
    public static void tearDownAfterClass() throws Exception {
-   }
-
-   @Test
-   public void forecast_simpleInputs_simpleOutputs() {
-      // forecast given a simple thought and simple data.
-
-//      String rel = "next";
-//      Direction direction = Direction.outbound;
-//      Integer distance = 1;
-//      String targetProperty = "value";
-//
-//      
-//      Thought initialTestThought = buildInitialTestThought();
-//      Thought thought = new Thought(initialTestThought.getKey());
-//      Node startingPoint = new Node(ElementHelper.generateKey(), ElementHelper.generateName());
-//      startingPoint.addAttribute(targetProperty, Float.valueOf("3.14159"));
-//
-//      Goal goal = new Goal(rel, direction, distance, targetProperty);
-//      Node result = thought.forecast(startingPoint, goal);
-//      logger.debug("result = " + result);
-//
-//      assert (result != null);
    }
 
    @Test
@@ -161,7 +139,6 @@ public class ThoughtTest {
    @Test
    public void getOperationsByMaxLayer_initialTestThought_success() throws Exception {
       
-      //App.getGardenGraph().flush();
       Thought thought = TestHelper.buildInitialTestThought();
        List<Set<Node>> opsByLayer = thought.getOperationsByMaxLayer();
       

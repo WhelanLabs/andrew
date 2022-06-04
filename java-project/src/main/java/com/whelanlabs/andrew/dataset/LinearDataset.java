@@ -1,13 +1,12 @@
-package com.whelanlabs.andrew.dataset.sample;
+package com.whelanlabs.andrew.dataset;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.whelanlabs.andrew.dataset.Dataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
-public class LinearDataset extends Dataset {
+public class LinearDataset implements Dataset {
 
    private final Integer size = 1000;
 
