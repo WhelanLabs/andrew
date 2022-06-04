@@ -34,17 +34,17 @@
 
 * Make a scoring machine and score the thoughts for a goal.
 
+* break the classes into different packages
+
 ##########################################################
 # WIP
 ##########################################################
 
-* break the classes into different packages
+
 
 ##########################################################
 # functional backlog
 ##########################################################
-
-
 
 * create initial offspring generator
 
