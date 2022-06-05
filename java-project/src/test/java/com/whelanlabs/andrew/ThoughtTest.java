@@ -29,26 +29,26 @@ public class ThoughtTest {
 
    @Test
    public void buildThought_valid_success() throws Exception {
-      
+
       App.getGardenGraph().flush();
-      
+
       Long pre_thought_count = App.getGardenGraph().getCount("thought");
       Long pre_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
       Long pre_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
       Long pre_thought_result_count = App.getGardenGraph().getCount("thought_result");
 
       Long pre_count = pre_thought_count + pre_thought_operation_count + pre_thought_sequence_count + pre_thought_result_count;
-      
+
       TestHelper.buildInitialTestThought();
-      
+
       Long post_thought_count = App.getGardenGraph().getCount("thought");
       Long post_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
       Long post_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
       Long post_thought_result_count = App.getGardenGraph().getCount("thought_result");
 
       Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
-            
-      assert (pre_count +14 == post_count): "{" + pre_count + ", " +post_count + "}";
+
+      assert (pre_count + 14 == post_count) : "{" + pre_count + ", " + post_count + "}";
    }
 
    @Test
@@ -57,95 +57,107 @@ public class ThoughtTest {
       App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
-      
+
       App.loadDatasetToDataGraph(new LinearDataset());
-      
+
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       Map<String, Object> result = thought.forecast(startingNode);
-      
+
       assert (null != result);
       logger.debug("result = " + result);
-      
-      Number guess = (Number)result.get("RESULT.output");
-      //logger.debug("guess = " + guess);
-      
+
+      Number guess = (Number) result.get("RESULT.output");
+      // logger.debug("guess = " + guess);
+
       Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510", "LinearDatasetNode");
-      Number answer = (Number)answerNode.getAttribute("value");
-      //logger.debug("answer = " + answer);
-      
-      assert ( Math.abs(guess.floatValue() - answer.floatValue()) < 1): "{" + guess + ", " + answer + "}";
-      
+      Number answer = (Number) answerNode.getAttribute("value");
+      // logger.debug("answer = " + answer);
+
+      assert (Math.abs(guess.floatValue() - answer.floatValue()) < 1) : "{" + guess + ", " + answer + "}";
+
    }
-   
+
    @Test
    public void runThought_multiplyThought_success() throws Exception {
-      
+
       Float multiplier = 1.04f;
       App.getDataGraph().flush();
       App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildMultiplicationThought(multiplier);
-      
+
       App.loadDatasetToDataGraph(new LinearDataset());
-      
+
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       Map<String, Object> result = thought.forecast(startingNode);
-      
+
       assert (null != result);
       logger.debug("result = " + result);
-      
-      Number guess = (Number)result.get("RESULT.output");
+
+      Number guess = (Number) result.get("RESULT.output");
       logger.debug("guess = " + guess);
-      
-      // Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510", "LinearDatasetNode");
-      Number initialValue = (Number)startingNode.getAttribute("value");
+
+      // Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510",
+      // "LinearDatasetNode");
+      Number initialValue = (Number) startingNode.getAttribute("value");
       logger.debug("initialValue = " + initialValue);
-      
-      assert ( Math.abs(guess.floatValue() - (initialValue.floatValue() * multiplier)) < 0.5): "{" + guess + ", " + initialValue + "}";
-      
+
+      assert (Math.abs(guess.floatValue() - (initialValue.floatValue() * multiplier)) < 0.5) : "{" + guess + ", " + initialValue + "}";
+
    }
-   
+
    @Test(expected = RuntimeException.class)
    public void runThought_invalidNodeType_exception() throws Exception {
       App.getDataGraph().flush();
       App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithBadNode();
-      
+
       App.loadDatasetToDataGraph(new LinearDataset());
-      
+
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       thought.forecast(startingNode);
    }
-   
+
    @Test(expected = RuntimeException.class)
    public void runThought_noEnd_exception() throws Exception {
       App.getDataGraph().flush();
       App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
-      
+
       App.loadDatasetToDataGraph(new LinearDataset());
-      
+
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       thought.forecast(startingNode);
    }
-   
-  
+
    @Test
    public void getOperationsByMaxLayer_initialTestThought_success() throws Exception {
-      
+
       Thought thought = TestHelper.buildInitialTestThought();
-       List<Set<Node>> opsByLayer = thought.getOperationsByMaxLayer();
-      
+      List<Set<Node>> opsByLayer = thought.getOperationsByMaxLayer();
+
       assert (null != opsByLayer);
-      assert (5 == opsByLayer.size()): opsByLayer;
-      
+      assert (5 == opsByLayer.size()) : opsByLayer;
+
       Set<Node> layerTwo = opsByLayer.get(2);
-      assert (2 == layerTwo.size()): "size = " + layerTwo.size() + ", contents = " + layerTwo;
+      assert (2 == layerTwo.size()) : "size = " + layerTwo.size() + ", contents = " + layerTwo;
+   }
+
+   @Test
+   public void clone_goodThought_getClone() throws Exception {
+
+      Thought thought = TestHelper.buildInitialTestThought();
+      Thought clonedThought = thought.clone();
+      
+      assert (null != thought);
+      assert (null != clonedThought);
+
+      assert (thought.getKey().equals(clonedThought.getKey()));
    }
 }

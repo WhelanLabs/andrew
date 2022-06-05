@@ -40,13 +40,17 @@
 # WIP
 ##########################################################
 
-
+* * create initial offspring generator - clone thought
 
 ##########################################################
 # functional backlog
 ##########################################################
 
 * create initial offspring generator
+  - mutate a clone
+  - make mutations from a parent thought
+  - merge two thoughts
+  - framework for creating offspring
 
 * support genetic operations on offspring generators
 

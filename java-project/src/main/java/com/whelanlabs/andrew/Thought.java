@@ -31,20 +31,20 @@ public class Thought {
 
    public Thought(Node thoughtNode) {
       _thoughtNode = thoughtNode;
-      
+
       // set the thought's goal
       List<Triple<Node, Edge, Node>> triple = App.getGardenGraph().expandLeft(_thoughtNode, "approach", null, null);
       _goal = triple.get(0).getRight();
    }
-   
+
    public String getKey() {
       return _thoughtNode.getKey();
    }
-   
+
    public Node getThoughtNode() {
       return _thoughtNode;
    }
-   
+
    public Thought(String thoughtKey) {
       // set the thought node
       _thoughtNode = App.getGardenGraph().getNodeByKey(thoughtKey, "thought");
@@ -66,7 +66,7 @@ public class Thought {
     */
    public Map<String, Object> forecast(Node startingPoint) throws Exception {
       logger.debug("forecast startingPoint = " + startingPoint);
-      //logger.debug("_thoughtSequences = " + _thoughtSequences);
+      // logger.debug("_thoughtSequences = " + _thoughtSequences);
 
       Map<String, Object> workingMemory = new HashMap<>();
 
@@ -89,7 +89,7 @@ public class Thought {
          for (Node node : currentOperations) {
             logger.debug("add nextLevelInputNodeKeys: " + node);
             nextLevelInputNodeKeys.add(node.getKey());
-            
+
             String thoughtType = node.getType();
 
             if ("thought_operation".equals(thoughtType)) {
@@ -128,8 +128,7 @@ public class Thought {
                Map<String, Object> opResult = processOperation(node, workingMemory);
                result = addResultContext(result, opResult, node.getKey());
                return result;
-            }
-            else {
+            } else {
                throw new RuntimeException("Invalid Node type. (" + node.getType() + ")");
             }
 
@@ -167,8 +166,7 @@ public class Thought {
          String[] numStringArray = inputProp.split("\\.", 2);
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
-      }
-      else {
+      } else {
          result = workingMemory.get(fromKey + "." + inputProp);
       }
       return result;
@@ -292,5 +290,36 @@ public class Thought {
    public Node getGoal() {
       return _goal;
    }
-   
+
+   public Thought clone() {
+      Map<String, String> keyMapping = new HashMap<>();
+      Node clonedThoughtNode = cloneNode(_thoughtNode);
+      keyMapping.put(_thoughtNode.getKey(), clonedThoughtNode.getKey());
+
+      /*
+       *       QueryClause queryClause = new QueryClause(Edge.leftTypeAttrName, QueryClause.Operator.EQUALS, leftType);
+       *       List<Node> edgeTypeNodes = queryNodes(edgeTypesCollectionName, queryClause);
+       */
+      
+      // TODO: clone the "approach" edge
+
+      // TODO: get the set of "thought_operation" nodes and clone them
+
+      // TODO: clone the "thought_result" node
+
+      // TODO: get the set of "thought_sequence" edges and clone them
+
+      // TODO: Persist the clones
+
+      return null;
+   }
+
+   private Node cloneNode(Node node) {
+      String clonedNodeKey = ElementHelper.generateKey();
+      final Node clonedNode = new Node(clonedNodeKey, node.getType());
+      Map<String, Object> nodeProps = node.getProperties();
+      clonedNode.setProperties(nodeProps);
+      return clonedNode;
+   }
+
 }
