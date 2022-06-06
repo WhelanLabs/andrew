@@ -152,7 +152,7 @@ public class ThoughtTest {
    @Test
    public void clone_goodThought_getClone() throws Exception {
 
-      Thought thought = TestHelper.buildInitialTestThought();
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
       Thought clonedThought = thought.clone();
       
       assert (null != thought);

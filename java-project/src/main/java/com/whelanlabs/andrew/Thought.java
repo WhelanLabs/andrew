@@ -14,7 +14,9 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.kgraph.engine.Edge;
+import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
@@ -292,20 +294,41 @@ public class Thought {
    }
 
    public Thought clone() {
+
+      List<Element> cloneContents = new ArrayList<>();
       Map<String, String> keyMapping = new HashMap<>();
+
+      // clone the thought node
       Node clonedThoughtNode = cloneNode(_thoughtNode);
       keyMapping.put(_thoughtNode.getKey(), clonedThoughtNode.getKey());
+      cloneContents.add(clonedThoughtNode);
 
-      /*
-       *       QueryClause queryClause = new QueryClause(Edge.leftTypeAttrName, QueryClause.Operator.EQUALS, leftType);
-       *       List<Node> edgeTypeNodes = queryNodes(edgeTypesCollectionName, queryClause);
-       */
-      
-      // TODO: clone the "approach" edge
+      // clone the "approach" edge;
+      QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
+      List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", thoughtKeyQueryClause);
+      if (approachEdges.size() != 1) {
+         throw new RuntimeException("expected One Result (" + approachEdges + ")");
+      }
+      Edge clonedApproachEdge = cloneEdge(approachEdges.get(0));
+      clonedApproachEdge.setTo(clonedThoughtNode.getId());
+      cloneContents.add(clonedApproachEdge);
 
-      // TODO: get the set of "thought_operation" nodes and clone them
+      // clone the set of "thought_operation" nodes
+      List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", thoughtKeyQueryClause);
+      for (Node operationNode : operationNodes) {
+         Node clonedOpNode = cloneNode(operationNode);
+         keyMapping.put(operationNode.getKey(), clonedOpNode.getKey());
+         cloneContents.add(clonedOpNode);
+      }
 
-      // TODO: clone the "thought_result" node
+      // clone the "thought_result" node
+      List<Node> resultNodes = App.getGardenGraph().queryNodes("thought_result", thoughtKeyQueryClause);
+      if (resultNodes.size() != 1) {
+         throw new RuntimeException("expected One Result (" + resultNodes + ")");
+      }
+      Node clonedResultNode = cloneNode(resultNodes.get(0));
+      keyMapping.put(resultNodes.get(0).getKey(), clonedResultNode.getKey());
+      cloneContents.add(clonedResultNode);
 
       // TODO: get the set of "thought_sequence" edges and clone them
 
@@ -314,6 +337,18 @@ public class Thought {
       return null;
    }
 
+   // TODO: move to KGraph
+   private Edge cloneEdge(Edge edge) {
+      String clonedEdgeKey = ElementHelper.generateKey();
+      String edgeFrom = edge.getFrom();
+      String edgeTo = edge.getTo();
+      Edge clonedEdge = new Edge(clonedEdgeKey, edgeFrom, edgeTo, edge.getLeftType(), edge.getRightType(), edge.getType());
+      Map<String, Object> nodeProps = edge.getProperties();
+      clonedEdge.setProperties(nodeProps);
+      return clonedEdge;
+   }
+
+   // TODO: move to KGraph
    private Node cloneNode(Node node) {
       String clonedNodeKey = ElementHelper.generateKey();
       final Node clonedNode = new Node(clonedNodeKey, node.getType());

@@ -140,6 +140,7 @@ public class TestHelper {
       // link the thought process using valid sequence relationships
       Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
       e0.addAttribute("name", "e0" );
+      e0.addAttribute("thought_key", n1.getKey());
       
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
