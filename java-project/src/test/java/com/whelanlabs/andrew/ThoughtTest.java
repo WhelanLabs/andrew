@@ -11,6 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.kgraph.engine.Edge;
+import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 
 public class ThoughtTest {
@@ -158,6 +160,60 @@ public class ThoughtTest {
       assert (null != thought);
       assert (null != clonedThought);
 
-      assert (thought.getKey().equals(clonedThought.getKey()));
+      App.loadDatasetToDataGraph(new LinearDataset());
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      
+      Map<String, Object> origResult = thought.forecast(startingNode);
+      Map<String, Object> cloneResult = clonedThought.forecast(startingNode);
+      Number origGuess = (Number) origResult.get("RESULT.output");
+      Number cloneGuess = (Number) cloneResult.get("RESULT.output");
+      
+      assert (Math.abs(origGuess.floatValue() - cloneGuess.floatValue()) < .01): origGuess + ", " + cloneGuess;
+   }
+   
+   @Test(expected = RuntimeException.class)
+   public void clone_noEnd_getException() throws Exception {
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+      Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
+      Thought clonedThought = thought.clone();
+   }
+   
+   @Test(expected = RuntimeException.class)
+   public void clone_noResult_getException() throws Exception {
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+      String thoughtKey = ElementHelper.generateKey();
+      final Node n1 = new Node(thoughtKey, "thought");
+      n1.addAttribute("name", "n1" );
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
+      e0.addAttribute("thought_key", n1.getKey());
+      e0.addAttribute("name", "e0" );
+      App.getGardenGraph().upsert(goalNode, n1, e0);
+      
+      Thought thought = new Thought(n1);
+      Thought clonedThought = thought.clone();
+   }
+   
+   @Test(expected = RuntimeException.class)
+   public void clone_noApproach_getException() throws Exception {
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
+      String thoughtKey = ElementHelper.generateKey();
+      final Node n1 = new Node(thoughtKey, "thought");
+      n1.addAttribute("name", "n1" );
+      final Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
+      e0.addAttribute("thought_key", n1.getKey());
+      e0.addAttribute("name", "e0" );
+      App.getGardenGraph().upsert(goalNode, n1, e0);
+      
+      Thought thought = new Thought(n1);
+      
+      e0.addAttribute("thought_key", "bad");
+      App.getGardenGraph().upsert(e0);
+            
+      Thought clonedThought = thought.clone();
    }
 }

@@ -44,6 +44,7 @@ public class TestHelper {
       
       // link the thought process using valid sequence relationships
       Edge e0 = new Edge(ElementHelper.generateKey(), goalNode, n1, "approach");
+      e0.addAttribute("thought_key", n1.getKey());
       e0.addAttribute("name", "e0" );
       
       App.getGardenGraph().upsert(goalNode, n1, n2);

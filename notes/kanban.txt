@@ -36,19 +36,20 @@
 
 * break the classes into different packages
 
+* create initial offspring generator - clone thought
+
 ##########################################################
 # WIP
 ##########################################################
 
-* * create initial offspring generator - clone thought
+* create initial offspring generator
+  - make mutations from a clone of a parent thought
 
 ##########################################################
 # functional backlog
 ##########################################################
 
 * create initial offspring generator
-  - mutate a clone
-  - make mutations from a parent thought
   - merge two thoughts
   - framework for creating offspring
 

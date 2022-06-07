@@ -27,7 +27,7 @@ import com.whelanlabs.kgraph.engine.QueryClause;
 public class Thought {
 
    protected Node _thoughtNode;
-   private Node _goal;
+   protected Node _goal;
 
    private static Logger logger = LogManager.getLogger(Thought.class);
 
@@ -295,53 +295,62 @@ public class Thought {
 
    public Thought clone() {
 
-      List<Element> cloneContents = new ArrayList<>();
-      Map<String, String> keyMapping = new HashMap<>();
+      Map<String, String> idMapping = new HashMap<>();
 
       // clone the thought node
       Node clonedThoughtNode = cloneNode(_thoughtNode);
-      keyMapping.put(_thoughtNode.getKey(), clonedThoughtNode.getKey());
-      cloneContents.add(clonedThoughtNode);
+      App.getGardenGraph().upsert(clonedThoughtNode);
+      idMapping.put(_thoughtNode.getId(), clonedThoughtNode.getId());
 
       // clone the "approach" edge;
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
       List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", thoughtKeyQueryClause);
       if (approachEdges.size() != 1) {
-         throw new RuntimeException("expected One Result (" + approachEdges + ")");
+         throw new RuntimeException("expected one Approach (" + approachEdges + ")");
       }
       Edge clonedApproachEdge = cloneEdge(approachEdges.get(0));
       clonedApproachEdge.setTo(clonedThoughtNode.getId());
-      cloneContents.add(clonedApproachEdge);
+      logger.debug("clonedApproachEdge: " + clonedApproachEdge);
+      App.getGardenGraph().upsert(clonedApproachEdge);
 
       // clone the set of "thought_operation" nodes
       List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", thoughtKeyQueryClause);
       for (Node operationNode : operationNodes) {
          Node clonedOpNode = cloneNode(operationNode);
-         keyMapping.put(operationNode.getKey(), clonedOpNode.getKey());
-         cloneContents.add(clonedOpNode);
+         App.getGardenGraph().upsert(clonedOpNode);
+         idMapping.put(operationNode.getId(), clonedOpNode.getId());
       }
 
       // clone the "thought_result" node
       List<Node> resultNodes = App.getGardenGraph().queryNodes("thought_result", thoughtKeyQueryClause);
       if (resultNodes.size() != 1) {
-         throw new RuntimeException("expected One Result (" + resultNodes + ")");
+         throw new RuntimeException("expected one Result (" + resultNodes + ")");
       }
       Node clonedResultNode = cloneNode(resultNodes.get(0));
-      keyMapping.put(resultNodes.get(0).getKey(), clonedResultNode.getKey());
-      cloneContents.add(clonedResultNode);
+      App.getGardenGraph().upsert(clonedResultNode);
+      idMapping.put(resultNodes.get(0).getId(), clonedResultNode.getId());
 
-      // TODO: get the set of "thought_sequence" edges and clone them
+      // clone the "thought_sequence" edges
+      List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause);
+      for(Edge sequenceEdge : sequenceEdges) {
+         Edge clonedSequenceEdge = cloneEdge(sequenceEdge);
+         clonedSequenceEdge.setFrom(idMapping.get(sequenceEdge.getFrom()));
+         clonedSequenceEdge.setTo(idMapping.get(sequenceEdge.getTo()));
+         App.getGardenGraph().upsert(clonedSequenceEdge);
+      }
 
-      // TODO: Persist the clones
-
-      return null;
+      return new Thought(clonedThoughtNode);
    }
 
    // TODO: move to KGraph
    private Edge cloneEdge(Edge edge) {
       String clonedEdgeKey = ElementHelper.generateKey();
-      String edgeFrom = edge.getFrom();
-      String edgeTo = edge.getTo();
+      /*
+       * TODO: the following string splits is a hack, there should be a KRgaph 
+       * Method to create a new edge given IDs instead of Keys.
+       */
+      String edgeFrom = edge.getFrom().split("/", 2)[1];
+      String edgeTo = edge.getTo().split("/", 2)[1];
       Edge clonedEdge = new Edge(clonedEdgeKey, edgeFrom, edgeTo, edge.getLeftType(), edge.getRightType(), edge.getType());
       Map<String, Object> nodeProps = edge.getProperties();
       clonedEdge.setProperties(nodeProps);
