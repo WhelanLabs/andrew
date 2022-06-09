@@ -3,6 +3,7 @@ package com.whelanlabs.andrew;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -301,6 +302,7 @@ public class Thought {
       Node clonedThoughtNode = cloneNode(_thoughtNode);
       App.getGardenGraph().upsert(clonedThoughtNode);
       idMapping.put(_thoughtNode.getId(), clonedThoughtNode.getId());
+      String clonedThoughtKey = clonedThoughtNode.getKey();
 
       // clone the "approach" edge;
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
@@ -310,6 +312,7 @@ public class Thought {
       }
       Edge clonedApproachEdge = cloneEdge(approachEdges.get(0));
       clonedApproachEdge.setTo(clonedThoughtNode.getId());
+      clonedApproachEdge.addAttribute("thought_key", clonedThoughtKey);
       logger.debug("clonedApproachEdge: " + clonedApproachEdge);
       App.getGardenGraph().upsert(clonedApproachEdge);
 
@@ -317,6 +320,7 @@ public class Thought {
       List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", thoughtKeyQueryClause);
       for (Node operationNode : operationNodes) {
          Node clonedOpNode = cloneNode(operationNode);
+         clonedOpNode.addAttribute("thought_key", clonedThoughtKey);
          App.getGardenGraph().upsert(clonedOpNode);
          idMapping.put(operationNode.getId(), clonedOpNode.getId());
       }
@@ -327,15 +331,17 @@ public class Thought {
          throw new RuntimeException("expected one Result (" + resultNodes + ")");
       }
       Node clonedResultNode = cloneNode(resultNodes.get(0));
+      clonedResultNode.addAttribute("thought_key", clonedThoughtKey);
       App.getGardenGraph().upsert(clonedResultNode);
       idMapping.put(resultNodes.get(0).getId(), clonedResultNode.getId());
 
       // clone the "thought_sequence" edges
       List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause);
-      for(Edge sequenceEdge : sequenceEdges) {
+      for (Edge sequenceEdge : sequenceEdges) {
          Edge clonedSequenceEdge = cloneEdge(sequenceEdge);
          clonedSequenceEdge.setFrom(idMapping.get(sequenceEdge.getFrom()));
          clonedSequenceEdge.setTo(idMapping.get(sequenceEdge.getTo()));
+         clonedSequenceEdge.addAttribute("thought_key", clonedThoughtKey);
          App.getGardenGraph().upsert(clonedSequenceEdge);
       }
 
@@ -346,7 +352,7 @@ public class Thought {
    private Edge cloneEdge(Edge edge) {
       String clonedEdgeKey = ElementHelper.generateKey();
       /*
-       * TODO: the following string splits is a hack, there should be a KRgaph 
+       * TODO: the following string splits is a hack, there should be a KGraph 
        * Method to create a new edge given IDs instead of Keys.
        */
       String edgeFrom = edge.getFrom().split("/", 2)[1];
@@ -364,6 +370,29 @@ public class Thought {
       Map<String, Object> nodeProps = node.getProperties();
       clonedNode.setProperties(nodeProps);
       return clonedNode;
+   }
+
+   public Thought mutate(Integer numMutations) {
+      
+      QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
+      QueryClause mutatableQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
+      List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause);
+
+      // see: https://www.arangodb.com/docs/stable/aql/functions.html
+      // HAS(...
+      /*
+         String query = "FOR t IN thought_sequence FILTER t.thought_key == @thought_key AND HAS(t,\"mutation_range\") RETURN t";
+         logger.debug("query: " + query);
+      
+         Map<String, Object> bindVars = Collections.singletonMap("thought_key", _thoughtNode.getKey());
+         
+         startingNodes.addAll(App.getDataGraph().query(query, bindVars));
+       */
+      for (int i = 0; i < numMutations; i++) {
+
+      }
+
+      return null;
    }
 
 }

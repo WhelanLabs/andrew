@@ -216,4 +216,30 @@ public class ThoughtTest {
             
       Thought clonedThought = thought.clone();
    }
+   
+   @Test
+   public void mutate_goodStartingThought_resultImpacted() throws Exception {
+
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+      Thought clonedThought = thought.clone();
+      
+      assert (null != thought);
+      assert (null != clonedThought);
+
+      App.loadDatasetToDataGraph(new LinearDataset());
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      
+      Map<String, Object> origResult = thought.forecast(startingNode);
+      Map<String, Object> cloneResult = clonedThought.forecast(startingNode);
+      Number origGuess = (Number) origResult.get("RESULT.output");
+      Number cloneGuess = (Number) cloneResult.get("RESULT.output");
+      
+      assert (Math.abs(origGuess.floatValue() - cloneGuess.floatValue()) < .01): origGuess + ", " + cloneGuess;
+      
+      Thought mutatedClonedThought = clonedThought.mutate(1);
+      
+      Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast(startingNode);
+      Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
+      assert (Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .01): origGuess + ", " + cloneGuess;
+   }
 }

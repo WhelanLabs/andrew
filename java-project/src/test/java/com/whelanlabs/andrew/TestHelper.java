@@ -147,6 +147,7 @@ public class TestHelper {
       e1.addAttribute("thought_key", n1.getKey());
       e1.addAttribute("name", "e1" );
       e1.addAttribute("input", "targetPropValue" );
+      e1.addAttribute("mutation_range", "FLOAT:<0" );
       e1.addAttribute("output", "floatA");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
