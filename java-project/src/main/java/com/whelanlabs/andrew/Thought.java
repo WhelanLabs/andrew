@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -375,9 +376,11 @@ public class Thought {
    public Thought mutate(Integer numMutations) {
       
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
-      QueryClause mutatableQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
-      List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause);
+      QueryClause mutatableQueryClause = new QueryClause("mutation_range", QueryClause.Operator.NOT_EQUALS, null);
+      List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause, mutatableQueryClause);
 
+      logger.debug("sequenceEdges: " + sequenceEdges);
+      
       // see: https://www.arangodb.com/docs/stable/aql/functions.html
       // HAS(...
       /*
@@ -389,7 +392,17 @@ public class Thought {
          startingNodes.addAll(App.getDataGraph().query(query, bindVars));
        */
       for (int i = 0; i < numMutations; i++) {
-
+         // FLOAT:>0
+         Random random = new Random();
+         double rand = Math.random();
+         Edge randomEdge = sequenceEdges.remove(random.nextInt(sequenceEdges.size()));
+         if(null != randomEdge) {
+            double mutationFactor = Math.pow((2*rand)-1, 3)+1;
+            logger.debug("rand: " + rand);
+            logger.debug("mutation_factor: " + mutationFactor);
+            randomEdge.addAttribute("mutation_factor", mutationFactor);
+            App.getGardenGraph().upsert(randomEdge);
+         }
       }
 
       return null;

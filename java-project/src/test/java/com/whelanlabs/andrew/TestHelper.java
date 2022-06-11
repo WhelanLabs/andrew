@@ -146,14 +146,16 @@ public class TestHelper {
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("thought_key", n1.getKey());
       e1.addAttribute("name", "e1" );
+      e1.addAttribute("description", "starting node target property value." );
       e1.addAttribute("input", "targetPropValue" );
-      e1.addAttribute("mutation_range", "FLOAT:<0" );
+      e1.addAttribute("mutation_range", "FLOAT:>0" );
       e1.addAttribute("output", "floatA");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e2.addAttribute("thought_key", n1.getKey());
       e2.addAttribute("name", "e2" );
       e2.addAttribute("input", "NUMBER.2" );
+      e1.addAttribute("mutation_range", "FLOAT:>0" );
       e2.addAttribute("output", "floatB");
 
       Edge e3 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
