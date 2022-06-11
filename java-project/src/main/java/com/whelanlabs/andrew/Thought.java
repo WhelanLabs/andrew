@@ -380,24 +380,15 @@ public class Thought {
       List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause, mutatableQueryClause);
 
       logger.debug("sequenceEdges: " + sequenceEdges);
-      
-      // see: https://www.arangodb.com/docs/stable/aql/functions.html
-      // HAS(...
-      /*
-         String query = "FOR t IN thought_sequence FILTER t.thought_key == @thought_key AND HAS(t,\"mutation_range\") RETURN t";
-         logger.debug("query: " + query);
-      
-         Map<String, Object> bindVars = Collections.singletonMap("thought_key", _thoughtNode.getKey());
-         
-         startingNodes.addAll(App.getDataGraph().query(query, bindVars));
-       */
+
       for (int i = 0; i < numMutations; i++) {
-         // FLOAT:>0
          Random random = new Random();
          double rand = Math.random();
          Edge randomEdge = sequenceEdges.remove(random.nextInt(sequenceEdges.size()));
          if(null != randomEdge) {
-            double mutationFactor = Math.pow((2*rand)-1, 3)+1;
+            // clustering strength
+            Integer c = 3;
+            double mutationFactor = Math.pow((2*rand)-1, c)+1;
             logger.debug("rand: " + rand);
             logger.debug("mutation_factor: " + mutationFactor);
             randomEdge.addAttribute("mutation_factor", mutationFactor);
