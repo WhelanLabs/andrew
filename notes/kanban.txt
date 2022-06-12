@@ -46,6 +46,8 @@
 
 * offspring generator - merge two thoughts (crossover)
 
+* clean out commented out code.
+
 ##########################################################
 # functional backlog
 ##########################################################

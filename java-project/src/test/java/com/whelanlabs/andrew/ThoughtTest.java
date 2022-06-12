@@ -1,5 +1,7 @@
 package com.whelanlabs.andrew;
 
+import static org.junit.Assert.fail;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,44 +25,43 @@ public class ThoughtTest {
    public static void setUpBeforeClass() throws Exception {
       String databaseName = "andrew_test_database";
       App.initialize(databaseName);
+      App.loadDatasetToDataGraph(new LinearDataset());
    }
 
    @AfterClass
    public static void tearDownAfterClass() throws Exception {
    }
 
-   @Test
-   public void buildThought_valid_success() throws Exception {
-
-      App.getGardenGraph().flush();
-
-      Long pre_thought_count = App.getGardenGraph().getCount("thought");
-      Long pre_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
-      Long pre_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
-      Long pre_thought_result_count = App.getGardenGraph().getCount("thought_result");
-
-      Long pre_count = pre_thought_count + pre_thought_operation_count + pre_thought_sequence_count + pre_thought_result_count;
-
-      TestHelper.buildInitialTestThought();
-
-      Long post_thought_count = App.getGardenGraph().getCount("thought");
-      Long post_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
-      Long post_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
-      Long post_thought_result_count = App.getGardenGraph().getCount("thought_result");
-
-      Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
-
-      assert (pre_count + 14 == post_count) : "{" + pre_count + ", " + post_count + "}";
-   }
+//   @Test
+//   public void buildThought_valid_success() throws Exception {
+//
+//      App.getGardenGraph().flush();
+//
+//      Long pre_thought_count = App.getGardenGraph().getCount("thought");
+//      Long pre_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
+//      Long pre_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
+//      Long pre_thought_result_count = App.getGardenGraph().getCount("thought_result");
+//
+//      Long pre_count = pre_thought_count + pre_thought_operation_count + pre_thought_sequence_count + pre_thought_result_count;
+//
+//      TestHelper.buildInitialTestThought();
+//
+//      Long post_thought_count = App.getGardenGraph().getCount("thought");
+//      Long post_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
+//      Long post_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
+//      Long post_thought_result_count = App.getGardenGraph().getCount("thought_result");
+//
+//      Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
+//
+//      assert (pre_count + 14 == post_count) : "{" + pre_count + ", " + post_count + "}";
+//   }
 
    @Test
    public void runThought_valid_success() throws Exception {
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
-
-      App.loadDatasetToDataGraph(new LinearDataset());
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
@@ -84,12 +85,10 @@ public class ThoughtTest {
    public void runThought_multiplyThought_success() throws Exception {
 
       Float multiplier = 1.04f;
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildMultiplicationThought(multiplier);
-
-      App.loadDatasetToDataGraph(new LinearDataset());
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
@@ -112,12 +111,10 @@ public class ThoughtTest {
 
    @Test(expected = RuntimeException.class)
    public void runThought_invalidNodeType_exception() throws Exception {
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithBadNode();
-
-      App.loadDatasetToDataGraph(new LinearDataset());
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
@@ -126,12 +123,10 @@ public class ThoughtTest {
 
    @Test(expected = RuntimeException.class)
    public void runThought_noEnd_exception() throws Exception {
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
-
-      App.loadDatasetToDataGraph(new LinearDataset());
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
@@ -141,14 +136,17 @@ public class ThoughtTest {
    @Test
    public void getOperationsByMaxLayer_initialTestThought_success() throws Exception {
 
-      Thought thought = TestHelper.buildInitialTestThought();
+      // Thought thought = TestHelper.buildInitialTestThought();
+      
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+      
       List<Set<Node>> opsByLayer = thought.getOperationsByMaxLayer();
 
       assert (null != opsByLayer);
       assert (5 == opsByLayer.size()) : opsByLayer;
 
       Set<Node> layerTwo = opsByLayer.get(2);
-      assert (2 == layerTwo.size()) : "size = " + layerTwo.size() + ", contents = " + layerTwo;
+      assert (1 == layerTwo.size()) : "size = " + layerTwo.size() + ", contents = " + layerTwo;
    }
 
    @Test
@@ -160,7 +158,6 @@ public class ThoughtTest {
       assert (null != thought);
       assert (null != clonedThought);
 
-      App.loadDatasetToDataGraph(new LinearDataset());
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
       
       Map<String, Object> origResult = thought.forecast(startingNode);
@@ -173,16 +170,16 @@ public class ThoughtTest {
    
    @Test(expected = RuntimeException.class)
    public void clone_noEnd_getException() throws Exception {
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
       Thought clonedThought = thought.clone();
    }
    
    @Test(expected = RuntimeException.class)
    public void clone_noResult_getException() throws Exception {
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
       String thoughtKey = ElementHelper.generateKey();
       final Node n1 = new Node(thoughtKey, "thought");
       n1.addAttribute("name", "n1" );
@@ -198,8 +195,8 @@ public class ThoughtTest {
    
    @Test(expected = RuntimeException.class)
    public void clone_noApproach_getException() throws Exception {
-      App.getDataGraph().flush();
-      App.getGardenGraph().flush();
+      //App.getDataGraph().flush();
+      //App.getGardenGraph().flush();
       String thoughtKey = ElementHelper.generateKey();
       final Node n1 = new Node(thoughtKey, "thought");
       n1.addAttribute("name", "n1" );
@@ -226,7 +223,6 @@ public class ThoughtTest {
       assert (null != thought);
       assert (null != clonedThought);
 
-      App.loadDatasetToDataGraph(new LinearDataset());
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
       
       Map<String, Object> origResult = thought.forecast(startingNode);
@@ -249,5 +245,28 @@ public class ThoughtTest {
       
       logger.debug("origGuess = "+ origGuess);
       logger.debug("mutatedCloneGuess = "+ mutatedCloneGuess);
+   }
+   
+   @Test
+   public void merge_twoThoughts_combinedThought() throws Exception {
+
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+            
+      Thought thought1 = TestHelper.buildModifiedInitialTestThought();
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      
+      Merger merger = new SimpleMerger();
+      Thought childThought = merger.merge(thought1, thought2);
+
+      Map<String, Object> t1Result = thought1.forecast(startingNode);
+      Map<String, Object> t2Result = thought2.forecast(startingNode);
+      Map<String, Object> t3Result = childThought.forecast(startingNode);
+      Number t1Guess = (Number) t1Result.get("RESULT.output");
+      Number t2Guess = (Number) t2Result.get("RESULT.output");
+      Number t3Guess = (Number) t3Result.get("RESULT.output");
+      
+      assert (Math.abs(t1Guess.floatValue() - t2Guess.floatValue()) > .00001): t1Guess + ", " + t2Guess;
+      assert (Math.abs(t1Guess.floatValue() - t3Guess.floatValue()) > .00001): t1Guess + ", " + t3Guess;
+      assert (Math.abs(t2Guess.floatValue() - t3Guess.floatValue()) > .00001): t2Guess + ", " + t3Guess;
    }
 }
