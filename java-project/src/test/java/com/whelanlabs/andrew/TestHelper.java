@@ -155,7 +155,7 @@ public class TestHelper {
       e2.addAttribute("thought_key", n1.getKey());
       e2.addAttribute("name", "e2" );
       e2.addAttribute("input", "NUMBER.2" );
-      e1.addAttribute("mutation_range", "FLOAT:>0" );
+      e2.addAttribute("mutation_range", "FLOAT:>0" );
       e2.addAttribute("output", "floatB");
 
       Edge e3 = new Edge(ElementHelper.generateKey(), n1, n3, "thought_sequence");
@@ -179,6 +179,7 @@ public class TestHelper {
       Edge e6 = new Edge(ElementHelper.generateKey(), n1, n6, "thought_sequence");
       e6.addAttribute("thought_key", n1.getKey());
       e6.addAttribute("name", "e6" );
+      e6.addAttribute("mutation_range", "FLOAT:>0" );
       e6.addAttribute("input", "distance" );
       e6.addAttribute("output", "floatA");
       
@@ -191,12 +192,14 @@ public class TestHelper {
       Edge e8 = new Edge(ElementHelper.generateKey(), n3, n4, "thought_sequence");
       e8.addAttribute("thought_key", n1.getKey());
       e8.addAttribute("name", "e8" );
+      e8.addAttribute("mutation_range", "FLOAT:>0" );
       e8.addAttribute("input", "RESULT.value" );
       e8.addAttribute("output", "floatB");
       
       Edge e9 = new Edge(ElementHelper.generateKey(), n4, n5, "thought_sequence");
       e9.addAttribute("thought_key", n1.getKey());
       e9.addAttribute("name", "e9" );
+      e9.addAttribute("mutation_range", "FLOAT:>0" );
       e9.addAttribute("input", "RESULT" );
       e9.addAttribute("output", "output");
 
@@ -209,6 +212,7 @@ public class TestHelper {
       Edge e11 = new Edge(ElementHelper.generateKey(), n6, n3, "thought_sequence");
       e11.addAttribute("thought_key", n1.getKey());
       e11.addAttribute("name", "e11" );
+      e11.addAttribute("mutation_range", "FLOAT:>0" );
       e11.addAttribute("input", "RESULT" );
       e11.addAttribute("output", "distance");
       

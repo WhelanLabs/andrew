@@ -36,22 +36,22 @@
 
 * break the classes into different packages
 
-* create initial offspring generator - clone thought
+* offspring generator - clone thought
+
+* offspring generator - make mutations from a clone of a parent thought
 
 ##########################################################
 # WIP
 ##########################################################
 
-* create initial offspring generator
-  - make mutations from a clone of a parent thought
+* offspring generator - merge two thoughts (crossover)
 
 ##########################################################
 # functional backlog
 ##########################################################
 
 * create initial offspring generator
-  - merge two thoughts
-  - framework for creating offspring
+  - framework for creating offspring with mutation and crossover
 
 * support genetic operations on offspring generators
 

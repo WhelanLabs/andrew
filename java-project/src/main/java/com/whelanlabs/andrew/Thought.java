@@ -150,7 +150,10 @@ public class Thought {
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
                   Object value = getInputValue(workingMemory, fromKey, inputProp);
-                  // Object value = workingMemory.get(fromKey + "." + inputProp);
+                  Double mutationFactor = (Double)inputEdge.getAttribute("mutation_factor");
+                  if(null != mutationFactor) {
+                     value = ((Number)value).floatValue() + mutationFactor;
+                  }
                   String toKey = (String) inputEdge.getTo().split("/")[1];
                   logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp);
                   workingMemory.put(toKey + "." + outputProp, value);
@@ -395,8 +398,7 @@ public class Thought {
             App.getGardenGraph().upsert(randomEdge);
          }
       }
-
-      return null;
+      return this;
    }
 
 }

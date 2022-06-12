@@ -236,10 +236,18 @@ public class ThoughtTest {
       
       assert (Math.abs(origGuess.floatValue() - cloneGuess.floatValue()) < .01): origGuess + ", " + cloneGuess;
       
-      Thought mutatedClonedThought = clonedThought.mutate(1);
+      Thought mutatedClonedThought = clonedThought.mutate(2);
       
       Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast(startingNode);
       Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
-      assert (Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .01): origGuess + ", " + cloneGuess;
+      
+      /* 
+       * Note: If the following assertion fails, run it again.  There is a small chance 
+       * that the mutation is so small as to not be detected.
+       */
+      assert (Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .00001): origGuess + ", " + cloneGuess;
+      
+      logger.debug("origGuess = "+ origGuess);
+      logger.debug("mutatedCloneGuess = "+ mutatedCloneGuess);
    }
 }
