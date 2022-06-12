@@ -150,9 +150,9 @@ public class Thought {
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
                   Object value = getInputValue(workingMemory, fromKey, inputProp);
-                  Double mutationFactor = (Double)inputEdge.getAttribute("mutation_factor");
-                  if(null != mutationFactor) {
-                     value = ((Number)value).floatValue() + mutationFactor;
+                  Double mutationFactor = (Double) inputEdge.getAttribute("mutation_factor");
+                  if (null != mutationFactor) {
+                     value = ((Number) value).floatValue() + mutationFactor;
                   }
                   String toKey = (String) inputEdge.getTo().split("/")[1];
                   logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp);
@@ -299,14 +299,19 @@ public class Thought {
    }
 
    public Thought clone() {
+      String clonedNodeKey = ElementHelper.generateKey();
+      return clone(clonedNodeKey);
+   }
+
+   public Thought clone(String clonedNodeKey) {
 
       Map<String, String> idMapping = new HashMap<>();
 
       // clone the thought node
-      Node clonedThoughtNode = cloneNode(_thoughtNode);
+      Node clonedThoughtNode = cloneNode(_thoughtNode, clonedNodeKey);
       App.getGardenGraph().upsert(clonedThoughtNode);
       idMapping.put(_thoughtNode.getId(), clonedThoughtNode.getId());
-      String clonedThoughtKey = clonedThoughtNode.getKey();
+      // String clonedThoughtKey = clonedThoughtNode.getKey();
 
       // clone the "approach" edge;
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
@@ -316,7 +321,7 @@ public class Thought {
       }
       Edge clonedApproachEdge = cloneEdge(approachEdges.get(0));
       clonedApproachEdge.setTo(clonedThoughtNode.getId());
-      clonedApproachEdge.addAttribute("thought_key", clonedThoughtKey);
+      clonedApproachEdge.addAttribute("thought_key", clonedNodeKey);
       logger.debug("clonedApproachEdge: " + clonedApproachEdge);
       App.getGardenGraph().upsert(clonedApproachEdge);
 
@@ -324,7 +329,7 @@ public class Thought {
       List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", thoughtKeyQueryClause);
       for (Node operationNode : operationNodes) {
          Node clonedOpNode = cloneNode(operationNode);
-         clonedOpNode.addAttribute("thought_key", clonedThoughtKey);
+         clonedOpNode.addAttribute("thought_key", clonedNodeKey);
          App.getGardenGraph().upsert(clonedOpNode);
          idMapping.put(operationNode.getId(), clonedOpNode.getId());
       }
@@ -335,7 +340,7 @@ public class Thought {
          throw new RuntimeException("expected one Result (" + resultNodes + ")");
       }
       Node clonedResultNode = cloneNode(resultNodes.get(0));
-      clonedResultNode.addAttribute("thought_key", clonedThoughtKey);
+      clonedResultNode.addAttribute("thought_key", clonedNodeKey);
       App.getGardenGraph().upsert(clonedResultNode);
       idMapping.put(resultNodes.get(0).getId(), clonedResultNode.getId());
 
@@ -345,11 +350,19 @@ public class Thought {
          Edge clonedSequenceEdge = cloneEdge(sequenceEdge);
          clonedSequenceEdge.setFrom(idMapping.get(sequenceEdge.getFrom()));
          clonedSequenceEdge.setTo(idMapping.get(sequenceEdge.getTo()));
-         clonedSequenceEdge.addAttribute("thought_key", clonedThoughtKey);
+         clonedSequenceEdge.addAttribute("thought_key", clonedNodeKey);
          App.getGardenGraph().upsert(clonedSequenceEdge);
       }
 
       return new Thought(clonedThoughtNode);
+   }
+
+// TODO: move to KGraph
+   private Node cloneNode(Node node, String clonedNodeKey) {
+      final Node clonedNode = new Node(clonedNodeKey, node.getType());
+      Map<String, Object> nodeProps = node.getProperties();
+      clonedNode.setProperties(nodeProps);
+      return clonedNode;
    }
 
    // TODO: move to KGraph
@@ -370,14 +383,11 @@ public class Thought {
    // TODO: move to KGraph
    private Node cloneNode(Node node) {
       String clonedNodeKey = ElementHelper.generateKey();
-      final Node clonedNode = new Node(clonedNodeKey, node.getType());
-      Map<String, Object> nodeProps = node.getProperties();
-      clonedNode.setProperties(nodeProps);
-      return clonedNode;
+      return cloneNode(node, clonedNodeKey);
    }
 
    public Thought mutate(Integer numMutations) {
-      
+
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
       QueryClause mutatableQueryClause = new QueryClause("mutation_range", QueryClause.Operator.NOT_EQUALS, null);
       List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause, mutatableQueryClause);
@@ -388,10 +398,10 @@ public class Thought {
          Random random = new Random();
          double rand = Math.random();
          Edge randomEdge = sequenceEdges.remove(random.nextInt(sequenceEdges.size()));
-         if(null != randomEdge) {
+         if (null != randomEdge) {
             // clustering strength
             Integer c = 3;
-            double mutationFactor = Math.pow((2*rand)-1, c)+1;
+            double mutationFactor = Math.pow((2 * rand) - 1, c) + 1;
             logger.debug("rand: " + rand);
             logger.debug("mutation_factor: " + mutationFactor);
             randomEdge.addAttribute("mutation_factor", mutationFactor);
