@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.kgraph.engine.Edge;
+import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
@@ -37,7 +38,12 @@ public class SimpleMerger implements Merger{
       App.getGardenGraph().delete(approachEdges.get(0));
       App.getGardenGraph().delete(t2c.getThoughtNode());
       
-      // create aggregating node and have both replace edges to that for the end node edges
+      // create aggregating node
+      final Node aggNode = new Node(ElementHelper.generateKey(), "thought_operation");
+      aggNode.addAttribute("thought_key", t1c.getThoughtNode().getKey());
+      aggNode.addAttribute("operationName", "average");
+      
+      // have both end edges updated to connect to aggNode (including changing the output names)
       
       // connect the aggregating node to t1c end node
       

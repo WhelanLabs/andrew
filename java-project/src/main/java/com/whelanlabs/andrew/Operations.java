@@ -1,8 +1,10 @@
 package com.whelanlabs.andrew;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
@@ -88,11 +90,38 @@ public class Operations {
       Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
       Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
       Float result = floatA * floatB;
-      System.out.println("### multiplication: " + floatA + " * " + floatB + " = " + result);
       results.put("RESULT", result);
       return results;
    }
 
+   public static Map<String, Object> average(Node node, Map<String, Object> inputs) {
+      logger.debug("average() ");
+      Map<String, Object> results = new HashMap<>();
+      
+      Boolean hasInputs = true;
+      ArrayList<Double> values = new ArrayList<>();
+      Integer inputNumber = 1;
+      while(hasInputs) {
+         Number inputValue = (Number) inputs.get(node.getKey() + "." + "input" + inputNumber);
+         if(null != inputValue) {
+            Double value = inputNumber.doubleValue();
+            values.add(value);
+            logger.debug("values = " + values);
+         }
+         else {
+            hasInputs = false;
+         }
+      }
+
+      OptionalDouble result = values
+            .stream()
+            .mapToDouble(a -> a)
+            .average();
+      
+      results.put("RESULT", result);
+      return results;
+   }
+   
    public static Map<String, Object> doNothing(Node node, Map<String, Object> inputs) {
       logger.debug("doNothing() ");
       Map<String, Object> results = new HashMap<>();
