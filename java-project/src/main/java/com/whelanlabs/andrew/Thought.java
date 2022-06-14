@@ -303,12 +303,18 @@ public class Thought {
       return clone(clonedNodeKey);
    }
 
-   public Thought clone(String clonedNodeKey) {
+   /**
+    * Clone.
+    * 
+    * @param thoughtKey the cloned node key
+    * @return the thought
+    */
+   private Thought clone(String thoughtKey) {
 
       Map<String, String> idMapping = new HashMap<>();
 
       // clone the thought node
-      Node clonedThoughtNode = cloneNode(_thoughtNode, clonedNodeKey);
+      Node clonedThoughtNode = cloneNode(_thoughtNode, thoughtKey);
       App.getGardenGraph().upsert(clonedThoughtNode);
       idMapping.put(_thoughtNode.getId(), clonedThoughtNode.getId());
       // String clonedThoughtKey = clonedThoughtNode.getKey();
@@ -321,7 +327,7 @@ public class Thought {
       }
       Edge clonedApproachEdge = cloneEdge(approachEdges.get(0));
       clonedApproachEdge.setTo(clonedThoughtNode.getId());
-      clonedApproachEdge.addAttribute("thought_key", clonedNodeKey);
+      clonedApproachEdge.addAttribute("thought_key", thoughtKey);
       logger.debug("clonedApproachEdge: " + clonedApproachEdge);
       App.getGardenGraph().upsert(clonedApproachEdge);
 
@@ -329,7 +335,7 @@ public class Thought {
       List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", thoughtKeyQueryClause);
       for (Node operationNode : operationNodes) {
          Node clonedOpNode = cloneNode(operationNode);
-         clonedOpNode.addAttribute("thought_key", clonedNodeKey);
+         clonedOpNode.addAttribute("thought_key", thoughtKey);
          App.getGardenGraph().upsert(clonedOpNode);
          idMapping.put(operationNode.getId(), clonedOpNode.getId());
       }
@@ -340,7 +346,7 @@ public class Thought {
          throw new RuntimeException("expected one Result (" + resultNodes + ")");
       }
       Node clonedResultNode = cloneNode(resultNodes.get(0));
-      clonedResultNode.addAttribute("thought_key", clonedNodeKey);
+      clonedResultNode.addAttribute("thought_key", thoughtKey);
       App.getGardenGraph().upsert(clonedResultNode);
       idMapping.put(resultNodes.get(0).getId(), clonedResultNode.getId());
 
@@ -350,7 +356,7 @@ public class Thought {
          Edge clonedSequenceEdge = cloneEdge(sequenceEdge);
          clonedSequenceEdge.setFrom(idMapping.get(sequenceEdge.getFrom()));
          clonedSequenceEdge.setTo(idMapping.get(sequenceEdge.getTo()));
-         clonedSequenceEdge.addAttribute("thought_key", clonedNodeKey);
+         clonedSequenceEdge.addAttribute("thought_key", thoughtKey);
          App.getGardenGraph().upsert(clonedSequenceEdge);
       }
 
