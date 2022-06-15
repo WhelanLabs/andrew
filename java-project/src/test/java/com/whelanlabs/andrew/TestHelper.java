@@ -263,17 +263,20 @@ public class TestHelper {
 
       Edge e1 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       e1.addAttribute("name", "e1" );
+      e1.addAttribute("thought_key", n1.getKey());
       e1.addAttribute("input", "targetPropValue" );
       e1.addAttribute("output", "floatA");
       
       Edge e2 = new Edge(ElementHelper.generateKey(), n1, n2, "thought_sequence");
       String multiplierString = "NUMBER." + multiplier;
       e2.addAttribute("name", "e2" );
+      e2.addAttribute("thought_key", n1.getKey());
       e2.addAttribute("input", multiplierString );
       e2.addAttribute("output", "floatB");
       
       Edge e3 = new Edge(ElementHelper.generateKey(), n2, end, "thought_sequence");
       e3.addAttribute("name", "e3" );
+      e3.addAttribute("thought_key", n1.getKey());
       e3.addAttribute("input", "RESULT" );
       e3.addAttribute("output", "output");
       

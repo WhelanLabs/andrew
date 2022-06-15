@@ -25,6 +25,8 @@ public class ThoughtTest {
    public static void setUpBeforeClass() throws Exception {
       String databaseName = "andrew_test_database";
       App.initialize(databaseName);
+      App.getGardenGraph().flush();
+      App.getDataGraph().flush();
       App.loadDatasetToDataGraph(new LinearDataset());
    }
 
@@ -260,6 +262,8 @@ public class ThoughtTest {
 
       Map<String, Object> t1Result = thought1.forecast(startingNode);
       Map<String, Object> t2Result = thought2.forecast(startingNode);
+      
+      logger.debug("### Start: Forcasting the Child Thought ###");
       Map<String, Object> t3Result = childThought.forecast(startingNode);
       Number t1Guess = (Number) t1Result.get("RESULT.output");
       Number t2Guess = (Number) t2Result.get("RESULT.output");
@@ -268,5 +272,13 @@ public class ThoughtTest {
       assert (Math.abs(t1Guess.floatValue() - t2Guess.floatValue()) > .00001): t1Guess + ", " + t2Guess;
       assert (Math.abs(t1Guess.floatValue() - t3Guess.floatValue()) > .00001): t1Guess + ", " + t3Guess;
       assert (Math.abs(t2Guess.floatValue() - t3Guess.floatValue()) > .00001): t2Guess + ", " + t3Guess;
+      
+      logger.debug("t1Guess = "+ t1Guess.floatValue());
+      logger.debug("t2Guess = "+ t2Guess.floatValue());
+      logger.debug("t3Guess = "+ t3Guess.floatValue());
+      
+      assert (Math.abs(t1Guess.floatValue() + t2Guess.floatValue() - (2*t3Guess.floatValue()) ) < .00001);
+
+
    }
 }

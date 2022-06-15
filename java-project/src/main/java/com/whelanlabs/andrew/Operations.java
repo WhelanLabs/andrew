@@ -104,9 +104,10 @@ public class Operations {
       while(hasInputs) {
          Number inputValue = (Number) inputs.get(node.getKey() + "." + "input" + inputNumber);
          if(null != inputValue) {
-            Double value = inputNumber.doubleValue();
+            Double value = inputValue.doubleValue();
             values.add(value);
             logger.debug("values = " + values);
+            inputNumber++;
          }
          else {
             hasInputs = false;
@@ -118,7 +119,9 @@ public class Operations {
             .mapToDouble(a -> a)
             .average();
       
-      results.put("RESULT", result);
+      logger.debug("average.RESULT = " + result.getAsDouble());
+
+      results.put("RESULT", result.getAsDouble());
       return results;
    }
    

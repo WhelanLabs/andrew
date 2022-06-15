@@ -40,11 +40,13 @@
 
 * offspring generator - make mutations from a clone of a parent thought
 
+* offspring generator - merge two thoughts (crossover)
+
 ##########################################################
 # WIP
 ##########################################################
 
-* offspring generator - merge two thoughts (crossover)
+
 
 * clean out commented out code.
 
