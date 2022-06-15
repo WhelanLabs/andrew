@@ -46,9 +46,9 @@
 # WIP
 ##########################################################
 
+* offspring generator - merge initial thought with a merged thought
 
-
-* clean out commented out code.
+* offspring generator - merge merged thought with a merged thought
 
 ##########################################################
 # functional backlog
@@ -77,6 +77,11 @@
 
 * README content for composition of genetic solution solutions from genetic solutions.
 
+* create a median merge from a set of neighbor averaging nodes (mutation)
+
+* create a 'change node type' argument mutation
+
+* create a 'change edge type' argument mutation
 
 ##########################################################
 # performance backlog

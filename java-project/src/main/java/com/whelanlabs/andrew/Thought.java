@@ -70,7 +70,6 @@ public class Thought {
     */
    public Map<String, Object> forecast(Node startingPoint) throws Exception {
       logger.debug("forecast startingPoint = " + startingPoint);
-      // logger.debug("_thoughtSequences = " + _thoughtSequences);
 
       Map<String, Object> workingMemory = new HashMap<>();
 
@@ -269,7 +268,6 @@ public class Thought {
       Iterator<String> maxLevelIterator = nodeMaxLevel.keySet().iterator();
       while (maxLevelIterator.hasNext()) {
          String current = maxLevelIterator.next();
-         // String currentId = current.split(":")[0];
          Integer currentIdLevel = nodeMaxLevel.get(current);
          Set<String> nodeLevelcontents = resultsMap.get(currentIdLevel);
 
@@ -317,7 +315,6 @@ public class Thought {
       Node clonedThoughtNode = cloneNode(_thoughtNode, thoughtKey);
       App.getGardenGraph().upsert(clonedThoughtNode);
       idMapping.put(_thoughtNode.getId(), clonedThoughtNode.getId());
-      // String clonedThoughtKey = clonedThoughtNode.getKey();
 
       // clone the "approach" edge;
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());

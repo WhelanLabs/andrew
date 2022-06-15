@@ -34,34 +34,8 @@ public class ThoughtTest {
    public static void tearDownAfterClass() throws Exception {
    }
 
-//   @Test
-//   public void buildThought_valid_success() throws Exception {
-//
-//      App.getGardenGraph().flush();
-//
-//      Long pre_thought_count = App.getGardenGraph().getCount("thought");
-//      Long pre_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
-//      Long pre_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
-//      Long pre_thought_result_count = App.getGardenGraph().getCount("thought_result");
-//
-//      Long pre_count = pre_thought_count + pre_thought_operation_count + pre_thought_sequence_count + pre_thought_result_count;
-//
-//      TestHelper.buildInitialTestThought();
-//
-//      Long post_thought_count = App.getGardenGraph().getCount("thought");
-//      Long post_thought_operation_count = App.getGardenGraph().getCount("thought_operation");
-//      Long post_thought_sequence_count = App.getGardenGraph().getCount("thought_sequence");
-//      Long post_thought_result_count = App.getGardenGraph().getCount("thought_result");
-//
-//      Long post_count = post_thought_count + post_thought_operation_count + post_thought_sequence_count + post_thought_result_count;
-//
-//      assert (pre_count + 14 == post_count) : "{" + pre_count + ", " + post_count + "}";
-//   }
-
    @Test
    public void runThought_valid_success() throws Exception {
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
 
@@ -73,22 +47,17 @@ public class ThoughtTest {
       logger.debug("result = " + result);
 
       Number guess = (Number) result.get("RESULT.output");
-      // logger.debug("guess = " + guess);
 
       Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510", "LinearDatasetNode");
       Number answer = (Number) answerNode.getAttribute("value");
-      // logger.debug("answer = " + answer);
 
       assert (Math.abs(guess.floatValue() - answer.floatValue()) < 1) : "{" + guess + ", " + answer + "}";
-
    }
 
    @Test
    public void runThought_multiplyThought_success() throws Exception {
 
       Float multiplier = 1.04f;
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildMultiplicationThought(multiplier);
 
@@ -113,8 +82,6 @@ public class ThoughtTest {
 
    @Test(expected = RuntimeException.class)
    public void runThought_invalidNodeType_exception() throws Exception {
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithBadNode();
 
@@ -125,8 +92,6 @@ public class ThoughtTest {
 
    @Test(expected = RuntimeException.class)
    public void runThought_noEnd_exception() throws Exception {
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
 
@@ -137,8 +102,6 @@ public class ThoughtTest {
 
    @Test
    public void getOperationsByMaxLayer_initialTestThought_success() throws Exception {
-
-      // Thought thought = TestHelper.buildInitialTestThought();
       
       Thought thought = TestHelper.buildModifiedInitialTestThought();
       
@@ -172,16 +135,12 @@ public class ThoughtTest {
    
    @Test(expected = RuntimeException.class)
    public void clone_noEnd_getException() throws Exception {
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
       Thought clonedThought = thought.clone();
    }
    
    @Test(expected = RuntimeException.class)
    public void clone_noResult_getException() throws Exception {
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
       String thoughtKey = ElementHelper.generateKey();
       final Node n1 = new Node(thoughtKey, "thought");
       n1.addAttribute("name", "n1" );
@@ -197,8 +156,6 @@ public class ThoughtTest {
    
    @Test(expected = RuntimeException.class)
    public void clone_noApproach_getException() throws Exception {
-      //App.getDataGraph().flush();
-      //App.getGardenGraph().flush();
       String thoughtKey = ElementHelper.generateKey();
       final Node n1 = new Node(thoughtKey, "thought");
       n1.addAttribute("name", "n1" );

@@ -41,7 +41,6 @@ public class SimpleMerger implements Merger{
       // remove t2c thought and approach edge
       QueryClause approachQueryClause = new QueryClause("_to", QueryClause.Operator.EQUALS, t2c.getThoughtNode().getId());
       List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", approachQueryClause);
-      //List<Edge> allApproachEdges = App.getGardenGraph().queryEdges("approach");
       App.getGardenGraph().delete(approachEdges.get(0));
       App.getGardenGraph().delete(t2c.getThoughtNode());
       
@@ -90,17 +89,16 @@ public class SimpleMerger implements Merger{
       App.getGardenGraph().delete(t2cResultNodes.get(0));
       
       // set the thought_key for t2c elements ("thought_operation", "thought_sequence") to t1c key
-      List<Node> t1cOperationNodes = App.getGardenGraph().queryNodes("thought_result", thoughtKey2QueryClause);
-      for(Node t1cOperationNode : t1cOperationNodes) {
-         t1cOperationNode.addAttribute("thought_key", t1c.getThoughtNode().getKey());
-         App.getGardenGraph().upsert(t1cOperationNode);
+      List<Node> t2cOperationNodes = App.getGardenGraph().queryNodes("thought_operation", thoughtKey2QueryClause);
+      for(Node t2cOperationNode : t2cOperationNodes) {
+         t2cOperationNode.addAttribute("thought_key", t1c.getThoughtNode().getKey());
+         App.getGardenGraph().upsert(t2cOperationNode);
       }
-      List<Edge> t1cSequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKey2QueryClause);
-      for(Edge t1cSequenceEdge : t1cSequenceEdges) {
-         t1cSequenceEdge.addAttribute("thought_key", t1c.getThoughtNode().getKey());
-         App.getGardenGraph().upsert(t1cSequenceEdge);
+      List<Edge> t2cSequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKey2QueryClause);
+      for(Edge t2cSequenceEdge : t2cSequenceEdges) {
+         t2cSequenceEdge.addAttribute("thought_key", t1c.getThoughtNode().getKey());
+         App.getGardenGraph().upsert(t2cSequenceEdge);
       }
-
       
       return t1c;
    }

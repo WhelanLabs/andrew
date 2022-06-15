@@ -38,10 +38,8 @@ public class AveragePercentageScoringMachineTest {
 
       Thought t1 = TestHelper.buildModifiedInitialTestThought();
       
-      // TODO: add thought #2 - return starting node value
       Thought t2 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.0f);
       
-      // TODO: add thought #3 - return starting node value X 1.04
       Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.1f);
       
       Evaluator evaluator = new Evaluator(t1.getGoal());

@@ -26,13 +26,6 @@ public class AppTest {
       App.getGardenGraph().flush();
    }
 
-//   @Test
-//   public void getDataGraphConnection_valid_success() throws Exception {
-//      //App.getDataGraph().flush();
-//      Long graphCount = App.getDataGraph().getTotalCount();
-//      assert (0 == graphCount) : "graphCount = " + graphCount;
-//   }
-
    @Test
    public void getGarderGraphConnection_valid_success() throws Exception {
 
@@ -42,8 +35,6 @@ public class AppTest {
 
    @Test
    public void load_datasetNotpreviouslyLoaded_loaded() throws Exception {
-      //App.getDataGraph().flush();
-      //App.loadDatasetToDataGraph(new LinearDataset());
       Long graphCount = App.getDataGraph().getTotalCount();
 
       // 1000 nodes, 999 edges, 1 dataSet_info node
@@ -58,7 +49,6 @@ public class AppTest {
 
       // 1000 nodes, 999 edges, 1 dataSet_info node
       assert (graphCount1 == 2000) : "graphCount1 = " + graphCount1;
-      //App.loadDatasetToDataGraph(new LinearDataset());
       Long graphCount2 = App.getDataGraph().getTotalCount();
 
       // 1000 nodes, 999 edges, 1 dataSet_info node
