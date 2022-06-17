@@ -42,13 +42,13 @@
 
 * offspring generator - merge two thoughts (crossover)
 
+* offspring generator - merge two merged thoughts
+
 ##########################################################
 # WIP
 ##########################################################
 
-* offspring generator - merge initial thought with a merged thought
 
-* offspring generator - merge merged thought with a merged thought
 
 ##########################################################
 # functional backlog

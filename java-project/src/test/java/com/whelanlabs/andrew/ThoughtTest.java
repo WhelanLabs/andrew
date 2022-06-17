@@ -235,7 +235,46 @@ public class ThoughtTest {
       logger.debug("t3Guess = "+ t3Guess.floatValue());
       
       assert (Math.abs(t1Guess.floatValue() + t2Guess.floatValue() - (2*t3Guess.floatValue()) ) < .00001);
+   }
+   
+   @Test
+   public void merge_twoMergedThoughts_combinedThought() throws Exception {
 
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+            
+      Thought thought1 = TestHelper.buildModifiedInitialTestThought();
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      Thought thought3 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 3.5f);
+      
+      Merger merger = new SimpleMerger();
+      Thought child1Thought = merger.merge(thought1, thought2);
+      Thought child2Thought = merger.merge(thought1, thought3);
+      Thought grandchildThought = merger.merge(child1Thought, child2Thought);
 
+      Map<String, Object> t1Result = thought1.forecast(startingNode);
+      Map<String, Object> t2Result = thought2.forecast(startingNode);
+      Map<String, Object> t3Result = child1Thought.forecast(startingNode);
+      Map<String, Object> t4Result = child2Thought.forecast(startingNode);
+      Map<String, Object> grandchildResult = grandchildThought.forecast(startingNode);
+
+      
+      Number t1Guess = (Number) t1Result.get("RESULT.output");
+      Number t2Guess = (Number) t2Result.get("RESULT.output");
+      Number t3Guess = (Number) t3Result.get("RESULT.output");
+      Number t4Guess = (Number) t4Result.get("RESULT.output");
+      Number grandchildGuess = (Number) grandchildResult.get("RESULT.output");
+      
+//      assert (Math.abs(t1Guess.floatValue() - t2Guess.floatValue()) > .00001): t1Guess + ", " + t2Guess;
+//      assert (Math.abs(t1Guess.floatValue() - t3Guess.floatValue()) > .00001): t1Guess + ", " + t3Guess;
+//      assert (Math.abs(t2Guess.floatValue() - t3Guess.floatValue()) > .00001): t2Guess + ", " + t3Guess;
+      
+      logger.debug("t1Guess = "+ t1Guess.floatValue());
+      logger.debug("t2Guess = "+ t2Guess.floatValue());
+      logger.debug("t3Guess = "+ t3Guess.floatValue());
+      logger.debug("t4Guess = "+ t4Guess.floatValue());
+      logger.debug("grandchildGuess = "+ grandchildGuess.floatValue());
+
+      
+      assert (Math.abs(t3Guess.floatValue() + t4Guess.floatValue() - (2*grandchildGuess.floatValue()) ) < .00001);
    }
 }
