@@ -256,7 +256,6 @@ public class ThoughtTest {
       Map<String, Object> t3Result = child1Thought.forecast(startingNode);
       Map<String, Object> t4Result = child2Thought.forecast(startingNode);
       Map<String, Object> grandchildResult = grandchildThought.forecast(startingNode);
-
       
       Number t1Guess = (Number) t1Result.get("RESULT.output");
       Number t2Guess = (Number) t2Result.get("RESULT.output");
@@ -264,17 +263,29 @@ public class ThoughtTest {
       Number t4Guess = (Number) t4Result.get("RESULT.output");
       Number grandchildGuess = (Number) grandchildResult.get("RESULT.output");
       
-//      assert (Math.abs(t1Guess.floatValue() - t2Guess.floatValue()) > .00001): t1Guess + ", " + t2Guess;
-//      assert (Math.abs(t1Guess.floatValue() - t3Guess.floatValue()) > .00001): t1Guess + ", " + t3Guess;
-//      assert (Math.abs(t2Guess.floatValue() - t3Guess.floatValue()) > .00001): t2Guess + ", " + t3Guess;
-      
       logger.debug("t1Guess = "+ t1Guess.floatValue());
       logger.debug("t2Guess = "+ t2Guess.floatValue());
       logger.debug("t3Guess = "+ t3Guess.floatValue());
       logger.debug("t4Guess = "+ t4Guess.floatValue());
       logger.debug("grandchildGuess = "+ grandchildGuess.floatValue());
-
       
       assert (Math.abs(t3Guess.floatValue() + t4Guess.floatValue() - (2*grandchildGuess.floatValue()) ) < .00001);
+   }
+   
+   @Test
+   public void export_goodThought_goodJson() throws Exception {
+            
+      Thought thought1 = TestHelper.buildModifiedInitialTestThought();
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      
+      Merger merger = new SimpleMerger();
+      Thought child1Thought = merger.merge(thought1, thought2);
+      
+      String jsonString = child1Thought.exportJson();
+
+      assert (null != jsonString);
+      
+      logger.debug("jsonString = "+ jsonString);
+      
    }
 }

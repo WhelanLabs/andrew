@@ -48,11 +48,13 @@
 # WIP
 ##########################################################
 
-
+* export a thought to JSON.
 
 ##########################################################
 # functional backlog
 ##########################################################
+
+* import a thought from json
 
 * create initial offspring generator
   - framework for creating offspring with mutation and crossover

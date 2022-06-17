@@ -414,4 +414,30 @@ public class Thought {
       return this;
    }
 
+   public String exportJson() {
+      String thoughtKey = _thoughtNode.getKey();
+      
+      QueryClause keyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, thoughtKey);
+      List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", keyQueryClause);
+      List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", keyQueryClause);
+      List<Node> resultNodes = App.getGardenGraph().queryNodes("thought_result", keyQueryClause);
+      List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", keyQueryClause);
+
+      
+      // export thought node
+      String result = ;
+            
+      
+      // export sequenceEdges
+      
+      // export operationNodes
+      
+      // export resultNodes
+      
+      // export approachEdges
+      
+      
+      return null;
+   }
+
 }
