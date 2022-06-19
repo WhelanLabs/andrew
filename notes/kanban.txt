@@ -44,11 +44,13 @@
 
 * offspring generator - merge two merged thoughts
 
+* export a thought to JSON.
+
 ##########################################################
 # WIP
 ##########################################################
 
-* export a thought to JSON.
+* export a thought as Dot.
 
 ##########################################################
 # functional backlog
