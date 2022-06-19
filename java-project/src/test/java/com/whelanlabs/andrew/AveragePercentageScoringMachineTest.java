@@ -1,7 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +36,10 @@ public class AveragePercentageScoringMachineTest {
 
       Thought t1 = TestHelper.buildModifiedInitialTestThought();
       
+      @SuppressWarnings("unused") // this thought is accessed through a common goal.
       Thought t2 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.0f);
       
+      @SuppressWarnings("unused") // this thought is accessed through a common goal.
       Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.1f);
       
       Evaluator evaluator = new Evaluator(t1.getGoal());

@@ -1,7 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,12 +8,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.andrew.process.evaluate.Evaluation;
 import com.whelanlabs.andrew.process.evaluate.Evaluator;
-import com.whelanlabs.kgraph.engine.ElementHelper;
-import com.whelanlabs.kgraph.engine.Node;
 
 public class EvaluatorTest {
 

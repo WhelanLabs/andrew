@@ -9,8 +9,6 @@ public class CurvesResearch {
 
    
    public static void main(String[] args) {
-      Integer min = -1;
-      Integer max = 1;
 
       for(int i = 0; i<10; i++) {
          // most mutations will be close to initial value: y = (2x-1)^3+1

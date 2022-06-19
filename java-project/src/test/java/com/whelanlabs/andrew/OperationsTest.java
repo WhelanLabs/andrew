@@ -19,6 +19,7 @@ public class OperationsTest {
    
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
+      logger.debug("OperationsTest.setUpBeforeClass()");
       App.initialize("linear_dataset_tests");
       App.getDataGraph().flush();
    }

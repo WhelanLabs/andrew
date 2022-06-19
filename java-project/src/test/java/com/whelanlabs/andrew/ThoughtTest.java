@@ -1,7 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.fail;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +33,7 @@ public class ThoughtTest {
    }
 
    @Test
-   public void runThought_valid_success() throws Exception {
+   public void forecast_valid_success() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
 
@@ -55,7 +53,7 @@ public class ThoughtTest {
    }
 
    @Test
-   public void runThought_multiplyThought_success() throws Exception {
+   public void forecast_multiplyThought_success() throws Exception {
 
       Float multiplier = 1.04f;
 
@@ -81,7 +79,7 @@ public class ThoughtTest {
    }
 
    @Test(expected = RuntimeException.class)
-   public void runThought_invalidNodeType_exception() throws Exception {
+   public void forecast_invalidNodeType_exception() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithBadNode();
 
@@ -91,7 +89,7 @@ public class ThoughtTest {
    }
 
    @Test(expected = RuntimeException.class)
-   public void runThought_noEnd_exception() throws Exception {
+   public void forecast_noEnd_exception() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
 
@@ -136,7 +134,7 @@ public class ThoughtTest {
    @Test(expected = RuntimeException.class)
    public void clone_noEnd_getException() throws Exception {
       Thought thought = TestHelper.buildModifiedInitialTestThoughtWithNoEnd();
-      Thought clonedThought = thought.clone();
+      thought.clone();
    }
    
    @Test(expected = RuntimeException.class)
@@ -151,7 +149,7 @@ public class ThoughtTest {
       App.getGardenGraph().upsert(goalNode, n1, e0);
       
       Thought thought = new Thought(n1);
-      Thought clonedThought = thought.clone();
+      thought.clone();
    }
    
    @Test(expected = RuntimeException.class)
@@ -170,7 +168,7 @@ public class ThoughtTest {
       e0.addAttribute("thought_key", "bad");
       App.getGardenGraph().upsert(e0);
             
-      Thought clonedThought = thought.clone();
+      thought.clone();
    }
    
    @Test
@@ -273,7 +271,7 @@ public class ThoughtTest {
    }
    
    @Test
-   public void export_goodThought_goodJson() throws Exception {
+   public void exportJson_goodThought_goodJson() throws Exception {
             
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);

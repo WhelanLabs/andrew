@@ -2,8 +2,6 @@ package com.whelanlabs.andrew;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,7 +14,6 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.ElementHelper;
@@ -187,6 +184,7 @@ public class Thought {
       // reflection to call the method with inputs.
       Method operationMethod = Operations.class.getMethod(operationName, Node.class, Map.class);
 
+      @SuppressWarnings("unchecked")
       Map<String, Object> result = (Map<String, Object>) operationMethod.invoke(null, currentNode, workingMemory);
 
       return result;
@@ -414,7 +412,7 @@ public class Thought {
       return this;
    }
 
-   public String exportJson() {
+   public String exportJson() throws Exception {
       String thoughtKey = _thoughtNode.getKey();
       
       QueryClause keyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, thoughtKey);
@@ -430,9 +428,9 @@ public class Thought {
       elements.addAll(approachEdges);
       elements.addAll(sequenceEdges);
       
+      String result = Element.toJson(elements);
       
-      
-      return null;
+      return result;
    }
 
 }

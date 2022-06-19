@@ -11,10 +11,6 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.arangodb.ArangoCursor;
-import com.arangodb.ArangoDBException;
-import com.arangodb.ArangoDatabase;
-import com.arangodb.entity.BaseDocument;
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Operations;
 import com.whelanlabs.andrew.Thought;
