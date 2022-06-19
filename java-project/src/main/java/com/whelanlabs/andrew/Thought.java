@@ -423,18 +423,13 @@ public class Thought {
       List<Node> resultNodes = App.getGardenGraph().queryNodes("thought_result", keyQueryClause);
       List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", keyQueryClause);
 
+      List<Element> elements = new ArrayList<>();
+      elements.add(_thoughtNode);
+      elements.addAll(operationNodes);
+      elements.addAll(resultNodes);
+      elements.addAll(approachEdges);
+      elements.addAll(sequenceEdges);
       
-      // export thought node
-      String result = ;
-            
-      
-      // export sequenceEdges
-      
-      // export operationNodes
-      
-      // export resultNodes
-      
-      // export approachEdges
       
       
       return null;
