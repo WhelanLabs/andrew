@@ -46,17 +46,19 @@
 
 * export a thought to JSON.
 
+* export a thought as Dot.
+
 ##########################################################
 # WIP
 ##########################################################
 
-* export a thought as Dot.
+* import a thought from json
 
 ##########################################################
 # functional backlog
 ##########################################################
 
-* import a thought from json
+
 
 * create initial offspring generator
   - framework for creating offspring with mutation and crossover

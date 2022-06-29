@@ -1,5 +1,12 @@
 package com.whelanlabs.andrew;
 
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -285,5 +292,49 @@ public class ThoughtTest {
       
       logger.debug("jsonString = "+ jsonString);
       
+      assert (jsonString.contains("\"properties\" : {"));
+      assert (jsonString.contains("\"name\" : \"n1\","));
+      assert (jsonString.contains("\"id\" : \"thought_operation/KEY_"));
+      assert (jsonString.contains("\"id\" : \"approach/KEY_"));
+      assert (jsonString.contains("\"id\" : \"thought_sequence/KEY_"));
+   }
+   
+   @Test
+   public void exportDot_goodThought_goodDot() throws Exception {
+            
+      Thought thought1 = TestHelper.buildModifiedInitialTestThought();
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      
+      Merger merger = new SimpleMerger();
+      Thought child1Thought = merger.merge(thought1, thought2);
+      
+      String dotString = child1Thought.exportDot();
+
+      assert (null != dotString);
+      
+      logger.debug("dotString = "+ dotString);
+      
+      assert (dotString.contains("digraph G {"));
+      assert (dotString.contains("node [shape=record fontname=Arial];"));
+      assert (dotString.contains("\\\"\\lname = \\\"n1\\\"\\l__type = \\\"thought\\\"\\l\"]"));
+      assert (dotString.contains(" [label=\"type = \\\"thought_operation\\\"\\lid = \\\"thought_operation/KEY_"));
+      assert (dotString.contains("[shape=oval label=\"type = \\\"thought_sequence\\\"\\lid = \\\"thought_sequence/KEY_"));
+      assert (dotString.contains(" -> thought_sequence_KEY_"));
+      assert (dotString.contains(" -> thought_operation_KEY_"));
+      assert (dotString.contains(" [label=\"type = \\\"thought_result\\\"\\lid = \\\"thought_result/KEY_"));
+
+      String dirString = "./target/dot_files/";
+      String fileString = dirString + "exportDot_goodThought_goodDot.dot";
+      Path path = Paths.get(dirString);
+      Files.createDirectories(path);
+      try (PrintWriter out = new PrintWriter(fileString)) {
+         out.println(dotString);
+     }
+   }
+   
+   @Test
+   public void importJson_goodThought_loaded() throws Exception {
+      // hint: use andrew\java-project\src\test\resources/test_load_data.json
+      fail("implement me!");
    }
 }

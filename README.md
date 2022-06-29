@@ -65,5 +65,5 @@ The results are written to [ ./java-project/target/site/dependencies.html ].
 ## To build Javadoc
 	mvn javadoc:javadoc
 	
-## Build the java code from the ANTLR grammar
-	mvn package
+## to generate sample graph disgram images (requires Graphvis)
+	dot -Tsvg .\target\dot_files\exportDot_goodThought_goodDot.dot > .\target\dot_files\exportDot_goodThought_goodDot.svg

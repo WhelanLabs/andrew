@@ -413,8 +413,13 @@ public class Thought {
    }
 
    public String exportJson() throws Exception {
+      List<Element> elements = gatherContents();
+      String result = Element.toJson(elements);
+      return result;
+   }
+
+   private List<Element> gatherContents() {
       String thoughtKey = _thoughtNode.getKey();
-      
       QueryClause keyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, thoughtKey);
       List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", keyQueryClause);
       List<Node> operationNodes = App.getGardenGraph().queryNodes("thought_operation", keyQueryClause);
@@ -427,9 +432,12 @@ public class Thought {
       elements.addAll(resultNodes);
       elements.addAll(approachEdges);
       elements.addAll(sequenceEdges);
-      
-      String result = Element.toJson(elements);
-      
+      return elements;
+   }
+
+   public String exportDot() throws Exception {
+      List<Element> elements = gatherContents();
+      String result = Element.toDot(elements);
       return result;
    }
 
