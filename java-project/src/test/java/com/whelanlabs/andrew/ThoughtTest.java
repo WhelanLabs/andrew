@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -335,6 +336,12 @@ public class ThoughtTest {
    @Test
    public void importJson_goodThought_loaded() throws Exception {
       // hint: use andrew\java-project\src\test\resources/test_load_data.json
+      String filePath = "./src/test/resources/test_load_data.json";
+      String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+      // logger.debug("content = "+ content);
+
+      Thought t = App.loadThoughtFromJson(content);
       fail("implement me!");
    }
 }

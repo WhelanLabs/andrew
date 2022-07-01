@@ -2,6 +2,8 @@ package com.whelanlabs.andrew;
 
 import java.util.List;
 
+import org.json.JSONArray;
+
 import com.whelanlabs.andrew.dataset.Dataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.KnowledgeGraph;
@@ -54,6 +56,14 @@ public class App {
          datasetInfoNode.addAttribute("max_time", dataset.getMaxTime());
          _dataGraph.upsert(datasetInfoNode);
       }
+   }
+
+   public static Thought loadThoughtFromJson(String content) {
+      JSONArray jsonArr = new JSONArray(content);
+
+      _gardenGraph.loadFromJson(jsonArr);
+      
+      return null;
    }
 
 }
