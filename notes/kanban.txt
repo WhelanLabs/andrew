@@ -52,7 +52,7 @@
 # WIP
 ##########################################################
 
-* import a thought from json
+* import a thought from json (TODO: make sure the input JSON contains a goal)
 
 ##########################################################
 # functional backlog

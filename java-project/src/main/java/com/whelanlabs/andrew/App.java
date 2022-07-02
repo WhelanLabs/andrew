@@ -2,10 +2,13 @@ package com.whelanlabs.andrew;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 
 import com.whelanlabs.andrew.dataset.Dataset;
 import com.whelanlabs.kgraph.engine.Edge;
+import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
@@ -14,6 +17,9 @@ public class App {
    private static KnowledgeGraph _dataGraph = null;
    private static KnowledgeGraph _gardenGraph = null;
 
+   private static Logger logger = LogManager.getLogger(App.class);
+
+   
    private App() {
       // do nothing.  Static global class.
    }
@@ -60,10 +66,22 @@ public class App {
 
    public static Thought loadThoughtFromJson(String content) {
       JSONArray jsonArr = new JSONArray(content);
+      Thought result = null;
 
-      _gardenGraph.loadFromJson(jsonArr);
+      List<Element> loadedElements = _gardenGraph.loadFromJson(jsonArr);
       
-      return null;
+      logger.debug("loadedElements = " + loadedElements);
+
+      
+      for(Element element : loadedElements) {
+         String type = element.getType();
+         logger.debug("type = " + type);
+         if("thought".equals(type)) {
+            logger.debug("element = " + element);
+            result = new Thought((Node)element);
+         }
+      }
+      return result;
    }
 
 }

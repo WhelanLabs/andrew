@@ -426,8 +426,10 @@ public class Thought {
       List<Node> resultNodes = App.getGardenGraph().queryNodes("thought_result", keyQueryClause);
       List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", keyQueryClause);
 
+      
       List<Element> elements = new ArrayList<>();
       elements.add(_thoughtNode);
+      elements.add(_goal);
       elements.addAll(operationNodes);
       elements.addAll(resultNodes);
       elements.addAll(approachEdges);

@@ -342,6 +342,14 @@ public class ThoughtTest {
       // logger.debug("content = "+ content);
 
       Thought t = App.loadThoughtFromJson(content);
+      
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+
+      Map<String, Object> result = t.forecast(startingNode);
+      
+      Number guess = (Number) result.get("RESULT.output");
+
+      assert (guess.intValue() == 3) : "guess = " + guess ;
       fail("implement me!");
    }
 }
