@@ -44,21 +44,25 @@
 
 * offspring generator - merge two merged thoughts
 
-* export a thought to JSON.
+* export a thought to JSON
 
 * export a thought as Dot.
+
+* import a thought from JSON
 
 ##########################################################
 # WIP
 ##########################################################
 
-* import a thought from json (TODO: make sure the input JSON contains a goal)
+* load large dataset (the "A" set.)
 
 ##########################################################
 # functional backlog
 ##########################################################
 
+* profile and speed up
 
+* load massive dataset (the whole set)
 
 * create initial offspring generator
   - framework for creating offspring with mutation and crossover

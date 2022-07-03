@@ -298,6 +298,15 @@ public class ThoughtTest {
       assert (jsonString.contains("\"id\" : \"thought_operation/KEY_"));
       assert (jsonString.contains("\"id\" : \"approach/KEY_"));
       assert (jsonString.contains("\"id\" : \"thought_sequence/KEY_"));
+      assert (jsonString.contains("\"id\" : \"goal/KEY_"));
+
+      String dirString = "./target/exports/";
+      String fileString = dirString + "exportJson_goodThought_goodJson.json";
+      Path path = Paths.get(dirString);
+      Files.createDirectories(path);
+      try (PrintWriter out = new PrintWriter(fileString)) {
+         out.println(jsonString);
+     }
    }
    
    @Test
@@ -324,7 +333,7 @@ public class ThoughtTest {
       assert (dotString.contains(" -> thought_operation_KEY_"));
       assert (dotString.contains(" [label=\"type = \\\"thought_result\\\"\\lid = \\\"thought_result/KEY_"));
 
-      String dirString = "./target/dot_files/";
+      String dirString = "./target/exports/";
       String fileString = dirString + "exportDot_goodThought_goodDot.dot";
       Path path = Paths.get(dirString);
       Files.createDirectories(path);
@@ -349,7 +358,6 @@ public class ThoughtTest {
       
       Number guess = (Number) result.get("RESULT.output");
 
-      assert (guess.intValue() == 3) : "guess = " + guess ;
-      fail("implement me!");
+      assert (guess.intValue() == 641) : "guess = " + guess ;
    }
 }

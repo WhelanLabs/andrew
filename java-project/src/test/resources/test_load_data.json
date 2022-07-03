@@ -1,112 +1,127 @@
 [ {
-  "id" : "thought/KEY_165654575042426",
-  "key" : "KEY_165654575042426",
-  "revision" : "_eZFQJX2---",
+  "id" : "thought/KEY_1656868488227140",
+  "key" : "KEY_1656868488227140",
+  "revision" : "_eaSMvAm---",
   "properties" : {
     "name" : "n1",
     "__type" : "thought"
   },
   "type" : "thought"
 }, {
-  "id" : "thought_operation/KEY_165654575044328",
-  "key" : "KEY_165654575044328",
-  "revision" : "_eZFQJY6---",
+  "id" : "goal/KEY_1656868488013115",
+  "key" : "KEY_1656868488013115",
+  "revision" : "_eaSMuzS---",
+  "properties" : {
+    "startingType" : "LinearDatasetNode",
+    "relationType" : "LinearDatasetEdge",
+    "distance" : 10,
+    "resultClass" : "Float",
+    "__type" : "goal",
+    "name" : "goalNode",
+    "targetProperty" : "value",
+    "direction" : "outbound"
+  },
+  "type" : "goal"
+}, {
+  "id" : "thought_operation/KEY_1656868488251142",
+  "key" : "KEY_1656868488251142",
+  "revision" : "_eaSMvCC---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n2",
     "operationName" : "multiply",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
   "type" : "thought_operation"
 }, {
-  "id" : "thought_operation/KEY_165654575044729",
-  "key" : "KEY_165654575044729",
-  "revision" : "_eZFQJZO---",
+  "id" : "thought_operation/KEY_1656868488259143",
+  "key" : "KEY_1656868488259143",
+  "revision" : "_eaSMvCe---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n3",
     "operationName" : "traverse",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
   "type" : "thought_operation"
 }, {
-  "id" : "thought_operation/KEY_165654575045230",
-  "key" : "KEY_165654575045230",
-  "revision" : "_eZFQJZi---",
+  "id" : "thought_operation/KEY_1656868488265144",
+  "key" : "KEY_1656868488265144",
+  "revision" : "_eaSMvC6---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n4",
     "operationName" : "subtract",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
   "type" : "thought_operation"
 }, {
-  "id" : "thought_operation/KEY_165654575045831",
-  "key" : "KEY_165654575045831",
-  "revision" : "_eZFQJZ2---",
+  "id" : "thought_operation/KEY_1656868488272145",
+  "key" : "KEY_1656868488272145",
+  "revision" : "_eaSMvDW---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n6",
     "operationName" : "multiply",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
   "type" : "thought_operation"
 }, {
-  "id" : "thought_operation/KEY_165654575063751",
-  "key" : "KEY_165654575063751",
-  "revision" : "_eZFQJlC---",
+  "id" : "thought_operation/KEY_1656868488502165",
+  "key" : "KEY_1656868488502165",
+  "revision" : "_eaSMvRy---",
   "properties" : {
     "operationName" : "average",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "__type" : "thought_operation"
   },
   "type" : "thought_operation"
 }, {
-  "id" : "thought_operation/KEY_165654575056046",
-  "key" : "KEY_165654575056046",
-  "revision" : "_eZFQJnC---",
+  "id" : "thought_operation/KEY_1656868488407160",
+  "key" : "KEY_1656868488407160",
+  "revision" : "_eaSMvVO---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n6",
     "operationName" : "multiply",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
   "type" : "thought_operation"
 }, {
-  "id" : "thought_result/KEY_165654575046432",
-  "key" : "KEY_165654575046432",
-  "revision" : "_eZFQJaS---",
+  "id" : "thought_result/KEY_1656868488281146",
+  "key" : "KEY_1656868488281146",
+  "revision" : "_eaSMvD6---",
   "properties" : {
     "__type" : "thought_result",
     "name" : "n5",
     "operationName" : "end",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
   "type" : "thought_result"
 }, {
-  "id" : "approach/KEY_165654575043427",
-  "key" : "KEY_165654575043427",
-  "revision" : "_eZFQJYe---",
+  "id" : "approach/KEY_1656868488241141",
+  "key" : "KEY_1656868488241141",
+  "revision" : "_eaSMvBa---",
   "properties" : {
     "__left_collection" : "goal",
     "__type" : "approach",
     "__right_collection" : "thought",
     "name" : "e0",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "goal/KEY_16565457502021",
-  "to" : "thought/KEY_165654575042426",
+  "from" : "goal/KEY_1656868488013115",
+  "to" : "thought/KEY_1656868488227140",
   "leftType" : "goal",
   "rightType" : "thought",
   "type" : "approach"
 }, {
-  "id" : "thought_sequence/KEY_165654575047333",
-  "key" : "KEY_165654575047333",
-  "revision" : "_eZFQJa6---",
+  "id" : "thought_sequence/KEY_1656868488293147",
+  "key" : "KEY_1656868488293147",
+  "revision" : "_eaSMvEu---",
   "properties" : {
     "__right_collection" : "thought_operation",
     "description" : "starting node target property value.",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "floatA",
     "input" : "targetPropValue",
     "__left_collection" : "thought",
@@ -114,18 +129,18 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e1"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575044328",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488251142",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575047934",
-  "key" : "KEY_165654575047934",
-  "revision" : "_eZFQJbO---",
+  "id" : "thought_sequence/KEY_1656868488301148",
+  "key" : "KEY_1656868488301148",
+  "revision" : "_eaSMvFO---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "floatB",
     "input" : "NUMBER.2",
     "__left_collection" : "thought",
@@ -133,15 +148,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e2"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575044328",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488251142",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575048535",
-  "key" : "KEY_165654575048535",
-  "revision" : "_eZFQJbm---",
+  "id" : "thought_sequence/KEY_1656868488309149",
+  "key" : "KEY_1656868488309149",
+  "revision" : "_eaSMvFu---",
   "properties" : {
     "output" : "startingNode",
     "input" : "startingNode",
@@ -149,17 +164,17 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e3",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575044729",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488259143",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575049036",
-  "key" : "KEY_165654575049036",
-  "revision" : "_eZFQJb6---",
+  "id" : "thought_sequence/KEY_1656868488317150",
+  "key" : "KEY_1656868488317150",
+  "revision" : "_eaSMvGO---",
   "properties" : {
     "output" : "traversalEdgeType",
     "input" : "relationType",
@@ -167,17 +182,17 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e4",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575044729",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488259143",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575049637",
-  "key" : "KEY_165654575049637",
-  "revision" : "_eZFQJcS---",
+  "id" : "thought_sequence/KEY_1656868488325151",
+  "key" : "KEY_1656868488325151",
+  "revision" : "_eaSMvGu---",
   "properties" : {
     "output" : "direction",
     "input" : "direction",
@@ -185,20 +200,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e5",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575044729",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488259143",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575050238",
-  "key" : "KEY_165654575050238",
-  "revision" : "_eZFQJcq---",
+  "id" : "thought_sequence/KEY_1656868488333152",
+  "key" : "KEY_1656868488333152",
+  "revision" : "_eaSMvHO---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "floatA",
     "input" : "distance",
     "__left_collection" : "thought",
@@ -206,15 +221,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e6"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575045831",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488272145",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575050739",
-  "key" : "KEY_165654575050739",
-  "revision" : "_eZFQJdC---",
+  "id" : "thought_sequence/KEY_1656868488341153",
+  "key" : "KEY_1656868488341153",
+  "revision" : "_eaSMvHu---",
   "properties" : {
     "output" : "floatA",
     "input" : "RESULT",
@@ -222,20 +237,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e7",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought_operation/KEY_165654575044328",
-  "to" : "thought_operation/KEY_165654575045230",
+  "from" : "thought_operation/KEY_1656868488251142",
+  "to" : "thought_operation/KEY_1656868488265144",
   "leftType" : "thought_operation",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575051240",
-  "key" : "KEY_165654575051240",
-  "revision" : "_eZFQJdW---",
+  "id" : "thought_sequence/KEY_1656868488349154",
+  "key" : "KEY_1656868488349154",
+  "revision" : "_eaSMvIK---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "floatB",
     "input" : "RESULT.value",
     "__left_collection" : "thought_operation",
@@ -243,15 +258,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e8"
   },
-  "from" : "thought_operation/KEY_165654575044729",
-  "to" : "thought_operation/KEY_165654575045230",
+  "from" : "thought_operation/KEY_1656868488259143",
+  "to" : "thought_operation/KEY_1656868488265144",
   "leftType" : "thought_operation",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575052342",
-  "key" : "KEY_165654575052342",
-  "revision" : "_eZFQJeG---",
+  "id" : "thought_sequence/KEY_1656868488363156",
+  "key" : "KEY_1656868488363156",
+  "revision" : "_eaSMvJ----",
   "properties" : {
     "output" : "floatB",
     "input" : "NUMBER.-1",
@@ -259,20 +274,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e10",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575045831",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488272145",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575053043",
-  "key" : "KEY_165654575053043",
-  "revision" : "_eZFQJee---",
+  "id" : "thought_sequence/KEY_1656868488369157",
+  "key" : "KEY_1656868488369157",
+  "revision" : "_eaSMvJa---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "distance",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
@@ -280,18 +295,18 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e11"
   },
-  "from" : "thought_operation/KEY_165654575045831",
-  "to" : "thought_operation/KEY_165654575044729",
+  "from" : "thought_operation/KEY_1656868488272145",
+  "to" : "thought_operation/KEY_1656868488259143",
   "leftType" : "thought_operation",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575051841",
-  "key" : "KEY_165654575051841",
-  "revision" : "_eZFQJlm---",
+  "id" : "thought_sequence/KEY_1656868488356155",
+  "key" : "KEY_1656868488356155",
+  "revision" : "_eaSMvSu---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "input1",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
@@ -299,15 +314,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e9"
   },
-  "from" : "thought_operation/KEY_165654575045230",
-  "to" : "thought_operation/KEY_165654575063751",
+  "from" : "thought_operation/KEY_1656868488265144",
+  "to" : "thought_operation/KEY_1656868488502165",
   "leftType" : "thought_operation",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575058950",
-  "key" : "KEY_165654575058950",
-  "revision" : "_eZFQJmO---",
+  "id" : "thought_sequence/KEY_1656868488443164",
+  "key" : "KEY_1656868488443164",
+  "revision" : "_eaSMvT2---",
   "properties" : {
     "output" : "input2",
     "input" : "RESULT",
@@ -315,20 +330,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e3",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought_operation/KEY_165654575056046",
-  "to" : "thought_operation/KEY_165654575063751",
+  "from" : "thought_operation/KEY_1656868488407160",
+  "to" : "thought_operation/KEY_1656868488502165",
   "leftType" : "thought_operation",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575066152",
-  "key" : "KEY_165654575066152",
-  "revision" : "_eZFQJmm---",
+  "id" : "thought_sequence/KEY_1656868488546166",
+  "key" : "KEY_1656868488546166",
+  "revision" : "_eaSMvUe---",
   "properties" : {
     "__right_collection" : "thought_result",
-    "thought_key" : "KEY_165654575042426",
+    "thought_key" : "KEY_1656868488227140",
     "output" : "output",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
@@ -336,15 +351,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e9"
   },
-  "from" : "thought_operation/KEY_165654575063751",
-  "to" : "thought_result/KEY_165654575046432",
+  "from" : "thought_operation/KEY_1656868488502165",
+  "to" : "thought_result/KEY_1656868488281146",
   "leftType" : "thought_operation",
   "rightType" : "thought_result",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575057848",
-  "key" : "KEY_165654575057848",
-  "revision" : "_eZFQJnm---",
+  "id" : "thought_sequence/KEY_1656868488429162",
+  "key" : "KEY_1656868488429162",
+  "revision" : "_eaSMvWG---",
   "properties" : {
     "output" : "floatA",
     "input" : "targetPropValue",
@@ -352,17 +367,17 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e1",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575056046",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488407160",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
 }, {
-  "id" : "thought_sequence/KEY_165654575058349",
-  "key" : "KEY_165654575058349",
-  "revision" : "_eZFQJo----",
+  "id" : "thought_sequence/KEY_1656868488436163",
+  "key" : "KEY_1656868488436163",
+  "revision" : "_eaSMvWq---",
   "properties" : {
     "output" : "floatB",
     "input" : "NUMBER.1.5",
@@ -370,10 +385,10 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e2",
-    "thought_key" : "KEY_165654575042426"
+    "thought_key" : "KEY_1656868488227140"
   },
-  "from" : "thought/KEY_165654575042426",
-  "to" : "thought_operation/KEY_165654575056046",
+  "from" : "thought/KEY_1656868488227140",
+  "to" : "thought_operation/KEY_1656868488407160",
   "leftType" : "thought",
   "rightType" : "thought_operation",
   "type" : "thought_sequence"
