@@ -50,17 +50,19 @@
 
 * import a thought from JSON
 
+* load large dataset (the first 3 of the "A" set.)
+
 ##########################################################
 # WIP
 ##########################################################
 
-* load large dataset (the "A" set.)
+* profile and speed up
 
 ##########################################################
 # functional backlog
 ##########################################################
 
-* profile and speed up
+
 
 * load massive dataset (the whole set)
 

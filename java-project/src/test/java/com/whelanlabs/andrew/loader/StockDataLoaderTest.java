@@ -14,9 +14,9 @@ import org.junit.Test;
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.dataset.StockLoader;
 
-public class LoadPerformanceTest {
+public class StockDataLoaderTest {
 
-   private static Logger logger = LogManager.getLogger(LoadPerformanceTest.class);
+   private static Logger logger = LogManager.getLogger(StockDataLoaderTest.class);
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -32,28 +32,29 @@ public class LoadPerformanceTest {
    @Test
    public void loadStocks_goodFiles_loaded() throws FileNotFoundException {
       List<File> files = new ArrayList<>();
-      files.add(new File("../fetchers/stock_data_fetcher/data/AA_2020-05-07.txt"));
-      files.add(new File("../fetchers/stock_data_fetcher/data/AAAU_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
-
+      files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
       
       StockLoader stockLoader = new StockLoader();
-      
-      long startTime = System.currentTimeMillis();
+
       stockLoader.loadStocks(files);
-      long endTime = System.currentTimeMillis();
-      long elapsed = (endTime - startTime)/1000;
-      logger.debug("loadStocks_goodFiles_loaded took " + elapsed + " seconds");
-      
-      if(elapsed > 600) {  // 10 minutes
-         logger.warn("loadStocks_goodFiles_loaded took too long!");
-      }
       
       Long count = App.getDataGraph().getCount("stockOnDate");
       
-      assert (count > 10000);
       logger.debug("count = " + count);
-
+      
+      assert (count > 290);
+      assert (count < 500);
    }
 
+   
+   @Test(expected = FileNotFoundException.class)
+   public void loadStocks_badFile_exception() throws FileNotFoundException {
+      List<File> files = new ArrayList<>();
+      files.add(new File("../fetchers/stock_data_fetcher/data/BAD_FILE.txt"));
+      
+      StockLoader stockLoader = new StockLoader();
+
+      stockLoader.loadStocks(files);
+   }
 }

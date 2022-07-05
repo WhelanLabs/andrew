@@ -26,8 +26,10 @@
 		<Logger name="com.whelanlabs.andrew" level="DEBUG" additivity="false">
 			<Appender-ref ref="Console" level="DEBUG" />
 		</Logger>
-		<!-- <Logger name="com.whelanlabs.kgraph.test" level="DEBUG" additivity="false">
+		<!--
+		<Logger name="com.whelanlabs.kgraph.engine.KnowledgeGraph" level="DEBUG" additivity="false">
 			<Appender-ref ref="Console" level="DEBUG" /> 
-		</Logger> -->
+		</Logger>
+		-->
 	</Loggers>
 </Configuration>
