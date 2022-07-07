@@ -33,55 +33,67 @@ public class StockLoader {
       List<Element> elements = new ArrayList<>();
       Set<Long> dates = new HashSet<>();
 
+      Integer fileNumber = 0;
+      Integer numFiles = files.size();
       for (File file : files) {
+         fileNumber++;
          String symbol = null;
-         logger.debug("current file.path: " + file.getAbsolutePath());
+         
+         Long count = App.getDataGraph().getCount("stockOnDate");
+         logger.debug("file #" + fileNumber + " of " + numFiles + " file.path: " + file.getAbsolutePath() + "(stockOnDate.count = " + count + ")");
+         
          Scanner scanner = new Scanner(file);
          Boolean firstLine = true;
          Node stockNode = null;
+         String currentLine = null;
+         Integer lineNum = 0;
+
          while (scanner.hasNextLine()) {
-            String currentLine = scanner.nextLine();
-            if (firstLine) {
-               symbol = (file.getName().split("_"))[0];
+            lineNum++;
+            try {
+               currentLine = scanner.nextLine();
+               if (firstLine) {
+                  symbol = (file.getName().split("_"))[0];
 
-               // create stockSymbol Node
-               stockNode = new Node(symbol, "stockSymbol");
-               // symbolNode.addAttribute("name", "n1" );
-               elements.add(stockNode);
+                  // create stockSymbol Node
+                  stockNode = new Node(symbol, "stockSymbol");
+                  elements.add(stockNode);
 
-               firstLine = false;
-            } else {
-               String[] fields = currentLine.split(",");
-               String[] dateFields = fields[0].split("-");
-               LocalDate eventDate = LocalDate.of(Integer.valueOf(dateFields[0]), Integer.valueOf(dateFields[1]), Integer.valueOf(dateFields[2]));
-               Long daysSinceEpoch = ChronoUnit.DAYS.between(epoch, eventDate);
+                  firstLine = false;
+               } else {
+                  String[] fields = currentLine.split(",");
+                  String[] dateFields = fields[0].split("-");
+                  LocalDate eventDate = LocalDate.of(Integer.valueOf(dateFields[0]), Integer.valueOf(dateFields[1]), Integer.valueOf(dateFields[2]));
+                  Long daysSinceEpoch = ChronoUnit.DAYS.between(epoch, eventDate);
 
-               // create date Node - also keep track of the date has already been added
-               if (!dates.contains(daysSinceEpoch)) {
-                  final Node dateNode = new Node(daysSinceEpoch.toString(), "date");
-                  dateNode.addAttribute("dateString", fields[0]);
-                  elements.add(dateNode);
-                  dates.add(daysSinceEpoch);
+                  // create date Node - also keep track of the date has already been added
+                  if (!dates.contains(daysSinceEpoch)) {
+                     final Node dateNode = new Node(daysSinceEpoch.toString(), "date");
+                     dateNode.addAttribute("dateString", fields[0]);
+                     elements.add(dateNode);
+                     dates.add(daysSinceEpoch);
+                  }
+
+                  // create stockSymbolOnDate Edge
+                  Float dayOpen = Float.valueOf(fields[1]);
+                  Float dayHigh = Float.valueOf(fields[2]);
+                  Float dayLow = Float.valueOf(fields[3]);
+                  Float dayClose = Float.valueOf(fields[4]);
+                  Float dayAdjClose = Float.valueOf(fields[5]);
+                  Integer dayVolume = Integer.valueOf(fields[6]);
+                  String edgeKey = symbol + "_" + daysSinceEpoch.toString();
+                  Edge edge = new Edge(edgeKey, stockNode.getKey(), daysSinceEpoch.toString(), "stockSymbol", "date", "stockOnDate");
+                  edge.addAttribute("dayOpen", dayOpen);
+                  edge.addAttribute("dayHigh", dayHigh);
+                  edge.addAttribute("dayLow", dayLow);
+                  edge.addAttribute("dayClose", dayClose);
+                  edge.addAttribute("dayAdjClose", dayAdjClose);
+                  edge.addAttribute("dayVolume", dayVolume);
+                  elements.add(edge);
                }
-
-               // TODO: create stockSymbolOnDate Edge
-               Float dayOpen = Float.valueOf(fields[1]);
-               Float dayHigh = Float.valueOf(fields[2]);
-               Float dayLow = Float.valueOf(fields[3]);
-               Float dayClose = Float.valueOf(fields[4]);
-               Float dayAdjClose = Float.valueOf(fields[5]);
-               Integer dayVolume = Integer.valueOf(fields[6]);
-               String edgeKey = symbol + "_" + daysSinceEpoch.toString();
-               // Edge e0 = new Edge(edgeKey, stockNode, n1, "stockOnDate");
-               Edge edge = new Edge(edgeKey, stockNode.getKey(), daysSinceEpoch.toString(), "stockSymbol", "date", "stockOnDate");
-               edge.addAttribute("dayOpen", dayOpen);
-               edge.addAttribute("dayHigh", dayHigh);
-               edge.addAttribute("dayLow", dayLow);
-               edge.addAttribute("dayClose", dayClose);
-               edge.addAttribute("dayAdjClose", dayAdjClose);
-               edge.addAttribute("dayVolume", dayVolume);
-               elements.add(edge);
-
+            } catch (Exception e) {
+               // sometimes input lines are dirty. skip and continue.
+               logger.error("Error in file '" + file.getAbsolutePath() + "' at line number " + lineNum + ".");
             }
          }
 
@@ -89,6 +101,7 @@ public class StockLoader {
          App.getDataGraph().upsert(elements);
 
          scanner.close();
+
       }
    }
 }

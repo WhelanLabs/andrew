@@ -58,7 +58,12 @@
 # WIP
 ##########################################################
 
-* load massive dataset (the whole set)
+* load massive dataset
+  - load all A's
+  - get all symbols
+  - load all A-Z
+  - add and load the Buffett indicator (wilshire 5000/US GDP X 100)
+  - add and load the VIX (see: https://en.wikipedia.org/wiki/VIX)
 
 ##########################################################
 # functional backlog

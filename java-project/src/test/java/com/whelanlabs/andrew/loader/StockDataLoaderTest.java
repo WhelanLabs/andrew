@@ -30,10 +30,12 @@ public class StockDataLoaderTest {
    }
 
    @Test
-   public void loadStocks_goodFiles_loaded() throws FileNotFoundException {
+   public void loadStocks_goodFiles_loaded() throws Exception {
+      App.getDataGraph().flush();
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
-      files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
+      // AAPL contains some bad lines
+      files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
       
       StockLoader stockLoader = new StockLoader();
 
@@ -43,8 +45,8 @@ public class StockDataLoaderTest {
       
       logger.debug("count = " + count);
       
-      assert (count > 290);
-      assert (count < 500);
+      assert (count > 10000);
+      assert (count < 11000);
    }
 
    

@@ -30,12 +30,13 @@ public class LoadPerformanceTest {
    }
 
    @Test
-   public void loadStocks_goodFiles_loaded() throws FileNotFoundException {
+   public void loadThreeStocks_goodFiles_loaded() throws Exception {
+      App.getDataGraph().flush();
+      
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/AA_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AAAU_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
-
       
       StockLoader stockLoader = new StockLoader();
       
@@ -45,7 +46,7 @@ public class LoadPerformanceTest {
       long elapsed = (endTime - startTime)/1000;
       logger.debug("loadStocks_goodFiles_loaded took " + elapsed + " seconds");
       
-      if(elapsed > 10) {  // 10 minutes
+      if(elapsed > 10) {  // 10 seconds
          logger.warn("loadStocks_goodFiles_loaded took too long!");
       }
       
@@ -56,4 +57,39 @@ public class LoadPerformanceTest {
 
    }
 
+   
+   @Test
+   public void loadAStocks_goodFiles_loaded() throws Exception {
+      App.getDataGraph().flush();
+      
+      List<File> files = new ArrayList<>();
+      
+      String baseDir = "../fetchers/stock_data_fetcher/data/";
+      File f = new File(baseDir);
+
+      String[] baseFileNames = f.list();
+
+      for (String baseFileName : baseFileNames) {
+         String filePath = baseDir + baseFileName;
+         files.add(new File(filePath));
+      }
+
+      StockLoader stockLoader = new StockLoader();
+
+      long startTime = System.currentTimeMillis();
+      stockLoader.loadStocks(files);
+      long endTime = System.currentTimeMillis();
+      long elapsed = (endTime - startTime)/1000;
+      logger.debug("loadAStocks_goodFiles_loaded took " + elapsed + " seconds");
+      
+      Long count = App.getDataGraph().getCount("stockOnDate");
+      logger.debug("count = " + count);
+      assert (count > 10000);
+      
+      
+      if(elapsed > 10) {  // 10 seconds
+         logger.warn("loadAStocks_goodFiles_loaded took too long!");
+      }
+
+   }
 }
