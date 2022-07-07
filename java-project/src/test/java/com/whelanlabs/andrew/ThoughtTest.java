@@ -295,10 +295,10 @@ public class ThoughtTest {
       
       assert (jsonString.contains("\"properties\" : {"));
       assert (jsonString.contains("\"name\" : \"n1\","));
-      assert (jsonString.contains("\"id\" : \"thought_operation/KEY_"));
-      assert (jsonString.contains("\"id\" : \"approach/KEY_"));
-      assert (jsonString.contains("\"id\" : \"thought_sequence/KEY_"));
-      assert (jsonString.contains("\"id\" : \"goal/KEY_"));
+      assert (jsonString.contains("\"_id\" : \"thought_operation/KEY_"));
+      assert (jsonString.contains("\"_id\" : \"approach/KEY_"));
+      assert (jsonString.contains("\"_id\" : \"thought_sequence/KEY_"));
+      assert (jsonString.contains("\"_id\" : \"goal/KEY_"));
 
       String dirString = "./target/exports/";
       String fileString = dirString + "exportJson_goodThought_goodJson.json";

@@ -45,7 +45,7 @@ public class LoadPerformanceTest {
       long elapsed = (endTime - startTime)/1000;
       logger.debug("loadStocks_goodFiles_loaded took " + elapsed + " seconds");
       
-      if(elapsed > 600) {  // 10 minutes
+      if(elapsed > 10) {  // 10 minutes
          logger.warn("loadStocks_goodFiles_loaded took too long!");
       }
       

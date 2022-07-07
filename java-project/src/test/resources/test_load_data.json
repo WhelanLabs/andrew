@@ -1,16 +1,12 @@
 [ {
-  "id" : "thought/KEY_1656868488227140",
-  "key" : "KEY_1656868488227140",
-  "revision" : "_eaSMvAm---",
   "properties" : {
     "name" : "n1",
     "__type" : "thought"
   },
-  "type" : "thought"
+  "type" : "thought",
+  "_id" : "thought/KEY_1657153263052140",
+  "_key" : "KEY_1657153263052140"
 }, {
-  "id" : "goal/KEY_1656868488013115",
-  "key" : "KEY_1656868488013115",
-  "revision" : "_eaSMuzS---",
   "properties" : {
     "startingType" : "LinearDatasetNode",
     "relationType" : "LinearDatasetEdge",
@@ -21,107 +17,107 @@
     "targetProperty" : "value",
     "direction" : "outbound"
   },
-  "type" : "goal"
+  "type" : "goal",
+  "_id" : "goal/KEY_1657153262985115",
+  "_key" : "KEY_1657153262985115",
+  "_rev" : "_ebWGDWu---"
 }, {
-  "id" : "thought_operation/KEY_1656868488251142",
-  "key" : "KEY_1656868488251142",
-  "revision" : "_eaSMvCC---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n2",
     "operationName" : "multiply",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "type" : "thought_operation"
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657153263066142",
+  "_key" : "KEY_1657153263066142",
+  "_rev" : "_ebWGDbu---"
 }, {
-  "id" : "thought_operation/KEY_1656868488259143",
-  "key" : "KEY_1656868488259143",
-  "revision" : "_eaSMvCe---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n3",
     "operationName" : "traverse",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "type" : "thought_operation"
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657153263069143",
+  "_key" : "KEY_1657153263069143",
+  "_rev" : "_ebWGDc----"
 }, {
-  "id" : "thought_operation/KEY_1656868488265144",
-  "key" : "KEY_1656868488265144",
-  "revision" : "_eaSMvC6---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n4",
     "operationName" : "subtract",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "type" : "thought_operation"
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657153263073144",
+  "_key" : "KEY_1657153263073144",
+  "_rev" : "_ebWGDcO---"
 }, {
-  "id" : "thought_operation/KEY_1656868488272145",
-  "key" : "KEY_1656868488272145",
-  "revision" : "_eaSMvDW---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n6",
     "operationName" : "multiply",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "type" : "thought_operation"
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657153263077145",
+  "_key" : "KEY_1657153263077145",
+  "_rev" : "_ebWGDca---"
 }, {
-  "id" : "thought_operation/KEY_1656868488502165",
-  "key" : "KEY_1656868488502165",
-  "revision" : "_eaSMvRy---",
   "properties" : {
     "operationName" : "average",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "__type" : "thought_operation"
   },
-  "type" : "thought_operation"
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657153263207165",
+  "_key" : "KEY_1657153263207165",
+  "_rev" : "_ebWGDl----"
 }, {
-  "id" : "thought_operation/KEY_1656868488407160",
-  "key" : "KEY_1656868488407160",
-  "revision" : "_eaSMvVO---",
   "properties" : {
     "__type" : "thought_operation",
     "name" : "n6",
     "operationName" : "multiply",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "type" : "thought_operation"
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657153263155160",
+  "_key" : "KEY_1657153263155160",
+  "_rev" : "_ebWGDnC---"
 }, {
-  "id" : "thought_result/KEY_1656868488281146",
-  "key" : "KEY_1656868488281146",
-  "revision" : "_eaSMvD6---",
   "properties" : {
     "__type" : "thought_result",
     "name" : "n5",
     "operationName" : "end",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "type" : "thought_result"
+  "type" : "thought_result",
+  "_id" : "thought_result/KEY_1657153263083146",
+  "_key" : "KEY_1657153263083146",
+  "_rev" : "_ebWGDcu---"
 }, {
-  "id" : "approach/KEY_1656868488241141",
-  "key" : "KEY_1656868488241141",
-  "revision" : "_eaSMvBa---",
   "properties" : {
     "__left_collection" : "goal",
     "__type" : "approach",
     "__right_collection" : "thought",
     "name" : "e0",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "goal/KEY_1656868488013115",
-  "to" : "thought/KEY_1656868488227140",
-  "leftType" : "goal",
   "rightType" : "thought",
-  "type" : "approach"
+  "leftType" : "goal",
+  "type" : "approach",
+  "_id" : "approach/KEY_1657153263059141",
+  "_key" : "KEY_1657153263059141",
+  "_rev" : "_ebWGDbW---",
+  "_from" : "goal/KEY_1657153262985115",
+  "_to" : "thought/KEY_1657153263052140"
 }, {
-  "id" : "thought_sequence/KEY_1656868488293147",
-  "key" : "KEY_1656868488293147",
-  "revision" : "_eaSMvEu---",
   "properties" : {
     "__right_collection" : "thought_operation",
     "description" : "starting node target property value.",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "floatA",
     "input" : "targetPropValue",
     "__left_collection" : "thought",
@@ -129,18 +125,18 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e1"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488251142",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263090147",
+  "_key" : "KEY_1657153263090147",
+  "_rev" : "_ebWGDdO---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263066142"
 }, {
-  "id" : "thought_sequence/KEY_1656868488301148",
-  "key" : "KEY_1656868488301148",
-  "revision" : "_eaSMvFO---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "floatB",
     "input" : "NUMBER.2",
     "__left_collection" : "thought",
@@ -148,15 +144,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e2"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488251142",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263094148",
+  "_key" : "KEY_1657153263094148",
+  "_rev" : "_ebWGDde---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263066142"
 }, {
-  "id" : "thought_sequence/KEY_1656868488309149",
-  "key" : "KEY_1656868488309149",
-  "revision" : "_eaSMvFu---",
   "properties" : {
     "output" : "startingNode",
     "input" : "startingNode",
@@ -164,17 +160,17 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e3",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488259143",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263098149",
+  "_key" : "KEY_1657153263098149",
+  "_rev" : "_ebWGDdy---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263069143"
 }, {
-  "id" : "thought_sequence/KEY_1656868488317150",
-  "key" : "KEY_1656868488317150",
-  "revision" : "_eaSMvGO---",
   "properties" : {
     "output" : "traversalEdgeType",
     "input" : "relationType",
@@ -182,17 +178,17 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e4",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488259143",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263102150",
+  "_key" : "KEY_1657153263102150",
+  "_rev" : "_ebWGDeC---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263069143"
 }, {
-  "id" : "thought_sequence/KEY_1656868488325151",
-  "key" : "KEY_1656868488325151",
-  "revision" : "_eaSMvGu---",
   "properties" : {
     "output" : "direction",
     "input" : "direction",
@@ -200,20 +196,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e5",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488259143",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263107151",
+  "_key" : "KEY_1657153263107151",
+  "_rev" : "_ebWGDeW---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263069143"
 }, {
-  "id" : "thought_sequence/KEY_1656868488333152",
-  "key" : "KEY_1656868488333152",
-  "revision" : "_eaSMvHO---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "floatA",
     "input" : "distance",
     "__left_collection" : "thought",
@@ -221,15 +217,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e6"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488272145",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263111152",
+  "_key" : "KEY_1657153263111152",
+  "_rev" : "_ebWGDei---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263077145"
 }, {
-  "id" : "thought_sequence/KEY_1656868488341153",
-  "key" : "KEY_1656868488341153",
-  "revision" : "_eaSMvHu---",
   "properties" : {
     "output" : "floatA",
     "input" : "RESULT",
@@ -237,20 +233,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e7",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought_operation/KEY_1656868488251142",
-  "to" : "thought_operation/KEY_1656868488265144",
-  "leftType" : "thought_operation",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263115153",
+  "_key" : "KEY_1657153263115153",
+  "_rev" : "_ebWGDey---",
+  "_from" : "thought_operation/KEY_1657153263066142",
+  "_to" : "thought_operation/KEY_1657153263073144"
 }, {
-  "id" : "thought_sequence/KEY_1656868488349154",
-  "key" : "KEY_1656868488349154",
-  "revision" : "_eaSMvIK---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "floatB",
     "input" : "RESULT.value",
     "__left_collection" : "thought_operation",
@@ -258,15 +254,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e8"
   },
-  "from" : "thought_operation/KEY_1656868488259143",
-  "to" : "thought_operation/KEY_1656868488265144",
-  "leftType" : "thought_operation",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263119154",
+  "_key" : "KEY_1657153263119154",
+  "_rev" : "_ebWGDfC---",
+  "_from" : "thought_operation/KEY_1657153263069143",
+  "_to" : "thought_operation/KEY_1657153263073144"
 }, {
-  "id" : "thought_sequence/KEY_1656868488363156",
-  "key" : "KEY_1656868488363156",
-  "revision" : "_eaSMvJ----",
   "properties" : {
     "output" : "floatB",
     "input" : "NUMBER.-1",
@@ -274,20 +270,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e10",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488272145",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263126156",
+  "_key" : "KEY_1657153263126156",
+  "_rev" : "_ebWGDfi---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263077145"
 }, {
-  "id" : "thought_sequence/KEY_1656868488369157",
-  "key" : "KEY_1656868488369157",
-  "revision" : "_eaSMvJa---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "distance",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
@@ -295,18 +291,18 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e11"
   },
-  "from" : "thought_operation/KEY_1656868488272145",
-  "to" : "thought_operation/KEY_1656868488259143",
-  "leftType" : "thought_operation",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263131157",
+  "_key" : "KEY_1657153263131157",
+  "_rev" : "_ebWGDfy---",
+  "_from" : "thought_operation/KEY_1657153263077145",
+  "_to" : "thought_operation/KEY_1657153263069143"
 }, {
-  "id" : "thought_sequence/KEY_1656868488356155",
-  "key" : "KEY_1656868488356155",
-  "revision" : "_eaSMvSu---",
   "properties" : {
     "__right_collection" : "thought_operation",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "input1",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
@@ -314,15 +310,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e9"
   },
-  "from" : "thought_operation/KEY_1656868488265144",
-  "to" : "thought_operation/KEY_1656868488502165",
-  "leftType" : "thought_operation",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263123155",
+  "_key" : "KEY_1657153263123155",
+  "_rev" : "_ebWGDlu---",
+  "_from" : "thought_operation/KEY_1657153263073144",
+  "_to" : "thought_operation/KEY_1657153263207165"
 }, {
-  "id" : "thought_sequence/KEY_1656868488443164",
-  "key" : "KEY_1656868488443164",
-  "revision" : "_eaSMvT2---",
   "properties" : {
     "output" : "input2",
     "input" : "RESULT",
@@ -330,20 +326,20 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e3",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought_operation/KEY_1656868488407160",
-  "to" : "thought_operation/KEY_1656868488502165",
-  "leftType" : "thought_operation",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263175164",
+  "_key" : "KEY_1657153263175164",
+  "_rev" : "_ebWGDmS---",
+  "_from" : "thought_operation/KEY_1657153263155160",
+  "_to" : "thought_operation/KEY_1657153263207165"
 }, {
-  "id" : "thought_sequence/KEY_1656868488546166",
-  "key" : "KEY_1656868488546166",
-  "revision" : "_eaSMvUe---",
   "properties" : {
     "__right_collection" : "thought_result",
-    "thought_key" : "KEY_1656868488227140",
+    "thought_key" : "KEY_1657153263052140",
     "output" : "output",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
@@ -351,15 +347,15 @@
     "mutation_range" : "FLOAT:>0",
     "name" : "e9"
   },
-  "from" : "thought_operation/KEY_1656868488502165",
-  "to" : "thought_result/KEY_1656868488281146",
-  "leftType" : "thought_operation",
   "rightType" : "thought_result",
-  "type" : "thought_sequence"
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263239166",
+  "_key" : "KEY_1657153263239166",
+  "_rev" : "_ebWGDmi---",
+  "_from" : "thought_operation/KEY_1657153263207165",
+  "_to" : "thought_result/KEY_1657153263083146"
 }, {
-  "id" : "thought_sequence/KEY_1656868488429162",
-  "key" : "KEY_1656868488429162",
-  "revision" : "_eaSMvWG---",
   "properties" : {
     "output" : "floatA",
     "input" : "targetPropValue",
@@ -367,17 +363,17 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e1",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488407160",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263168162",
+  "_key" : "KEY_1657153263168162",
+  "_rev" : "_ebWGDni---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263155160"
 }, {
-  "id" : "thought_sequence/KEY_1656868488436163",
-  "key" : "KEY_1656868488436163",
-  "revision" : "_eaSMvWq---",
   "properties" : {
     "output" : "floatB",
     "input" : "NUMBER.1.5",
@@ -385,11 +381,14 @@
     "__type" : "thought_sequence",
     "__right_collection" : "thought_operation",
     "name" : "e2",
-    "thought_key" : "KEY_1656868488227140"
+    "thought_key" : "KEY_1657153263052140"
   },
-  "from" : "thought/KEY_1656868488227140",
-  "to" : "thought_operation/KEY_1656868488407160",
-  "leftType" : "thought",
   "rightType" : "thought_operation",
-  "type" : "thought_sequence"
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657153263171163",
+  "_key" : "KEY_1657153263171163",
+  "_rev" : "_ebWGDnu---",
+  "_from" : "thought/KEY_1657153263052140",
+  "_to" : "thought_operation/KEY_1657153263155160"
 } ]
