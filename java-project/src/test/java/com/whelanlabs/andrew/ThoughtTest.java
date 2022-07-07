@@ -1,10 +1,6 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.fail;
-
-import java.io.File;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

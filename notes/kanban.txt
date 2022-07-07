@@ -70,7 +70,10 @@
 ##########################################################
 
 
-
+* given:
+  - history of a stock (linear)
+  - VIX causes push up or down
+  Show evolution of solution.
 
 
 * create initial offspring generator

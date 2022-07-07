@@ -1,7 +1,6 @@
 package com.whelanlabs.andrew.loader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class LoadPerformanceTest {
 
    @Test
    public void loadThreeStocks_goodFiles_loaded() throws Exception {
+      // start with a clean DB
       App.getDataGraph().flush();
       
       List<File> files = new ArrayList<>();
@@ -60,6 +60,7 @@ public class LoadPerformanceTest {
    
    @Test
    public void loadAStocks_goodFiles_loaded() throws Exception {
+      // start with a clean DB
       App.getDataGraph().flush();
       
       List<File> files = new ArrayList<>();
