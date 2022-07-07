@@ -52,11 +52,13 @@
 
 * load large dataset (the first 3 of the "A" set.)
 
+* profile and speed up
+
 ##########################################################
 # WIP
 ##########################################################
 
-* profile and speed up
+* load massive dataset (the whole set)
 
 ##########################################################
 # functional backlog
@@ -64,7 +66,7 @@
 
 
 
-* load massive dataset (the whole set)
+
 
 * create initial offspring generator
   - framework for creating offspring with mutation and crossover
