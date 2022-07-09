@@ -18,13 +18,13 @@ import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.Node;
 
-public class StockLoader {
+public class CSVLoader {
 
-   private static Logger logger = LogManager.getLogger(StockLoader.class);
+   private static Logger logger = LogManager.getLogger(CSVLoader.class);
 
    private LocalDate epoch = LocalDate.ofEpochDay(0);
 
-   public StockLoader() {
+   public CSVLoader() {
       //
    }
 

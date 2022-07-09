@@ -54,26 +54,45 @@
 
 * profile and speed up
 
+* get datasets
+  - fetch the VIX (see: https://en.wikipedia.org/wiki/VIX)
+  - load the VIX
+
 ##########################################################
 # WIP
 ##########################################################
 
-* load massive dataset
-  - load all A's
-  - get all symbols
-  - load all A-Z
-  - add and load the Buffett indicator (wilshire 5000/US GDP X 100)
-  - add and load the VIX (see: https://en.wikipedia.org/wiki/VIX)
+* get datasets - fetch the Buffett Indicator (wilshire 5000/US GDP X 100)
+  - fetch wilshire 5000
+  - fetch US GDP
+
 
 ##########################################################
 # functional backlog
 ##########################################################
 
 
-* given:
+* build evolution example. Given:
   - history of a stock (linear)
   - VIX causes push up or down
-  Show evolution of solution.
+  - Buffett Indicator causes push up or down
+  - US GDP grows at 8%
+  Show evolution of solution accuracy.
+  - play with future distances
+  - play with sum of fear and greed
+  - play with Buffett Indicator
+
+* get datasets
+  - load the Buffett Indicator (how?)
+  - load all A's
+  - fetch all stock symbols
+  - load all stock symbols
+  - fetch and load Nasdaq 100
+  - fetch and load S&P 500
+  - fetch and load DJIA (what is this?)
+  - fetch and load Russell 2000
+  - Commodies information?
+  - sentiment analysis info?
 
 
 * create initial offspring generator

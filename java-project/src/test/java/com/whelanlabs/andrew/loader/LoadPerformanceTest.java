@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.App;
-import com.whelanlabs.andrew.dataset.StockLoader;
+import com.whelanlabs.andrew.dataset.CSVLoader;
 
 public class LoadPerformanceTest {
 
@@ -38,7 +38,7 @@ public class LoadPerformanceTest {
       files.add(new File("../fetchers/stock_data_fetcher/data/AAAU_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
       
-      StockLoader stockLoader = new StockLoader();
+      CSVLoader stockLoader = new CSVLoader();
       
       long startTime = System.currentTimeMillis();
       stockLoader.loadStocks(files);
@@ -75,7 +75,7 @@ public class LoadPerformanceTest {
          files.add(new File(filePath));
       }
 
-      StockLoader stockLoader = new StockLoader();
+      CSVLoader stockLoader = new CSVLoader();
 
       long startTime = System.currentTimeMillis();
       stockLoader.loadStocks(files);

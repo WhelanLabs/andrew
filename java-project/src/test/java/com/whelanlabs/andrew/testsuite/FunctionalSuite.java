@@ -9,12 +9,12 @@ import com.whelanlabs.andrew.EvaluatorTest;
 import com.whelanlabs.andrew.OperationsTest;
 import com.whelanlabs.andrew.ThoughtTest;
 import com.whelanlabs.andrew.loader.LinearDatasetTest;
-import com.whelanlabs.andrew.loader.StockDataLoaderTest;
+import com.whelanlabs.andrew.loader.CSVLoaderTest;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({ AppTest.class, LinearDatasetTest.class, ThoughtTest.class, EvaluatorTest.class, OperationsTest.class,
-      AveragePercentageScoringMachineTest.class, StockDataLoaderTest.class })
+      AveragePercentageScoringMachineTest.class, CSVLoaderTest.class })
 
 public class FunctionalSuite {
 }

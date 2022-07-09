@@ -12,11 +12,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.App;
-import com.whelanlabs.andrew.dataset.StockLoader;
+import com.whelanlabs.andrew.dataset.CSVLoader;
 
-public class StockDataLoaderTest {
+public class CSVLoaderTest {
 
-   private static Logger logger = LogManager.getLogger(StockDataLoaderTest.class);
+   private static Logger logger = LogManager.getLogger(CSVLoaderTest.class);
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -37,7 +37,7 @@ public class StockDataLoaderTest {
       // AAPL contains some bad lines
       files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
       
-      StockLoader stockLoader = new StockLoader();
+      CSVLoader stockLoader = new CSVLoader();
 
       stockLoader.loadStocks(files);
       
@@ -49,13 +49,30 @@ public class StockDataLoaderTest {
       assert (count < 11000);
    }
 
+   @Test
+   public void loadVIX_goodFile_loaded() throws Exception {
+      App.getDataGraph().flush();
+      List<File> files = new ArrayList<>();
+      files.add(new File("../fetchers/vix_fetcher/data/VIX.csv"));
+      
+      CSVLoader stockLoader = new CSVLoader();
+
+      stockLoader.loadStocks(files);
+      
+      Long count = App.getDataGraph().getCount("stockOnDate");
+      
+      logger.debug("count = " + count);
+      
+      assert (count > 8000);
+      assert (count < 10000);
+   }
    
    @Test(expected = FileNotFoundException.class)
    public void loadStocks_badFile_exception() throws FileNotFoundException {
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/BAD_FILE.txt"));
       
-      StockLoader stockLoader = new StockLoader();
+      CSVLoader stockLoader = new CSVLoader();
 
       stockLoader.loadStocks(files);
    }
