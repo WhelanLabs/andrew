@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,10 +39,10 @@ public class CSVLoader {
       for (File file : files) {
          fileNumber++;
          String symbol = null;
-         
+
          Long count = App.getDataGraph().getCount("stockOnDate");
          logger.debug("file #" + fileNumber + " of " + numFiles + " file.path: " + file.getAbsolutePath() + "(stockOnDate.count = " + count + ")");
-         
+
          Scanner scanner = new Scanner(file);
          Boolean firstLine = true;
          Node stockNode = null;
@@ -103,5 +104,55 @@ public class CSVLoader {
          scanner.close();
 
       }
+   }
+
+   public void loadQuarterlyPercentData(String symbol, File file) throws Exception {
+
+      List<Element> elements = new ArrayList<>();
+
+      logger.debug(" file.path: " + file.getAbsolutePath());
+
+      Scanner scanner = new Scanner(file);
+      Boolean firstLine = true;
+      Node quarterlyDeltaNode = null;
+      String currentLine = null;
+      Integer lineNum = 0;
+
+      while (scanner.hasNextLine()) {
+         lineNum++;
+         currentLine = scanner.nextLine();
+         if (firstLine) {
+            // create stockSymbol Node
+            quarterlyDeltaNode = new Node(symbol, "quarterlyDelta");
+            elements.add(quarterlyDeltaNode);
+            firstLine = false;
+         } else {
+            String[] fields = currentLine.split(",");
+            String[] dateFields = fields[0].split("Q");
+
+            // TODO: for now, just assume 30 days for the end-of-quarter months. fix this in
+            // the future.
+            LocalDate eventDate = LocalDate.of(Integer.valueOf(dateFields[0]), Integer.valueOf(dateFields[1]) * 3, 30);
+            Long daysSinceEpoch = ChronoUnit.DAYS.between(epoch, eventDate);
+
+            // create date Node - also keep track of the date has already been added
+            final Node dateNode = new Node(daysSinceEpoch.toString(), "date");
+            dateNode.addAttribute("dateString", fields[0]);
+            elements.add(dateNode);
+
+            // create stockSymbolOnDate Edge
+            Float percentCurrentDollars = Float.valueOf(fields[1]);
+            Float percentFixedDollars = Float.valueOf(fields[2]);
+            String edgeKey = symbol + "_" + daysSinceEpoch.toString();
+            Edge edge = new Edge(edgeKey, quarterlyDeltaNode.getKey(), daysSinceEpoch.toString(), "quarterlyDelta", "date", "deltaOnDate");
+            edge.addAttribute("percentCurrentDollars", percentCurrentDollars);
+            edge.addAttribute("percentFixedDollars", percentFixedDollars);
+            elements.add(edge);
+         }
+      }
+
+      // upsert for each input file
+      App.getDataGraph().upsert(elements);
+      scanner.close();
    }
 }

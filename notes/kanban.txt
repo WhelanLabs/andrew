@@ -57,25 +57,24 @@
 * get datasets
   - fetch and load the VIX (see: https://en.wikipedia.org/wiki/VIX)
   - fetch and load the Wilshire 5000 (see: https://en.wikipedia.org/wiki/Wilshire_5000)
+  - fetch and load US GDP
 
 ##########################################################
 # WIP
 ##########################################################
 
-* get datasets - fetch the Buffett Indicator (wilshire 5000/US GDP X 100)
-  - fetch and load US GDP
-  
-
+* build seed thought - VIX detirmines future stock price
 
 ##########################################################
 # functional backlog
 ##########################################################
 
+* build seed thought - Buffett Indicator detirmines future stock price
 
 * build evolution example. Given:
   - history of a stock (linear)
   - VIX causes push up or down
-  - Buffett Indicator causes push up or down
+  - Buffett Indicator (wilshire 5000/US GDP X 100) causes push up or down
   - US GDP grows at 8%
   Show evolution of solution accuracy.
   - play with future distances
