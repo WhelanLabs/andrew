@@ -2,7 +2,7 @@
 
 ## Fetch VIX data.
 
-use https://finance.yahoo.com/quote/%5EVIX/history/ to fetch the CSV contents.
+Use https://finance.yahoo.com/quote/%5EVIX/history/ to fetch the CSV contents.
 In order to refresh this content, find the "download" link on the page, copy the 
 link, and modify it to set "period1" to zero, and "period2" to a bigger number.
 The following is an example of a modified URL where the leading one in the 
@@ -13,7 +13,7 @@ https://query1.finance.yahoo.com/v7/finance/download/%5EVIX?period1=0&period2=96
 
 ## Fetch Wilshire 5000 (w5k) data.
 
-use https://finance.yahoo.com/quote/%5EW5000/history/ to fetch the CSV contents.
+Use https://finance.yahoo.com/quote/%5EW5000/history/ to fetch the CSV contents.
 In order to refresh this content, find the "download" link on the page, copy the 
 link, and modify it to set "period1" to zero, and "period2" to a bigger number.
 The following is an example of a modified URL where the leading one in the 

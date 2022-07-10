@@ -55,16 +55,16 @@
 * profile and speed up
 
 * get datasets
-  - fetch the VIX (see: https://en.wikipedia.org/wiki/VIX)
-  - load the VIX
+  - fetch and load the VIX (see: https://en.wikipedia.org/wiki/VIX)
+  - fetch and load the Wilshire 5000 (see: https://en.wikipedia.org/wiki/Wilshire_5000)
 
 ##########################################################
 # WIP
 ##########################################################
 
 * get datasets - fetch the Buffett Indicator (wilshire 5000/US GDP X 100)
-  - fetch wilshire 5000
-  - fetch US GDP
+  - fetch and load US GDP
+  
 
 
 ##########################################################
@@ -93,6 +93,7 @@
   - fetch and load Russell 2000
   - Commodies information?
   - sentiment analysis info?
+  - GDP by industry? (see: https://www.bea.gov/resources/learning-center/what-to-know-gdp)
 
 
 * create initial offspring generator
