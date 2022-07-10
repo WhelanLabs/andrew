@@ -58,7 +58,8 @@ public class LoadPerformanceTest {
    }
 
    
-   @Test
+   //@Test
+   // TODO: get this do-able in a reasonable amount of time.
    public void loadAStocks_goodFiles_loaded() throws Exception {
       // start with a clean DB
       App.getDataGraph().flush();

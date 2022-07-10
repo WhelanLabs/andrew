@@ -50,10 +50,11 @@ public class CSVLoaderTest {
    }
 
    @Test
-   public void loadVIX_goodFile_loaded() throws Exception {
+   public void load_goodVixAndW5k_loaded() throws Exception {
       App.getDataGraph().flush();
       List<File> files = new ArrayList<>();
-      files.add(new File("../fetchers/vix_fetcher/data/VIX.csv"));
+      files.add(new File("../fetchers/index_fetcher/data/VIX.csv"));
+      files.add(new File("../fetchers/index_fetcher/data/w5k.csv"));
       
       CSVLoader stockLoader = new CSVLoader();
 
@@ -63,8 +64,8 @@ public class CSVLoaderTest {
       
       logger.debug("count = " + count);
       
-      assert (count > 8000);
-      assert (count < 10000);
+      assert (count > 16000);
+      assert (count < 17000);
    }
    
    @Test(expected = FileNotFoundException.class)
