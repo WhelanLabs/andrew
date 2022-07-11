@@ -2,7 +2,7 @@
 
 The thought assumes that the current vix price impacts future stock price.
 
-[ future_price(+days) = current_price + ( current_price - past_price(-days) ) ]
+[ TODO: add a basic formula. Note average VIX is 19.6, and median VIX is 17.7. ]
 
 # Goal Inputs
 
