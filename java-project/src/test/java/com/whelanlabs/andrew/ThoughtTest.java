@@ -305,6 +305,26 @@ public class ThoughtTest {
      }
    }
    
+   
+   @Test
+   public void exportJson_linearGrowthThought_goodJson() throws Exception {
+            
+      Thought thought1 = TestHelper.buildModifiedInitialTestThought();
+      
+      String jsonString = thought1.exportJson();
+
+      assert (null != jsonString);
+
+      String dirString = "./target/exports/";
+      String fileString = dirString + "linear_growth_thought.json";
+      Path path = Paths.get(dirString);
+      Files.createDirectories(path);
+      try (PrintWriter out = new PrintWriter(fileString)) {
+         out.println(jsonString);
+     }
+   }
+   
+   
    @Test
    public void exportDot_goodThought_goodDot() throws Exception {
             

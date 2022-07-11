@@ -63,11 +63,15 @@
 # WIP
 ##########################################################
 
-* build seed thought - VIX detirmines future stock price
+* build seed thought - stock price linear growth
+
+* build seed thought - VIX influences future stock price
 
 ##########################################################
 # functional backlog
 ##########################################################
+
+
 
 * build seed thought - Buffett Indicator detirmines future stock price
 

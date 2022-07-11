@@ -1,0 +1,301 @@
+[ {
+  "properties" : {
+    "name" : "n1",
+    "__type" : "thought"
+  },
+  "type" : "thought",
+  "_id" : "thought/KEY_1657499623640264",
+  "_key" : "KEY_1657499623640264",
+  "_rev" : "_ecorGL6---"
+}, {
+  "properties" : {
+    "startingType" : "LinearDatasetNode",
+    "relationType" : "LinearDatasetEdge",
+    "distance" : 10,
+    "resultClass" : "Float",
+    "__type" : "goal",
+    "name" : "goalNode",
+    "targetProperty" : "value",
+    "direction" : "outbound"
+  },
+  "type" : "goal",
+  "_id" : "goal/KEY_1657499623640265",
+  "_key" : "KEY_1657499623640265",
+  "_rev" : "_ecorGLu---"
+}, {
+  "properties" : {
+    "__type" : "thought_operation",
+    "name" : "n2",
+    "operationName" : "multiply",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657499623640266",
+  "_key" : "KEY_1657499623640266",
+  "_rev" : "_ecorGMW---"
+}, {
+  "properties" : {
+    "__type" : "thought_operation",
+    "name" : "n3",
+    "operationName" : "traverse",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657499623640267",
+  "_key" : "KEY_1657499623640267",
+  "_rev" : "_ecorGMW--_"
+}, {
+  "properties" : {
+    "__type" : "thought_operation",
+    "name" : "n4",
+    "operationName" : "subtract",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657499623640268",
+  "_key" : "KEY_1657499623640268",
+  "_rev" : "_ecorGMa---"
+}, {
+  "properties" : {
+    "__type" : "thought_operation",
+    "name" : "n6",
+    "operationName" : "multiply",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "type" : "thought_operation",
+  "_id" : "thought_operation/KEY_1657499623640270",
+  "_key" : "KEY_1657499623640270",
+  "_rev" : "_ecorGMa--_"
+}, {
+  "properties" : {
+    "__type" : "thought_result",
+    "name" : "n5",
+    "operationName" : "end",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "type" : "thought_result",
+  "_id" : "thought_result/KEY_1657499623640269",
+  "_key" : "KEY_1657499623640269",
+  "_rev" : "_ecorGMK---"
+}, {
+  "properties" : {
+    "__left_collection" : "goal",
+    "__type" : "approach",
+    "__right_collection" : "thought",
+    "name" : "e0",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "rightType" : "thought",
+  "leftType" : "goal",
+  "type" : "approach",
+  "_id" : "approach/KEY_1657499623640271",
+  "_key" : "KEY_1657499623640271",
+  "_rev" : "_ecorGM6---",
+  "_from" : "goal/KEY_1657499623640265",
+  "_to" : "thought/KEY_1657499623640264"
+}, {
+  "properties" : {
+    "__right_collection" : "thought_operation",
+    "description" : "starting node target property value.",
+    "thought_key" : "KEY_1657499623640264",
+    "output" : "floatA",
+    "input" : "targetPropValue",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "mutation_range" : "FLOAT:>0",
+    "name" : "e1"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640272",
+  "_key" : "KEY_1657499623640272",
+  "_rev" : "_ecorGMm---",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640266"
+}, {
+  "properties" : {
+    "__right_collection" : "thought_operation",
+    "thought_key" : "KEY_1657499623640264",
+    "output" : "floatB",
+    "input" : "NUMBER.2",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "mutation_range" : "FLOAT:>0",
+    "name" : "e2"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640273",
+  "_key" : "KEY_1657499623640273",
+  "_rev" : "_ecorGMm--_",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640266"
+}, {
+  "properties" : {
+    "output" : "startingNode",
+    "input" : "startingNode",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "__right_collection" : "thought_operation",
+    "name" : "e3",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640274",
+  "_key" : "KEY_1657499623640274",
+  "_rev" : "_ecorGMm--A",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640267"
+}, {
+  "properties" : {
+    "output" : "traversalEdgeType",
+    "input" : "relationType",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "__right_collection" : "thought_operation",
+    "name" : "e4",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640275",
+  "_key" : "KEY_1657499623640275",
+  "_rev" : "_ecorGMm--B",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640267"
+}, {
+  "properties" : {
+    "output" : "direction",
+    "input" : "direction",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "__right_collection" : "thought_operation",
+    "name" : "e5",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640276",
+  "_key" : "KEY_1657499623640276",
+  "_rev" : "_ecorGMm--C",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640267"
+}, {
+  "properties" : {
+    "__right_collection" : "thought_operation",
+    "thought_key" : "KEY_1657499623640264",
+    "output" : "floatA",
+    "input" : "distance",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "mutation_range" : "FLOAT:>0",
+    "name" : "e6"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640277",
+  "_key" : "KEY_1657499623640277",
+  "_rev" : "_ecorGMq---",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640270"
+}, {
+  "properties" : {
+    "output" : "floatA",
+    "input" : "RESULT",
+    "__left_collection" : "thought_operation",
+    "__type" : "thought_sequence",
+    "__right_collection" : "thought_operation",
+    "name" : "e7",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640278",
+  "_key" : "KEY_1657499623640278",
+  "_rev" : "_ecorGMq--_",
+  "_from" : "thought_operation/KEY_1657499623640266",
+  "_to" : "thought_operation/KEY_1657499623640268"
+}, {
+  "properties" : {
+    "__right_collection" : "thought_operation",
+    "thought_key" : "KEY_1657499623640264",
+    "output" : "floatB",
+    "input" : "RESULT.value",
+    "__left_collection" : "thought_operation",
+    "__type" : "thought_sequence",
+    "mutation_range" : "FLOAT:>0",
+    "name" : "e8"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640279",
+  "_key" : "KEY_1657499623640279",
+  "_rev" : "_ecorGMq--A",
+  "_from" : "thought_operation/KEY_1657499623640267",
+  "_to" : "thought_operation/KEY_1657499623640268"
+}, {
+  "properties" : {
+    "__right_collection" : "thought_result",
+    "thought_key" : "KEY_1657499623640264",
+    "output" : "output",
+    "input" : "RESULT",
+    "__left_collection" : "thought_operation",
+    "__type" : "thought_sequence",
+    "mutation_range" : "FLOAT:>0",
+    "name" : "e9"
+  },
+  "rightType" : "thought_result",
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640280",
+  "_key" : "KEY_1657499623640280",
+  "_rev" : "_ecorGMq--B",
+  "_from" : "thought_operation/KEY_1657499623640268",
+  "_to" : "thought_result/KEY_1657499623640269"
+}, {
+  "properties" : {
+    "output" : "floatB",
+    "input" : "NUMBER.-1",
+    "__left_collection" : "thought",
+    "__type" : "thought_sequence",
+    "__right_collection" : "thought_operation",
+    "name" : "e10",
+    "thought_key" : "KEY_1657499623640264"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640281",
+  "_key" : "KEY_1657499623640281",
+  "_rev" : "_ecorGMq--C",
+  "_from" : "thought/KEY_1657499623640264",
+  "_to" : "thought_operation/KEY_1657499623640270"
+}, {
+  "properties" : {
+    "__right_collection" : "thought_operation",
+    "thought_key" : "KEY_1657499623640264",
+    "output" : "distance",
+    "input" : "RESULT",
+    "__left_collection" : "thought_operation",
+    "__type" : "thought_sequence",
+    "mutation_range" : "FLOAT:>0",
+    "name" : "e11"
+  },
+  "rightType" : "thought_operation",
+  "leftType" : "thought_operation",
+  "type" : "thought_sequence",
+  "_id" : "thought_sequence/KEY_1657499623640282",
+  "_key" : "KEY_1657499623640282",
+  "_rev" : "_ecorGMq--D",
+  "_from" : "thought_operation/KEY_1657499623640270",
+  "_to" : "thought_operation/KEY_1657499623640267"
+} ]
