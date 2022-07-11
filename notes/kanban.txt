@@ -67,6 +67,8 @@
 
 * build seed thought - VIX influences future stock price
 
+* create ProfitThoughtGenerator
+
 ##########################################################
 # functional backlog
 ##########################################################
@@ -129,6 +131,8 @@
 * create a 'change node type' argument mutation
 
 * create a 'change edge type' argument mutation
+
+* sanitize - whelanlabs -> blackwalnutsoftware, strip: "john", "whelan", other?
 
 ##########################################################
 # performance backlog
