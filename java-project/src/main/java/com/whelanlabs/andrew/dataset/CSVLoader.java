@@ -71,6 +71,7 @@ public class CSVLoader {
                   if (!dates.contains(daysSinceEpoch)) {
                      final Node dateNode = new Node(daysSinceEpoch.toString(), "date");
                      dateNode.addAttribute("dateString", fields[0]);
+                     dateNode.addAttribute("dateNumber", daysSinceEpoch);
                      elements.add(dateNode);
                      dates.add(daysSinceEpoch);
                   }
@@ -94,7 +95,7 @@ public class CSVLoader {
                }
             } catch (Exception e) {
                // sometimes input lines are dirty. skip and continue.
-               logger.error("Error in file '" + file.getAbsolutePath() + "' at line number " + lineNum + ".");
+               logger.error("Error in file '" + file.getAbsolutePath() + "' at line number " + lineNum + ".", e);
             }
          }
 

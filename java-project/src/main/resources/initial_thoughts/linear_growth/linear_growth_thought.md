@@ -4,11 +4,11 @@ The thought assumes that stocks move in a linear direction over time, and that t
 
 [ future_price(+days) = current_price + ( current_price - past_price(-days) ) ]
 
-# Goal Inputs
+# Goal Input Attributes
 
-* stock_symbol
-* starting_date
-* time_in_future
+* symbol (default:"")
+* distance (default:365)
+* targetProperty (default:"dayClose")
 
 # thought outputs
 
@@ -17,3 +17,9 @@ The thought assumes that stocks move in a linear direction over time, and that t
 # supported mutations
 
 * ...
+
+# Thought Diagram
+
+<img src="./linear_growth_thought.jpg" alt="graphical representation">
+<p/>
+[Note: Source of graphics is <a href="https://app.diagrams.net/?mode=google&gfw=1#G1yHheWAigkm8GaCBHv3vERHQR-btmRYn_">here</a>.]
