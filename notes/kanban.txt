@@ -63,6 +63,8 @@
 # WIP
 ##########################################################
 
+* thought modeling: diagram -> XML -> kgraph
+
 * build seed thought - stock price linear growth
 
 * build seed thought - VIX influences future stock price
