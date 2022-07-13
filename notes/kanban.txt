@@ -80,6 +80,11 @@
 * build seed thought - Buffett Indicator detirmines future stock price
 
 * Have thoughts indicate level of certainty (proposed weight)
+  Certainty measurements can evolve over time, and may change based
+  on past accuracy under various conditions.  Certainty can be used
+  by scoring algorithms to help measure outcome score, where a wrong
+  answer with a low certainty can be less punished than a wrong
+  answer with high certainty.
 
 * build evolution example. Given:
   - history of a stock (linear)
