@@ -13,30 +13,62 @@ import com.whelanlabs.kgraph.engine.KnowledgeGraph;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
+/**
+ * The Class App.
+ */
 public class App {
+   
+   /** The data graph. */
    private static KnowledgeGraph _dataGraph = null;
+   
+   /** The garden graph. */
    private static KnowledgeGraph _gardenGraph = null;
 
+   /** The logger. */
    private static Logger logger = LogManager.getLogger(App.class);
 
    
+   /**
+    * Instantiates a new app.
+    */
    private App() {
       // do nothing.  Static global class.
    }
    
+   /**
+    * Initialize.
+    *
+    * @param databaseName the database name
+    * @throws Exception the exception
+    */
    public static void initialize(String databaseName) throws Exception {
       _dataGraph = new KnowledgeGraph(databaseName);
       _gardenGraph = new KnowledgeGraph(databaseName + "_garden");
    }
 
+   /**
+    * Gets the data graph.
+    *
+    * @return the data graph
+    */
    public static KnowledgeGraph getDataGraph() {
       return _dataGraph;
    }
 
+   /**
+    * Gets the garden graph.
+    *
+    * @return the garden graph
+    */
    public static KnowledgeGraph getGardenGraph() {
       return _gardenGraph;
    }
    
+   /**
+    * Load dataset to data graph.
+    *
+    * @param dataset the dataset
+    */
    public static void loadDatasetToDataGraph(Dataset dataset) {
       String datasetInfoID = dataset.getDatasetInfoID();
       QueryClause datasetInfoQuery = new QueryClause("dataset_id", QueryClause.Operator.EQUALS, datasetInfoID);
@@ -64,6 +96,12 @@ public class App {
       }
    }
 
+   /**
+    * Load thought from json.
+    *
+    * @param content the content
+    * @return the thought
+    */
    public static Thought loadThoughtFromJson(String content) {
       JSONArray jsonArr = new JSONArray(content);
       Thought result = null;

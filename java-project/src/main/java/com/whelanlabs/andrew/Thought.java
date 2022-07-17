@@ -61,7 +61,6 @@ public class Thought {
     * Makes a prediction given a goal.
     *
     * @param startingPoint the starting point
-    * @param goal the goal
     * @return the node
     * @throws Exception 
     */

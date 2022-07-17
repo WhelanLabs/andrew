@@ -129,6 +129,21 @@ public class Operations {
       return results;
    }
    
+   /**
+    * Subtract.
+    *<p>
+    *Assumes that <code>inputs</code> contains:
+    *<ul>
+    *<li>"floatA" as a <code>Number</code>
+    *<li>"floatB" as a <code>Number</code>
+    *</ul>
+    *<p>
+    *formula: <code>RESULT = floatA - floatB</code>
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the map
+    */
    public static Map<String, Object> subtract(Node node, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
       
