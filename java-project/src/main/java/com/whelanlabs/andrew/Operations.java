@@ -157,6 +157,35 @@ public class Operations {
       return results;
    }
 
+   /**
+    * add.
+    *<p>
+    *Assumes that <code>inputs</code> contains:
+    *<ul>
+    *<li>"floatA" as a <code>Number</code>
+    *<li>"floatB" as a <code>Number</code>
+    *</ul>
+    *<p>
+    *formula: <code>RESULT = floatA + floatB</code>
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the map
+    */
+   public static Map<String, Object> add(Node node, Map<String, Object> inputs) {
+      Map<String, Object> results = new HashMap<>();
+      
+      Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
+      Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
+      logger.debug("add: " + floatA + " + " + floatB);
+      logger.debug("   current node: " + node.getKey());
+
+      Float result = floatA + floatB;
+      results.put("RESULT", result);
+      return results;
+   }
+
+
    public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
       return inputs;
    }

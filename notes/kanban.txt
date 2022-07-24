@@ -59,17 +59,21 @@
   - fetch and load the Wilshire 5000 (see: https://en.wikipedia.org/wiki/Wilshire_5000)
   - fetch and load US GDP
 
+* create "add" operation
+
 ##########################################################
 # WIP
 ##########################################################
 
 * thought modeling: diagram -> XML -> kgraph
 
-* build seed thought - stock price linear growth
+* build seed thought - linear growth (generic but usable for "stock price")
 
-* build seed thought - VIX influences future stock price
+* build seed thought - VIX influences future stock price ("other symbol influence")
 
 * create ProfitThoughtGenerator
+
+
 
 ##########################################################
 # functional backlog

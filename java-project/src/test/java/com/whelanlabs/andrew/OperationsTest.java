@@ -1,5 +1,7 @@
 package com.whelanlabs.andrew;
 
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.junit.Test;
 
 import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 
 public class OperationsTest {
@@ -99,4 +102,22 @@ public class OperationsTest {
       
    }
    
+   @Test
+   public void add_validInputs_getResult() {
+
+      // setup data
+      App.loadDatasetToDataGraph(new LinearDataset());
+      Node startingNode = new Node(ElementHelper.generateKey(), "testNodeType");
+      Map<String, Object> inputs = new HashMap<>();
+      inputs.put(startingNode.getKey() + "." + "floatA", 1);
+      inputs.put(startingNode.getKey() + "." + "floatB", 1);
+      
+      Map<String, Object> results = Operations.add(startingNode, inputs);
+      
+      logger.debug("results = " + results);
+      
+      Float result = (Float)results.get("RESULT");
+      
+      assert(2.0f == result);
+   }
 }
