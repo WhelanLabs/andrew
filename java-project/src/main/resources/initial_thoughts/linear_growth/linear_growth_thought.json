@@ -1,63 +1,49 @@
 [
 
-thought_sequence	LGT_ts15
-thought	LGT_t1
-goal	LGT_g1
-thought_operation	LGT_to7
-thought_result	LGT_tr1
-approach	LGT_a1
-
-
-
-
-### goal
 {
   "properties" : {
-    "startingType" : "LinearDatasetNode",
-    "relationType" : "LinearDatasetEdge",
-    "distance" : 10,
+    "symbol" : "",
+    "distance" : 465,
+    "targetProperty" : "dayClose",
     "resultClass" : "Float",
     "__type" : "goal",
-    "name" : "goalNode",
-    "targetProperty" : "value",
-    "direction" : "outbound"
+    "startDate" : 0,
+    "startType" : "date",
+	"desc" : "Predict future $targetProperty value for $symbol at time $distance from $startDate."
   },
   "type" : "goal",
-  "_id" : "goal/KEY_1657153262985115",
-  "_key" : "LGT_",
-  "_rev" : "_ebWGDWu---"
+  "_id" : "goal/predictFutureValue",
+  "_key" : "predictFutureValue",
 },
 
 
-### thought
 {
   "properties" : {
-    "name" : "n1",
-    "__type" : "thought"
+    "name" : "LGT_t1",
+    "__type" : "thought",
+	"desc" : "Assume linear change over time."
   },
   "type" : "thought",
-  "_id" : "thought/KEY_1657153263052140",
-  "_key" : "LGT_"
+  "_id" : "thought/LGT_t1",
+  "_key" : "LGT_t1"
 },
 
-
-### approach
+#### bookmark
 {
   "properties" : {
     "__left_collection" : "goal",
     "__type" : "approach",
     "__right_collection" : "thought",
-    "name" : "e0",
+    "name" : "LGT_a1",
     "thought_key" : "LGT_t1"
   },
   "rightType" : "thought",
   "leftType" : "goal",
   "type" : "approach",
-  "_id" : "approach/KEY_1657153263059141",
-  "_key" : "LGT_",
-  "_rev" : "_ebWGDbW---",
-  "_from" : "goal/KEY_1657153262985115",
-  "_to" : "thought/KEY_1657153263052140"
+  "_id" : "approach/LGT_a1",
+  "_key" : "LGT_a1",
+  "_from" : "goal/predictFutureValue",
+  "_to" : "thought/LGT_t1"
 },
 
 
@@ -65,98 +51,95 @@ approach	LGT_a1
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
+    "name" : "LGT_to1",
     "operationName" : "multiply",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to1",
+  "_key" : "LGT_to1",
 },
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
-    "operationName" : "multiply",
+    "name" : "LGT_to2",
+    "operationName" : "getGreatestLessThan",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to2",
+  "_key" : "LGT_to2",
 },
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
+    "name" : "LGT_to3",
     "operationName" : "multiply",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to3",
+  "_key" : "LGT_to3",
 },
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
+    "name" : "LGT_to4",
     "operationName" : "multiply",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to4",
+  "_key" : "LGT_to4",
 },
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
+    "name" : "LGT_to5",
     "operationName" : "multiply",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to5",
+  "_key" : "LGT_to5",
 },
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
+    "name" : "LGT_to6",
     "operationName" : "multiply",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to6",
+  "_key" : "LGT_to6",
 },
 {
   "properties" : {
     "__type" : "thought_operation",
-    "name" : "toXX",
+    "name" : "LGT_to7",
     "operationName" : "multiply",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_toXXX",
-  "_key" : "LGT_toXXX",
+  "_id" : "thought_operation/LGT_to7",
+  "_key" : "LGT_to7",
 },
 
 
-### thought_result
 {
   "properties" : {
     "__type" : "thought_result",
-    "name" : "n5",
+    "name" : "LGT_tr1",
     "operationName" : "end",
     "thought_key" : "LGT_t1"
   },
   "type" : "thought_result",
-  "_id" : "thought_result/KEY_1657153263083146",
-  "_key" : "LGT_",
-  "_rev" : "_ebWGDcu---"
+  "_id" : "thought_result/LGT_tr1",
+  "_key" : "LGT_tr1",
 },
 
 
-### thought_sequence
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -166,13 +149,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts1"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts1",
+  "_key" : "LGT_ts1",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -185,13 +168,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts2"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts2",
+  "_key" : "LGT_ts2",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -204,13 +187,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts3"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts3",
+  "_key" : "LGT_ts3",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -223,13 +206,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts4"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts4",
+  "_key" : "LGT_ts4",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -242,13 +225,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts5"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts5",
+  "_key" : "LGT_ts5",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -261,13 +244,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts6"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts6",
+  "_key" : "LGT_ts6",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -280,13 +263,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts7"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts7",
+  "_key" : "LGT_ts7",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -299,13 +282,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts8"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts8",
+  "_key" : "LGT_ts8",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -318,13 +301,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts9"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts9",
+  "_key" : "LGT_ts9",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -337,13 +320,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts10"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts10",
+  "_key" : "LGT_ts10",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -356,13 +339,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts11"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts11",
+  "_key" : "LGT_ts11",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -375,13 +358,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts12"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts12",
+  "_key" : "LGT_ts12",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -394,13 +377,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts13"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts13",
+  "_key" : "LGT_ts13",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -413,13 +396,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts14"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts14",
+  "_key" : "LGT_ts14",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 },
@@ -432,13 +415,13 @@ approach	LGT_a1
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
-    "name" : "e9"
+    "name" : "LGT_ts15"
   },
   "rightType" : "thought_operation",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_tsXX",
-  "_key" : "LGT_tsXX",
+  "_id" : "thought_sequence/LGT_ts15",
+  "_key" : "LGT_ts15",
   "_from" : "thought_operation/LGT_toxx",
   "_to" : "thought_operation/LGT_toxx"
 }
