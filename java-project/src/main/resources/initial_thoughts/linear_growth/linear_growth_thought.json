@@ -146,28 +146,30 @@
   "_key" : "LGT_tr1",
 },
 
-#### bookmark
+
 ### thought_sequence
 
 {
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
-    "output" : "output",
-    "input" : "RESULT",
-    "__left_collection" : "thought_operation",
+    "output" : "floatB",
+    "input" : "GOAL.distance",
+    "__left_collection" : "thought",
     "__type" : "thought_sequence",
     "mutation_range" : "FLOAT:>0",
     "name" : "LGT_ts1"
   },
   "rightType" : "thought_operation",
-  "leftType" : "thought_operation",
+  "leftType" : "thought",
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts1",
   "_key" : "LGT_ts1",
-  "_from" : "thought_operation/LGT_toxx",
-  "_to" : "thought_operation/LGT_toxx"
+  "_from" : "thought/LGT_t1",
+  "_to" : "thought_operation/LGT_to2"
 },
+
+#### bookmark
 {
   "properties" : {
     "__right_collection" : "thought_operation",
