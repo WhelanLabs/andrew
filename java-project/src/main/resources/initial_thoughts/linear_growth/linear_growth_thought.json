@@ -28,7 +28,7 @@
   "_key" : "LGT_t1"
 },
 
-#### bookmark
+
 {
   "properties" : {
     "__left_collection" : "goal",
@@ -47,13 +47,13 @@
 },
 
 
-### thought_operation
 {
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to1",
-    "operationName" : "multiply",
-    "thought_key" : "LGT_t1"
+    "operationName" : "getGreatestLessThan",
+    "thought_key" : "LGT_t1",
+	"desc" : "object at start date"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to1",
@@ -63,8 +63,9 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to2",
-    "operationName" : "getGreatestLessThan",
-    "thought_key" : "LGT_t1"
+    "operationName" : "subtract",
+    "thought_key" : "LGT_t1",
+	"desc" : "get date in past"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to2",
@@ -74,8 +75,9 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to3",
-    "operationName" : "multiply",
-    "thought_key" : "LGT_t1"
+    "operationName" : "getGreatestLessThan",
+    "thought_key" : "LGT_t1",
+	"desc" : "get object at past date"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to3",
@@ -85,8 +87,9 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to4",
-    "operationName" : "multiply",
-    "thought_key" : "LGT_t1"
+    "operationName" : "getAttribute",
+    "thought_key" : "LGT_t1",
+	"desc" : "get value at past date"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to4",
@@ -96,8 +99,9 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to5",
-    "operationName" : "multiply",
-    "thought_key" : "LGT_t1"
+    "operationName" : "getAttribute",
+    "thought_key" : "LGT_t1",
+	"desc" : "value at start date"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to5",
@@ -107,8 +111,9 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to6",
-    "operationName" : "multiply",
-    "thought_key" : "LGT_t1"
+    "operationName" : "subtract",
+    "thought_key" : "LGT_t1",
+	"desc" : "get change from past"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to6",
@@ -118,8 +123,9 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to7",
-    "operationName" : "multiply",
-    "thought_key" : "LGT_t1"
+    "operationName" : "add",
+    "thought_key" : "LGT_t1",
+	"desc" : "get future value"
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to7",
@@ -132,13 +138,16 @@
     "__type" : "thought_result",
     "name" : "LGT_tr1",
     "operationName" : "end",
-    "thought_key" : "LGT_t1"
+    "thought_key" : "LGT_t1",
+	"desc" : "output as RESULT"
   },
   "type" : "thought_result",
   "_id" : "thought_result/LGT_tr1",
   "_key" : "LGT_tr1",
 },
 
+#### bookmark
+### thought_sequence
 
 {
   "properties" : {

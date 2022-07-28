@@ -67,7 +67,9 @@
 
 * Operation.getGreatestLessThan(...)
 
-* thought modeling: diagram -> json -> kgraph
+* Operation.getAttribute(...)
+
+
 
 * build seed thought - linear growth (generic but usable for "stock price")
 
@@ -154,6 +156,9 @@
 
 * sanitize - whelanlabs -> blackwalnutsoftware, strip: "john", "whelan", other?
 
+* thought modeling: diagram -> json -> kgraph
+  Have a graphical tool for generating thoughts that can be automatically
+  translated into JSON for input into Andrew.
 ##########################################################
 # performance backlog
 ##########################################################
