@@ -65,13 +65,17 @@
 # WIP
 ##########################################################
 
+
+* build seed thought - linear growth (generic but usable for "stock price")
+
+
+##########################################################
+# backlog
+##########################################################
+
 * Operation.getGreatestLessThan(...)
 
 * Operation.getAttribute(...)
-
-
-
-* build seed thought - linear growth (generic but usable for "stock price")
 
 * build seed thought - VIX influences future stock price ("other symbol influence")
 
@@ -80,17 +84,6 @@
   merge and mutate them over a period leading up to the target startDate using evolution,
   and then test the results for the future to see if the resulting thoughts correlate
   training fitness to game-time fitness.
-  
-
-
-
-
-
-##########################################################
-# backlog
-##########################################################
-
-
 
 * build seed thought - Buffett Indicator detirmines future stock price
 
