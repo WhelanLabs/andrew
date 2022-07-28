@@ -87,7 +87,7 @@
 
 
 ##########################################################
-# functional backlog
+# backlog
 ##########################################################
 
 
@@ -130,6 +130,17 @@
 
 * support genetic operations on offspring generators
 
+
+  
+##########################################################
+# future
+##########################################################
+
+* go through code, identify each for loop, and consider parallel processing it using a reusable thread pool.
+  (limit the total number of threads...)  This is likely to result in multiple work items.
+  
+* speed up unit tests by reducing the number of flushes necessary.
+
 * add README content: * genetic algorithm:
 
 * add README content for "the garden"
@@ -159,13 +170,4 @@
 * thought modeling: diagram -> json -> kgraph
   Have a graphical tool for generating thoughts that can be automatically
   translated into JSON for input into Andrew.
-##########################################################
-# performance backlog
-##########################################################
-
-* go through code, identify each for loop, and consider parallel processing it using a reusable thread pool.
-  (limit the total number of threads...)  This is likely to result in multiple work items.
   
-* speed up unit tests by reducing the number of flushes necessary.
-
-
