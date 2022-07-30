@@ -337,11 +337,11 @@
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
-    "output" : "output",
+    "output" : "floatB",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
-    "mutation_range" : "FLOAT:>0",
+    "mutation_range" : "FLOAT:any",
     "name" : "LGT_ts11"
   },
   "rightType" : "thought_operation",
@@ -349,8 +349,8 @@
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts11",
   "_key" : "LGT_ts11",
-  "_from" : "thought_operation/LGT_toxx",
-  "_to" : "thought_operation/LGT_toxx"
+  "_from" : "thought_operation/LGT_to5",
+  "_to" : "thought_operation/LGT_to7"
 },
 {
   "properties" : {
@@ -360,7 +360,7 @@
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
-    "mutation_range" : "FLOAT:>0",
+    "mutation_range" : "FLOAT:any",
     "name" : "LGT_ts12"
   },
   "rightType" : "thought_operation",
@@ -368,65 +368,63 @@
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts12",
   "_key" : "LGT_ts12",
-  "_from" : "thought_operation/LGT_toxx",
-  "_to" : "thought_operation/LGT_toxx"
+  "_from" : "thought_operation/LGT_to6",
+  "_to" : "thought_operation/LGT_to7"
 },
 {
   "properties" : {
-    "__right_collection" : "thought_operation",
+    "__right_collection" : "thought_result",
     "thought_key" : "LGT_t1",
-    "output" : "output",
+    "output" : "RESULT.output",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
-    "mutation_range" : "FLOAT:>0",
+    "mutation_range" : "FLOAT:any",
     "name" : "LGT_ts13"
   },
-  "rightType" : "thought_operation",
+  "rightType" : "thought_result",
   "leftType" : "thought_operation",
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts13",
   "_key" : "LGT_ts13",
-  "_from" : "thought_operation/LGT_toxx",
-  "_to" : "thought_operation/LGT_toxx"
+  "_from" : "thought_operation/LGT_to7",
+  "_to" : "thought_result/LGT_tr1"
 },
 {
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
-    "output" : "output",
-    "input" : "RESULT",
-    "__left_collection" : "thought_operation",
+    "output" : "property",
+    "input" : "GOAL.targetProperty",
+    "__left_collection" : "thought",
     "__type" : "thought_sequence",
-    "mutation_range" : "FLOAT:>0",
     "name" : "LGT_ts14"
   },
   "rightType" : "thought_operation",
-  "leftType" : "thought_operation",
+  "leftType" : "thought",
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts14",
   "_key" : "LGT_ts14",
-  "_from" : "thought_operation/LGT_toxx",
-  "_to" : "thought_operation/LGT_toxx"
+  "_from" : "thought/LGT_t1",
+  "_to" : "thought_operation/LGT_to5"
 },
 {
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
     "output" : "output",
-    "input" : "RESULT",
-    "__left_collection" : "thought_operation",
+    "input" : "GOAL.targetProperty",
+    "__left_collection" : "thought",
     "__type" : "thought_sequence",
-    "mutation_range" : "FLOAT:>0",
     "name" : "LGT_ts15"
   },
   "rightType" : "thought_operation",
-  "leftType" : "thought_operation",
+  "leftType" : "thought",
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts15",
   "_key" : "LGT_ts15",
-  "_from" : "thought_operation/LGT_toxx",
-  "_to" : "thought_operation/LGT_toxx"
+  "_from" : "thought/LGT_t1",
+  "_to" : "thought_operation/LGT_to4"
 }
 ]
 

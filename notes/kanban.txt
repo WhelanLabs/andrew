@@ -83,6 +83,11 @@
 
 * "mutation_range" : "Integer:>0"
 
+* "mutation_range" : "Integer:any"
+
+* support "mutation_range" for property names of given type?
+
+
 * build seed thought - VIX influences future stock price ("other symbol influence")
 
 * create futurePredictionThoughtGenerator
