@@ -77,6 +77,12 @@
 
 * Operation.getAttribute(...)
 
+* "mutation_range" : "FLOAT:any"
+
+* "mutation_range" : "Integer:<0"
+
+* "mutation_range" : "Integer:>0"
+
 * build seed thought - VIX influences future stock price ("other symbol influence")
 
 * create futurePredictionThoughtGenerator
@@ -104,6 +110,11 @@
   - play with sum of fear and greed
   - play with Buffett Indicator
 
+* support mutation_range in a direction with a limit related to a variable.
+  For example Allow a mutation to change the date input to a value greater
+  than zero but less than GOAL.startDate.
+  
+  
 * get datasets
   - load the Buffett Indicator (how?)
   - load all A's
