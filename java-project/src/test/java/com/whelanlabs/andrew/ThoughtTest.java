@@ -1,9 +1,12 @@
 package com.whelanlabs.andrew;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +17,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
@@ -371,6 +375,36 @@ public class ThoughtTest {
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       Map<String, Object> result = t.forecast(startingNode);
+      
+      Number guess = (Number) result.get("RESULT.output");
+
+      assert (guess.intValue() == 641) : "guess = " + guess ;
+   }
+   
+   @Test
+   public void importJson_linearGrowthThought_loaded() throws Exception {
+      String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
+      String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+      Thought t = App.loadThoughtFromJson(content);
+      
+      // TODO: modify the goal to specify the startDate and symbol
+      
+      
+      // load the test data
+      App.getDataGraph().flush();
+      List<File> files = new ArrayList<>();
+      files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
+      files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
+      CSVLoader stockLoader = new CSVLoader();
+      stockLoader.loadStocks(files);
+      
+      
+      // TODO: get a starting node? starting time?
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+
+      Map<String, Object> workingMemory = new HashMap<>();
+      Map<String, Object> result = t.forecast(workingMemory);
       
       Number guess = (Number) result.get("RESULT.output");
 
