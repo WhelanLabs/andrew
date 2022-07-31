@@ -13,9 +13,8 @@
   },
   "type" : "goal",
   "_id" : "goal/predictFutureValue",
-  "_key" : "predictFutureValue",
+  "_key" : "predictFutureValue"
 },
-
 
 {
   "properties" : {
@@ -57,7 +56,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to1",
-  "_key" : "LGT_to1",
+  "_key" : "LGT_to1"
 },
 {
   "properties" : {
@@ -69,7 +68,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to2",
-  "_key" : "LGT_to2",
+  "_key" : "LGT_to2"
 },
 {
   "properties" : {
@@ -81,7 +80,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to3",
-  "_key" : "LGT_to3",
+  "_key" : "LGT_to3"
 },
 {
   "properties" : {
@@ -93,7 +92,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to4",
-  "_key" : "LGT_to4",
+  "_key" : "LGT_to4"
 },
 {
   "properties" : {
@@ -105,7 +104,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to5",
-  "_key" : "LGT_to5",
+  "_key" : "LGT_to5"
 },
 {
   "properties" : {
@@ -117,7 +116,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to6",
-  "_key" : "LGT_to6",
+  "_key" : "LGT_to6"
 },
 {
   "properties" : {
@@ -129,7 +128,7 @@
   },
   "type" : "thought_operation",
   "_id" : "thought_operation/LGT_to7",
-  "_key" : "LGT_to7",
+  "_key" : "LGT_to7"
 },
 
 
@@ -143,7 +142,7 @@
   },
   "type" : "thought_result",
   "_id" : "thought_result/LGT_tr1",
-  "_key" : "LGT_tr1",
+  "_key" : "LGT_tr1"
 },
 
 
@@ -331,8 +330,6 @@
   "_from" : "thought_operation/LGT_to5",
   "_to" : "thought_operation/LGT_to6"
 },
-
-#### bookmark
 {
   "properties" : {
     "__right_collection" : "thought_operation",
