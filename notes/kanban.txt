@@ -65,7 +65,13 @@
 # WIP
 ##########################################################
 
+* generic forcast method.
 
+* Fix "modified Initial Example" to work with a generic forecast method.
+  - regenerate the thought diagram
+  - align buildModifiedInitialTestThought() withupdated diagram
+  - have tests pass
+  
 * build seed thought - linear growth (generic but usable for "stock price")
 
 

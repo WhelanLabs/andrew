@@ -392,7 +392,8 @@ public class ThoughtTest {
       
       
       // load the test data
-      App.getDataGraph().flush();
+      // flushing should not be necessary
+      // App.getDataGraph().flush();
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
@@ -403,8 +404,9 @@ public class ThoughtTest {
       // TODO: get a starting node? starting time?
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
-      Map<String, Object> workingMemory = new HashMap<>();
-      Map<String, Object> result = t.forecast(workingMemory);
+      //Map<String, Object> workingMemory = new HashMap<>();
+      //Map<String, Object> result = t.forecast(workingMemory);
+      Map<String, Object> result = t.forecast(startingNode);
       
       Number guess = (Number) result.get("RESULT.output");
 
