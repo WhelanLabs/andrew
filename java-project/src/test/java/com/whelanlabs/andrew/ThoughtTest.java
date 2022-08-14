@@ -60,6 +60,8 @@ public class ThoughtTest {
       assert (Math.abs(guess.floatValue() - answer.floatValue()) < 1) : "{" + guess + ", " + answer + "}";
    }
 
+   
+   
    @Test
    public void forecast_multiplyThought_success() throws Exception {
 
@@ -411,5 +413,42 @@ public class ThoughtTest {
       Number guess = (Number) result.get("RESULT.output");
 
       assert (guess.intValue() == 641) : "guess = " + guess ;
+   }
+   
+   
+   @Test
+   public void forecast2_valid_success() throws Exception {
+
+      String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
+      String content = new String(Files.readAllBytes(Paths.get(filePath)));
+      Thought thought = App.loadThoughtFromJson(content);
+
+      List<File> files = new ArrayList<>();
+      files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
+      CSVLoader stockLoader = new CSVLoader();
+      stockLoader.loadStocks(files);
+      
+      // TODO: populate starting conditions
+/*
+ *symbol (default:"")
+* distance (default:365)
+* targetProperty (default:"dayClose")
+ */
+      Map<String, Object> workingMemory = new HashMap<>();
+      workingMemory = thought.addContext(workingMemory, "symbol", "AAPL", "GOAL");
+      workingMemory = thought.addContext(workingMemory, "distance", 90, "GOAL");
+      workingMemory = thought.addContext(workingMemory, "targetProperty", "dayClose", "GOAL");
+      
+      Map<String, Object> result = thought.forecast2(workingMemory);
+
+      assert (null != result);
+      logger.debug("result = " + result);
+
+      Number guess = (Number) result.get("RESULT.output");
+
+      Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510", "LinearDatasetNode");
+      Number answer = (Number) answerNode.getAttribute("value");
+
+      assert (Math.abs(guess.floatValue() - answer.floatValue()) < 1) : "{" + guess + ", " + answer + "}";
    }
 }

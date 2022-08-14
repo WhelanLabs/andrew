@@ -14,6 +14,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.ElementHelper;
@@ -55,14 +56,6 @@ public class Thought {
       _goal = triple.get(0).getRight();
    }
 
-   public Map<String, Object> forecast(Node startingPoint) throws Exception {
-      Map<String, Object> workingMemory = new HashMap<>();
-      workingMemory = addContext(workingMemory, startingPoint.getProperties(), startingPoint.getKey());
-      workingMemory = addContext(workingMemory, "startingNode", startingPoint, "GOAL");
-      
-      
-      return forecast2(workingMemory);
-   }
    
    
    public Map<String, Object> forecast2(Map<String, Object> workingMemory) throws Exception {
@@ -167,7 +160,7 @@ public class Thought {
     * @return the node
     * @throws Exception 
     */
-   public Map<String, Object> forecast_OLD(Node startingPoint) throws Exception {
+   public Map<String, Object> forecast(Node startingPoint) throws Exception {
       logger.debug("forecast startingPoint = " + startingPoint);
 
       Map<String, Object> workingMemory = new HashMap<>();
@@ -312,7 +305,7 @@ public class Thought {
       return workingMemory;
    }
 
-   private Map<String, Object> addContext(Map<String, Object> workingMemory, String propertyName, Object propertyValue, String elementKey) {
+   public Map<String, Object> addContext(Map<String, Object> workingMemory, String propertyName, Object propertyValue, String elementKey) {
       String varName = elementKey + "." + propertyName;
       logger.debug("adding to working memory: " + varName + " =  " + propertyValue);
       workingMemory.put(varName, propertyValue);
