@@ -428,12 +428,7 @@ public class ThoughtTest {
       CSVLoader stockLoader = new CSVLoader();
       stockLoader.loadStocks(files);
       
-      // TODO: populate starting conditions
-/*
- *symbol (default:"")
-* distance (default:365)
-* targetProperty (default:"dayClose")
- */
+      // populate starting conditions
       Map<String, Object> workingMemory = new HashMap<>();
       workingMemory = thought.addContext(workingMemory, "symbol", "AAPL", "GOAL");
       workingMemory = thought.addContext(workingMemory, "distance", 90, "GOAL");

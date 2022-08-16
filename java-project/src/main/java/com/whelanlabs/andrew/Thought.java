@@ -56,17 +56,13 @@ public class Thought {
       _goal = triple.get(0).getRight();
    }
 
-   
-   
    public Map<String, Object> forecast2(Map<String, Object> workingMemory) throws Exception {
 
       Map<String, Object> result = new HashMap<>();
 
       // get the initial layer inputs from the goal
-      
-      workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
 
-      
+      workingMemory = addGoalContext(workingMemory, _goal.getProperties());
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
@@ -121,11 +117,11 @@ public class Thought {
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
                   Object value = getInputValue(workingMemory, fromKey, inputProp);
-                  
-                  if(null == value) {
+
+                  if (null == value) {
                      logger.error("Edge input '" + inputProp + "' is NULL. (edge = " + inputEdge + ")");
                   }
-                  
+
                   Double mutationFactor = (Double) inputEdge.getAttribute("mutation_factor");
                   if (null != mutationFactor) {
                      value = ((Number) value).floatValue() + mutationFactor;
@@ -140,13 +136,12 @@ public class Thought {
 
       throw new RuntimeException("Thought has no end.");
    }
-   
-   
+
    private Map<String, Object> addGoalAttributes(Map<String, Object> workingMemory, Node goal) {
       Map<String, Object> goalAttributes = goal.getProperties();
       Set<String> goalKeyset = goalAttributes.keySet();
-      for(String goalKey : goalKeyset) {
-         workingMemory.put("GOAL."+goalKey, goalAttributes.get(goalKey));
+      for (String goalKey : goalKeyset) {
+         workingMemory.put("GOAL." + goalKey, goalAttributes.get(goalKey));
       }
       return workingMemory;
    }
@@ -309,6 +304,38 @@ public class Thought {
       String varName = elementKey + "." + propertyName;
       logger.debug("adding to working memory: " + varName + " =  " + propertyValue);
       workingMemory.put(varName, propertyValue);
+      return workingMemory;
+   }
+
+   /**
+    * Adds the goal context if a value is not already set for that GOAL key.
+    * 
+    * This method does not override values.  This allows preprocessing configuration
+    * settings to be retained.
+    *
+    * @param workingMemory the working memory
+    * @param propertyMap the property map
+    * @return the map
+    */
+   private Map<String, Object> addGoalContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap) {
+      Set<String> keyset = propertyMap.keySet();
+      String varName = null;
+      for (String key : keyset) {
+         varName = "GOAL." + key;
+         if (!workingMemory.containsKey(varName)) {
+            Object value = propertyMap.get(key);
+            if (value instanceof Node) {
+               Map<String, Object> valueProps = ((Node) value).getProperties();
+               Set<String> valuePropsKeyset = valueProps.keySet();
+               for (String valueKey : valuePropsKeyset) {
+                  workingMemory = addContext(workingMemory, key + "." + valueKey, valueProps.get(valueKey), "GOAL");
+               }
+            } else {
+               logger.debug("adding to working memory: " + varName + " =  " + value);
+               workingMemory.put(varName, value);
+            }
+         }
+      }
       return workingMemory;
    }
 
@@ -521,7 +548,6 @@ public class Thought {
       List<Node> resultNodes = App.getGardenGraph().queryNodes("thought_result", keyQueryClause);
       List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", keyQueryClause);
 
-      
       List<Element> elements = new ArrayList<>();
       elements.add(_thoughtNode);
       elements.add(_goal);

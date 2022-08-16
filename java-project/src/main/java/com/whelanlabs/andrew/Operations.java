@@ -1,6 +1,7 @@
 package com.whelanlabs.andrew;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,21 @@ public class Operations {
       return previousNode;
    }
 
+   public static Map<String, Object> getGreatestDateLessThan(Node node, Map<String, Object> inputs) {
+      logger.debug("getGreatestLessThan() ");
+      Map<String, Object> results = new HashMap<>();
+      Float dateNumber = ((Number) inputs.get(node.getKey() + "." + "dateNumber")).floatValue();
+      
+      String query = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      logger.debug("query: " + query);
+      Map<String, Object> bindVars = Collections.singletonMap("time", dateNumber);
+      
+      List<Node> queryResults = App.getDataGraph().query(query, bindVars);
+      
+      results.put("RESULT", queryResults.get(0));
+      return results;
+   }
+
    public static Map<String, Object> multiply(Node node, Map<String, Object> inputs) {
       logger.debug("multiply() ");
       Map<String, Object> results = new HashMap<>();
@@ -91,7 +107,8 @@ public class Operations {
       results.put("RESULT", result);
       return results;
    }
-
+   
+   
    public static Map<String, Object> average(Node node, Map<String, Object> inputs) {
       logger.debug("average() ");
       Map<String, Object> results = new HashMap<>();

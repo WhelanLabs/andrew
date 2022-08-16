@@ -95,7 +95,7 @@ public class CSVLoader {
                }
             } catch (Exception e) {
                // sometimes input lines are dirty. skip and continue.
-               logger.error("Error in file '" + file.getAbsolutePath() + "' at line number " + lineNum + ".", e);
+               logger.warn("Error in file '" + file.getAbsolutePath() + "' at line number " + lineNum + ".", e);
             }
          }
 

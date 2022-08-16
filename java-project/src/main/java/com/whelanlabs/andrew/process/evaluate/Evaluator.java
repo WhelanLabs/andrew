@@ -44,7 +44,6 @@ public class Evaluator {
          Integer randomTime = random.nextInt(maxTime-minTime) + minTime;
          logger.debug("randomTime: " + randomTime);
 
-         // TODO: port the following code to KGraph once it is working.
             String startingType = (String) _goal.getAttribute("startingType");
             logger.debug("_goal: " + _goal);
             logger.debug("startingType: " + startingType);

@@ -50,7 +50,7 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to1",
-    "operationName" : "getGreatestLessThan",
+    "operationName" : "getGreatestDateLessThan",
     "thought_key" : "LGT_t1",
 	"desc" : "object at start date"
   },
@@ -74,7 +74,7 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to3",
-    "operationName" : "getGreatestLessThan",
+    "operationName" : "getGreatestDateLessThan",
     "thought_key" : "LGT_t1",
 	"desc" : "get object at past date"
   },
