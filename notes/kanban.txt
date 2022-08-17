@@ -66,19 +66,23 @@
 ##########################################################
 
 * generic forcast method.
-
-* Fix "modified Initial Example" to work with a generic forecast method.
-  - regenerate the thought diagram
-  - align buildModifiedInitialTestThought() withupdated diagram
-  - have tests pass
   
 * build seed thought - linear growth (generic but usable for "stock price")
 
+* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
+  Have a graphical tool for generating thoughts that can be automatically - https://www.yworks.com/products/yed ?
+  translated into JSON for input into Andrew.
 
 ##########################################################
 # backlog
 ##########################################################
 
+* Fix "modified Initial Example" to work with a generic forecast method.
+(or just remove it and have other unit tests.)
+  - regenerate the thought diagram
+  - align buildModifiedInitialTestThought() withupdated diagram
+  - have tests pass
+  
 * Operation.getGreatestLessThan(...)
 
 * Operation.getAttribute(...)
@@ -182,7 +186,5 @@
 
 * sanitize - whelanlabs -> blackwalnutsoftware, strip: "john", "whelan", other?
 
-* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
-  Have a graphical tool for generating thoughts that can be automatically
-  translated into JSON for input into Andrew.
+
   
