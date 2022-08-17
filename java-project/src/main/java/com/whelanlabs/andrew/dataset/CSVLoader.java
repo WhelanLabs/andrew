@@ -58,6 +58,7 @@ public class CSVLoader {
 
                   // create stockSymbol Node
                   stockNode = new Node(symbol, "stockSymbol");
+                  stockNode.addAttribute("symbol", symbol);
                   elements.add(stockNode);
 
                   firstLine = false;
