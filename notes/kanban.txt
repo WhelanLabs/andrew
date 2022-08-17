@@ -182,7 +182,7 @@
 
 * sanitize - whelanlabs -> blackwalnutsoftware, strip: "john", "whelan", other?
 
-* thought modeling: diagram -> json -> kgraph
+* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
   Have a graphical tool for generating thoughts that can be automatically
   translated into JSON for input into Andrew.
   
