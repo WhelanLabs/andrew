@@ -65,7 +65,7 @@
 # WIP
 ##########################################################
 
-* generic forcast method.
+* generic forcast method. (Thought.forecast2)
   
 * build seed thought - linear growth (generic but usable for "stock price")
 
