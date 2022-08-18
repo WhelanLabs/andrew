@@ -70,8 +70,10 @@
 * build seed thought - linear growth (generic but usable for "stock price")
 
 * thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
-  Have a graphical tool for generating thoughts that can be automatically - https://www.yworks.com/products/yed ?
+  Have a graphical tool for generating thoughts that can be automatically
   translated into JSON for input into Andrew.
+  - https://www.yworks.com/products/yed ?
+  - https://www.graphity.com/ ?
 
 ##########################################################
 # backlog
