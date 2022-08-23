@@ -108,8 +108,8 @@ public class Operations {
    
 
    /**
-    * Gets the XXXX relation between the given date object that is the greatest date less than
-    * the given value, and the XXXX object with the input symbol value.
+    * Gets the "stockOnDate" relation between the given "date" object that is the greatest date less than
+    * the given value, and the "stockSymbol" object with the input symbol value.
     * <p>
     * This method is a hack.  In reality it should be a set of nodes and edges, but for the POC
     * code it simplifies what would otherwise be a much larger thought graph.  (I wonder if this
@@ -119,7 +119,25 @@ public class Operations {
     * @param inputs the inputs
     * @return the symbol date rel
     */
-   public static Map<String, Object> getSymbolDateRel(Node node, Map<String, Object> inputs) {
+   public static Map<String, Object> getSymbolDateRel(Node currentNode, Map<String, Object> inputs) {
+      logger.debug("getSymbolDateRel() ");
+      
+      // get the inputs
+      String symbol = (String) inputs.get(currentNode.getKey() + "." + "symbol");
+      Integer dateNumber = ((Number) inputs.get(currentNode.getKey() + "." + "dateNumber")).intValue();
+      
+      Map<String, Object> results = new HashMap<>();
+      
+      // get the date node
+      String query = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      logger.debug("query: " + query);
+      Map<String, Object> bindVars = Collections.singletonMap("time", dateNumber);
+      List<Node> queryResults = App.getDataGraph().query(query, bindVars);
+      Node dateNode = queryResults.get(0);
+      
+      // get the stockSymbol node
+      
+      // get the stockOnDate rel
       
       throw new RuntimeException("TODO");
    }
