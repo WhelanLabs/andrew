@@ -26,14 +26,28 @@ import com.whelanlabs.kgraph.engine.Node;
  * running a Groovy processor for the thought operation methods.)
  */
 
+/**
+ * The Class Operations.
+ */
 public class Operations {
 
+   /** The logger. */
    private static Logger logger = LogManager.getLogger(Operations.class);
 
+   /**
+    * Instantiates a new operations.
+    */
    private Operations() {
       // static class
    }
 
+   /**
+    * Traverse.
+    *
+    * @param currentNode the current node
+    * @param inputs the inputs
+    * @return the map
+    */
    public static Map<String, Object> traverse(Node currentNode, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
 
@@ -48,6 +62,15 @@ public class Operations {
       return results;
    }
 
+   /**
+    * Traverse.
+    *
+    * @param startingNode the starting node
+    * @param direction the direction
+    * @param relationType the relation type
+    * @param distance the distance
+    * @return the node
+    */
    public static Node traverse(Node startingNode, String direction, String relationType, Integer distance) {
       logger.debug("traverse() ");
       logger.debug("   startingNode = " + startingNode);
@@ -82,7 +105,34 @@ public class Operations {
       }
       return previousNode;
    }
+   
 
+   /**
+    * Gets the XXXX relation between the given date object that is the greatest date less than
+    * the given value, and the XXXX object with the input symbol value.
+    * <p>
+    * This method is a hack.  In reality it should be a set of nodes and edges, but for the POC
+    * code it simplifies what would otherwise be a much larger thought graph.  (I wonder if this
+    * will eventually face a similar problem as the Wikipedia-size proof.)
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the symbol date rel
+    */
+   public static Map<String, Object> getSymbolDateRel(Node node, Map<String, Object> inputs) {
+      
+      throw new RuntimeException("TODO");
+   }
+   
+   
+   
+   /**
+    * Gets the greatest date less than.
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the greatest date less than
+    */
    public static Map<String, Object> getGreatestDateLessThan(Node node, Map<String, Object> inputs) {
       logger.debug("getGreatestLessThan() ");
       Map<String, Object> results = new HashMap<>();
@@ -98,6 +148,13 @@ public class Operations {
       return results;
    }
 
+   /**
+    * Multiply.
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the map
+    */
    public static Map<String, Object> multiply(Node node, Map<String, Object> inputs) {
       logger.debug("multiply() ");
       Map<String, Object> results = new HashMap<>();
@@ -109,6 +166,13 @@ public class Operations {
    }
    
    
+   /**
+    * Average.
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the map
+    */
    public static Map<String, Object> average(Node node, Map<String, Object> inputs) {
       logger.debug("average() ");
       Map<String, Object> results = new HashMap<>();
@@ -140,6 +204,13 @@ public class Operations {
       return results;
    }
    
+   /**
+    * Do nothing.
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the map
+    */
    public static Map<String, Object> doNothing(Node node, Map<String, Object> inputs) {
       logger.debug("doNothing() ");
       Map<String, Object> results = new HashMap<>();
@@ -203,6 +274,13 @@ public class Operations {
    }
 
 
+   /**
+    * End.
+    *
+    * @param node the node
+    * @param inputs the inputs
+    * @return the map
+    */
    public static Map<String, Object> end(Node node, Map<String, Object> inputs) {
       return inputs;
    }

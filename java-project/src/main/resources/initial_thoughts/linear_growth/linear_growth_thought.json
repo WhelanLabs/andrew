@@ -50,7 +50,7 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to1",
-    "operationName" : "getGreatestDateLessThan",
+    "operationName" : "getSymbolDateRel",
     "thought_key" : "LGT_t1",
 	"desc" : "object at start date"
   },
@@ -74,7 +74,7 @@
   "properties" : {
     "__type" : "thought_operation",
     "name" : "LGT_to3",
-    "operationName" : "getGreatestDateLessThan",
+    "operationName" : "getSymbolDateRel",
     "thought_key" : "LGT_t1",
 	"desc" : "get object at past date"
   },
@@ -187,8 +187,8 @@
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
-    "output" : "type",
-    "input" : "GOAL.startType",
+    "output" : "symbol",
+    "input" : "GOAL.symbol",
     "__left_collection" : "thought",
     "__type" : "thought_sequence",
     "name" : "LGT_ts3"
@@ -205,8 +205,8 @@
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
-    "output" : "type",
-    "input" : "GOAL.startType",
+    "output" : "symbol",
+    "input" : "GOAL.symbol",
     "__left_collection" : "thought",
     "__type" : "thought_sequence",
     "name" : "LGT_ts4"
