@@ -57,12 +57,14 @@ public class Thought {
    }
 
    public Map<String, Object> forecast2(Map<String, Object> workingMemory) throws Exception {
+      logger.debug("workingMemory = " + workingMemory);
 
       Map<String, Object> result = new HashMap<>();
 
       // get the initial layer inputs from the goal
 
       workingMemory = addGoalContext(workingMemory, _goal.getProperties());
+      logger.debug("workingMemory = " + workingMemory);
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
@@ -81,10 +83,14 @@ public class Thought {
             if ("thought_operation".equals(thoughtType)) {
 
                // process the operation
+               logger.debug("workingMemory = " + workingMemory);
                Map<String, Object> opResult = processOperation(node, workingMemory);
+               logger.debug("workingMemory = " + workingMemory);
 
                // add the result of the operation to working memory
+               logger.debug("workingMemory = " + workingMemory);
                workingMemory = addContext(workingMemory, opResult, node.getKey());
+               logger.debug("workingMemory = " + workingMemory);
 
             } else if ("thought".equals(thoughtType)) {
                logger.debug("thought node = " + node);
@@ -93,7 +99,9 @@ public class Thought {
                List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
                Node goal = goalTriples.get(0).getRight();
                logger.debug("goal node = " + goal);
+               logger.debug("workingMemory = " + workingMemory);
                workingMemory = addGoalAttributes(workingMemory, goal);
+               logger.debug("workingMemory = " + workingMemory);
 
             } else if ("thought_result".equals(thoughtType)) {
                Map<String, Object> opResult = processOperation(node, workingMemory);
@@ -137,11 +145,21 @@ public class Thought {
       throw new RuntimeException("Thought has no end.");
    }
 
+   /**
+    * Adds the goal attributes.  This method does not overwrite any existing GOAL attributes.
+    *
+    * @param workingMemory the working memory
+    * @param goal the goal
+    * @return the map
+    */
    private Map<String, Object> addGoalAttributes(Map<String, Object> workingMemory, Node goal) {
       Map<String, Object> goalAttributes = goal.getProperties();
       Set<String> goalKeyset = goalAttributes.keySet();
       for (String goalKey : goalKeyset) {
-         workingMemory.put("GOAL." + goalKey, goalAttributes.get(goalKey));
+         String goalName = "GOAL." + goalKey;
+         if(!workingMemory.containsKey(goalName)) {
+            workingMemory.put(goalName, goalAttributes.get(goalKey));
+         }
       }
       return workingMemory;
    }

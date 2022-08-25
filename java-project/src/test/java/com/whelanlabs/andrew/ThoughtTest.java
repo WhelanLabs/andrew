@@ -434,6 +434,8 @@ public class ThoughtTest {
       workingMemory = thought.addContext(workingMemory, "distance", 90, "GOAL");
       workingMemory = thought.addContext(workingMemory, "targetProperty", "dayClose", "GOAL");
       
+      logger.debug("workingMemory = " + workingMemory);
+      
       Map<String, Object> result = thought.forecast2(workingMemory);
 
       assert (null != result);
