@@ -133,7 +133,7 @@ public class Operations {
       String query1 = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query1);
       Map<String, Object> bindVars1 = Collections.singletonMap("time", dateNumber);
-      List<Node> queryResults1 = App.getDataGraph().query(query1, bindVars1);
+      List<Node> queryResults1 = App.getDataGraph().queryNodes(query1, bindVars1);
       Node dateNode = queryResults1.get(0);
       logger.debug("dateNode = " + dateNode);
       
@@ -142,11 +142,17 @@ public class Operations {
       String query2 = "FOR t IN stockSymbol FILTER t.symbol == @symbol SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query2);
       Map<String, Object> bindVars2 = Collections.singletonMap("symbol", symbol);
-      List<Node> queryResults2 = App.getDataGraph().query(query2, bindVars2);
+      List<Node> queryResults2 = App.getDataGraph().queryNodes(query2, bindVars2);
       Node stockNode = queryResults2.get(0);
       logger.debug("stockNode = " + stockNode);
       
       // get the stockOnDate rel
+      String query3 = "FOR t IN stockSymbol FILTER t.symbol == @symbol SORT t.time DESC LIMIT 1 RETURN t";
+      logger.debug("query: " + query3);
+      Map<String, Object> bindVars3 = Collections.singletonMap("symbol", symbol);
+      List<Edge> queryResults3 = App.getDataGraph().queryEdges(query3, bindVars3);
+      Edge relEdge = queryResults3.get(0);
+      logger.debug("relEdge = " + relEdge);
       
       throw new RuntimeException("TODO");
    }
@@ -169,7 +175,7 @@ public class Operations {
       logger.debug("query: " + query);
       Map<String, Object> bindVars = Collections.singletonMap("time", dateNumber);
       
-      List<Node> queryResults = App.getDataGraph().query(query, bindVars);
+      List<Node> queryResults = App.getDataGraph().queryNodes(query, bindVars);
       
       results.put("RESULT", queryResults.get(0));
       return results;

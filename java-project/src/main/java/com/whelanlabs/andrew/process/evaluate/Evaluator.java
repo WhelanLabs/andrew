@@ -53,7 +53,7 @@ public class Evaluator {
 
             Map<String, Object> bindVars = Collections.singletonMap("time", randomTime);
             
-            startingNodes.addAll(App.getDataGraph().query(query, bindVars));
+            startingNodes.addAll(App.getDataGraph().queryNodes(query, bindVars));
       }
 
       logger.debug("startingNodes: " + startingNodes);

@@ -127,6 +127,7 @@ public class Thought {
                   Object value = getInputValue(workingMemory, fromKey, inputProp);
 
                   if (null == value) {
+                     logger.debug("workingMemory = " + workingMemory);
                      logger.error("Edge input '" + inputProp + "' is NULL. (edge = " + inputEdge + ")");
                   }
 
@@ -278,7 +279,13 @@ public class Thought {
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
       } else {
-         result = workingMemory.get(fromKey + "." + inputProp);
+         if(inputProp.startsWith("GOAL.")) {
+            result = workingMemory.get(inputProp);
+         }
+         else {
+            result = workingMemory.get(fromKey + "." + inputProp);
+         }
+         
       }
       return result;
    }
