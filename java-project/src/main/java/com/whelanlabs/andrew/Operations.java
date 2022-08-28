@@ -123,11 +123,12 @@ public class Operations {
    public static Map<String, Object> getSymbolDateRel(Node currentNode, Map<String, Object> inputs) {
       logger.debug("getSymbolDateRel() ");
       
+      Map<String, Object> results = new HashMap<>();
+      
       // get the inputs
       String symbol = (String) inputs.get(currentNode.getKey() + "." + "symbol");
       Integer dateNumber = ((Number) inputs.get(currentNode.getKey() + "." + "dateNumber")).intValue();
-      
-      Map<String, Object> results = new HashMap<>();
+      String prop = (String) inputs.get("GOAL.targetProperty");
       
       // get the date node
       String query1 = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
@@ -147,14 +148,19 @@ public class Operations {
       logger.debug("stockNode = " + stockNode);
       
       // get the stockOnDate rel
-      String query3 = "FOR t IN stockSymbol FILTER t.symbol == @symbol SORT t.time DESC LIMIT 1 RETURN t";
+      String query3 = "FOR t IN stockOnDate FILTER t._from == @left AND t._to == @to RETURN t";
       logger.debug("query: " + query3);
-      Map<String, Object> bindVars3 = Collections.singletonMap("symbol", symbol);
+      Map<String, Object> bindVars3 = new HashMap<>();
+      bindVars3.put("left", stockNode.getId());
+      bindVars3.put("to", dateNode.getId());
       List<Edge> queryResults3 = App.getDataGraph().queryEdges(query3, bindVars3);
       Edge relEdge = queryResults3.get(0);
       logger.debug("relEdge = " + relEdge);
       
-      throw new RuntimeException("TODO");
+      Float result = ((Number) relEdge.getAttribute(prop)).floatValue();
+      
+      results.put("RESULT", result);
+      return results;
    }
    
    
