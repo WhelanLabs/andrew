@@ -434,8 +434,8 @@ public class ThoughtTest {
       workingMemory = thought.addContext(workingMemory, "distance", 90, "GOAL");
       workingMemory = thought.addContext(workingMemory, "targetProperty", "dayClose", "GOAL");
       
-      // 14822 ~= Aug 1, 2010
-      workingMemory = thought.addContext(workingMemory, "startDate", 14822, "GOAL");
+      // 14614 ~= Jan 5, 2010
+      workingMemory = thought.addContext(workingMemory, "startDate", 14614, "GOAL");
 
       
       logger.debug("workingMemory = " + workingMemory);

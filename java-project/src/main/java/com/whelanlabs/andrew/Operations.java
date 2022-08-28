@@ -121,7 +121,7 @@ public class Operations {
     * @return the symbol date rel
     */
    public static Map<String, Object> getSymbolDateRel(Node currentNode, Map<String, Object> inputs) {
-      logger.debug("getSymbolDateRel() ");
+      logger.debug("getSymbolDateRel()");
       
       Map<String, Object> results = new HashMap<>();
       
@@ -131,7 +131,7 @@ public class Operations {
       String prop = (String) inputs.get("GOAL.targetProperty");
       
       // get the date node
-      String query1 = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      String query1 = "FOR t IN date FILTER t.dateNumber <= @time SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query1);
       Map<String, Object> bindVars1 = Collections.singletonMap("time", dateNumber);
       List<Node> queryResults1 = App.getDataGraph().queryNodes(query1, bindVars1);

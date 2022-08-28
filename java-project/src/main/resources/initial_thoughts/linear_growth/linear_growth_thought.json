@@ -322,7 +322,7 @@
   "properties" : {
     "__right_collection" : "thought_result",
     "thought_key" : "LGT_t1",
-    "output" : "RESULT.output",
+    "output" : "output",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
