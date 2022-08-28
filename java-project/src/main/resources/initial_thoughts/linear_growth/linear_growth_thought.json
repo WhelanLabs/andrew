@@ -27,7 +27,6 @@
   "_key" : "LGT_t1"
 },
 
-
 {
   "properties" : {
     "__left_collection" : "goal",
@@ -45,7 +44,6 @@
   "_to" : "thought/LGT_t1"
 },
 
-
 {
   "properties" : {
     "__type" : "thought_operation",
@@ -58,6 +56,7 @@
   "_id" : "thought_operation/LGT_to1",
   "_key" : "LGT_to1"
 },
+
 {
   "properties" : {
     "__type" : "thought_operation",
@@ -70,6 +69,7 @@
   "_id" : "thought_operation/LGT_to2",
   "_key" : "LGT_to2"
 },
+
 {
   "properties" : {
     "__type" : "thought_operation",
@@ -82,30 +82,7 @@
   "_id" : "thought_operation/LGT_to3",
   "_key" : "LGT_to3"
 },
-{
-  "properties" : {
-    "__type" : "thought_operation",
-    "name" : "LGT_to4",
-    "operationName" : "getAttribute",
-    "thought_key" : "LGT_t1",
-	"desc" : "get value at past date"
-  },
-  "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_to4",
-  "_key" : "LGT_to4"
-},
-{
-  "properties" : {
-    "__type" : "thought_operation",
-    "name" : "LGT_to5",
-    "operationName" : "getAttribute",
-    "thought_key" : "LGT_t1",
-	"desc" : "value at start date"
-  },
-  "type" : "thought_operation",
-  "_id" : "thought_operation/LGT_to5",
-  "_key" : "LGT_to5"
-},
+
 {
   "properties" : {
     "__type" : "thought_operation",
@@ -118,6 +95,7 @@
   "_id" : "thought_operation/LGT_to6",
   "_key" : "LGT_to6"
 },
+
 {
   "properties" : {
     "__type" : "thought_operation",
@@ -131,7 +109,6 @@
   "_key" : "LGT_to7"
 },
 
-
 {
   "properties" : {
     "__type" : "thought_result",
@@ -144,7 +121,6 @@
   "_id" : "thought_result/LGT_tr1",
   "_key" : "LGT_tr1"
 },
-
 
 {
   "properties" : {
@@ -165,6 +141,7 @@
   "_from" : "thought/LGT_t1",
   "_to" : "thought_operation/LGT_to2"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -183,6 +160,7 @@
   "_from" : "thought/LGT_t1",
   "_to" : "thought_operation/LGT_to2"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -201,6 +179,7 @@
   "_from" : "thought/LGT_t1",
   "_to" : "thought_operation/LGT_to3"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -219,6 +198,7 @@
   "_from" : "thought/LGT_t1",
   "_to" : "thought_operation/LGT_to1"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -238,6 +218,7 @@
   "_from" : "thought/LGT_t1",
   "_to" : "thought_operation/LGT_to1"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -256,42 +237,7 @@
   "_from" : "thought_operation/LGT_to2",
   "_to" : "thought_operation/LGT_to3"
 },
-{
-  "properties" : {
-    "__right_collection" : "thought_operation",
-    "thought_key" : "LGT_t1",
-    "output" : "object",
-    "input" : "RESULT",
-    "__left_collection" : "thought_operation",
-    "__type" : "thought_sequence",
-    "name" : "LGT_ts7"
-  },
-  "rightType" : "thought_operation",
-  "leftType" : "thought_operation",
-  "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_ts7",
-  "_key" : "LGT_ts7",
-  "_from" : "thought_operation/LGT_to3",
-  "_to" : "thought_operation/LGT_to4"
-},
-{
-  "properties" : {
-    "__right_collection" : "thought_operation",
-    "thought_key" : "LGT_t1",
-    "output" : "object",
-    "input" : "RESULT",
-    "__left_collection" : "thought_operation",
-    "__type" : "thought_sequence",
-    "name" : "LGT_ts8"
-  },
-  "rightType" : "thought_operation",
-  "leftType" : "thought_operation",
-  "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_ts8",
-  "_key" : "LGT_ts8",
-  "_from" : "thought_operation/LGT_to1",
-  "_to" : "thought_operation/LGT_to5"
-},
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -308,9 +254,10 @@
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts9",
   "_key" : "LGT_ts9",
-  "_from" : "thought_operation/LGT_to4",
+  "_from" : "thought_operation/LGT_to3",
   "_to" : "thought_operation/LGT_to6"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -327,9 +274,10 @@
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts10",
   "_key" : "LGT_ts10",
-  "_from" : "thought_operation/LGT_to5",
+  "_from" : "thought_operation/LGT_to1",
   "_to" : "thought_operation/LGT_to6"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
@@ -346,14 +294,15 @@
   "type" : "thought_sequence",
   "_id" : "thought_sequence/LGT_ts11",
   "_key" : "LGT_ts11",
-  "_from" : "thought_operation/LGT_to5",
+  "_from" : "thought_operation/LGT_to1",
   "_to" : "thought_operation/LGT_to7"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_operation",
     "thought_key" : "LGT_t1",
-    "output" : "output",
+    "output" : "floatA",
     "input" : "RESULT",
     "__left_collection" : "thought_operation",
     "__type" : "thought_sequence",
@@ -368,6 +317,7 @@
   "_from" : "thought_operation/LGT_to6",
   "_to" : "thought_operation/LGT_to7"
 },
+
 {
   "properties" : {
     "__right_collection" : "thought_result",
@@ -386,43 +336,8 @@
   "_key" : "LGT_ts13",
   "_from" : "thought_operation/LGT_to7",
   "_to" : "thought_result/LGT_tr1"
-},
-{
-  "properties" : {
-    "__right_collection" : "thought_operation",
-    "thought_key" : "LGT_t1",
-    "output" : "property",
-    "input" : "GOAL.targetProperty",
-    "__left_collection" : "thought",
-    "__type" : "thought_sequence",
-    "name" : "LGT_ts14"
-  },
-  "rightType" : "thought_operation",
-  "leftType" : "thought",
-  "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_ts14",
-  "_key" : "LGT_ts14",
-  "_from" : "thought/LGT_t1",
-  "_to" : "thought_operation/LGT_to5"
-},
-{
-  "properties" : {
-    "__right_collection" : "thought_operation",
-    "thought_key" : "LGT_t1",
-    "output" : "output",
-    "input" : "GOAL.targetProperty",
-    "__left_collection" : "thought",
-    "__type" : "thought_sequence",
-    "name" : "LGT_ts15"
-  },
-  "rightType" : "thought_operation",
-  "leftType" : "thought",
-  "type" : "thought_sequence",
-  "_id" : "thought_sequence/LGT_ts15",
-  "_key" : "LGT_ts15",
-  "_from" : "thought/LGT_t1",
-  "_to" : "thought_operation/LGT_to4"
 }
+
 ]
 
 
