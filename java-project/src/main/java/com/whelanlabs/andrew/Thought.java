@@ -364,7 +364,7 @@ public class Thought {
       return workingMemory;
    }
 
-   private Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
+   public Map<String, Object> addContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap, String elementKey) {
       Set<String> keyset = propertyMap.keySet();
       String varName = null;
       for (String key : keyset) {

@@ -195,7 +195,7 @@ public class Operations {
     * @return the map
     */
    public static Map<String, Object> multiply(Node node, Map<String, Object> inputs) {
-      logger.debug("multiply() ");
+      logger.debug("multiply(" + node.getKey() + ", ...)");
       Map<String, Object> results = new HashMap<>();
       Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
       Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
