@@ -231,7 +231,16 @@ public class ThoughtTest {
       
       Thought mutatedClonedThought = clonedThought.mutate(2);
       
-      Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast(startingNode);
+      Map<String, Object> workingMemory3 = new HashMap<>();
+      workingMemory3 = thought.addContext(workingMemory3, "startingNode", startingNode, "GOAL");
+      workingMemory3 = thought.addContext(workingMemory3, startingNode.getProperties(), startingNode.getKey());
+      workingMemory3 = thought.addContext(workingMemory3, clonedThought.getGoal().getProperties(), "GOAL");
+      workingMemory3 = thought.addContext(workingMemory3, "targetPropValue", startingTargetPropValue, clonedThought.getThoughtNode().getKey());
+      workingMemory3 = thought.addContext(workingMemory3, "distance", distance, clonedThought.getThoughtNode().getKey());
+      workingMemory3 = thought.addContext(workingMemory3, "direction", direction, clonedThought.getThoughtNode().getKey());
+      workingMemory3 = thought.addContext(workingMemory3, "startingNode", startingNode, clonedThought.getThoughtNode().getKey());
+      workingMemory3 = thought.addContext(workingMemory3, "relationType", relationType, clonedThought.getThoughtNode().getKey());
+      Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast2(workingMemory3);
       Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
       
       /* 
@@ -275,7 +284,7 @@ public class ThoughtTest {
       assert (Math.abs(t1Guess.floatValue() + t2Guess.floatValue() - (2*t3Guess.floatValue()) ) < .00001);
    }
    
-   //////@Test
+   @Test
    public void merge_twoMergedThoughts_combinedThought() throws Exception {
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
@@ -289,10 +298,10 @@ public class ThoughtTest {
       Thought child2Thought = merger.merge(thought1, thought3);
       Thought grandchildThought = merger.merge(child1Thought, child2Thought);
 
-      Map<String, Object> t1Result = thought1.forecast(startingNode);
-      Map<String, Object> t2Result = thought2.forecast(startingNode);
-      Map<String, Object> t3Result = child1Thought.forecast(startingNode);
-      Map<String, Object> t4Result = child2Thought.forecast(startingNode);
+      Map<String, Object> t1Result = thought1.forecast2(null);
+      Map<String, Object> t2Result = thought2.forecast2(null);
+      Map<String, Object> t3Result = child1Thought.forecast2(null);
+      Map<String, Object> t4Result = child2Thought.forecast2(null);
       Map<String, Object> grandchildResult = grandchildThought.forecast(startingNode);
       
       Number t1Guess = (Number) t1Result.get("RESULT.output");
