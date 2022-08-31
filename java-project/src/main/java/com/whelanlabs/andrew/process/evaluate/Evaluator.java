@@ -2,6 +2,7 @@ package com.whelanlabs.andrew.process.evaluate;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -69,7 +70,20 @@ public class Evaluator {
             Thought thought = new Thought(thoughtNode);
             Number forecastResult = null;
             try {
-               forecastResult = (Number) thought.forecast(startingNode).get("RESULT.output");
+               Map<String, Object> workingMemory1 = new HashMap<>();
+               String targetPropName = (String) thought.getGoal().getAttribute("targetProperty");
+               Object startingTargetPropValue = startingNode.getAttribute(targetPropName);
+               workingMemory1 = thought.addContext(workingMemory1, "startingNode", startingNode, "GOAL");
+               workingMemory1 = thought.addContext(workingMemory1, startingNode.getProperties(), startingNode.getKey());
+               workingMemory1 = thought.addContext(workingMemory1, thought.getGoal().getProperties(), "GOAL");
+               workingMemory1 = thought.addContext(workingMemory1, "targetPropValue", startingTargetPropValue, thought.getThoughtNode().getKey());
+               workingMemory1 = thought.addContext(workingMemory1, "distance", distance, thought.getThoughtNode().getKey());
+               workingMemory1 = thought.addContext(workingMemory1, "direction", direction, thought.getThoughtNode().getKey());
+               workingMemory1 = thought.addContext(workingMemory1, "startingNode", startingNode, thought.getThoughtNode().getKey());
+               workingMemory1 = thought.addContext(workingMemory1, "relationType", relationType, thought.getThoughtNode().getKey());
+               
+               Map<String, Object> forecastOutput = thought.forecast2(workingMemory1);
+               forecastResult = (Number) forecastOutput.get("RESULT.output");
             } catch (Exception e) {
                logger.warn("Forecast failed: " + e.getMessage() + "\n" + "startingNode = " + startingNode + "\n" + "thoughtNode = " + thoughtNode);
             }
