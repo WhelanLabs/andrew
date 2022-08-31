@@ -195,35 +195,13 @@ public class ThoughtTest {
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
       logger.debug("startingNode = "+ startingNode);
-      
-      String targetPropName = (String) thought.getGoal().getAttribute("targetProperty");
-      Object startingTargetPropValue = startingNode.getAttribute(targetPropName);
-      Integer distance = (Integer) thought.getGoal().getAttribute("distance");
-      String direction = (String) thought.getGoal().getAttribute("direction");
-      String relationType = (String) thought.getGoal().getAttribute("relationType");
-      
-      Map<String, Object> workingMemory1 = new HashMap<>();
-      workingMemory1 = thought.addContext(workingMemory1, "startingNode", startingNode, "GOAL");
-      workingMemory1 = thought.addContext(workingMemory1, startingNode.getProperties(), startingNode.getKey());
-      workingMemory1 = thought.addContext(workingMemory1, thought.getGoal().getProperties(), "GOAL");
-      workingMemory1 = thought.addContext(workingMemory1, "targetPropValue", startingTargetPropValue, thought.getThoughtNode().getKey());
-      workingMemory1 = thought.addContext(workingMemory1, "distance", distance, thought.getThoughtNode().getKey());
-      workingMemory1 = thought.addContext(workingMemory1, "direction", direction, thought.getThoughtNode().getKey());
-      workingMemory1 = thought.addContext(workingMemory1, "startingNode", startingNode, thought.getThoughtNode().getKey());
-      workingMemory1 = thought.addContext(workingMemory1, "relationType", relationType, thought.getThoughtNode().getKey());
-      
-      Map<String, Object> workingMemory2 = new HashMap<>();
-      workingMemory2 = thought.addContext(workingMemory2, "startingNode", startingNode, "GOAL");
-      workingMemory2 = thought.addContext(workingMemory2, startingNode.getProperties(), startingNode.getKey());
-      workingMemory2 = thought.addContext(workingMemory2, clonedThought.getGoal().getProperties(), "GOAL");
-      workingMemory2 = thought.addContext(workingMemory2, "targetPropValue", startingTargetPropValue, clonedThought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "distance", distance, clonedThought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "direction", direction, clonedThought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "startingNode", startingNode, clonedThought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "relationType", relationType, clonedThought.getThoughtNode().getKey());
 
+      Map<String, Object> workingMemory1 = generateLegacyDataWorkingMemory(thought, startingNode);
       Map<String, Object> origResult = thought.forecast2(workingMemory1);
+      
+      Map<String, Object> workingMemory2 = generateLegacyDataWorkingMemory(clonedThought, startingNode);
       Map<String, Object> cloneResult = clonedThought.forecast2(workingMemory2);
+      
       Number origGuess = (Number) origResult.get("RESULT.output");
       Number cloneGuess = (Number) cloneResult.get("RESULT.output");
       
@@ -231,16 +209,9 @@ public class ThoughtTest {
       
       Thought mutatedClonedThought = clonedThought.mutate(2);
       
-      Map<String, Object> workingMemory3 = new HashMap<>();
-      workingMemory3 = thought.addContext(workingMemory3, "startingNode", startingNode, "GOAL");
-      workingMemory3 = thought.addContext(workingMemory3, startingNode.getProperties(), startingNode.getKey());
-      workingMemory3 = thought.addContext(workingMemory3, clonedThought.getGoal().getProperties(), "GOAL");
-      workingMemory3 = thought.addContext(workingMemory3, "targetPropValue", startingTargetPropValue, clonedThought.getThoughtNode().getKey());
-      workingMemory3 = thought.addContext(workingMemory3, "distance", distance, clonedThought.getThoughtNode().getKey());
-      workingMemory3 = thought.addContext(workingMemory3, "direction", direction, clonedThought.getThoughtNode().getKey());
-      workingMemory3 = thought.addContext(workingMemory3, "startingNode", startingNode, clonedThought.getThoughtNode().getKey());
-      workingMemory3 = thought.addContext(workingMemory3, "relationType", relationType, clonedThought.getThoughtNode().getKey());
+      Map<String, Object> workingMemory3 = generateLegacyDataWorkingMemory(mutatedClonedThought, startingNode);
       Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast2(workingMemory3);
+      
       Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
       
       /* 
@@ -298,11 +269,20 @@ public class ThoughtTest {
       Thought child2Thought = merger.merge(thought1, thought3);
       Thought grandchildThought = merger.merge(child1Thought, child2Thought);
 
-      Map<String, Object> t1Result = thought1.forecast2(null);
-      Map<String, Object> t2Result = thought2.forecast2(null);
-      Map<String, Object> t3Result = child1Thought.forecast2(null);
-      Map<String, Object> t4Result = child2Thought.forecast2(null);
-      Map<String, Object> grandchildResult = grandchildThought.forecast(startingNode);
+      Map<String, Object> workingMemory1 = generateLegacyDataWorkingMemory(thought1, startingNode);
+      Map<String, Object> t1Result = thought1.forecast2(workingMemory1);
+      
+      Map<String, Object> workingMemory2 = generateLegacyDataWorkingMemory(thought2, startingNode);
+      Map<String, Object> t2Result = thought2.forecast2(workingMemory2);
+      
+      Map<String, Object> workingMemory3 = generateLegacyDataWorkingMemory(child1Thought, startingNode);
+      Map<String, Object> t3Result = child1Thought.forecast2(workingMemory3);
+      
+      Map<String, Object> workingMemory4 = generateLegacyDataWorkingMemory(child2Thought, startingNode);
+      Map<String, Object> t4Result = child2Thought.forecast2(workingMemory4);
+      
+      Map<String, Object> workingMemory5 = generateLegacyDataWorkingMemory(grandchildThought, startingNode);
+      Map<String, Object> grandchildResult = grandchildThought.forecast2(workingMemory5);
       
       Number t1Guess = (Number) t1Result.get("RESULT.output");
       Number t2Guess = (Number) t2Result.get("RESULT.output");
@@ -487,5 +467,25 @@ public class ThoughtTest {
       Number guess = (Number) result.get("RESULT.output");
 
       assert (Math.abs(guess.floatValue() - 34.072853) < 0.01) : guess;
+   }
+   
+   public Map<String, Object> generateLegacyDataWorkingMemory(Thought thought, Node startingNode) {
+      String targetPropName = (String) thought.getGoal().getAttribute("targetProperty");
+      Object startingTargetPropValue = startingNode.getAttribute(targetPropName);
+      Integer distance = (Integer) thought.getGoal().getAttribute("distance");
+      String direction = (String) thought.getGoal().getAttribute("direction");
+      String relationType = (String) thought.getGoal().getAttribute("relationType");
+      
+      Map<String, Object> workingMemory = new HashMap<>();
+      workingMemory = thought.addContext(workingMemory, "startingNode", startingNode, "GOAL");
+      workingMemory = thought.addContext(workingMemory, startingNode.getProperties(), startingNode.getKey());
+      workingMemory = thought.addContext(workingMemory, thought.getGoal().getProperties(), "GOAL");
+      workingMemory = thought.addContext(workingMemory, "targetPropValue", startingTargetPropValue, thought.getThoughtNode().getKey());
+      workingMemory = thought.addContext(workingMemory, "distance", distance, thought.getThoughtNode().getKey());
+      workingMemory = thought.addContext(workingMemory, "direction", direction, thought.getThoughtNode().getKey());
+      workingMemory = thought.addContext(workingMemory, "startingNode", startingNode, thought.getThoughtNode().getKey());
+      workingMemory = thought.addContext(workingMemory, "relationType", relationType, thought.getThoughtNode().getKey());
+      
+      return workingMemory;
    }
 }
