@@ -187,10 +187,14 @@ public class ThoughtTest {
       Thought thought = TestHelper.buildModifiedInitialTestThought();
       Thought clonedThought = thought.clone();
       
+      logger.debug("thought.exportJson() = "+ thought.exportJson());
+      logger.debug("clonedThought.exportJson() = "+ clonedThought.exportJson());
+      
       assert (null != thought);
       assert (null != clonedThought);
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+      logger.debug("startingNode = "+ startingNode);
       
       String targetPropName = (String) thought.getGoal().getAttribute("targetProperty");
       Object startingTargetPropValue = startingNode.getAttribute(targetPropName);
@@ -211,12 +215,12 @@ public class ThoughtTest {
       Map<String, Object> workingMemory2 = new HashMap<>();
       workingMemory2 = thought.addContext(workingMemory2, "startingNode", startingNode, "GOAL");
       workingMemory2 = thought.addContext(workingMemory2, startingNode.getProperties(), startingNode.getKey());
-      workingMemory2 = thought.addContext(workingMemory2, thought.getGoal().getProperties(), "GOAL");
-      workingMemory2 = thought.addContext(workingMemory2, "targetPropValue", startingTargetPropValue, thought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "distance", distance, thought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "direction", direction, thought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "startingNode", startingNode, thought.getThoughtNode().getKey());
-      workingMemory2 = thought.addContext(workingMemory2, "relationType", relationType, thought.getThoughtNode().getKey());
+      workingMemory2 = thought.addContext(workingMemory2, clonedThought.getGoal().getProperties(), "GOAL");
+      workingMemory2 = thought.addContext(workingMemory2, "targetPropValue", startingTargetPropValue, clonedThought.getThoughtNode().getKey());
+      workingMemory2 = thought.addContext(workingMemory2, "distance", distance, clonedThought.getThoughtNode().getKey());
+      workingMemory2 = thought.addContext(workingMemory2, "direction", direction, clonedThought.getThoughtNode().getKey());
+      workingMemory2 = thought.addContext(workingMemory2, "startingNode", startingNode, clonedThought.getThoughtNode().getKey());
+      workingMemory2 = thought.addContext(workingMemory2, "relationType", relationType, clonedThought.getThoughtNode().getKey());
 
       Map<String, Object> origResult = thought.forecast2(workingMemory1);
       Map<String, Object> cloneResult = clonedThought.forecast2(workingMemory2);

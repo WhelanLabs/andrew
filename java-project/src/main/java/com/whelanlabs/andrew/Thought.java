@@ -327,7 +327,7 @@ public class Thought {
 
    public Map<String, Object> addContext(Map<String, Object> workingMemory, String propertyName, Object propertyValue, String elementKey) {
       String varName = elementKey + "." + propertyName;
-      logger.debug("adding to working memory: " + varName + " =  " + propertyValue);
+      logger.debug("addContext: " + varName + " =  " + propertyValue);
       workingMemory.put(varName, propertyValue);
       return workingMemory;
    }
