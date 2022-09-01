@@ -133,6 +133,7 @@ public class Operations {
       // get the date node
       String query1 = "FOR t IN date FILTER t.dateNumber <= @time SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query1);
+      logger.debug("dateNumber: " + dateNumber);
       Map<String, Object> bindVars1 = Collections.singletonMap("time", dateNumber);
       List<Node> queryResults1 = App.getDataGraph().queryNodes(query1, bindVars1);
       Node dateNode = queryResults1.get(0);
@@ -141,7 +142,8 @@ public class Operations {
       
       // get the stockSymbol node
       String query2 = "FOR t IN stockSymbol FILTER t.symbol == @symbol SORT t.time DESC LIMIT 1 RETURN t";
-      logger.debug("query: " + query2);
+      logger.debug("query2: " + query2);
+      logger.debug("symbol: " + symbol);
       Map<String, Object> bindVars2 = Collections.singletonMap("symbol", symbol);
       List<Node> queryResults2 = App.getDataGraph().queryNodes(query2, bindVars2);
       Node stockNode = queryResults2.get(0);

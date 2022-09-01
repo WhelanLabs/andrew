@@ -153,7 +153,7 @@ public class Thought {
     * @param goal the goal
     * @return the map
     */
-   private Map<String, Object> addGoalAttributes(Map<String, Object> workingMemory, Node goal) {
+   protected Map<String, Object> addGoalAttributes(Map<String, Object> workingMemory, Node goal) {
       Map<String, Object> goalAttributes = goal.getProperties();
       Set<String> goalKeyset = goalAttributes.keySet();
       for (String goalKey : goalKeyset) {
@@ -164,111 +164,7 @@ public class Thought {
       }
       return workingMemory;
    }
-
-   /**
-    * Forecast.
-    * 
-    * Makes a prediction given a goal.
-    *
-    * @param startingPoint the starting point
-    * @return the node
-    * @throws Exception 
-    */
-   public Map<String, Object> forecast(Node startingPoint) throws Exception {
-      logger.debug("forecast startingPoint = " + startingPoint);
-
-      Map<String, Object> workingMemory = new HashMap<>();
-
-      Map<String, Object> result = new HashMap<>();
-
-      // get the initial layer inputs from the goal
-      workingMemory = addContext(workingMemory, startingPoint.getProperties(), startingPoint.getKey());
-      workingMemory = addContext(workingMemory, _goal.getProperties(), "GOAL");
-
-      workingMemory = addContext(workingMemory, "startingNode", startingPoint, "GOAL");
-
-      List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
-
-      // process the thought by layer...
-      for (Set<Node> currentOperations : layeredOperations) {
-
-         // process the nodes of a layer
-         logger.debug("layer contents = " + currentOperations);
-         Set<String> nextLevelInputNodeKeys = new HashSet<>();
-         for (Node node : currentOperations) {
-            logger.debug("add nextLevelInputNodeKeys: " + node);
-            nextLevelInputNodeKeys.add(node.getKey());
-
-            String thoughtType = node.getType();
-
-            if ("thought_operation".equals(thoughtType)) {
-
-               // process the operation
-               Map<String, Object> opResult = processOperation(node, workingMemory);
-
-               // add the result of the operation to working memory
-               workingMemory = addContext(workingMemory, opResult, node.getKey());
-
-            } else if ("thought".equals(thoughtType)) {
-               logger.debug("thought node = " + node);
-
-               // have the thought consume some goal details
-               List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
-               Node goal = goalTriples.get(0).getRight();
-               logger.debug("goal node = " + goal);
-
-               String targetPropName = (String) goal.getAttribute("targetProperty");
-               logger.debug("targetPropName = " + targetPropName);
-               Object startingTargetPropValue = startingPoint.getAttribute(targetPropName);
-               workingMemory = addContext(workingMemory, "targetPropValue", startingTargetPropValue, node.getKey());
-
-               // Node startingNode = (Node) goal.getAttribute("startingNode");
-               workingMemory = addContext(workingMemory, "startingNode", startingPoint, node.getKey());
-
-               String direction = (String) goal.getAttribute("direction");
-               workingMemory = addContext(workingMemory, "direction", direction, node.getKey());
-
-               String relationType = (String) goal.getAttribute("relationType");
-               workingMemory = addContext(workingMemory, "relationType", relationType, node.getKey());
-
-               Integer distance = (Integer) goal.getAttribute("distance");
-               workingMemory = addContext(workingMemory, "distance", distance, node.getKey());
-            } else if ("thought_result".equals(thoughtType)) {
-               Map<String, Object> opResult = processOperation(node, workingMemory);
-               result = addResultContext(result, opResult, node.getKey());
-               return result;
-            } else {
-               throw new RuntimeException("Invalid Node type. (" + node.getType() + ")");
-            }
-
-            // use the tailing edges to add next-level inputs to working memory
-            for (String nextLevelInputNodeKey : nextLevelInputNodeKeys) {
-               logger.debug("generating inputs based on outputs from " + nextLevelInputNodeKey + ".");
-               QueryClause queryClause = new QueryClause("_from", QueryClause.Operator.EQUALS, node.getId());
-               logger.debug("inputEdges queryClause name and value: " + queryClause.getName() + ", " + queryClause.getValue());
-               List<Edge> inputEdges = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
-               logger.debug("next level input edges: " + inputEdges);
-               for (Edge inputEdge : inputEdges) {
-                  String inputProp = (String) inputEdge.getAttribute("input");
-                  String edgeName = (String) inputEdge.getAttribute("name");
-                  logger.debug("edgeName = " + edgeName);
-                  String outputProp = (String) inputEdge.getAttribute("output");
-                  String fromKey = inputEdge.getFrom().split("/")[1];
-                  Object value = getInputValue(workingMemory, fromKey, inputProp);
-                  Double mutationFactor = (Double) inputEdge.getAttribute("mutation_factor");
-                  if (null != mutationFactor) {
-                     value = ((Number) value).floatValue() + mutationFactor;
-                  }
-                  String toKey = (String) inputEdge.getTo().split("/")[1];
-                  logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp);
-                  workingMemory.put(toKey + "." + outputProp, value);
-               }
-            }
-         }
-      }
-
-      throw new RuntimeException("Thought has no end.");
-   }
+   
 
    private Object getInputValue(Map<String, Object> workingMemory, String fromKey, String inputProp) {
       logger.debug("getInputValue inputProp = " + inputProp);

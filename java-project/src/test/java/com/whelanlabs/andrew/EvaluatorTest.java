@@ -26,11 +26,6 @@ public class EvaluatorTest {
    @AfterClass
    public static void tearDownAfterClass() throws Exception {
    }
-
-   @Test
-   public void dumbTest() throws Exception {
-      // need at least one test
-   }
    
    
    @Test
