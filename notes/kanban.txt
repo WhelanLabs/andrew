@@ -61,31 +61,33 @@
 
 * create "add" operation
 
+* generic forcast method. (Thought.forecast2)
+
+* build seed thought - linear growth (generic but usable for "stock price")
+
+* Operation.getGreatestDateLessThan(...)
+
 ##########################################################
 # WIP
 ##########################################################
 
-* generic forcast method. (Thought.forecast2)
-  
-* build seed thought - linear growth (generic but usable for "stock price")
+* improve performance and test coverage
 
-* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
-  Have a graphical tool for generating thoughts that can be automatically
-  translated into JSON for input into Andrew.
-  - https://www.yworks.com/products/yed ?
-  - https://www.graphity.com/ ?
+ * create futurePredictionThoughtGenerator
+  This will be a process that takes thoughts to meet the predictFutureValue goal,
+  merge and mutate them over a period leading up to the target startDate using evolution,
+  and then test the results for the future to see if the resulting thoughts correlate
+  training fitness to game-time fitness. 
+
+
+
 
 ##########################################################
 # backlog
 ##########################################################
 
-* Fix "modified Initial Example" to work with a generic forecast method.
-(or just remove it and have other unit tests.)
-  - regenerate the thought diagram
-  - align buildModifiedInitialTestThought() withupdated diagram
-  - have tests pass
   
-* Operation.getGreatestLessThan(...)
+
 
 * Operation.getAttribute(...)
 
@@ -102,11 +104,11 @@
 
 * build seed thought - VIX influences future stock price ("other symbol influence")
 
-* create futurePredictionThoughtGenerator
-  This will be a process that takes thoughts to meet the predictFutureValue goal,
-  merge and mutate them over a period leading up to the target startDate using evolution,
-  and then test the results for the future to see if the resulting thoughts correlate
-  training fitness to game-time fitness.
+* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
+  Have a graphical tool for generating thoughts that can be automatically
+  translated into JSON for input into Andrew.
+  - https://www.yworks.com/products/yed ?
+  - https://www.graphity.com/ ?
 
 * build seed thought - Buffett Indicator detirmines future stock price
 

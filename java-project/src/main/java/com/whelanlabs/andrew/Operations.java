@@ -179,9 +179,9 @@ public class Operations {
       Map<String, Object> results = new HashMap<>();
       Float dateNumber = ((Number) inputs.get(node.getKey() + "." + "dateNumber")).floatValue();
       
-      String query = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      String query = "FOR t IN date FILTER t.dateNumber <= @dateNumber SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query);
-      Map<String, Object> bindVars = Collections.singletonMap("time", dateNumber);
+      Map<String, Object> bindVars = Collections.singletonMap("dateNumber", dateNumber);
       
       List<Node> queryResults = App.getDataGraph().queryNodes(query, bindVars);
       

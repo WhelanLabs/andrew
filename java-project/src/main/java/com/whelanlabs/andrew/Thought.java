@@ -128,7 +128,7 @@ public class Thought {
 
                   if (null == value) {
                      logger.debug("workingMemory = " + workingMemory);
-                     logger.error("Edge input '" + inputProp + "' is NULL. (edge = " + inputEdge + ")");
+                     logger.error("Edge input value for '" + inputProp + "' is NULL. (edge = " + inputEdge + ")");
                   }
 
                   Double mutationFactor = (Double) inputEdge.getAttribute("mutation_factor");
@@ -158,13 +158,12 @@ public class Thought {
       Set<String> goalKeyset = goalAttributes.keySet();
       for (String goalKey : goalKeyset) {
          String goalName = "GOAL." + goalKey;
-         if(!workingMemory.containsKey(goalName)) {
+         if (!workingMemory.containsKey(goalName)) {
             workingMemory.put(goalName, goalAttributes.get(goalKey));
          }
       }
       return workingMemory;
    }
-   
 
    private Object getInputValue(Map<String, Object> workingMemory, String fromKey, String inputProp) {
       logger.debug("getInputValue inputProp = " + inputProp);
@@ -175,13 +174,12 @@ public class Thought {
          String numString = numStringArray[1];
          result = Float.valueOf(numString);
       } else {
-         if(inputProp.startsWith("GOAL.")) {
+         if (inputProp.startsWith("GOAL.")) {
             result = workingMemory.get(inputProp);
-         }
-         else {
+         } else {
             result = workingMemory.get(fromKey + "." + inputProp);
          }
-         
+
       }
       return result;
    }
@@ -238,23 +236,15 @@ public class Thought {
     * @param propertyMap the property map
     * @return the map
     */
-   private Map<String, Object> addGoalContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap) {
+   protected Map<String, Object> addGoalContext(Map<String, Object> workingMemory, Map<String, Object> propertyMap) {
       Set<String> keyset = propertyMap.keySet();
       String varName = null;
       for (String key : keyset) {
          varName = "GOAL." + key;
          if (!workingMemory.containsKey(varName)) {
             Object value = propertyMap.get(key);
-            if (value instanceof Node) {
-               Map<String, Object> valueProps = ((Node) value).getProperties();
-               Set<String> valuePropsKeyset = valueProps.keySet();
-               for (String valueKey : valuePropsKeyset) {
-                  workingMemory = addContext(workingMemory, key + "." + valueKey, valueProps.get(valueKey), "GOAL");
-               }
-            } else {
-               logger.debug("adding to working memory: " + varName + " =  " + value);
-               workingMemory.put(varName, value);
-            }
+            logger.debug("adding to working memory: " + varName + " =  " + value);
+            workingMemory.put(varName, value);
          }
       }
       return workingMemory;

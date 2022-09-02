@@ -2,7 +2,11 @@ package com.whelanlabs.andrew;
 
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.arangodb.model.TraversalOptions.Direction;
+import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
@@ -104,7 +109,6 @@ public class OperationsTest {
    
    @Test
    public void add_validInputs_getResult() {
-
       // setup data
       App.loadDatasetToDataGraph(new LinearDataset());
       Node startingNode = new Node(ElementHelper.generateKey(), "testNodeType");
@@ -119,5 +123,29 @@ public class OperationsTest {
       Float result = (Float)results.get("RESULT");
       
       assert(2.0f == result);
+   }
+   
+   @Test
+   public void getGreatestDateLessThan_validInputs_getResult() throws FileNotFoundException {
+      // setup data
+      List<File> files = new ArrayList<>();
+      files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
+      CSVLoader stockLoader = new CSVLoader();
+      stockLoader.loadStocks(files);
+      
+      App.loadDatasetToDataGraph(new LinearDataset());
+      Node startingNode = new Node(ElementHelper.generateKey(), "testNodeType");
+      Map<String, Object> inputs = new HashMap<>();
+      // XXXXX is on a Sunday
+      inputs.put(startingNode.getKey() + "." + "dateNumber", 14619);
+      
+      Map<String, Object> results = Operations.getGreatestDateLessThan(startingNode, inputs);
+      
+      logger.debug("results = " + results);
+      
+      Node result = (Node)results.get("RESULT");
+
+      Integer dateNumber = (Integer)result.getAttribute("dateNumber");
+      assert(dateNumber == 14617): "dateNumber = " + dateNumber;
    }
 }

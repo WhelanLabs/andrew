@@ -494,4 +494,17 @@ public class ThoughtTest {
 
       return workingMemory;
    }
+   
+   @Test
+   public void addGoalAttributes_newAttr_added() throws Exception {
+      Node goalNode = new Node(ElementHelper.generateKey(), "goal");
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+      Map<String, Object> workingMemory = new HashMap<>();
+      Node goal = new Node(ElementHelper.generateKey(), "goal");
+      goal.addAttribute("foo", "bar");
+      workingMemory = thought.addGoalAttributes(workingMemory, goal);
+      
+      assert ("bar".equals(workingMemory.get("GOAL.foo"))) : workingMemory;
+   }
+   
 }
