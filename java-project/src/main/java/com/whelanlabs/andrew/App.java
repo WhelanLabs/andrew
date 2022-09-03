@@ -1,6 +1,8 @@
 package com.whelanlabs.andrew;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +29,8 @@ public class App {
    /** The logger. */
    private static Logger logger = LogManager.getLogger(App.class);
 
+   private static Map<String, Thought> thoughtCache = new HashMap<>();
+   
    
    /**
     * Instantiates a new app.
@@ -96,6 +100,17 @@ public class App {
       }
    }
 
+   public static Thought loadThoughtFromJson(String thoughtName, String content) {
+      if(thoughtCache.containsKey(thoughtName)) {
+         return thoughtCache.get(thoughtName);
+      }else {
+         Thought thought = loadThoughtFromJson(content);
+         thoughtCache.put(thoughtName, thought);
+         return thought;
+      }
+   }
+   
+   
    /**
     * Load thought from json.
     *

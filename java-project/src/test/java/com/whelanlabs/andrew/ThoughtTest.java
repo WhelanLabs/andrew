@@ -399,7 +399,7 @@ public class ThoughtTest {
 
       // logger.debug("content = "+ content);
 
-      Thought t = App.loadThoughtFromJson(content);
+      Thought t = App.loadThoughtFromJson("test_load_data", content);
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
@@ -416,7 +416,7 @@ public class ThoughtTest {
       String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
 
-      Thought t = App.loadThoughtFromJson(content);
+      Thought t = App.loadThoughtFromJson("linear_growth_thought", content);
 
       // TODO: modify the goal to specify the startDate and symbol
 
@@ -447,7 +447,7 @@ public class ThoughtTest {
 
       String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
-      Thought thought = App.loadThoughtFromJson(content);
+      Thought thought = App.loadThoughtFromJson("linear_growth_thought", content);
 
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));
