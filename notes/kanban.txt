@@ -73,7 +73,7 @@
 
 * improve performance and test coverage
 
- * create futurePredictionThoughtGenerator
+* create futurePredictionThoughtGenerator
   This will be a process that takes thoughts to meet the predictFutureValue goal,
   merge and mutate them over a period leading up to the target startDate using evolution,
   and then test the results for the future to see if the resulting thoughts correlate
