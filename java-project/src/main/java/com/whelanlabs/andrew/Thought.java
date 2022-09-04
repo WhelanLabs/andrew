@@ -128,7 +128,7 @@ public class Thought {
 
                   if (null == value) {
                      logger.debug("workingMemory = " + workingMemory);
-                     logger.error("Edge input value for '" + inputProp + "' is NULL. (edge = " + inputEdge + ")");
+                     logger.error("Edge input value is NULL for '" + inputProp + "'  (edge = " + inputEdge + ")");
                   }
 
                   Double mutationFactor = (Double) inputEdge.getAttribute("mutation_factor");
