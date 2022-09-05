@@ -1,7 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -13,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
@@ -24,15 +24,6 @@ import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
-
-import ch.qos.logback.classic.spi.ILoggingEvent;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.slf4j.LoggerFactory;
 
 public class ThoughtTest {
 
@@ -53,16 +44,11 @@ public class ThoughtTest {
 
    @Test
    public void forecast2_nullEdgeInput_errorMessage() throws Exception {
-      // see: https://mincong.io/2020/02/02/logback-test-logging-event/
-      ch.qos.logback.core.read.ListAppender<ILoggingEvent> appender = new ch.qos.logback.core.read.ListAppender<>();
-      ch.qos.logback.classic.Logger appLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Thought.class);
-      appender.start();
-      appLogger.addAppender(appender);
       
       try {
          Thought thought = TestHelper.buildModifiedInitialTestThought();
 
-         Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+         //Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
          //Map<String, Object> workingMemory = generateLegacyDataWorkingMemory(thought, startingNode);
          Map<String, Object> workingMemory = new HashMap<>();
@@ -74,19 +60,12 @@ public class ThoughtTest {
          }
          
          Boolean msgFound = false;
-         for(ILoggingEvent loggingEvent : appender.list) {
-            String msg = loggingEvent.getMessage();
-            logger.debug("msg = " + msg);
-            if(msg.contains("Edge input value is NULL")) {
-               msgFound = true;
-               break;
-            }
-         }
+
          
          assert(true == msgFound);
       }
       finally {
-         appLogger.detachAppender(appender);
+         //appLogger.detachAppender(appender);
       }
 
    }
