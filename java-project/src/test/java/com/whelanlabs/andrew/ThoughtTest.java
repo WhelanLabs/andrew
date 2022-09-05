@@ -44,7 +44,7 @@ public class ThoughtTest {
 
    @Test
    public void forecast2_nullEdgeInput_errorMessage() throws Exception {
-      
+      // try: https://stackoverflow.com/questions/1827677/how-to-do-a-junit-assert-on-a-message-in-a-logger
       try {
          Thought thought = TestHelper.buildModifiedInitialTestThought();
 
