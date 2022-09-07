@@ -67,13 +67,16 @@
 
 * Operation.getGreatestDateLessThan(...)
 
+* improve performance and test coverage
+  - check for test "forecast2_nullEdgeInput_errorMessage" to produce:
+    "Edge input value is NULL"
+  - 100% test coverage
+  
 ##########################################################
 # WIP
 ##########################################################
 
-* improve performance and test coverage
-  - check for test "" to produce:
-    "Edge input value for '" + inputProp + "' is NULL."
+
 
 * create futurePredictionThoughtGenerator
   This will be a process that takes thoughts to meet the predictFutureValue goal,

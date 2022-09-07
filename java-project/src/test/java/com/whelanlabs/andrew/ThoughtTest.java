@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.Logger;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
@@ -25,9 +25,15 @@ import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+
 public class ThoughtTest {
 
-   private static Logger logger = LogManager.getLogger(ThoughtTest.class);
+   private static Logger logger = (Logger) LoggerFactory.getLogger(ThoughtTest.class);
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -46,12 +52,15 @@ public class ThoughtTest {
    public void forecast2_nullEdgeInput_errorMessage() throws Exception {
       // try: https://stackoverflow.com/questions/1827677/how-to-do-a-junit-assert-on-a-message-in-a-logger
       // with https://stackoverflow.com/questions/38241654/how-to-add-appender-to-logger-in-log4j2
+      
+      Logger thoughtLogger = (Logger) LoggerFactory.getLogger(Thought.class);
+      ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+      listAppender.start();
+      thoughtLogger.addAppender(listAppender);
+      
       try {
          Thought thought = TestHelper.buildModifiedInitialTestThought();
 
-         //Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
-
-         //Map<String, Object> workingMemory = generateLegacyDataWorkingMemory(thought, startingNode);
          Map<String, Object> workingMemory = new HashMap<>();
          try {
             thought.forecast2(workingMemory);
@@ -62,6 +71,15 @@ public class ThoughtTest {
          
          Boolean msgFound = false;
 
+         List<ILoggingEvent> logsList = listAppender.list;
+         for(ILoggingEvent elem : logsList) {
+            if(Level.ERROR == elem.getLevel()) {
+               if(elem.getMessage().contains("Edge input value is NULL for")) {
+                  msgFound = true;
+                  break;
+               }
+            }
+         }
          
          assert(true == msgFound);
       }
