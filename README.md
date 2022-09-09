@@ -65,5 +65,5 @@ The results are written to [ ./java-project/target/site/dependencies.html ].
 ## To build Javadoc
 	mvn javadoc:javadoc
 	
-## to generate sample graph disgram images (requires Graphvis)
+## to generate sample graph diagram images (requires Graphvis)
 	dot -Tsvg .\target\dot_files\exportDot_goodThought_goodDot.dot > .\target\dot_files\exportDot_goodThought_goodDot.svg

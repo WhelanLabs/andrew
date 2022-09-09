@@ -7,8 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
-import org.slf4j.LoggerFactory;
 
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Thought;
@@ -16,11 +17,11 @@ import com.whelanlabs.andrew.ThoughtTest;
 import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 
-import ch.qos.logback.classic.Logger;
+
 
 public class ExampleOne {
 
-   private static Logger logger = (Logger) LoggerFactory.getLogger(ThoughtTest.class);
+   private static Logger logger = LogManager.getLogger(ThoughtTest.class);
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {

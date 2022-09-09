@@ -94,7 +94,6 @@ public class Operations {
             
       
       for (int i = 0; i < distance; i++) {
-         logger.debug("   traversal #" + i);
          if (Direction.outbound.toString().equals(direction)) {
             expansions = App.getDataGraph().expandRight(previousNode, relationType, null, null);
          } else if (Direction.inbound.toString().equals(direction)) {

@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,15 +25,11 @@ import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 
-import org.slf4j.LoggerFactory;
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.read.ListAppender;
+
 
 public class ThoughtTest {
 
-   private static Logger logger = (Logger) LoggerFactory.getLogger(ThoughtTest.class);
+   private static Logger logger = LogManager.getLogger(ThoughtTest.class);
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -535,3 +531,4 @@ public class ThoughtTest {
    }
    
 }
+

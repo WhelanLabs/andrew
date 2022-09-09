@@ -11,18 +11,15 @@ import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Triple;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * The Class Thought.
  */
@@ -31,7 +28,7 @@ public class Thought {
    protected Node _thoughtNode;
    protected Node _goal;
 
-   private static Logger logger = LoggerFactory.getLogger(Thought.class);
+   private static Logger logger = LogManager.getLogger(Thought.class);
 
    public Thought(Node thoughtNode) {
       _thoughtNode = thoughtNode;
