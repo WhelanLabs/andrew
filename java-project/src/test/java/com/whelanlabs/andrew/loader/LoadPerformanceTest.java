@@ -32,40 +32,40 @@ public class LoadPerformanceTest {
    public void loadThreeStocks_goodFiles_loaded() throws Exception {
       // start with a clean DB
       App.getDataGraph().flush();
-      
+
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/AA_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AAAU_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
-      
+
       CSVLoader stockLoader = new CSVLoader();
-      
+
       long startTime = System.currentTimeMillis();
       stockLoader.loadStocks(files);
       long endTime = System.currentTimeMillis();
-      long elapsed = (endTime - startTime)/1000;
+      long elapsed = (endTime - startTime) / 1000;
       logger.debug("loadStocks_goodFiles_loaded took " + elapsed + " seconds");
-      
-      if(elapsed > 10) {  // 10 seconds
+
+      if (elapsed > 10) { // 10 seconds
          logger.warn("loadStocks_goodFiles_loaded took too long!");
       }
-      
+
       Long count = App.getDataGraph().getCount("stockOnDate");
-      
+
       assert (count > 10000);
       logger.debug("count = " + count);
 
    }
-
    
-   //@Test
    // TODO: get this do-able in a reasonable amount of time.
+   // @Test
    public void loadAStocks_goodFiles_loaded() throws Exception {
+
       // start with a clean DB
       App.getDataGraph().flush();
-      
+
       List<File> files = new ArrayList<>();
-      
+
       String baseDir = "../fetchers/stock_data_fetcher/data/";
       File f = new File(baseDir);
 
@@ -81,15 +81,14 @@ public class LoadPerformanceTest {
       long startTime = System.currentTimeMillis();
       stockLoader.loadStocks(files);
       long endTime = System.currentTimeMillis();
-      long elapsed = (endTime - startTime)/1000;
+      long elapsed = (endTime - startTime) / 1000;
       logger.debug("loadAStocks_goodFiles_loaded took " + elapsed + " seconds");
-      
+
       Long count = App.getDataGraph().getCount("stockOnDate");
       logger.debug("count = " + count);
       assert (count > 10000);
-      
-      
-      if(elapsed > 10) {  // 10 seconds
+
+      if (elapsed > 10) { // 10 seconds
          logger.warn("loadAStocks_goodFiles_loaded took too long!");
       }
 

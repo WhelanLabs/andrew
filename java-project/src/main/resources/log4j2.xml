@@ -24,7 +24,7 @@
 			<AppenderRef ref="RollingFile" />
 		</Root>
 		<Logger name="com.whelanlabs.andrew" level="DEBUG" additivity="false">
-			<Appender-ref ref="Console" level="DEBUG" />
+			<Appender-ref ref="Console" />
 		</Logger>
 		<!--
 		<Logger name="com.whelanlabs.kgraph.engine.KnowledgeGraph" level="DEBUG" additivity="false">
