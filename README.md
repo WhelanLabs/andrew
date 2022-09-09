@@ -46,7 +46,7 @@ In addition to supporting genetic operations in the genetic solutions, the fitne
 	mvn clean source:jar javadoc:jar install -DskipTests
 
 ### Start ArangoDB in Docker:
-	docker run -p 8529:8529 -e ARANGO_ROOT_PASSWORD=openSesame arangodb/arangodb:3.8.2
+	docker run -p 8529:8529 -e ARANGO_ROOT_PASSWORD=openSesame arangodb/arangodb:latest
 
 ### In order to build the uber jar run:
 
