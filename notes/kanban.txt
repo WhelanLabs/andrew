@@ -76,6 +76,7 @@
 # WIP
 ##########################################################
 
+* Address vulnerability in org.apache.logging.log4j:log4j-core 2.15.0.
 
 * fix logging to 'debug' for com.whelanlabs.andrew , default 'warn' for others. 
 
