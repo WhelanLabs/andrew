@@ -25,6 +25,8 @@ import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 
+import nl.altindag.log.LogCaptor;
+
 
 
 public class ThoughtTest {
@@ -46,12 +48,9 @@ public class ThoughtTest {
 
    @Test
    public void forecast2_nullEdgeInput_errorMessage() throws Exception {
-      // see: https://stackoverflow.com/a/51812144
+      // see: https://stackoverflow.com/a/63546258/2418261
       
-      Logger thoughtLogger = (Logger) LoggerFactory.getLogger(Thought.class);
-      ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
-      listAppender.start();
-      thoughtLogger.addAppender(listAppender);
+      LogCaptor logCaptor = LogCaptor.forClass(Thought.class);
       
       try {
          Thought thought = TestHelper.buildModifiedInitialTestThought();
@@ -66,14 +65,12 @@ public class ThoughtTest {
          
          Boolean msgFound = false;
 
-         List<ILoggingEvent> logsList = listAppender.list;
-         for(ILoggingEvent elem : logsList) {
-            if(Level.ERROR == elem.getLevel()) {
-               if(elem.getMessage().contains("Edge input value is NULL for")) {
+         List<String> errorMessages = logCaptor.getErrorLogs();
+         for(String errorMessage : errorMessages) {
+               if(errorMessage.contains("Edge input value is NULL for")) {
                   msgFound = true;
                   break;
                }
-            }
          }
          
          assert(true == msgFound);

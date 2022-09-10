@@ -67,7 +67,10 @@
 
 * Operation.getGreatestDateLessThan(...)
 
-
+* improve performance and test coverage
+  - check for test "forecast2_nullEdgeInput_errorMessage" to produce:
+    "Edge input value is NULL"
+  - 100% test coverage
   
 * Address vulnerability in org.apache.logging.log4j:log4j-core 2.15.0.
 
@@ -77,10 +80,7 @@
 # WIP
 ##########################################################
 
-* improve performance and test coverage
-  - check for test "forecast2_nullEdgeInput_errorMessage" to produce:
-    "Edge input value is NULL"
-  - 100% test coverage
+
 
 * fix logging to 'debug' for com.whelanlabs.andrew , default 'warn' for others. 
 
