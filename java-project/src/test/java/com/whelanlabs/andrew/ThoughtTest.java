@@ -49,6 +49,7 @@ public class ThoughtTest {
    @Test
    public void forecast2_nullEdgeInput_errorMessage() throws Exception {
       // see: https://stackoverflow.com/a/63546258/2418261
+      // see: https://github.com/Hakky54/log-captor
       
       LogCaptor logCaptor = LogCaptor.forClass(Thought.class);
       

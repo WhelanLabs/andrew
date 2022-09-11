@@ -1,0 +1,17 @@
+<configuration>
+<!-- see also: https://mkyong.com/logging/logback-xml-example/ -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.whelanlabs.andrew" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+	
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
