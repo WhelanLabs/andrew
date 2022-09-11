@@ -74,15 +74,12 @@
   
 * Address vulnerability in org.apache.logging.log4j:log4j-core 2.15.0.
 
-
+* fix logging to 'debug' for com.whelanlabs.andrew , default 'warn' for others. 
 
 ##########################################################
 # WIP
 ##########################################################
 
-
-
-* fix logging to 'debug' for com.whelanlabs.andrew , default 'warn' for others. 
 
 * create futurePredictionThoughtGenerator (ExampleOne)
   This will be a process that takes thoughts to meet the predictFutureValue goal,
