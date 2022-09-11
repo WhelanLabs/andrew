@@ -95,7 +95,7 @@
 ##########################################################
 
   
-
+* replace getGoalNode() calls with usage of getGoal() plus Goal.getNode(), and then remove getGoalNode().
 
 * Operation.getAttribute(...)
 

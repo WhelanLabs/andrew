@@ -322,10 +322,15 @@ public class Thought {
       return results;
    }
 
-   public Node getGoal() {
+   public Node getGoalNode() {
       return _goal;
    }
 
+   public Goal getGoal() {
+      return new Goal(_goal);
+   }
+   
+   
    public Thought clone() {
       String clonedNodeKey = ElementHelper.generateKey();
       return clone(clonedNodeKey);

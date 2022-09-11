@@ -71,11 +71,11 @@ public class Evaluator {
             Number forecastResult = null;
             try {
                Map<String, Object> workingMemory1 = new HashMap<>();
-               String targetPropName = (String) thought.getGoal().getAttribute("targetProperty");
+               String targetPropName = (String) thought.getGoalNode().getAttribute("targetProperty");
                Object startingTargetPropValue = startingNode.getAttribute(targetPropName);
                workingMemory1 = thought.addContext(workingMemory1, "startingNode", startingNode, "GOAL");
                workingMemory1 = thought.addContext(workingMemory1, startingNode.getProperties(), startingNode.getKey());
-               workingMemory1 = thought.addContext(workingMemory1, thought.getGoal().getProperties(), "GOAL");
+               workingMemory1 = thought.addContext(workingMemory1, thought.getGoalNode().getProperties(), "GOAL");
                workingMemory1 = thought.addContext(workingMemory1, "targetPropValue", startingTargetPropValue, thought.getThoughtNode().getKey());
                workingMemory1 = thought.addContext(workingMemory1, "distance", distance, thought.getThoughtNode().getKey());
                workingMemory1 = thought.addContext(workingMemory1, "direction", direction, thought.getThoughtNode().getKey());

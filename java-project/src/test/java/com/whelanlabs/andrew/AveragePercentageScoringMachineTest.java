@@ -37,12 +37,12 @@ public class AveragePercentageScoringMachineTest {
       Thought t1 = TestHelper.buildModifiedInitialTestThought();
       
       @SuppressWarnings("unused") // this thought is accessed through a common goal.
-      Thought t2 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.0f);
+      Thought t2 = TestHelper.buildMultiplicationThought(t1.getGoalNode(), 1.0f);
       
       @SuppressWarnings("unused") // this thought is accessed through a common goal.
-      Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoal(), 1.1f);
+      Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoalNode(), 1.1f);
       
-      Evaluator evaluator = new Evaluator(t1.getGoal());
+      Evaluator evaluator = new Evaluator(t1.getGoalNode());
 
       Integer maxTime = 500; // test data goes to time~=1000
 

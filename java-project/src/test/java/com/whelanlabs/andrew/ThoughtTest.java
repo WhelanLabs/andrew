@@ -257,7 +257,7 @@ public class ThoughtTest {
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
-      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
       Merger merger = new SimpleMerger();
       Thought childThought = merger.merge(thought1, thought2);
@@ -292,8 +292,8 @@ public class ThoughtTest {
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
-      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
-      Thought thought3 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 3.5f);
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
+      Thought thought3 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 3.5f);
 
       Merger merger = new SimpleMerger();
       Thought child1Thought = merger.merge(thought1, thought2);
@@ -334,7 +334,7 @@ public class ThoughtTest {
    public void exportJson_goodThought_goodJson() throws Exception {
 
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
-      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
       Merger merger = new SimpleMerger();
       Thought child1Thought = merger.merge(thought1, thought2);
@@ -383,7 +383,7 @@ public class ThoughtTest {
    public void exportDot_goodThought_goodDot() throws Exception {
 
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
-      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoal(), 1.5f);
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
       Merger merger = new SimpleMerger();
       Thought child1Thought = merger.merge(thought1, thought2);
@@ -497,16 +497,16 @@ public class ThoughtTest {
    }
 
    public Map<String, Object> generateLegacyDataWorkingMemory(Thought thought, Node startingNode) {
-      String targetPropName = (String) thought.getGoal().getAttribute("targetProperty");
+      String targetPropName = (String) thought.getGoalNode().getAttribute("targetProperty");
       Object startingTargetPropValue = startingNode.getAttribute(targetPropName);
-      Integer distance = (Integer) thought.getGoal().getAttribute("distance");
-      String direction = (String) thought.getGoal().getAttribute("direction");
-      String relationType = (String) thought.getGoal().getAttribute("relationType");
+      Integer distance = (Integer) thought.getGoalNode().getAttribute("distance");
+      String direction = (String) thought.getGoalNode().getAttribute("direction");
+      String relationType = (String) thought.getGoalNode().getAttribute("relationType");
 
       Map<String, Object> workingMemory = new HashMap<>();
       workingMemory = thought.addContext(workingMemory, "startingNode", startingNode, "GOAL");
       workingMemory = thought.addContext(workingMemory, startingNode.getProperties(), startingNode.getKey());
-      workingMemory = thought.addContext(workingMemory, thought.getGoal().getProperties(), "GOAL");
+      workingMemory = thought.addContext(workingMemory, thought.getGoalNode().getProperties(), "GOAL");
       workingMemory = thought.addContext(workingMemory, "targetPropValue", startingTargetPropValue, thought.getThoughtNode().getKey());
       workingMemory = thought.addContext(workingMemory, "distance", distance, thought.getThoughtNode().getKey());
       workingMemory = thought.addContext(workingMemory, "direction", direction, thought.getThoughtNode().getKey());

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 
 import com.whelanlabs.andrew.App;
+import com.whelanlabs.andrew.Goal;
 import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.andrew.ThoughtTest;
 import com.whelanlabs.andrew.dataset.CSVLoader;
@@ -38,9 +39,9 @@ public class ExampleOne {
     * see also: https://www.geeksforgeeks.org/encoding-methods-in-genetic-algorithm/
     *
     * @param args the arguments
-    * @throws IOException Signals that an I/O exception has occurred.
+    * @throws Exception 
     */
-   public static void main(String[] args) throws IOException {
+   public static void main(String[] args) throws Exception {
       // load the test data
       List<File> files = new ArrayList<>();
       List<String> tickers = new ArrayList<>();
@@ -64,24 +65,9 @@ public class ExampleOne {
       String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
       Thought rootThought = App.loadThoughtFromJson("linear_growth_thought", content);
+      Goal goal = rootThought.getGoal();
 
-      // repeat
-
-      // generate crossover (name children based on parents - ex: [PID]_[PPID])
-
-      // generate mutants (copy and mutate) (name mutants based on base - ex: [PID]-[MutationID]_[PPID])
-
-      // loop through a set of test cases
-
-      // sum the score for each thought
-
-      // cull the herd of thought/goal when limited for resources.
-      // Have culling be statistical some sometimes bad thoughts survive.
-
-
-      // until things don't get better (end of repeat-until)
-
-      // write the results
+      App.train(goal);
 
       // compare the thoughts for times in the future
 

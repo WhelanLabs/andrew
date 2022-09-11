@@ -32,7 +32,7 @@ public class EvaluatorTest {
    public void evaluate_oneThoght_getResult() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
-      Evaluator evaluator = new Evaluator(thought.getGoal());
+      Evaluator evaluator = new Evaluator(thought.getGoalNode());
 
       Integer maxTime = 500; // test data goes to time~=1000
 
@@ -46,7 +46,7 @@ public class EvaluatorTest {
    public void evaluate_thoughtProcessGoesOutOfBounds_getNullGuess() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
-      Evaluator evaluator = new Evaluator(thought.getGoal());
+      Evaluator evaluator = new Evaluator(thought.getGoalNode());
 
       App.loadDatasetToDataGraph(new LinearDataset());
 
@@ -63,7 +63,7 @@ public class EvaluatorTest {
    public void evaluate_thoughtProcessNoStartingNode_getNull() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
-      Evaluator evaluator = new Evaluator(thought.getGoal());
+      Evaluator evaluator = new Evaluator(thought.getGoalNode());
 
       App.loadDatasetToDataGraph(new LinearDataset());
 

@@ -1,5 +1,6 @@
 package com.whelanlabs.andrew;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,11 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 
 import com.whelanlabs.andrew.dataset.Dataset;
+import com.whelanlabs.andrew.process.evaluate.Evaluation;
+import com.whelanlabs.andrew.process.evaluate.Evaluator;
+import com.whelanlabs.andrew.process.selection.AveragePercentageScoringMachine;
+import com.whelanlabs.andrew.process.selection.ScoringMachine;
+import com.whelanlabs.andrew.process.selection.ThoughtScore;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Element;
 import com.whelanlabs.kgraph.engine.KnowledgeGraph;
@@ -137,4 +143,38 @@ public class App {
       return result;
    }
 
+   
+   public static void train(Goal goal) throws Exception {
+      List<Thought> currentThoughts = new ArrayList<>();
+      currentThoughts.addAll(currentThoughts);
+      
+      ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
+      // repeat
+      do {
+         // generate crossover (name children based on parents - ex: [PID]_[PPID])
+
+         // generate mutants (copy and mutate) (name mutants based on base - ex: [PID]-[MutationID]_[PPID])
+
+         // loop through a set of test cases
+         Evaluator evaluator = new Evaluator(goal.getNode());
+
+         Integer maxTime = 500; // test data goes to time~=1000
+
+         List<Evaluation> evualationResults = evaluator.evaluateThoughts(20, maxTime, 10);
+         
+         // sum the score for each thought
+         List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);
+
+         // cull the herd of thought/goal when limited for resources.
+         // Have culling be statistical some sometimes bad thoughts survive.
+
+
+         // until things don't get better (end of repeat-until)
+         } while (true);
+
+
+
+      // write the results
+      
+   }
 }
