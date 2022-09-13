@@ -146,7 +146,7 @@ public class App {
    
    public static void train(Goal goal) throws Exception {
       List<Thought> currentThoughts = new ArrayList<>();
-      currentThoughts.addAll(currentThoughts);
+      currentThoughts.addAll(goal.getThoughts());
       
       ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
       // repeat

@@ -49,7 +49,7 @@ public class ExampleOne {
       File f = new File(baseDir);
       String[] baseFileNames = f.list();
       for (String baseFileName : baseFileNames) {
-         if(baseFileName.startsWith("A")) {
+         if(baseFileName.startsWith("AAPL_") || baseFileName.startsWith("AIG_") || baseFileName.startsWith("AMAT_")) {
             String filePath = baseDir + baseFileName;
             String ticker = baseFileName.substring(0, baseFileName.indexOf("_")-1);
             tickers.add(ticker);
