@@ -94,8 +94,23 @@
 # backlog
 ##########################################################
 
+* profile and possibly improve memory usage.
   
 * replace getGoalNode() calls with usage of getGoal() plus Goal.getNode(), and then remove getGoalNode().
+
+* make App.train() smarter:
+  - how many mutants shall be generated?
+  - how shall #mutations be detirmined?
+  - selection of parents for crossover?
+  - number of crossovers to generate?  - see also SimpleCrossover.createCrossovers()
+  - when to die?
+  
+* name mutants based on base - ex: [PID]-[MutationID]_[PPID]
+  note: see Mutator.createMutant()
+  note: what will subsequent generations look like?
+  
+* name crossovers based on parents - ex: [PID]_[PPID])
+  - note: see SimpleCrossover.crossover()
 
 * Operation.getAttribute(...)
 

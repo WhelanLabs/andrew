@@ -423,31 +423,7 @@ public class Thought {
       String clonedNodeKey = ElementHelper.generateKey();
       return cloneNode(node, clonedNodeKey);
    }
-
-   public Thought mutate(Integer numMutations) {
-
-      QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
-      QueryClause mutatableQueryClause = new QueryClause("mutation_range", QueryClause.Operator.NOT_EQUALS, null);
-      List<Edge> sequenceEdges = App.getGardenGraph().queryEdges("thought_sequence", thoughtKeyQueryClause, mutatableQueryClause);
-
-      logger.debug("sequenceEdges: " + sequenceEdges);
-
-      for (int i = 0; i < numMutations; i++) {
-         Random random = new Random();
-         double rand = Math.random();
-         Edge randomEdge = sequenceEdges.remove(random.nextInt(sequenceEdges.size()));
-         if (null != randomEdge) {
-            // clustering strength
-            Integer c = 3;
-            double mutationFactor = Math.pow((2 * rand) - 1, c) + 1;
-            logger.debug("rand: " + rand);
-            logger.debug("mutation_factor: " + mutationFactor);
-            randomEdge.addAttribute("mutation_factor", mutationFactor);
-            App.getGardenGraph().upsert(randomEdge);
-         }
-      }
-      return this;
-   }
+   
 
    public String exportJson() throws Exception {
       List<Element> elements = gatherContents();

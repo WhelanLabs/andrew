@@ -25,10 +25,10 @@ import com.whelanlabs.kgraph.engine.QueryClause;
  * The Class App.
  */
 public class App {
-   
+
    /** The data graph. */
    private static KnowledgeGraph _dataGraph = null;
-   
+
    /** The garden graph. */
    private static KnowledgeGraph _gardenGraph = null;
 
@@ -36,15 +36,14 @@ public class App {
    private static Logger logger = LogManager.getLogger(App.class);
 
    private static Map<String, Thought> thoughtCache = new HashMap<>();
-   
-   
+
    /**
     * Instantiates a new app.
     */
    private App() {
-      // do nothing.  Static global class.
+      // do nothing. Static global class.
    }
-   
+
    /**
     * Initialize.
     *
@@ -73,7 +72,7 @@ public class App {
    public static KnowledgeGraph getGardenGraph() {
       return _gardenGraph;
    }
-   
+
    /**
     * Load dataset to data graph.
     *
@@ -97,7 +96,7 @@ public class App {
          Edge[] edgesArray = new Edge[edges.size()];
          edgesArray = edges.toArray(edgesArray);
          _dataGraph.upsert(edgesArray);
-         
+
          // lastly, create the dataSet_info node
          Node datasetInfoNode = new Node(datasetInfoID, "dataSet_info");
          datasetInfoNode.addAttribute("dataset_id", datasetInfoID);
@@ -107,16 +106,15 @@ public class App {
    }
 
    public static Thought loadThoughtFromJson(String thoughtName, String content) {
-      if(thoughtCache.containsKey(thoughtName)) {
+      if (thoughtCache.containsKey(thoughtName)) {
          return thoughtCache.get(thoughtName);
-      }else {
+      } else {
          Thought thought = loadThoughtFromJson(content);
          thoughtCache.put(thoughtName, thought);
          return thought;
       }
    }
-   
-   
+
    /**
     * Load thought from json.
     *
@@ -128,32 +126,35 @@ public class App {
       Thought result = null;
 
       List<Element> loadedElements = _gardenGraph.loadFromJson(jsonArr);
-      
+
       logger.debug("loadedElements = " + loadedElements);
 
-      
-      for(Element element : loadedElements) {
+      for (Element element : loadedElements) {
          String type = element.getType();
          logger.debug("type = " + type);
-         if("thought".equals(type)) {
+         if ("thought".equals(type)) {
             logger.debug("element = " + element);
-            result = new Thought((Node)element);
+            result = new Thought((Node) element);
          }
       }
       return result;
    }
 
-   
    public static void train(Goal goal) throws Exception {
       List<Thought> currentThoughts = new ArrayList<>();
       currentThoughts.addAll(goal.getThoughts());
-      
+
       ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
+      Crossover crossover = new SimpleCrossover();
+      
       // repeat
       do {
-         // generate crossover (name children based on parents - ex: [PID]_[PPID])
+         // generate mutants
+         currentThoughts.addAll(Mutator.createMutant(currentThoughts, 1));
 
-         // generate mutants (copy and mutate) (name mutants based on base - ex: [PID]-[MutationID]_[PPID])
+         // generate crossover
+         currentThoughts.addAll(crossover.createCrossovers(currentThoughts));
+         
 
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
@@ -161,20 +162,17 @@ public class App {
          Integer maxTime = 500; // test data goes to time~=1000
 
          List<Evaluation> evualationResults = evaluator.evaluateThoughts(20, maxTime, 10);
-         
+
          // sum the score for each thought
          List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);
 
          // cull the herd of thought/goal when limited for resources.
          // Have culling be statistical some sometimes bad thoughts survive.
 
-
          // until things don't get better (end of repeat-until)
-         } while (true);
-
-
+      } while (true);
 
       // write the results
-      
+
    }
 }

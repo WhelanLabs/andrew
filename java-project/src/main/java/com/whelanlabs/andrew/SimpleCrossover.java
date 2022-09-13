@@ -1,6 +1,7 @@
 package com.whelanlabs.andrew;
 
 import java.util.List;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,12 +11,12 @@ import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
-public class SimpleMerger implements Merger{
+public class SimpleCrossover implements Crossover{
 
-   private static Logger logger = LogManager.getLogger(SimpleMerger.class);
+   private static Logger logger = LogManager.getLogger(SimpleCrossover.class);
 
    @Override
-   public Thought merge(Thought t1, Thought t2) {
+   public Thought crossover(Thought t1, Thought t2) {
       logger.debug("t1.id = " + t1.getThoughtNode().getId());
       logger.debug("t2.id = " + t2.getThoughtNode().getId());
 
@@ -101,6 +102,18 @@ public class SimpleMerger implements Merger{
       }
       
       return t1c;
+   }
+
+   @Override
+   public List<Thought> createCrossovers(List<Thought> currentThoughts) {
+      Random rand = new Random();
+      Integer numCrossovers = currentThoughts.size();
+      
+      for(int i = 0; i<numCrossovers; i++) {
+         Integer secondParentNum = rand.nextInt(currentThoughts.size() );
+         // bookmark here;
+      }
+      return null;
    }
 
 }

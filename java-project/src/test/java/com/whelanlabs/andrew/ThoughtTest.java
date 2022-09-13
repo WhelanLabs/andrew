@@ -234,7 +234,7 @@ public class ThoughtTest {
 
       assert (Math.abs(origGuess.floatValue() - cloneGuess.floatValue()) < .01) : origGuess + ", " + cloneGuess;
 
-      Thought mutatedClonedThought = clonedThought.mutate(2);
+      Thought mutatedClonedThought = Mutator.createMutant(clonedThought, 2);
 
       Map<String, Object> workingMemory3 = generateLegacyDataWorkingMemory(mutatedClonedThought, startingNode);
       Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast2(workingMemory3);
@@ -259,8 +259,8 @@ public class ThoughtTest {
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
-      Merger merger = new SimpleMerger();
-      Thought childThought = merger.merge(thought1, thought2);
+      Crossover merger = new SimpleCrossover();
+      Thought childThought = merger.crossover(thought1, thought2);
 
       Map<String, Object> workingMemory1 = generateLegacyDataWorkingMemory(thought1, startingNode);
       Map<String, Object> t1Result = thought1.forecast2(workingMemory1);
@@ -295,10 +295,10 @@ public class ThoughtTest {
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
       Thought thought3 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 3.5f);
 
-      Merger merger = new SimpleMerger();
-      Thought child1Thought = merger.merge(thought1, thought2);
-      Thought child2Thought = merger.merge(thought1, thought3);
-      Thought grandchildThought = merger.merge(child1Thought, child2Thought);
+      Crossover merger = new SimpleCrossover();
+      Thought child1Thought = merger.crossover(thought1, thought2);
+      Thought child2Thought = merger.crossover(thought1, thought3);
+      Thought grandchildThought = merger.crossover(child1Thought, child2Thought);
 
       Map<String, Object> workingMemory1 = generateLegacyDataWorkingMemory(thought1, startingNode);
       Map<String, Object> t1Result = thought1.forecast2(workingMemory1);
@@ -336,8 +336,8 @@ public class ThoughtTest {
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
-      Merger merger = new SimpleMerger();
-      Thought child1Thought = merger.merge(thought1, thought2);
+      Crossover merger = new SimpleCrossover();
+      Thought child1Thought = merger.crossover(thought1, thought2);
 
       String jsonString = child1Thought.exportJson();
 
@@ -385,8 +385,8 @@ public class ThoughtTest {
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
-      Merger merger = new SimpleMerger();
-      Thought child1Thought = merger.merge(thought1, thought2);
+      Crossover merger = new SimpleCrossover();
+      Thought child1Thought = merger.crossover(thought1, thought2);
 
       String dotString = child1Thought.exportDot();
 
