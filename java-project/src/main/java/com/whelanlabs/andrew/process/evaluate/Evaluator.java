@@ -27,7 +27,7 @@ public class Evaluator {
       _goal = goal;
    }
 
-   public List<Evaluation> evaluateThoughts(Integer minTime, Integer maxTime, Integer numTests) throws Exception {
+   public List<Evaluation> evaluateThoughts(Long minTime, Long maxTime, Integer numTests) throws Exception {
       logger.debug("evaluateThoughts: " + minTime + ", " + maxTime + ", " + numTests);
 
       List<Node> startingNodes = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Evaluator {
       Random random = new Random();
 
       for (int i = 0; i < numTests; i++) {
-         Integer randomTime = random.nextInt(maxTime-minTime) + minTime;
+         Long randomTime = random.nextLong(maxTime-minTime) + minTime;
          logger.debug("randomTime: " + randomTime);
 
             String startingType = (String) _goal.getAttribute("startingType");

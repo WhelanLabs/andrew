@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,6 +43,7 @@ public class ExampleOne {
     * @param args the arguments
     * @throws Exception 
     */
+   @SuppressWarnings("deprecation")
    public static void main(String[] args) throws Exception {
       // load the test data
       List<File> files = new ArrayList<>();
@@ -66,8 +69,11 @@ public class ExampleOne {
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
       Thought rootThought = App.loadThoughtFromJson("linear_growth_thought", content);
       Goal goal = rootThought.getGoal();
+      
+      LocalDate startDate = LocalDate.parse("1990-01-01");
+      LocalDate endDate = LocalDate.parse("2020-01-01");
 
-      App.train(goal);
+      App.train(goal, startDate, endDate);
 
       // compare the thoughts for times in the future
 

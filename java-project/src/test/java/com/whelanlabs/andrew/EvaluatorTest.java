@@ -34,9 +34,9 @@ public class EvaluatorTest {
       Thought thought = TestHelper.buildModifiedInitialTestThought();
       Evaluator evaluator = new Evaluator(thought.getGoalNode());
 
-      Integer maxTime = 500; // test data goes to time~=1000
+      Long maxTime = 500l; // test data goes to time~=1000
 
-      List<Evaluation> evualationResults = evaluator.evaluateThoughts(20, maxTime, 3);
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts(20l, maxTime, 3);
       logger.debug("evualationResults: " + evualationResults);
 
       assert (evualationResults.size() == 3) : evualationResults;
@@ -50,9 +50,9 @@ public class EvaluatorTest {
 
       App.loadDatasetToDataGraph(new LinearDataset());
 
-      Integer maxTime = 9; // the thought goes back back in time 10 places - this will go into pre-history
+      Long maxTime = 9l; // the thought goes back back in time 10 places - this will go into pre-history
 
-      List<Evaluation> evualationResults = evaluator.evaluateThoughts(7, maxTime, 1);
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts(7l, maxTime, 1);
       logger.debug("evualationResults: " + evualationResults);
 
       assert (evualationResults.size() == 1) : evualationResults;
@@ -67,9 +67,9 @@ public class EvaluatorTest {
 
       App.loadDatasetToDataGraph(new LinearDataset());
 
-      Integer maxTime = 1; // the thought goes back back in time 10 places - this will go into pre-history
+      Long maxTime = 1l; // the thought goes back back in time 10 places - this will go into pre-history
 
-      List<Evaluation> evualationResults = evaluator.evaluateThoughts(0, maxTime, 1);
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts(0l, maxTime, 1);
       logger.debug("evualationResults: " + evualationResults);
 
       assert (evualationResults.size() == 0) : evualationResults;

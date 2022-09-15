@@ -44,9 +44,9 @@ public class AveragePercentageScoringMachineTest {
       
       Evaluator evaluator = new Evaluator(t1.getGoalNode());
 
-      Integer maxTime = 500; // test data goes to time~=1000
+      Long maxTime = 500l; // test data goes to time~=1000
 
-      List<Evaluation> evualationResults = evaluator.evaluateThoughts(20, maxTime, 10);
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts(20l, maxTime, 10);
 
       assert (evualationResults.size() == 30) : evualationResults.size();
       
