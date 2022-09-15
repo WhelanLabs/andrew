@@ -2,7 +2,6 @@ package com.whelanlabs.andrew;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +39,8 @@ public class App {
 
    private static Map<String, Thought> thoughtCache = new HashMap<>();
 
+   private static DateUtils dateUtils = new DateUtils();
+   
    /**
     * Instantiates a new app.
     */
@@ -145,8 +146,8 @@ public class App {
 
    public static void train(Goal goal, LocalDate startDate, LocalDate endDate) throws Exception {
       
-      Long startDateLong = DateUtils.getDateLong(startDate);
-      Long endDateLong = DateUtils.getDateLong(endDate);
+      Long startDateLong = dateUtils.getDateLong(startDate);
+      Long endDateLong = dateUtils.getDateLong(endDate);
       
       List<Thought> currentThoughts = new ArrayList<>();
       currentThoughts.addAll(goal.getThoughts());

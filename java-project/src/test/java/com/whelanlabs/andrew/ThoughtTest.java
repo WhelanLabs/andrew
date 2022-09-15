@@ -518,7 +518,6 @@ public class ThoughtTest {
    
    @Test
    public void addGoalAttributes_newAttr_added() throws Exception {
-      Node goalNode = new Node(ElementHelper.generateKey(), "goal");
       Thought thought = TestHelper.buildModifiedInitialTestThought();
       Map<String, Object> workingMemory = new HashMap<>();
       Node goal = new Node(ElementHelper.generateKey(), "goal");

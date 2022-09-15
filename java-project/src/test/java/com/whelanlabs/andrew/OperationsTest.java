@@ -1,7 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class OperationsTest {
       inputs.put(startingNode.getKey() + "." + "traversalEdgeType", "LinearDatasetEdge");
       inputs.put(startingNode.getKey() + "." + "distance", 1);
       
-      Map<String, Object> results = Operations.traverse(startingNode, inputs);
+      Operations.traverse(startingNode, inputs);
    }
 
    
@@ -103,8 +101,7 @@ public class OperationsTest {
       inputs.put(startingNode.getKey() + "." + "traversalEdgeType", "LinearDatasetEdge");
       inputs.put(startingNode.getKey() + "." + "distance", 1);
       
-      Map<String, Object> results = Operations.traverse(startingNode, inputs);
-      
+      Operations.traverse(startingNode, inputs);
    }
    
    @Test

@@ -7,7 +7,7 @@ public class DateUtils {
 
    private static LocalDate epoch = LocalDate.ofEpochDay(0);
    
-   public static Long getDateLong(LocalDate localDate) {
+   public Long getDateLong(LocalDate localDate) {
       Long daysSinceEpoch = ChronoUnit.DAYS.between(epoch, localDate);
       return daysSinceEpoch;
    }

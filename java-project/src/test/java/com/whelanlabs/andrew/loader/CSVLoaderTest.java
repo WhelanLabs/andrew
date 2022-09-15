@@ -80,7 +80,6 @@ public class CSVLoaderTest {
 
    @Test
    public void loadQuarterlyPercentData_quarterlyUSGDP_loaded() throws Exception {
-      List<File> files = new ArrayList<>();
       File file = new File("../fetchers/us_gdp_fetcher/data/us_gdp.csv");
 
       CSVLoader stockLoader = new CSVLoader();

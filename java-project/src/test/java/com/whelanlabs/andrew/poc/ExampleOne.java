@@ -1,12 +1,10 @@
 package com.whelanlabs.andrew.poc;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +41,6 @@ public class ExampleOne {
     * @param args the arguments
     * @throws Exception 
     */
-   @SuppressWarnings("deprecation")
    public static void main(String[] args) throws Exception {
       // load the test data
       List<File> files = new ArrayList<>();

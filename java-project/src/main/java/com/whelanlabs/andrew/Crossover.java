@@ -1,6 +1,5 @@
 package com.whelanlabs.andrew;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface Crossover {
