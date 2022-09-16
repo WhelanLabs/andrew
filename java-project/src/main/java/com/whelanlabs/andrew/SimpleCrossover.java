@@ -1,5 +1,6 @@
 package com.whelanlabs.andrew;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -77,13 +78,13 @@ public class SimpleCrossover implements Crossover{
 
 
       // connect the aggregating node to t1c end node
-      Edge e9 = new Edge(ElementHelper.generateKey(), aggNode, t1cResultNodes.get(0), "thought_sequence");
-      e9.addAttribute("thought_key", t1c.getThoughtNode().getKey());
-      e9.addAttribute("name", "e9" );
-      e9.addAttribute("mutation_range", "FLOAT:>0" );
-      e9.addAttribute("input", "RESULT" );
-      e9.addAttribute("output", "output");
-      App.getGardenGraph().upsert(e9);
+      Edge endEdge = new Edge(ElementHelper.generateKey(), aggNode, t1cResultNodes.get(0), "thought_sequence");
+      endEdge.addAttribute("thought_key", t1c.getThoughtNode().getKey());
+      endEdge.addAttribute("name", "e9" );
+      endEdge.addAttribute("mutation_range", "FLOAT:>0" );
+      endEdge.addAttribute("input", "RESULT" );
+      endEdge.addAttribute("output", "output");
+      App.getGardenGraph().upsert(endEdge);
 
       
       // delete t2c end node
@@ -106,14 +107,19 @@ public class SimpleCrossover implements Crossover{
 
    @Override
    public List<Thought> createCrossovers(List<Thought> currentThoughts) {
+      List<Thought> results = new ArrayList<>();
+      
       Random rand = new Random();
       Integer numCrossovers = currentThoughts.size();
       
       for(int i = 0; i<numCrossovers; i++) {
-         Integer secondParentNum = rand.nextInt(currentThoughts.size() );
-         // bookmark here;
+         Integer t2Num = rand.nextInt(currentThoughts.size() );
+         Thought t1 = currentThoughts.get(i);
+         Thought t2 = currentThoughts.get(t2Num);
+         Thought crossoverThought = crossover(t1, t2);
+         results.add(crossoverThought);
       }
-      return null;
+      return results;
    }
 
 }

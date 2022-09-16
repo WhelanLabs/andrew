@@ -1,5 +1,7 @@
 package com.whelanlabs.andrew;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -252,15 +254,15 @@ public class ThoughtTest {
    }
 
    @Test
-   public void merge_twoThoughts_combinedThought() throws Exception {
+   public void crossover_twoThoughts_combinedThought() throws Exception {
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
-      Crossover merger = new SimpleCrossover();
-      Thought childThought = merger.crossover(thought1, thought2);
+      Crossover crossover = new SimpleCrossover();
+      Thought childThought = crossover.crossover(thought1, thought2);
 
       Map<String, Object> workingMemory1 = generateLegacyDataWorkingMemory(thought1, startingNode);
       Map<String, Object> t1Result = thought1.forecast2(workingMemory1);
@@ -287,7 +289,7 @@ public class ThoughtTest {
    }
 
    @Test
-   public void merge_twoMergedThoughts_combinedThought() throws Exception {
+   public void crossover_twoCrossoverThoughts_combinedThought() throws Exception {
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
 
@@ -295,10 +297,10 @@ public class ThoughtTest {
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
       Thought thought3 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 3.5f);
 
-      Crossover merger = new SimpleCrossover();
-      Thought child1Thought = merger.crossover(thought1, thought2);
-      Thought child2Thought = merger.crossover(thought1, thought3);
-      Thought grandchildThought = merger.crossover(child1Thought, child2Thought);
+      Crossover crossover = new SimpleCrossover();
+      Thought child1Thought = crossover.crossover(thought1, thought2);
+      Thought child2Thought = crossover.crossover(thought1, thought3);
+      Thought grandchildThought = crossover.crossover(child1Thought, child2Thought);
 
       Map<String, Object> workingMemory1 = generateLegacyDataWorkingMemory(thought1, startingNode);
       Map<String, Object> t1Result = thought1.forecast2(workingMemory1);
@@ -336,8 +338,8 @@ public class ThoughtTest {
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
-      Crossover merger = new SimpleCrossover();
-      Thought child1Thought = merger.crossover(thought1, thought2);
+      Crossover crossover = new SimpleCrossover();
+      Thought child1Thought = crossover.crossover(thought1, thought2);
 
       String jsonString = child1Thought.exportJson();
 
@@ -385,8 +387,8 @@ public class ThoughtTest {
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
 
-      Crossover merger = new SimpleCrossover();
-      Thought child1Thought = merger.crossover(thought1, thought2);
+      Crossover crossover = new SimpleCrossover();
+      Thought child1Thought = crossover.crossover(thought1, thought2);
 
       String dotString = child1Thought.exportDot();
 
@@ -527,5 +529,31 @@ public class ThoughtTest {
       assert ("bar".equals(workingMemory.get("GOAL.foo"))) : workingMemory;
    }
    
+   
+   @Test
+   public void createCrossovers_twoThoughts_combinedThought() throws Exception {
+
+      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
+
+      Thought thought1 = TestHelper.buildModifiedInitialTestThought();
+      Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
+      List<Thought> inputs = new ArrayList<>();
+      inputs.add(thought1);
+      inputs.add(thought2);
+
+      int thought1Length = thought1.exportJson().split("\r\n|\r|\n").length;
+      int thought2Length = thought2.exportJson().split("\r\n|\r|\n").length;
+      
+      Crossover crossover = new SimpleCrossover();
+      List<Thought> childThoughts = crossover.createCrossovers(inputs);
+
+      assert (2 == childThoughts.size()) : childThoughts;
+      
+      int childThought1Length = childThoughts.get(0).exportJson().split("\r\n|\r|\n").length;
+      int childThought2Length = childThoughts.get(1).exportJson().split("\r\n|\r|\n").length;
+      
+      assert (thought1Length < childThought1Length);
+      assert (thought2Length < childThought2Length);
+   }
 }
 
