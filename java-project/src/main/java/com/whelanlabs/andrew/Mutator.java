@@ -14,7 +14,7 @@ public class Mutator {
 
    private static Logger logger = LogManager.getLogger(Mutator.class);
 
-   public static Thought createMutant(Thought thought, Integer numMutations) {
+   public Thought createMutant(Thought thought, Integer numMutations) {
 
       // start with a clone
       Thought clone = thought.clone();
@@ -42,7 +42,7 @@ public class Mutator {
       return clone;
    }
 
-   public static List<Thought> createMutant(List<Thought> currentThoughts, int numMutations) {
+   public List<Thought> createMutant(List<Thought> currentThoughts, int numMutations) {
       List<Thought> mutantThoughts = new ArrayList<>();
       
       for(Thought currentThought: currentThoughts) {

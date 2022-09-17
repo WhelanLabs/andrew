@@ -41,6 +41,10 @@ public class App {
 
    private static DateUtils dateUtils = new DateUtils();
    
+   private static Mutator mutator = new Mutator();
+
+   
+   
    /**
     * Instantiates a new app.
     */
@@ -158,7 +162,7 @@ public class App {
       // repeat
       do {
          // generate mutants
-         currentThoughts.addAll(Mutator.createMutant(currentThoughts, 1));
+         currentThoughts.addAll(mutator.createMutant(currentThoughts, 1));
 
          // generate crossover
          currentThoughts.addAll(crossover.createCrossovers(currentThoughts));

@@ -35,6 +35,8 @@ public class ThoughtTest {
 
    private static Logger logger = LogManager.getLogger(ThoughtTest.class);
 
+   private static Mutator mutator = null;
+   
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
       String databaseName = "andrew_test_database";
@@ -42,6 +44,7 @@ public class ThoughtTest {
       App.getGardenGraph().flush();
       App.getDataGraph().flush();
       App.loadDatasetToDataGraph(new LinearDataset());
+      mutator = new Mutator();
    }
 
    @AfterClass
@@ -211,7 +214,7 @@ public class ThoughtTest {
    }
 
    @Test
-   public void mutate_goodStartingThought_resultImpacted() throws Exception {
+   public void createMutant_goodStartingThought_resultImpacted() throws Exception {
 
       Thought thought = TestHelper.buildModifiedInitialTestThought();
       Thought clonedThought = thought.clone();
@@ -236,23 +239,69 @@ public class ThoughtTest {
 
       assert (Math.abs(origGuess.floatValue() - cloneGuess.floatValue()) < .01) : origGuess + ", " + cloneGuess;
 
-      Thought mutatedClonedThought = Mutator.createMutant(clonedThought, 2);
+      Boolean pass = false;
+      for(int i =0; i<10; i++) {
+         Thought mutatedClonedThought = mutator.createMutant(clonedThought, 2);
 
-      Map<String, Object> workingMemory3 = generateLegacyDataWorkingMemory(mutatedClonedThought, startingNode);
-      Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast2(workingMemory3);
+         Map<String, Object> workingMemory3 = generateLegacyDataWorkingMemory(mutatedClonedThought, startingNode);
+         Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast2(workingMemory3);
 
-      Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
+         Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
+         
+         if(Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .00001 ) {
+            pass = true;
+            break;
+         }
+      }
 
       /* 
        * Note: If the following assertion fails, run it again.  There is a small chance 
        * that the mutation is so small as to not be detected.
        */
-      assert (Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .00001) : origGuess + ", " + cloneGuess;
-
-      logger.debug("origGuess = " + origGuess);
-      logger.debug("mutatedCloneGuess = " + mutatedCloneGuess);
+      assert (true == pass);
    }
 
+   
+   @Test
+   public void createMutant_goodStartingThoughtList_resultsImpacted() throws Exception {
+
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+      Thought clonedThought = thought.clone();
+
+      logger.debug("thought.exportJson() = " + thought.exportJson());
+      logger.debug("clonedThought.exportJson() = " + clonedThought.exportJson());
+
+      assert (null != thought);
+      assert (null != clonedThought);
+      
+      List<Thought> thoughtList = new ArrayList<>();
+      thoughtList.add(thought);
+      thoughtList.add(clonedThought);
+
+      List<Thought> mutatedClonedThoughts = mutator.createMutant(thoughtList, 2);
+
+      assert (2 == mutatedClonedThoughts.size()) : mutatedClonedThoughts;
+      
+      String thoughtJson = thought.exportJson();
+      String clonedThoughtJson = clonedThought.exportJson();
+      String m0 = mutatedClonedThoughts.get(0).exportJson();
+      String m1 = mutatedClonedThoughts.get(1).exportJson();
+
+      assert (null != thoughtJson);
+      assert (null != clonedThoughtJson);
+      assert (null != m0);
+      assert (null != m1);
+      
+      assert (thoughtJson.length() > 0);
+      assert (clonedThoughtJson.length() > 0);
+      assert (m0.length() > 0);
+      assert (m1.length() > 0);
+      
+      assert (!thoughtJson.equals(m0)) : thoughtJson;
+      assert (!clonedThoughtJson.equals(m1)) : clonedThoughtJson;
+   }
+   
+   
    @Test
    public void crossover_twoThoughts_combinedThought() throws Exception {
 
@@ -532,9 +581,7 @@ public class ThoughtTest {
    
    @Test
    public void createCrossovers_twoThoughts_combinedThought() throws Exception {
-
-      Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
-
+      
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
       List<Thought> inputs = new ArrayList<>();
