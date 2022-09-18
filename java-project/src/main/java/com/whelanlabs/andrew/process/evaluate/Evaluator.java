@@ -27,6 +27,14 @@ public class Evaluator {
       _goal = goal;
    }
 
+   public List<Evaluation> evaluateThoughts2(Long minTime, Long maxTime, Integer numTests) throws Exception {
+      
+      
+      throw new RuntimeException("not yet implemented");
+      // return null;
+   }
+   
+   
    public List<Evaluation> evaluateThoughts(Long minTime, Long maxTime, Integer numTests) throws Exception {
       logger.debug("evaluateThoughts: " + minTime + ", " + maxTime + ", " + numTests);
 

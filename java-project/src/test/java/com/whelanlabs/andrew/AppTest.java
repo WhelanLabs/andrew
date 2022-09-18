@@ -1,9 +1,19 @@
 package com.whelanlabs.andrew;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Node;
 
@@ -12,6 +22,8 @@ import com.whelanlabs.kgraph.engine.Node;
  */
 public class AppTest {
 
+   private static Logger logger = LogManager.getLogger(AppTest.class);
+   
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
       App.initialize("linear_dataset_tests");

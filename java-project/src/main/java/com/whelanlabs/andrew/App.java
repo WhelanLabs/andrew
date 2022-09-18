@@ -44,7 +44,6 @@ public class App {
    private static Mutator mutator = new Mutator();
 
    
-   
    /**
     * Instantiates a new app.
     */
@@ -160,7 +159,9 @@ public class App {
       Crossover crossover = new SimpleCrossover();
       
       // repeat
+      Integer i = 0;
       do {
+         i++;
          // generate mutants
          currentThoughts.addAll(mutator.createMutant(currentThoughts, 1));
 
@@ -169,16 +170,17 @@ public class App {
          
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
-         List<Evaluation> evualationResults = evaluator.evaluateThoughts(startDateLong, endDateLong, 10);
+         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(startDateLong, endDateLong, 10);
 
          // sum the score for each thought
          List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);
 
+         logger.debug("scores = " + scores);
          // cull the herd of thought/goal when limited for resources.
          // Have culling be statistical some sometimes bad thoughts survive.
 
          // until things don't get better (end of repeat-until)
-      } while (true);
+      } while (i<=10);
 
       // write the results
 
