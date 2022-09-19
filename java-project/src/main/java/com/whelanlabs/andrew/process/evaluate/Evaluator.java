@@ -28,7 +28,25 @@ public class Evaluator {
    }
 
    public List<Evaluation> evaluateThoughts2(Long minTime, Long maxTime, Integer numTests) throws Exception {
+      Random random = new Random();
       
+      List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
+      logger.debug("expansions: " + expansions);
+
+      List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
+      for (int i = 0; i < numTests; i++) {
+         Long randomTime = random.nextLong(maxTime-minTime) + minTime;
+         Number forecastResult = null;
+         
+         for (Node thoughtNode : thoughts) {
+            Thought thought = new Thought(thoughtNode);
+            Map<String, Object> workingMemory = new HashMap<>();
+            workingMemory = thought.addContext(workingMemory, "startDate", randomTime, "GOAL");
+            Map<String, Object> forecastOutput = thought.forecast2(workingMemory);
+            forecastResult = (Number) forecastOutput.get("RESULT.output");
+            logger.debug("forecastResult = " + forecastResult);
+         }
+      }
       
       throw new RuntimeException("not yet implemented");
       // return null;

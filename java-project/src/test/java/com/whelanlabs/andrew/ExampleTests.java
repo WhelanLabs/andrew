@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +38,7 @@ public class ExampleTests {
    }
 
    @Test
-   public void train_datasetPreviouslyLoaded_loaded() throws Exception {
+   public void train_happyPath_results() throws Exception {
       // load the test data
       List<File> files = new ArrayList<>();
       List<String> tickers = new ArrayList<>();
@@ -66,7 +68,13 @@ public class ExampleTests {
       LocalDate startDate = LocalDate.parse("1990-01-01");
       LocalDate endDate = LocalDate.parse("2020-01-01");
 
-      App.train(goal, startDate, endDate);
+      Map<String, List<String>> goalLOVs = new HashMap<>();
+      List<String> symbolValues = new ArrayList<>();
+      symbolValues.add("AIG");
+      symbolValues.add("AAPL");
+      symbolValues.add("AMAT");
+      goalLOVs.put("symbol", symbolValues);
+      App.train(goal, startDate, endDate, goalLOVs);
 
       // compare the thoughts for times in the future
    }

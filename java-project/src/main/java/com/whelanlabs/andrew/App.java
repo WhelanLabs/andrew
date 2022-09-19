@@ -168,6 +168,8 @@ public class App {
          // generate crossover
          currentThoughts.addAll(crossover.createCrossovers(currentThoughts));
          
+         logger.debug("currentThoughts.size() = " + currentThoughts.size());
+         
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
          List<Evaluation> evualationResults = evaluator.evaluateThoughts2(startDateLong, endDateLong, 10);
