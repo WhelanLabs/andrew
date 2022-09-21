@@ -154,6 +154,9 @@ public class Operations {
       Map<String, Object> bindVars3 = new HashMap<>();
       bindVars3.put("left", stockNode.getId());
       bindVars3.put("to", dateNode.getId());
+      logger.debug("@left = " + stockNode.getId());
+      logger.debug("@to = " + dateNode.getId());
+      
       List<Edge> queryResults3 = App.getDataGraph().queryEdges(query3, bindVars3);
       Edge relEdge = queryResults3.get(0);
       logger.debug("relEdge = " + relEdge);

@@ -80,6 +80,7 @@
 # WIP
 ##########################################################
 
+* Create Evaluator.evaluateThoughts2() and obsolete Evaluator.evaluateThoughts().
 
 * create futurePredictionThoughtGenerator (ExampleOne)
   This will be a process that takes thoughts to meet the predictFutureValue goal,

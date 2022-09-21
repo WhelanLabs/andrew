@@ -34,6 +34,8 @@ public class Evaluator {
       logger.debug("expansions: " + expansions);
 
       List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
+      logger.debug("thoughts = " + thoughts);
+
       for (int i = 0; i < numTests; i++) {
          Long randomTime = random.nextLong(maxTime-minTime) + minTime;
          Number forecastResult = null;
