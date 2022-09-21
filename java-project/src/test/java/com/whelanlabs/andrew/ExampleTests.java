@@ -18,7 +18,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.CSVLoader;
-import com.whelanlabs.andrew.poc.ExampleOne;
 
 public class ExampleTests {
 
@@ -27,7 +26,7 @@ public class ExampleTests {
    
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
-      String databaseName = "andrew_test_database";
+      String databaseName = "examples_test_database";
       App.initialize(databaseName);
       App.getGardenGraph().flush();
       App.getDataGraph().flush();
@@ -68,15 +67,17 @@ public class ExampleTests {
       LocalDate startDate = LocalDate.parse("1990-01-01");
       LocalDate endDate = LocalDate.parse("2020-01-01");
 
-      Map<String, List<String>> goalLOVs = new HashMap<>();
-      List<String> symbolValues = new ArrayList<>();
+      Map<String, List<Object>> trainingParameters = new HashMap<>();
+      List<Object> symbolValues = new ArrayList<>();
       symbolValues.add("AIG");
       symbolValues.add("AAPL");
       symbolValues.add("AMAT");
-      goalLOVs.put("symbol", symbolValues);
-      App.train(goal, startDate, endDate, goalLOVs);
+      trainingParameters.put("symbol", symbolValues);
+      App.train(goal, startDate, endDate, trainingParameters);
 
       // compare the thoughts for times in the future
+      
+      fail("more to do...");
    }
 
 }

@@ -147,7 +147,7 @@ public class App {
       return result;
    }
 
-   public static void train(Goal goal, LocalDate startDate, LocalDate endDate) throws Exception {
+   public static void train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters) throws Exception {
       
       Long startDateLong = dateUtils.getDateLong(startDate);
       Long endDateLong = dateUtils.getDateLong(endDate);
@@ -161,6 +161,8 @@ public class App {
       // repeat
       Integer i = 0;
       do {
+         Map<String, Object> iterationParameters = goal.setTrainingParameters(trainingParameters);
+         
          i++;
          // generate mutants
          currentThoughts.addAll(mutator.createMutant(currentThoughts, 1));
@@ -172,7 +174,7 @@ public class App {
          
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
-         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(startDateLong, endDateLong, 10);
+         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(startDateLong, endDateLong, 10, iterationParameters);
 
          // sum the score for each thought
          List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);

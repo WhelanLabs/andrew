@@ -1,7 +1,10 @@
 package com.whelanlabs.andrew;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.tuple.Triple;
 
@@ -29,6 +32,16 @@ public class Goal {
       }
 
       return results;
+   }
+
+   public Map<String, Object> setTrainingParameters(Map<String, List<Object>> trainingParameters) {
+      Map<String, Object> workingMemory = new HashMap<>();
+      for(String key : trainingParameters.keySet() ) {
+         List<Object> values = trainingParameters.get(key);
+         Collections.shuffle(values);
+         workingMemory.put("GOAL." + key, values.get(0));
+      }
+      return workingMemory;
    }
 
 }
