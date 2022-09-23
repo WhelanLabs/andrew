@@ -82,6 +82,9 @@
 
 * Create Evaluator.evaluateThoughts2() and obsolete Evaluator.evaluateThoughts().
 
+* change the n^2 loops in evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
+  Also adjust the logging to differentiate threads.
+  
 * create futurePredictionThoughtGenerator (ExampleOne)
   This will be a process that takes thoughts to meet the predictFutureValue goal,
   merge and mutate them over a period leading up to the target startDate using evolution,

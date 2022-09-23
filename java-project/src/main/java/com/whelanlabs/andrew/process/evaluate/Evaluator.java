@@ -42,11 +42,13 @@ public class Evaluator {
          
          for (Node thoughtNode : thoughts) {
             Thought thought = new Thought(thoughtNode);
-            Map<String, Object> workingMemory = new HashMap<>();
-            workingMemory = thought.addContext(initialWorkingMemory, "startDate", randomTime, "GOAL");
+            Map<String, Object>  workingMemory = clone(initialWorkingMemory);
+            workingMemory = thought.addContext(workingMemory, "startDate", randomTime, "GOAL");
+            logger.debug("workingMemory before forecast2 = " + workingMemory);
             Map<String, Object> forecastOutput = thought.forecast2(workingMemory);
+            logger.debug("workingMemory after forecast2 = " + workingMemory);
             forecastResult = (Number) forecastOutput.get("RESULT.output");
-            logger.debug("forecastResult = " + forecastResult);
+            logger.debug("randomTime = " + randomTime + ",       forecastResult = " + forecastResult);
          }
       }
       
@@ -54,7 +56,17 @@ public class Evaluator {
       // return null;
    }
    
-   
+   public static<K, V> Map<K, V> clone(Map<K, V> original)
+   {
+       Map<K, V> copy = new HashMap<>();
+    
+       for (Map.Entry<K, V> entry: original.entrySet()) {
+           copy.put(entry.getKey(), entry.getValue());
+       }
+    
+       return copy;
+   }
+
    public List<Evaluation> evaluateThoughts(Long minTime, Long maxTime, Integer numTests) throws Exception {
       logger.debug("evaluateThoughts: " + minTime + ", " + maxTime + ", " + numTests);
 
