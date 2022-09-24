@@ -3,6 +3,7 @@ package com.whelanlabs.andrew.process.evaluate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.whelanlabs.andrew.App;
+import com.whelanlabs.andrew.Goal;
 import com.whelanlabs.andrew.Operations;
 import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.kgraph.engine.Edge;
@@ -28,6 +30,9 @@ public class Evaluator {
    }
 
    public List<Evaluation> evaluateThoughts2(Long minTime, Long maxTime, Integer numTests, Map<String, Object> initialWorkingMemory) throws Exception {
+      
+      List<Evaluation> results = new ArrayList<>();
+      
       Random random = new Random();
       
       List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
@@ -41,21 +46,44 @@ public class Evaluator {
          Number forecastResult = null;
          
          for (Node thoughtNode : thoughts) {
-            Thought thought = new Thought(thoughtNode);
-            Map<String, Object>  workingMemory = clone(initialWorkingMemory);
-            workingMemory = thought.addContext(workingMemory, "startDate", randomTime, "GOAL");
-            logger.debug("workingMemory before forecast2 = " + workingMemory);
-            Map<String, Object> forecastOutput = thought.forecast2(workingMemory);
-            logger.debug("workingMemory after forecast2 = " + workingMemory);
-            forecastResult = (Number) forecastOutput.get("RESULT.output");
-            logger.debug("randomTime = " + randomTime + ",       forecastResult = " + forecastResult);
+            try {
+               Thought thought = new Thought(thoughtNode);
+               Map<String, Object>  workingMemory = clone(initialWorkingMemory);
+               workingMemory = thought.addContext(workingMemory, "startDate", randomTime, "GOAL");
+               logger.debug("workingMemory before forecast2 = " + workingMemory);
+               Map<String, Object> forecastOutput = thought.forecast2(workingMemory);
+               logger.debug("workingMemory after forecast2 = " + workingMemory);
+               forecastResult = (Number) forecastOutput.get("RESULT.output");
+               logger.debug("randomTime = " + randomTime + ",       forecastResult = " + forecastResult);
+               Number actual = getActual(randomTime);
+               results.add(new Evaluation(thoughtNode, forecastResult, actual));
+            }
+            catch (Exception e) {
+               logger.error("forecast2 failed.  (" + thoughtNode.getId() + ")", e);
+               forecastResult = null;
+            }
          }
       }
-      
-      throw new RuntimeException("not yet implemented");
-      // return null;
+
+      return results;
    }
    
+   private Number getActual(Long startingTime) {
+      String targetType = (String) _goal.getAttribute("targetType");
+      Integer distance = (Integer) _goal.getAttribute("targetDistance");
+      String targetProperty = (String) _goal.getAttribute("targetProperty");
+      Long targetTime = startingTime + distance;
+      
+      String query = "FOR t IN " + targetType + " FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      logger.debug("query: " + query);
+      Map<String, Object> bindVars = Collections.singletonMap("time", targetTime);
+      List<Node> queryResults = App.getDataGraph().queryNodes(query, bindVars);
+      Node actualNode = queryResults.get(0);
+      Number actualResult = (Number) actualNode.getAttribute(targetProperty);
+      
+      return actualResult;
+   }
+
    public static<K, V> Map<K, V> clone(Map<K, V> original)
    {
        Map<K, V> copy = new HashMap<>();
