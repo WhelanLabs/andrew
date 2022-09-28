@@ -98,7 +98,14 @@
 # backlog
 ##########################################################
 
+* change the n^2 loops in Evaluator.evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
+  Also adjust the logging to differentiate threads.
+  
+* change loop in App.train() to be parallel threads with a thread pool.
+  
 * profile and possibly improve memory usage.
+  see: arangodb_warnings.txt
+  then delete that file after the problem is solved.
   
 * replace getGoalNode() calls with usage of getGoal() plus Goal.getNode(), and then remove getGoalNode().
 

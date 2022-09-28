@@ -44,4 +44,8 @@ public class Goal {
       return workingMemory;
    }
 
+   public void setProperty(String key, Object value) {
+      _goal.addAttribute(key, value);     
+   }
+
 }

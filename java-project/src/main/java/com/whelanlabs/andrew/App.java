@@ -147,7 +147,7 @@ public class App {
       return result;
    }
 
-   public static void train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters) throws Exception {
+   public static void train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters, Integer numGenerations) throws Exception {
       
       Long startDateLong = dateUtils.getDateLong(startDate);
       Long endDateLong = dateUtils.getDateLong(endDate);
@@ -174,7 +174,7 @@ public class App {
          
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
-         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(startDateLong, endDateLong, 10, iterationParameters);
+         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(startDateLong, endDateLong, 3, iterationParameters);
 
          // sum the score for each thought
          List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);
@@ -184,7 +184,7 @@ public class App {
          // Have culling be statistical some sometimes bad thoughts survive.
 
          // until things don't get better (end of repeat-until)
-      } while (i<=10);
+      } while (i<=numGenerations);
 
       // write the results
 

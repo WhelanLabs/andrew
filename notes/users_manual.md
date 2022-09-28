@@ -8,7 +8,7 @@ This document provides information to users wishing to leverage andrew for their
 
 ## Goals
 
-Goals are desires for the user.  The most common type of these with Andrew is to have Andrew forecast future state.  In order to have Andrew Goals predict future state, specific charisteristics of the specific goal must be specified. They are:
+Goals are desires for the user.  The most common type of these with Andrew is to have Andrew forecast future state.  In order to have Andrew Goals predict future state, specific charisteristics (properties) of each goal must be specified. They are:
 
 * __targetDistance__: The distance into the future for which the target result is desired.  The target distance is a Long value where each unit corresponds to a day.
 

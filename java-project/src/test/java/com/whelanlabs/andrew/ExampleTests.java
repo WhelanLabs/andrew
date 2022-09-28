@@ -73,7 +73,12 @@ public class ExampleTests {
       symbolValues.add("AAPL");
       symbolValues.add("AMAT");
       trainingParameters.put("symbol", symbolValues);
-      App.train(goal, startDate, endDate, trainingParameters);
+
+      goal.setProperty("targetDistance", 20);
+
+      trainingCriteria = new TrainingCriteria();
+      
+      App.train(goal, startDate, endDate, trainingParameters, 2);
 
       // compare the thoughts for times in the future
       
