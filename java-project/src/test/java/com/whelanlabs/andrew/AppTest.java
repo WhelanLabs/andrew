@@ -1,19 +1,11 @@
 package com.whelanlabs.andrew;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 import com.whelanlabs.kgraph.engine.Node;
 
@@ -26,6 +18,7 @@ public class AppTest {
    
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
+      logger.debug("begin AppTest.setUpBeforeClass()");
       App.initialize("linear_dataset_tests");
       App.getDataGraph().flush();
       App.getGardenGraph().flush();

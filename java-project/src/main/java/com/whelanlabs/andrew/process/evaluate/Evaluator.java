@@ -3,7 +3,6 @@ package com.whelanlabs.andrew.process.evaluate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -14,9 +13,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.whelanlabs.andrew.App;
-import com.whelanlabs.andrew.Goal;
 import com.whelanlabs.andrew.Operations;
 import com.whelanlabs.andrew.Thought;
+import com.whelanlabs.andrew.TrainingCriteria;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
@@ -29,7 +28,10 @@ public class Evaluator {
       _goal = goal;
    }
 
-   public List<Evaluation> evaluateThoughts2(Long minTime, Long maxTime, Integer numTests, Map<String, Object> initialWorkingMemory) throws Exception {
+   public List<Evaluation> evaluateThoughts2(TrainingCriteria trainingCriteria, Map<String, Object> initialWorkingMemory) throws Exception {
+      Long minTime = trainingCriteria.getStartDateLong();
+      Long maxTime = trainingCriteria.getEndDateLong();
+      Integer numTests = trainingCriteria.getQuestsPerGeneration();
       
       List<Evaluation> results = new ArrayList<>();
       

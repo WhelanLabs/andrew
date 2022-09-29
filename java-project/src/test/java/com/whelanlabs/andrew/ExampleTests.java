@@ -76,9 +76,9 @@ public class ExampleTests {
 
       goal.setProperty("targetDistance", 20);
 
-      trainingCriteria = new TrainingCriteria();
+      TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate);
       
-      App.train(goal, startDate, endDate, trainingParameters, 2);
+      App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
 
       // compare the thoughts for times in the future
       
