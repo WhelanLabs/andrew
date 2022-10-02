@@ -34,10 +34,14 @@ public class ExampleTests {
 
    @AfterClass
    public static void tearDownAfterClass() throws Exception {
+      App.getDataGraph().cleanup();
+      App.getGardenGraph().cleanup();
    }
 
    @Test
    public void train_happyPath_results() throws Exception {
+      long startTime = System.nanoTime();
+      
       // load the test data
       List<File> files = new ArrayList<>();
       List<String> tickers = new ArrayList<>();
@@ -82,6 +86,10 @@ public class ExampleTests {
 
       // compare the thoughts for times in the future
       
+      long endTime = System.nanoTime();
+      long duration = (endTime - startTime);
+      logger.debug("train_happyPath_results.duration = " + duration);
+
       fail("more to do...");
    }
 

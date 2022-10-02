@@ -170,7 +170,9 @@ public class App {
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
          List<Evaluation> evualationResults = evaluator.evaluateThoughts2(trainingCriteria, iterationParameters);
+         logger.debug("evualationResults = " + evualationResults);
 
+         
          // sum the score for each thought
          List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);
 
