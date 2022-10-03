@@ -98,6 +98,9 @@
 # backlog
 ##########################################################
 
+* fix TPS defect.
+  see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
+  
 * change the n^2 loops in Evaluator.evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
   Also adjust the logging to differentiate threads.
   

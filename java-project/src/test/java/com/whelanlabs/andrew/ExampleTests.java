@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
@@ -22,7 +23,7 @@ import com.whelanlabs.andrew.dataset.CSVLoader;
 public class ExampleTests {
 
    private static Logger logger = LogManager.getLogger(ExampleTests.class);
-
+   private static Level defaultLevel = null;
    
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -30,6 +31,11 @@ public class ExampleTests {
       App.initialize(databaseName);
       App.getGardenGraph().flush();
       App.getDataGraph().flush();
+      
+      Logger rootLogger = LogManager.getRootLogger();
+      defaultLevel = rootLogger.getLevel();
+      
+      
    }
 
    @AfterClass
@@ -87,8 +93,8 @@ public class ExampleTests {
       // compare the thoughts for times in the future
       
       long endTime = System.nanoTime();
-      long duration = (endTime - startTime);
-      logger.debug("train_happyPath_results.duration = " + duration);
+      long duration = (endTime - startTime)/1000000000;
+      logger.debug("train_happyPath_results.duration = " + duration + " seconds");
 
       fail("more to do...");
    }
