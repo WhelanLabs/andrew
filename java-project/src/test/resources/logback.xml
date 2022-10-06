@@ -6,12 +6,25 @@
         </encoder>
     </appender>
 
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>c:\\_temp\\andrew.log</file>
+        <append>false</append>
+        <immediateFlush>true</immediateFlush>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} - %class{0}.%method:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+  
+  <!--
     <logger name="com.whelanlabs.andrew" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE"/>
     </logger>
+	-->
 	
     <root level="WARN">
         <appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE"/>
     </root>
 
 </configuration>
