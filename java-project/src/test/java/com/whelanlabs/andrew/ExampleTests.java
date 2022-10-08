@@ -94,7 +94,7 @@ public class ExampleTests {
       
       long endTime = System.currentTimeMillis();
       long duration = (endTime - startTime)/1000;
-      logger.debug("train_happyPath_results.duration = " + duration + " seconds");
+      logger.info("train_happyPath_results.duration = " + duration + " seconds");
 
       fail("more to do...");
    }

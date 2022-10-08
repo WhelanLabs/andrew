@@ -62,7 +62,7 @@ public class Thought {
       // get the initial layer inputs from the goal
 
       workingMemory = addGoalContext(workingMemory, _goal.getProperties());
-      //logger.debug("workingMemory = " + workingMemory);
+      logger.debug("workingMemory = " + workingMemory);
 
       List<Set<Node>> layeredOperations = getOperationsByMaxLayer();
 
@@ -73,7 +73,7 @@ public class Thought {
          //logger.debug("layer contents = " + currentOperations);
          Set<String> nextLevelInputNodeKeys = new HashSet<>();
          for (Node node : currentOperations) {
-            //logger.debug("add nextLevelInputNodeKeys: " + node);
+            logger.debug("add nextLevelInputNodeKeys: " + node);
             nextLevelInputNodeKeys.add(node.getKey());
 
             String thoughtType = node.getType();
@@ -81,25 +81,25 @@ public class Thought {
             if ("thought_operation".equals(thoughtType)) {
 
                // process the operation
-               //logger.debug("workingMemory = " + workingMemory);
+               logger.debug("workingMemory = " + workingMemory);
                Map<String, Object> opResult = processOperation(node, workingMemory);
-               //logger.debug("workingMemory = " + workingMemory);
+               logger.debug("workingMemory = " + workingMemory);
 
                // add the result of the operation to working memory
-               //logger.debug("workingMemory = " + workingMemory);
+               logger.debug("workingMemory = " + workingMemory);
                workingMemory = addContext(workingMemory, opResult, node.getKey());
-               //logger.debug("workingMemory = " + workingMemory);
+               logger.debug("workingMemory = " + workingMemory);
 
             } else if ("thought".equals(thoughtType)) {
-               //logger.debug("thought node = " + node);
+               logger.debug("thought node = " + node);
 
                // have the thought consume some goal details
                List<Triple<Node, Edge, Node>> goalTriples = App.getGardenGraph().expandLeft(node, "approach", null, null);
                Node goal = goalTriples.get(0).getRight();
-               //logger.debug("goal node = " + goal);
-               //logger.debug("workingMemory = " + workingMemory);
+               logger.debug("goal node = " + goal);
+               logger.debug("workingMemory = " + workingMemory);
                workingMemory = addGoalAttributes(workingMemory, goal);
-               //logger.debug("workingMemory = " + workingMemory);
+               logger.debug("workingMemory = " + workingMemory);
 
             } else if ("thought_result".equals(thoughtType)) {
                Map<String, Object> opResult = processOperation(node, workingMemory);
@@ -111,15 +111,15 @@ public class Thought {
 
             // use the tailing edges to add next-level inputs to working memory
             for (String nextLevelInputNodeKey : nextLevelInputNodeKeys) {
-               //logger.debug("generating inputs based on outputs from " + nextLevelInputNodeKey + ".");
+               logger.debug("generating inputs based on outputs from " + nextLevelInputNodeKey + ".");
                QueryClause queryClause = new QueryClause("_from", QueryClause.Operator.EQUALS, node.getId());
-               //logger.debug("inputEdges queryClause name and value: " + queryClause.getName() + ", " + queryClause.getValue());
+               logger.debug("inputEdges queryClause name and value: " + queryClause.getName() + ", " + queryClause.getValue());
                List<Edge> inputEdges = App.getGardenGraph().queryEdges("thought_sequence", queryClause);
-               //logger.debug("next level input edges: " + inputEdges);
+               logger.debug("next level input edges: " + inputEdges);
                for (Edge inputEdge : inputEdges) {
                   String inputProp = (String) inputEdge.getAttribute("input");
                   String edgeName = (String) inputEdge.getAttribute("name");
-                  //logger.debug("edgeName = " + edgeName);
+                  logger.debug("edgeName = " + edgeName);
                   String outputProp = (String) inputEdge.getAttribute("output");
                   String fromKey = inputEdge.getFrom().split("/")[1];
                   Object value = getInputValue(workingMemory, fromKey, inputProp);
@@ -134,7 +134,7 @@ public class Thought {
                      value = ((Number) value).floatValue() + mutationFactor;
                   }
                   String toKey = (String) inputEdge.getTo().split("/")[1];
-                  //logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp);
+                  logger.debug("copying value '" + value + "': " + fromKey + "." + inputProp + " -> " + toKey + "." + outputProp);
                   workingMemory.put(toKey + "." + outputProp, value);
                }
             }

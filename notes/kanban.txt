@@ -225,7 +225,9 @@
 
 * create a 'change edge type' argument mutation
 
-* sanitize - whelanlabs -> blackwalnutsoftware, strip: "john", "whelan", other?
+* sanitize - whelanlabs -> new name. strip: "john", "whelan", other?
+  - use name blackwalnutsoftware?
+  - use name thinker-garden.com?
 
 
   

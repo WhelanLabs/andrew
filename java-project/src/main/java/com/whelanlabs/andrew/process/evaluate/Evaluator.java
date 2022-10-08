@@ -80,6 +80,7 @@ public class Evaluator {
       String query = "FOR t IN " + targetType + " FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query);
       Map<String, Object> bindVars = Collections.singletonMap("time", targetTime);
+      logger.debug("bindVars: " + bindVars);
       List<Node> queryResults = App.getDataGraph().queryNodes(query, bindVars);
       Node actualNode = queryResults.get(0);
       Number actualResult = (Number) actualNode.getAttribute(targetProperty);
