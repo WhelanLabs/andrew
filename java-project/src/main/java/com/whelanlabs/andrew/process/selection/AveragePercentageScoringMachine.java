@@ -20,14 +20,24 @@ public class AveragePercentageScoringMachine implements ScoringMachine {
          
          String thoughtKey = evualationResult.getThought().getKey();
          Number guessNum = evualationResult.getGuess();
+         
+         // if no guess, than score is zero.
          if(null == guessNum) {
             score = 0f;
          }
-         
+
          if (null == score) {
             Float guess = ((Number)evualationResult.getGuess()).floatValue();
-            Float actual = ((Number)evualationResult.getActual()).floatValue();
-            score = Math.min(guess, actual)/Math.max(guess, actual);
+            Number actualNum = ((Number)evualationResult.getActual());
+            Float actual = null;
+            if(actualNum != null) {
+               actual = actualNum.floatValue();
+               score = Math.min(guess, actual)/Math.max(guess, actual);
+            }
+            else {
+               score = 0f; 
+            }
+            
          }
          if(runningTotals.containsKey(thoughtKey)) {
             List<Float> currentTotal = runningTotals.get(thoughtKey);

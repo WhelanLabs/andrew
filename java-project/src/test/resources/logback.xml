@@ -15,12 +15,14 @@
         </encoder>
     </appender>
   
+  <!--
     <logger name="com.whelanlabs.andrew.Evaluator" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
 		<appender-ref ref="FILE"/>
     </logger>
+	-->
 	
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE"/>
     </root>

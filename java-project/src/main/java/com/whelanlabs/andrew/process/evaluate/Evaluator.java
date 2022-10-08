@@ -21,6 +21,7 @@ import com.whelanlabs.kgraph.engine.Node;
 
 public class Evaluator {
 
+   private static Integer numFailures = 0;
    private Node _goal;
    private static Logger logger = LogManager.getLogger(Evaluator.class);
 
@@ -62,7 +63,7 @@ public class Evaluator {
                results.add(new Evaluation(thoughtNode, forecastResult, actual));
             }
             catch (Exception e) {
-               logger.error("forecast2 failed.  (" + thoughtNode.getId() + ")", e);
+               logger.error("forecast2 failed.  (numFailures = " + numFailures + ")", e);
                forecastResult = null;
             }
          }
@@ -77,12 +78,23 @@ public class Evaluator {
       String targetProperty = (String) _goal.getAttribute("targetProperty");
       Long targetTime = startingTime + distance;
       
-      String query = "FOR t IN " + targetType + " FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      String query = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query);
       Map<String, Object> bindVars = Collections.singletonMap("time", targetTime);
       logger.debug("bindVars: " + bindVars);
-      List<Node> queryResults = App.getDataGraph().queryNodes(query, bindVars);
-      Node actualNode = queryResults.get(0);
+      List<Node> queryResults = null;
+      Node actualNode = null;
+      try {
+         queryResults = App.getDataGraph().queryNodes(query, bindVars);
+         actualNode = queryResults.get(0);
+      }
+      catch (Exception e) {
+         logger.error("no results");
+         logger.error("query: " + query);
+         logger.error("bindVars: " + bindVars);
+         throw e;
+      }
+
       Number actualResult = (Number) actualNode.getAttribute(targetProperty);
       
       return actualResult;
