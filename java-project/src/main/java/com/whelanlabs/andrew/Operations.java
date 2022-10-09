@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.arangodb.model.TraversalOptions.Direction;
+import com.whelanlabs.andrew.dataset.DateUtils;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
@@ -31,6 +32,8 @@ import com.whelanlabs.kgraph.engine.Node;
  */
 public class Operations {
 
+   private static DateUtils dateUtils = new DateUtils();
+   
    /** The logger. */
    private static Logger logger = LogManager.getLogger(Operations.class);
 
@@ -149,22 +152,33 @@ public class Operations {
       logger.debug("stockNode = " + stockNode);
       
       // get the stockOnDate rel
-      String query3 = "FOR t IN stockOnDate FILTER t._from == @left AND t._to == @to RETURN t";
-      logger.debug("query: " + query3);
       Map<String, Object> bindVars3 = new HashMap<>();
-      bindVars3.put("left", stockNode.getId());
-      bindVars3.put("to", dateNode.getId());
-      logger.debug("@left = " + stockNode.getId());
-      logger.debug("@to = " + dateNode.getId());
-      
-      List<Edge> queryResults3 = App.getDataGraph().queryEdges(query3, bindVars3);
-      Edge relEdge = queryResults3.get(0);
-      logger.debug("relEdge = " + relEdge);
-      
-      Float result = ((Number) relEdge.getAttribute(prop)).floatValue();
-      
-      results.put("RESULT", result);
-      return results;
+      String query3 = null;
+      try {
+         query3 = "FOR t IN stockOnDate FILTER t._from == @left AND t._to == @to RETURN t";
+         logger.debug("query: " + query3);
+         
+         bindVars3.put("left", stockNode.getId());
+         bindVars3.put("to", dateNode.getId());
+         logger.debug("@left = " + stockNode.getId());
+         logger.debug("@to = " + dateNode.getId());
+         
+         List<Edge> queryResults3 = App.getDataGraph().queryEdges(query3, bindVars3);
+         Edge relEdge = queryResults3.get(0);
+         logger.debug("relEdge = " + relEdge);
+         
+         Float result = ((Number) relEdge.getAttribute(prop)).floatValue();
+         
+         results.put("RESULT", result);
+         return results;
+      }
+      catch (Exception e) {
+         
+         logger.error("stockOnDate error" + "\n   query3=" + query3 + "\n   bindVars3=" + bindVars3 + "\n   date=" + dateUtils.getDateFromNumber(dateNumber));
+         //dateUtils
+         throw e;
+      }
+
    }
    
    

@@ -21,7 +21,10 @@ import com.whelanlabs.kgraph.engine.Node;
 
 public class Evaluator {
 
-   private static Integer numFailures = 0;
+   private static Integer numEvalFailures = 0;
+   private static Integer numEval = 0;
+
+   
    private Node _goal;
    private static Logger logger = LogManager.getLogger(Evaluator.class);
 
@@ -30,6 +33,8 @@ public class Evaluator {
    }
 
    public List<Evaluation> evaluateThoughts2(TrainingCriteria trainingCriteria, Map<String, Object> initialWorkingMemory) throws Exception {
+      
+      
       Long minTime = trainingCriteria.getStartDateLong();
       Long maxTime = trainingCriteria.getEndDateLong();
       Integer numTests = trainingCriteria.getQuestsPerGeneration();
@@ -50,6 +55,7 @@ public class Evaluator {
          Number forecastResult = null;
          
          for (Node thoughtNode : thoughts) {
+            numEval++;
             try {
                Thought thought = new Thought(thoughtNode);
                Map<String, Object>  workingMemory = clone(initialWorkingMemory);
@@ -63,7 +69,8 @@ public class Evaluator {
                results.add(new Evaluation(thoughtNode, forecastResult, actual));
             }
             catch (Exception e) {
-               logger.error("forecast2 failed.  (numFailures = " + numFailures + ")", e);
+               numEvalFailures++;
+               logger.error("forecast2 failed.  (failure rate = " + numEvalFailures+ "/" + numEval + ")", e);
                forecastResult = null;
             }
          }

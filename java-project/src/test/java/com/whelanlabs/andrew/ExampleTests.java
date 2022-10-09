@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.CSVLoader;
+import com.whelanlabs.andrew.process.selection.ThoughtScore;
 
 public class ExampleTests {
 
@@ -88,7 +89,7 @@ public class ExampleTests {
 
       TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate);
       
-      App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
+      List<ThoughtScore> scores = App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
 
       // compare the thoughts for times in the future
       
@@ -96,6 +97,8 @@ public class ExampleTests {
       long duration = (endTime - startTime)/1000;
       logger.info("train_happyPath_results.duration = " + duration + " seconds");
 
+      logger.info("train_happyPath_results.scores = " + scores);
+      
       fail("more to do...");
    }
 

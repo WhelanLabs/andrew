@@ -145,12 +145,13 @@ public class App {
       return result;
    }
 
-   public static void train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters, TrainingCriteria trainingCriteria) throws Exception {
+   public static List<ThoughtScore> train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters, TrainingCriteria trainingCriteria) throws Exception {
       
       List<Thought> currentThoughts = new ArrayList<>();
       currentThoughts.addAll(goal.getThoughts());
 
       ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
+      List<ThoughtScore> scores = new ArrayList<>();
       Crossover crossover = new SimpleCrossover();
       
       // repeat
@@ -174,7 +175,7 @@ public class App {
 
          
          // sum the score for each thought
-         List<ThoughtScore> scores = scoringMachine.scoreAndRank(evualationResults);
+         scores.addAll(scoringMachine.scoreAndRank(evualationResults));
 
          logger.debug("scores = " + scores);
          // cull the herd of thought/goal when limited for resources.
@@ -184,6 +185,7 @@ public class App {
       } while (i<= trainingCriteria.getNumGenerations());
 
       // write the results
+      return scores;
 
    }
 }

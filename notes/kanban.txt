@@ -80,6 +80,8 @@
 # WIP
 ##########################################################
 
+* why does the date "3997" keep showing for the date in "Operations.getSymbolDateRel()"?
+
 * Create Evaluator.evaluateThoughts2() and obsolete Evaluator.evaluateThoughts().
 
 * change the n^2 loops in evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)

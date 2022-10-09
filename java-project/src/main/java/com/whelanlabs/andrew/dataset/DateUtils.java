@@ -1,6 +1,7 @@
 package com.whelanlabs.andrew.dataset;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class DateUtils {
@@ -10,5 +11,11 @@ public class DateUtils {
    public Long getDateLong(LocalDate localDate) {
       Long daysSinceEpoch = ChronoUnit.DAYS.between(epoch, localDate);
       return daysSinceEpoch;
+   }
+
+   public String getDateFromNumber(Integer dateNumber) {
+      LocalDate date = LocalDate.ofEpochDay(dateNumber);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/YYYY"); 
+      return formatter.format(date);
    }
 }
