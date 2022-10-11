@@ -86,7 +86,7 @@ public class Evaluator {
       String relType = (String) _goal.getAttribute("targetRel");
       Long targetTime = startingTime + distance;
       
-      String query = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
+      String query = "FOR t IN date FILTER t.dateNumber <= @time SORT t.dateNumber DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query);
       Map<String, Object> bindVars = Collections.singletonMap("time", targetTime);
       logger.debug("bindVars: " + bindVars);
@@ -111,8 +111,9 @@ public class Evaluator {
       try {
          // traverse from the date through the target rel
          // TODO: support reverse direction traversals.
-         expansions = App.getGardenGraph().expandRight(dateNode, relType, null, null);
+         expansions = App.getGardenGraph().expandLeft(dateNode, relType, null, null);
          
+         fixmeHere;
          // get the target object
          targetObject = expansions.get(0).getRight();
 
