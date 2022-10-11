@@ -83,6 +83,7 @@ public class Evaluator {
       String targetType = (String) _goal.getAttribute("targetType");
       Integer distance = (Integer) _goal.getAttribute("targetDistance");
       String targetProperty = (String) _goal.getAttribute("targetProperty");
+      String relType = (String) _goal.getAttribute("targetRel");
       Long targetTime = startingTime + distance;
       
       String query = "FOR t IN date FILTER t.time <= @time SORT t.time DESC LIMIT 1 RETURN t";
@@ -90,19 +91,42 @@ public class Evaluator {
       Map<String, Object> bindVars = Collections.singletonMap("time", targetTime);
       logger.debug("bindVars: " + bindVars);
       List<Node> queryResults = null;
-      Node actualNode = null;
+      Node dateNode = null;
       try {
          queryResults = App.getDataGraph().queryNodes(query, bindVars);
-         actualNode = queryResults.get(0);
+         dateNode = queryResults.get(0);
       }
       catch (Exception e) {
-         logger.error("no results");
+         logger.error("no date results");
          logger.error("query: " + query);
          logger.error("bindVars: " + bindVars);
          throw e;
       }
 
-      Number actualResult = (Number) actualNode.getAttribute(targetProperty);
+
+      
+      List<Triple<Node, Edge, Node>> expansions = null;
+      Node targetObject = null;
+      Number actualResult = null;
+      try {
+         // traverse from the date through the target rel
+         // TODO: support reverse direction traversals.
+         expansions = App.getGardenGraph().expandRight(dateNode, relType, null, null);
+         
+         // get the target object
+         targetObject = expansions.get(0).getRight();
+
+         // get the target attribute
+         actualResult = (Number) targetObject.getAttribute(targetProperty);
+      }
+      catch (Exception e) {
+         logger.error("no target object results");
+         logger.error("dateNode: " + dateNode);
+         logger.error("relType: " + relType);
+         logger.error("targetObject: " + targetObject);
+         throw e;
+      }
+
       
       return actualResult;
    }
