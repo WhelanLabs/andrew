@@ -18,6 +18,8 @@ import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.andrew.TrainingCriteria;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.kgraph.engine.QueryClause;
+import com.whelanlabs.kgraph.engine.QueryClause.Operator;
 
 public class Evaluator {
 
@@ -50,6 +52,9 @@ public class Evaluator {
       logger.debug("### thoughts.size() = " + thoughts.size());
       logger.debug("### thoughts.size() = " + thoughts.size());
       
+      String otherSidePrefix = (String) _goal.getAttribute("otherSidePrefix");
+      //initialWorkingMemory.get("GOAL.otherSidePrefix");
+      
       for (int i = 0; i < numTests; i++) {
          Long randomTime = random.nextLong(maxTime-minTime) + minTime;
          Number forecastResult = null;
@@ -65,7 +70,10 @@ public class Evaluator {
                logger.debug("workingMemory after forecast2 = " + workingMemory);
                forecastResult = (Number) forecastOutput.get("RESULT.output");
                logger.debug("randomTime = " + randomTime + ",       forecastResult = " + forecastResult);
-               Number actual = getActual(randomTime);
+               
+               // TODO: fix this hack - should be a generic attribute
+               String otherSideID = (String) workingMemory.get("GOAL.symbol");
+               Number actual = getActual(randomTime, otherSidePrefix + otherSideID);
                results.add(new Evaluation(thoughtNode, forecastResult, actual));
             }
             catch (Exception e) {
@@ -79,8 +87,8 @@ public class Evaluator {
       return results;
    }
    
-   private Number getActual(Long startingTime) {
-      String targetType = (String) _goal.getAttribute("targetType");
+   private Number getActual(Long startingTime, String otherSideID) {
+      // String targetType = (String) _goal.getAttribute("targetType");
       Integer distance = (Integer) _goal.getAttribute("targetDistance");
       String targetProperty = (String) _goal.getAttribute("targetProperty");
       String relType = (String) _goal.getAttribute("targetRel");
@@ -111,9 +119,13 @@ public class Evaluator {
       try {
          // traverse from the date through the target rel
          // TODO: support reverse direction traversals.
-         expansions = App.getGardenGraph().expandLeft(dateNode, relType, null, null);
+         List<QueryClause> relClauses = new ArrayList<>();
+         //stockSymbol/AAPL
+         relClauses.add(new QueryClause("_from", Operator.EQUALS, otherSideID));
+         expansions = App.getDataGraph().expandLeft(dateNode, relType, relClauses, null);
          
-         fixmeHere;
+         //fixmeHere;
+         
          // get the target object
          targetObject = expansions.get(0).getRight();
 

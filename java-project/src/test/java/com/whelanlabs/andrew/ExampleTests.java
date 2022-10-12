@@ -87,6 +87,7 @@ public class ExampleTests {
 
       goal.setProperty("targetDistance", 20);
       goal.setProperty("targetRel", "stockOnDate");
+      goal.setProperty("otherSidePrefix", "stockSymbol/");
 
       TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate);
       
