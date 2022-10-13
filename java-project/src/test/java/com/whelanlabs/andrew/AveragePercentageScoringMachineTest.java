@@ -31,35 +31,6 @@ public class AveragePercentageScoringMachineTest {
    public static void tearDownAfterClass() throws Exception {
    }
 
-   //@Test
-   public void scoreAndRank_threeThoughts_getgetRelativeScores() throws Exception {
-
-      Thought t1 = TestHelper.buildModifiedInitialTestThought();
-      
-      @SuppressWarnings("unused") // this thought is accessed through a common goal.
-      Thought t2 = TestHelper.buildMultiplicationThought(t1.getGoalNode(), 1.0f);
-      
-      @SuppressWarnings("unused") // this thought is accessed through a common goal.
-      Thought t3 = TestHelper.buildMultiplicationThought(t1.getGoalNode(), 1.1f);
-      
-      Evaluator evaluator = new Evaluator(t1.getGoalNode());
-
-      Long maxTime = 500l; // test data goes to time~=1000
-
-      List<Evaluation> evualationResults = evaluator.evaluateThoughts(20l, maxTime, 10);
-
-      assert (evualationResults.size() == 30) : evualationResults.size();
-      
-      logger.debug("evualationResults = " + evualationResults );
-      
-      ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
-      List<ThoughtScore> thoughtScores = scoringMachine.scoreAndRank(evualationResults);
-
-      assert (thoughtScores.size() == 3) : thoughtScores;
-      assert (t1.getKey().equals(thoughtScores.get(0).getThoughtKey())) : thoughtScores;
-      
-      logger.debug("thoughtScores = " + thoughtScores );
-   }
 
    @Test
    public void scoreAndRank_guessIsNull_scoreIsZero() throws Exception {
