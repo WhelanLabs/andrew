@@ -114,7 +114,7 @@ public class Evaluator {
 
       
       List<Triple<Node, Edge, Node>> expansions = null;
-      Node targetObject = null;
+      Edge targetEdge = null;
       Number actualResult = null;
       try {
          // traverse from the date through the target rel
@@ -127,16 +127,16 @@ public class Evaluator {
          //fixmeHere;
          
          // get the target object
-         targetObject = expansions.get(0).getRight();
+         targetEdge = expansions.get(0).getMiddle();
 
          // get the target attribute
-         actualResult = (Number) targetObject.getAttribute(targetProperty);
+         actualResult = (Number) targetEdge.getAttribute(targetProperty);
       }
       catch (Exception e) {
          logger.error("no target object results");
          logger.error("dateNode: " + dateNode);
          logger.error("relType: " + relType);
-         logger.error("targetObject: " + targetObject);
+         logger.error("targetObject: " + targetEdge);
          throw e;
       }
 
