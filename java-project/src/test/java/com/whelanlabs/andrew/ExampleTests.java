@@ -101,7 +101,8 @@ public class ExampleTests {
 
       logger.info("train_happyPath_results.scores = " + scores);
       
-      fail("more to do...");
+      assert (scores.size() > 10) : scores.size();
+      // fail("more to do...");
    }
 
 }

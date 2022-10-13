@@ -58,6 +58,8 @@ public class App {
    public static void initialize(String databaseName) throws Exception {
       _dataGraph = new KnowledgeGraph(databaseName);
       _gardenGraph = new KnowledgeGraph(databaseName + "_garden");
+      thoughtCache = new HashMap<>();
+      mutator = new Mutator();
    }
 
    /**
