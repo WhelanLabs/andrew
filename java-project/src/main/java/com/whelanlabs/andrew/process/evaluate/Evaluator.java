@@ -81,7 +81,7 @@ public class Evaluator {
       return results;
    }
 
-   private Number getActual(Long startingTime, String otherSideID) {
+   protected Number getActual(Long startingTime, String otherSideID) {
       // String targetType = (String) _goal.getAttribute("targetType");
       Integer distance = (Integer) _goal.getAttribute("targetDistance");
       String targetProperty = (String) _goal.getAttribute("targetProperty");

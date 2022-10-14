@@ -5,7 +5,6 @@ import org.junit.runners.Suite;
 
 import com.whelanlabs.andrew.AppTest;
 import com.whelanlabs.andrew.AveragePercentageScoringMachineTest;
-import com.whelanlabs.andrew.EvaluatorTest;
 import com.whelanlabs.andrew.ExampleTests;
 import com.whelanlabs.andrew.GoalTest;
 import com.whelanlabs.andrew.OperationsTest;
@@ -14,6 +13,7 @@ import com.whelanlabs.andrew.dataset.DateUtilsTest;
 import com.whelanlabs.andrew.loader.CSVLoaderTest;
 import com.whelanlabs.andrew.loader.LinearDatasetTest;
 import com.whelanlabs.andrew.loader.LoadPerformanceTest;
+import com.whelanlabs.andrew.process.evaluate.EvaluatorTest;
 
 @RunWith(Suite.class)
 
