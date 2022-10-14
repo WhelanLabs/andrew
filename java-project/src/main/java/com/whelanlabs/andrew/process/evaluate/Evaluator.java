@@ -101,7 +101,7 @@ public class Evaluator {
          logger.error("no date results");
          logger.error("query: " + query);
          logger.error("bindVars: " + bindVars);
-         throw e;
+         throw new RuntimeException("no date results", e);
       }
 
       List<Triple<Node, Edge, Node>> expansions = null;
@@ -127,7 +127,7 @@ public class Evaluator {
          logger.error("dateNode: " + dateNode);
          logger.error("relType: " + relType);
          logger.error("targetObject: " + targetEdge);
-         throw e;
+         throw new RuntimeException("no target object results", e);
       }
 
       return actualResult;

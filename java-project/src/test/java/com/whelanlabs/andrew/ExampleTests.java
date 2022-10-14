@@ -63,7 +63,6 @@ public class ExampleTests {
             files.add(new File(filePath));
             logger.debug("adding ticker " + ticker + "(" + baseFileName + ")");
          }
-
       }
       CSVLoader stockLoader = new CSVLoader();
       stockLoader.loadStocks(files);
