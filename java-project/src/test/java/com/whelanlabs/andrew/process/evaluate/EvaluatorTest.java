@@ -1,10 +1,15 @@
 package com.whelanlabs.andrew.process.evaluate;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +20,7 @@ import org.junit.Test;
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Goal;
 import com.whelanlabs.andrew.Thought;
+import com.whelanlabs.andrew.TrainingCriteria;
 import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
 
@@ -58,7 +64,7 @@ public class EvaluatorTest {
    }
    
    
-   @Test //(expected = IndexOutOfBoundsException.class)
+   @Test
    public void getActual_badTargetProperty_exception() throws Exception {
       List<File> files = new ArrayList<>();
       List<String> tickers = new ArrayList<>();
@@ -98,5 +104,30 @@ public class EvaluatorTest {
          }
       }
       assert(exceptionThrown);
+   }
+   
+   // evaluateThoughts2_xxxx_exception
+   @Test
+   public void evaluateThoughts2_xxxx_exception() throws Exception {
+      LocalDate startDate = LocalDate.parse("1990-01-01");
+      LocalDate endDate = LocalDate.parse("2020-01-01");
+      TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate);
+      
+      String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
+      String content = new String(Files.readAllBytes(Paths.get(filePath)));
+      Thought rootThought = App.loadThoughtFromJson("linear_growth_thought", content);
+      Goal goal = rootThought.getGoal();
+      
+      Evaluator evaluator = new Evaluator(goal.getNode());
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts2(trainingCriteria, null);
+      
+      boolean hasNullForecastResult = false;
+      for(Evaluation evualationResult : evualationResults ) {
+         if(null == evualationResult.getGuess()) {
+            hasNullForecastResult = true;
+            break;
+         }
+      }
+      assert(hasNullForecastResult);
    }
 }

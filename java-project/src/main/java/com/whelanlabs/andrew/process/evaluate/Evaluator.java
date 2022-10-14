@@ -56,9 +56,11 @@ public class Evaluator {
 
          for (Node thoughtNode : thoughts) {
             numEval++;
+            Number actual = null;
+            Map<String, Object> workingMemory = null;
             try {
                Thought thought = new Thought(thoughtNode);
-               Map<String, Object> workingMemory = clone(initialWorkingMemory);
+               workingMemory = clone(initialWorkingMemory);
                workingMemory = thought.addContext(workingMemory, "startDate", randomTime, "GOAL");
                logger.debug("workingMemory before forecast2 = " + workingMemory);
                Map<String, Object> forecastOutput = thought.forecast2(workingMemory);
@@ -68,12 +70,14 @@ public class Evaluator {
 
                // TODO: fix this hack - should be a generic attribute
                String otherSideID = (String) workingMemory.get("GOAL.symbol");
-               Number actual = getActual(randomTime, otherSidePrefix + otherSideID);
-               results.add(new Evaluation(thoughtNode, forecastResult, actual, workingMemory));
+               actual = getActual(randomTime, otherSidePrefix + otherSideID);
             } catch (Exception e) {
                numEvalFailures++;
                logger.error("forecast2 failed.  (failure rate = " + numEvalFailures + "/" + numEval + ")", e);
                forecastResult = null;
+            }
+            finally {
+               results.add(new Evaluation(thoughtNode, forecastResult, actual, workingMemory));
             }
          }
       }
