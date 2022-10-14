@@ -33,7 +33,7 @@ import com.whelanlabs.kgraph.engine.Node;
 public class Operations {
 
    private static DateUtils dateUtils = new DateUtils();
-   
+
    /** The logger. */
    private static Logger logger = LogManager.getLogger(Operations.class);
 
@@ -83,7 +83,7 @@ public class Operations {
       logger.debug("   distance = " + distance);
 
       // support negative distances
-      if(distance <0) {
+      if (distance < 0) {
          if (Direction.outbound.toString().equals(direction)) {
             direction = Direction.inbound.toString();
          } else if (Direction.inbound.toString().equals(direction)) {
@@ -94,8 +94,7 @@ public class Operations {
 
       Node previousNode = startingNode;
       List<Triple<Node, Edge, Node>> expansions = null;
-            
-      
+
       for (int i = 0; i < distance; i++) {
          if (Direction.outbound.toString().equals(direction)) {
             expansions = App.getDataGraph().expandRight(previousNode, relationType, null, null);
@@ -108,7 +107,6 @@ public class Operations {
       }
       return previousNode;
    }
-   
 
    /**
     * Gets the "stockOnDate" relation between the given "date" object that is the greatest date less than
@@ -124,65 +122,61 @@ public class Operations {
     */
    public static Map<String, Object> getSymbolDateRel(Node currentNode, Map<String, Object> inputs) {
       logger.debug("getSymbolDateRel()");
-      
-      Map<String, Object> results = new HashMap<>();
-      
-      // get the inputs
-      String symbol = (String) inputs.get(currentNode.getKey() + "." + "symbol");
-      Integer dateNumber = ((Number) inputs.get(currentNode.getKey() + "." + "dateNumber")).intValue();
-      String prop = (String) inputs.get("GOAL.targetProperty");
-      
-      // get the date node
-      String query1 = "FOR t IN date FILTER t.dateNumber <= @time SORT t.dateNumber DESC LIMIT 1 RETURN t";
-      logger.debug("query: " + query1);
-      logger.debug("dateNumber: " + dateNumber);
-      Map<String, Object> bindVars1 = Collections.singletonMap("time", dateNumber);
-      List<Node> queryResults1 = App.getDataGraph().queryNodes(query1, bindVars1);
-      Node dateNode = queryResults1.get(0);
-      logger.debug("dateNode = " + dateNode);
-      
-      
-      // get the stockSymbol node
-      String query2 = "FOR t IN stockSymbol FILTER t.symbol == @symbol LIMIT 1 RETURN t";
-      logger.debug("query2: " + query2);
-      logger.debug("symbol: " + symbol);
-      Map<String, Object> bindVars2 = Collections.singletonMap("symbol", symbol);
-      List<Node> queryResults2 = App.getDataGraph().queryNodes(query2, bindVars2);
-      Node stockNode = queryResults2.get(0);
-      logger.debug("stockNode = " + stockNode);
-      
-      // get the stockOnDate rel
-      Map<String, Object> bindVars3 = new HashMap<>();
-      String query3 = null;
+
       try {
+         Map<String, Object> results = new HashMap<>();
+
+         // get the inputs
+         String symbol = (String) inputs.get(currentNode.getKey() + "." + "symbol");
+         Integer dateNumber = ((Number) inputs.get(currentNode.getKey() + "." + "dateNumber")).intValue();
+         String prop = (String) inputs.get("GOAL.targetProperty");
+
+         // get the date node
+         String query1 = "FOR t IN date FILTER t.dateNumber <= @time SORT t.dateNumber DESC LIMIT 1 RETURN t";
+         logger.debug("query: " + query1);
+         logger.debug("dateNumber: " + dateNumber);
+         Map<String, Object> bindVars1 = Collections.singletonMap("time", dateNumber);
+         List<Node> queryResults1 = App.getDataGraph().queryNodes(query1, bindVars1);
+         Node dateNode = queryResults1.get(0);
+         logger.debug("dateNode = " + dateNode);
+
+         // get the stockSymbol node
+         String query2 = "FOR t IN stockSymbol FILTER t.symbol == @symbol LIMIT 1 RETURN t";
+         logger.debug("query2: " + query2);
+         logger.debug("symbol: " + symbol);
+         Map<String, Object> bindVars2 = Collections.singletonMap("symbol", symbol);
+         List<Node> queryResults2 = App.getDataGraph().queryNodes(query2, bindVars2);
+         Node stockNode = queryResults2.get(0);
+         logger.debug("stockNode = " + stockNode);
+
+         // get the stockOnDate rel
+         Map<String, Object> bindVars3 = new HashMap<>();
+         String query3 = null;
+
          query3 = "FOR t IN stockOnDate FILTER t._from == @left AND t._to == @to RETURN t";
          logger.debug("query: " + query3);
-         
+
          bindVars3.put("left", stockNode.getId());
          bindVars3.put("to", dateNode.getId());
          logger.debug("@left = " + stockNode.getId());
          logger.debug("@to = " + dateNode.getId());
-         
+
          List<Edge> queryResults3 = App.getDataGraph().queryEdges(query3, bindVars3);
          Edge relEdge = queryResults3.get(0);
          logger.debug("relEdge = " + relEdge);
-         
+
          Float result = ((Number) relEdge.getAttribute(prop)).floatValue();
-         
+
          results.put("RESULT", result);
          return results;
-      }
-      catch (Exception e) {
-         
-         logger.error("stockOnDate error" + "\n   query3=" + query3 + "\n   bindVars3=" + bindVars3 + "\n   date=" + dateUtils.getDateFromNumber(dateNumber));
-         //dateUtils
-         throw e;
+      } catch (Exception e) {
+         // currentNode, Map<String, Object> inputs
+         logger.error(e.getMessage() + "\n   currentNode = " + currentNode + "\n   inputs = " + inputs);
+         throw new RuntimeException(e);
       }
 
    }
-   
-   
-   
+
    /**
     * Gets the greatest date less than.
     *
@@ -194,13 +188,13 @@ public class Operations {
       logger.debug("getGreatestLessThan() ");
       Map<String, Object> results = new HashMap<>();
       Float dateNumber = ((Number) inputs.get(node.getKey() + "." + "dateNumber")).floatValue();
-      
+
       String query = "FOR t IN date FILTER t.dateNumber <= @dateNumber SORT t.time DESC LIMIT 1 RETURN t";
       logger.debug("query: " + query);
       Map<String, Object> bindVars = Collections.singletonMap("dateNumber", dateNumber);
-      
+
       List<Node> queryResults = App.getDataGraph().queryNodes(query, bindVars);
-      
+
       results.put("RESULT", queryResults.get(0));
       return results;
    }
@@ -221,8 +215,7 @@ public class Operations {
       results.put("RESULT", result);
       return results;
    }
-   
-   
+
    /**
     * Average.
     *
@@ -233,34 +226,30 @@ public class Operations {
    public static Map<String, Object> average(Node node, Map<String, Object> inputs) {
       logger.debug("average() ");
       Map<String, Object> results = new HashMap<>();
-      
+
       Boolean hasInputs = true;
       ArrayList<Double> values = new ArrayList<>();
       Integer inputNumber = 1;
-      while(hasInputs) {
+      while (hasInputs) {
          Number inputValue = (Number) inputs.get(node.getKey() + "." + "input" + inputNumber);
-         if(null != inputValue) {
+         if (null != inputValue) {
             Double value = inputValue.doubleValue();
             values.add(value);
             logger.debug("values = " + values);
             inputNumber++;
-         }
-         else {
+         } else {
             hasInputs = false;
          }
       }
 
-      OptionalDouble result = values
-            .stream()
-            .mapToDouble(a -> a)
-            .average();
-      
+      OptionalDouble result = values.stream().mapToDouble(a -> a).average();
+
       logger.debug("average.RESULT = " + result.getAsDouble());
 
       results.put("RESULT", result.getAsDouble());
       return results;
    }
-   
+
    /**
     * Do nothing.
     *
@@ -273,7 +262,7 @@ public class Operations {
       Map<String, Object> results = new HashMap<>();
       return results;
    }
-   
+
    /**
     * Subtract.
     *<p>
@@ -291,7 +280,7 @@ public class Operations {
     */
    public static Map<String, Object> subtract(Node node, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
-      
+
       Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
       Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
       logger.debug("subtract: " + floatA + " - " + floatB);
@@ -319,7 +308,7 @@ public class Operations {
     */
    public static Map<String, Object> add(Node node, Map<String, Object> inputs) {
       Map<String, Object> results = new HashMap<>();
-      
+
       Float floatA = ((Number) inputs.get(node.getKey() + "." + "floatA")).floatValue();
       Float floatB = ((Number) inputs.get(node.getKey() + "." + "floatB")).floatValue();
       logger.debug("add: " + floatA + " + " + floatB);
@@ -329,7 +318,6 @@ public class Operations {
       results.put("RESULT", result);
       return results;
    }
-
 
    /**
     * End.
