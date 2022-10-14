@@ -13,7 +13,7 @@ public class DateUtils {
       return daysSinceEpoch;
    }
 
-   public String getDateFromNumber(Integer dateNumber) {
+   public String getDateFromNumber(Long dateNumber) {
       LocalDate date = LocalDate.ofEpochDay(dateNumber);
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/YYYY"); 
       return formatter.format(date);
