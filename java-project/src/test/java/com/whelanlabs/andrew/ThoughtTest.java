@@ -1,5 +1,7 @@
 package com.whelanlabs.andrew;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -597,6 +599,15 @@ public class ThoughtTest {
       
       assert (thought1Length < childThought1Length);
       assert (thought2Length < childThought2Length);
+   }
+   
+   @Test
+   public void getKey_goodThought_hasKey() throws Exception {
+
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+
+      String key = thought.getKey();
+      assert (key.length() > 1) : key;
    }
 }
 
