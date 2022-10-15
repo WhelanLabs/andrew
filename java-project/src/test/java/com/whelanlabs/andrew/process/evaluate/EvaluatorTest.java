@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Goal;
+import com.whelanlabs.andrew.TestHelper;
 import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.andrew.TrainingCriteria;
 import com.whelanlabs.andrew.dataset.CSVLoader;
@@ -130,4 +131,21 @@ public class EvaluatorTest {
       }
       assert(hasNullForecastResult);
    }
+   
+   @Test
+   public void getWorkingMemory_hasWorkingMemory_allGood() throws Exception {
+
+      List<Evaluation> evualationResults = new ArrayList<>();
+      Thought thought = TestHelper.buildMultiplicationThought(1.0f);
+      Map<String, Object> workingMemory = new HashMap<>();
+      workingMemory.put("foo", "bar");
+      
+      Evaluation eval = new Evaluation(thought.getThoughtNode(), null, 7, workingMemory);
+      Map<String, Object> result = eval.getWorkingMemory();
+      
+      assert(result.get("foo").equals("bar"));
+      
+      fail("????");
+   }
+   
 }
