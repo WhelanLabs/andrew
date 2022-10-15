@@ -76,13 +76,14 @@
 
 * fix logging to 'debug' for com.whelanlabs.andrew , default 'warn' for others. 
 
+* Create Evaluator.evaluateThoughts2() and obsolete Evaluator.evaluateThoughts().
+
 ##########################################################
 # WIP
 ##########################################################
 
-* why does the date "3997" keep showing for the date in "Operations.getSymbolDateRel()"?
 
-* Create Evaluator.evaluateThoughts2() and obsolete Evaluator.evaluateThoughts().
+* Kick in evolution to discard bad thoughts.  However, preserve seed thoughts.
 
 * change the n^2 loops in evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
   Also adjust the logging to differentiate threads.
