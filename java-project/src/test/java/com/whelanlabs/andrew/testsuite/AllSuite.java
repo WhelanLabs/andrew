@@ -14,12 +14,13 @@ import com.whelanlabs.andrew.loader.CSVLoaderTest;
 import com.whelanlabs.andrew.loader.LinearDatasetTest;
 import com.whelanlabs.andrew.loader.LoadPerformanceTest;
 import com.whelanlabs.andrew.process.EvaluatorTest;
+import com.whelanlabs.andrew.process.ThoughtScoreTest;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({ AppTest.class, LinearDatasetTest.class, ThoughtTest.class, EvaluatorTest.class, OperationsTest.class,
       AveragePercentageScoringMachineTest.class, CSVLoaderTest.class, LoadPerformanceTest.class, GoalTest.class, DateUtilsTest.class,
-      ExampleTests.class })
+      ExampleTests.class, ThoughtScoreTest.class })
 
 public class AllSuite {
 }
