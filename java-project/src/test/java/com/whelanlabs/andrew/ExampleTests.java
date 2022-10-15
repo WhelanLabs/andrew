@@ -19,7 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.CSVLoader;
-import com.whelanlabs.andrew.process.selection.ThoughtScore;
+import com.whelanlabs.andrew.process.ThoughtScore;
 
 public class ExampleTests {
 

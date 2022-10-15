@@ -13,7 +13,7 @@ import com.whelanlabs.andrew.dataset.DateUtilsTest;
 import com.whelanlabs.andrew.loader.CSVLoaderTest;
 import com.whelanlabs.andrew.loader.LinearDatasetTest;
 import com.whelanlabs.andrew.loader.LoadPerformanceTest;
-import com.whelanlabs.andrew.process.evaluate.EvaluatorTest;
+import com.whelanlabs.andrew.process.EvaluatorTest;
 
 @RunWith(Suite.class)
 

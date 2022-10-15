@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew.process.evaluate;
+package com.whelanlabs.andrew.process;
 
 import static org.junit.Assert.fail;
 
@@ -24,6 +24,7 @@ import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.andrew.TrainingCriteria;
 import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.andrew.process.Evaluator;
 
 public class EvaluatorTest {
 
@@ -144,8 +145,6 @@ public class EvaluatorTest {
       Map<String, Object> result = eval.getWorkingMemory();
       
       assert(result.get("foo").equals("bar"));
-      
-      fail("????");
    }
    
 }

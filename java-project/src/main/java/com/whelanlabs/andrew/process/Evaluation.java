@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew.process.evaluate;
+package com.whelanlabs.andrew.process;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew.process.selection;
+package com.whelanlabs.andrew.process;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.whelanlabs.andrew.process.evaluate.Evaluation;
+import com.whelanlabs.andrew.process.Evaluation;
 
 public class AveragePercentageScoringMachine implements ScoringMachine {
 

@@ -1,8 +1,8 @@
-package com.whelanlabs.andrew.process.selection;
+package com.whelanlabs.andrew.process;
 
 import java.util.List;
 
-import com.whelanlabs.andrew.process.evaluate.Evaluation;
+import com.whelanlabs.andrew.process.Evaluation;
 
 public interface ScoringMachine {
 

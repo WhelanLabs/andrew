@@ -1,4 +1,4 @@
-package com.whelanlabs.andrew.process.evaluate;
+package com.whelanlabs.andrew.process;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,7 +85,7 @@ public class Evaluator {
       return results;
    }
 
-   protected Number getActual(Long startingTime, String otherSideID) {
+   public Number getActual(Long startingTime, String otherSideID) {
       // String targetType = (String) _goal.getAttribute("targetType");
       Integer distance = (Integer) _goal.getAttribute("targetDistance");
       String targetProperty = (String) _goal.getAttribute("targetProperty");

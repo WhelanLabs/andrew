@@ -10,7 +10,7 @@ import com.whelanlabs.andrew.OperationsTest;
 import com.whelanlabs.andrew.ThoughtTest;
 import com.whelanlabs.andrew.dataset.DateUtilsTest;
 import com.whelanlabs.andrew.loader.LinearDatasetTest;
-import com.whelanlabs.andrew.process.evaluate.EvaluatorTest;
+import com.whelanlabs.andrew.process.EvaluatorTest;
 import com.whelanlabs.andrew.loader.CSVLoaderTest;
 
 @RunWith(Suite.class)
