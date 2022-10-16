@@ -18,6 +18,7 @@ public class Mutator {
 
       // start with a clone
       Thought clone = thought.clone();
+      clone.getThoughtNode().addAttribute("seedThought", false);
       
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, clone._thoughtNode.getKey());
       QueryClause mutatableQueryClause = new QueryClause("mutation_range", QueryClause.Operator.NOT_EQUALS, null);

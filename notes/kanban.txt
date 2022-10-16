@@ -82,18 +82,14 @@
 # WIP
 ##########################################################
 
+* add identification for seed thoughts.
+  + seed thoughts shall be tagged as seedThought==true
+  + mutations shall be tagged as seedThought==false
+  - crossovers shall be tagged as seedThought==false
+
+* aggregate results of training per thought
 
 * Kick in evolution to discard bad thoughts.  However, preserve seed thoughts.
-
-* change the n^2 loops in evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
-  Also adjust the logging to differentiate threads.
-  
-* create futurePredictionThoughtGenerator (ExampleOne)
-  This will be a process that takes thoughts to meet the predictFutureValue goal,
-  merge and mutate them over a period leading up to the target startDate using evolution,
-  and then test the results for the future to see if the resulting thoughts correlate
-  training fitness to game-time fitness. 
-
 
 
 

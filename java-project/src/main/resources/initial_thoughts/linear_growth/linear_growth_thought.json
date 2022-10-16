@@ -20,7 +20,8 @@
   "properties" : {
     "name" : "LGT_t1",
     "__type" : "thought",
-	"desc" : "Assume linear change over time."
+	"desc" : "Assume linear change over time.",
+	"seedThought" : true
   },
   "type" : "thought",
   "_id" : "thought/LGT_t1",
