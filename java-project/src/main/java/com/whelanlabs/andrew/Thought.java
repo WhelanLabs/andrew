@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
@@ -396,9 +397,16 @@ public class Thought {
 
 // TODO: move to KGraph
    private Node cloneNode(Node node, String clonedNodeKey) {
+      // deep copy
       final Node clonedNode = new Node(clonedNodeKey, node.getType());
       Map<String, Object> nodeProps = node.getProperties();
-      clonedNode.setProperties(nodeProps);
+      
+      Map<String, Object> propsCopy = new HashMap<>();
+      for(String nodeKey : nodeProps.keySet()) {
+         propsCopy.put(nodeKey, nodeProps.get(nodeKey));
+      }
+            
+      clonedNode.setProperties(propsCopy);
       return clonedNode;
    }
 

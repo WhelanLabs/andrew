@@ -11,7 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class MutatorTest {
+public class SimpleCrossoverTest {
 
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -25,25 +25,20 @@ public class MutatorTest {
    public static void tearDownAfterClass() throws Exception {
    }
 
-
-
    @Test
-   public void createMutant_seedThought_mutantNotSeed() throws Exception {
-      Mutator mutator = new Mutator();
-      
+   public void createCrossover_seedThoughts_mutantNotSeed() throws Exception {
+      Crossover crossover = new SimpleCrossover();
+
       // load the seed thought
       String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
       Thought rootThought = App.loadThoughtFromJson("linear_growth_thought", content);
-      List<Thought> thoughts = new ArrayList<>();
-      thoughts.add(rootThought);
-      
-      assert((Boolean)(rootThought.getThoughtNode().getAttribute("seedThought")) == true);
-      
-      List<Thought> mutants = mutator.createMutant(thoughts, 1);
-      Thought mutant = mutants.get(0);
-      assert((Boolean)(mutant.getThoughtNode().getAttribute("seedThought")) == false);
-      assert((Boolean)(rootThought.getThoughtNode().getAttribute("seedThought")) == true);
 
+      assert ((Boolean) (rootThought.getThoughtNode().getAttribute("seedThought")) == true) : rootThought.getThoughtNode();
+
+      Thought crossThought = crossover.crossover(rootThought, rootThought);
+      assert ((Boolean) (crossThought.getThoughtNode().getAttribute("seedThought")) == false);
+      assert ((Boolean) (rootThought.getThoughtNode().getAttribute("seedThought")) == true) : rootThought.getThoughtNode();
    }
+
 }

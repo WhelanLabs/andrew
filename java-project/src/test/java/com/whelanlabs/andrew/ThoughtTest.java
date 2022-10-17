@@ -27,14 +27,12 @@ import com.whelanlabs.kgraph.engine.Node;
 
 import nl.altindag.log.LogCaptor;
 
-
-
 public class ThoughtTest {
 
    private static Logger logger = LogManager.getLogger(ThoughtTest.class);
 
    private static Mutator mutator = null;
-   
+
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
       String databaseName = "andrew_test_database";
@@ -53,34 +51,32 @@ public class ThoughtTest {
    public void forecast2_nullEdgeInput_errorMessage() throws Exception {
       // see: https://stackoverflow.com/a/63546258/2418261
       // see: https://github.com/Hakky54/log-captor
-      
+
       LogCaptor logCaptor = LogCaptor.forClass(Thought.class);
-      
+
       try {
          Thought thought = TestHelper.buildModifiedInitialTestThought();
 
          Map<String, Object> workingMemory = new HashMap<>();
          try {
             thought.forecast2(workingMemory);
-         }
-         catch (Exception e) {
+         } catch (Exception e) {
             // expected. ignore.
          }
-         
+
          Boolean msgFound = false;
 
          List<String> errorMessages = logCaptor.getErrorLogs();
-         for(String errorMessage : errorMessages) {
-               if(errorMessage.contains("Edge input value is NULL for")) {
-                  msgFound = true;
-                  break;
-               }
+         for (String errorMessage : errorMessages) {
+            if (errorMessage.contains("Edge input value is NULL for")) {
+               msgFound = true;
+               break;
+            }
          }
-         
-         assert(true == msgFound);
-      }
-      finally {
-         //appLogger.detachAppender(appender);
+
+         assert (true == msgFound);
+      } finally {
+         // appLogger.detachAppender(appender);
       }
 
    }
@@ -238,15 +234,15 @@ public class ThoughtTest {
       assert (Math.abs(origGuess.floatValue() - cloneGuess.floatValue()) < .01) : origGuess + ", " + cloneGuess;
 
       Boolean pass = false;
-      for(int i =0; i<10; i++) {
+      for (int i = 0; i < 10; i++) {
          Thought mutatedClonedThought = mutator.createMutant(clonedThought, 2);
 
          Map<String, Object> workingMemory3 = generateLegacyDataWorkingMemory(mutatedClonedThought, startingNode);
          Map<String, Object> mutatedCloneResult = mutatedClonedThought.forecast2(workingMemory3);
 
          Number mutatedCloneGuess = (Number) mutatedCloneResult.get("RESULT.output");
-         
-         if(Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .00001 ) {
+
+         if (Math.abs(origGuess.floatValue() - mutatedCloneGuess.floatValue()) > .00001) {
             pass = true;
             break;
          }
@@ -259,7 +255,6 @@ public class ThoughtTest {
       assert (true == pass);
    }
 
-   
    @Test
    public void createMutant_goodStartingThoughtList_resultsImpacted() throws Exception {
 
@@ -271,7 +266,7 @@ public class ThoughtTest {
 
       assert (null != thought);
       assert (null != clonedThought);
-      
+
       List<Thought> thoughtList = new ArrayList<>();
       thoughtList.add(thought);
       thoughtList.add(clonedThought);
@@ -279,7 +274,7 @@ public class ThoughtTest {
       List<Thought> mutatedClonedThoughts = mutator.createMutant(thoughtList, 2);
 
       assert (2 == mutatedClonedThoughts.size()) : mutatedClonedThoughts;
-      
+
       String thoughtJson = thought.exportJson();
       String clonedThoughtJson = clonedThought.exportJson();
       String m0 = mutatedClonedThoughts.get(0).exportJson();
@@ -289,17 +284,16 @@ public class ThoughtTest {
       assert (null != clonedThoughtJson);
       assert (null != m0);
       assert (null != m1);
-      
+
       assert (thoughtJson.length() > 0);
       assert (clonedThoughtJson.length() > 0);
       assert (m0.length() > 0);
       assert (m1.length() > 0);
-      
+
       assert (!thoughtJson.equals(m0)) : thoughtJson;
       assert (!clonedThoughtJson.equals(m1)) : clonedThoughtJson;
    }
-   
-   
+
    @Test
    public void crossover_twoThoughts_combinedThought() throws Exception {
 
@@ -443,14 +437,16 @@ public class ThoughtTest {
 
       logger.debug("dotString = " + dotString);
 
-      assert (dotString.contains("digraph G {"));
-      assert (dotString.contains("node [shape=record fontname=Arial];"));
-      assert (dotString.contains("\\\"\\lname = \\\"n1\\\"\\l__type = \\\"thought\\\"\\l\"]"));
-      assert (dotString.contains(" [label=\"type = \\\"thought_operation\\\"\\lid = \\\"thought_operation/KEY_"));
-      assert (dotString.contains("[shape=oval label=\"type = \\\"thought_sequence\\\"\\lid = \\\"thought_sequence/KEY_"));
-      assert (dotString.contains(" -> thought_sequence_KEY_"));
-      assert (dotString.contains(" -> thought_operation_KEY_"));
-      assert (dotString.contains(" [label=\"type = \\\"thought_result\\\"\\lid = \\\"thought_result/KEY_"));
+      assert (dotString.contains("digraph G {")) : dotString;
+      assert (dotString.contains("node [shape=record fontname=Arial];")) : dotString;
+      assert (dotString.contains("\\\"\\lname = \\\"n1\\\"")) : dotString;
+      assert (dotString.contains("\\l__type = \\\"thought\\\"")) : dotString;
+      assert (dotString.contains("\\lseedThought = false")) : dotString;
+      assert (dotString.contains(" [label=\"type = \\\"thought_operation\\\"\\lid = \\\"thought_operation/KEY_")) : dotString;
+      assert (dotString.contains("[shape=oval label=\"type = \\\"thought_sequence\\\"\\lid = \\\"thought_sequence/KEY_")) : dotString;
+      assert (dotString.contains(" -> thought_sequence_KEY_")) : dotString;
+      assert (dotString.contains(" -> thought_operation_KEY_")) : dotString;
+      assert (dotString.contains(" [label=\"type = \\\"thought_result\\\"\\lid = \\\"thought_result/KEY_")) : dotString;
 
       String dirString = "./target/exports/";
       String fileString = dirString + "exportDot_goodThought_goodDot.dot";
@@ -564,7 +560,7 @@ public class ThoughtTest {
 
       return workingMemory;
    }
-   
+
    @Test
    public void addGoalAttributes_newAttr_added() throws Exception {
       Thought thought = TestHelper.buildModifiedInitialTestThought();
@@ -572,14 +568,13 @@ public class ThoughtTest {
       Node goal = new Node(ElementHelper.generateKey(), "goal");
       goal.addAttribute("foo", "bar");
       workingMemory = thought.addGoalAttributes(workingMemory, goal);
-      
+
       assert ("bar".equals(workingMemory.get("GOAL.foo"))) : workingMemory;
    }
-   
-   
+
    @Test
    public void createCrossovers_twoThoughts_combinedThought() throws Exception {
-      
+
       Thought thought1 = TestHelper.buildModifiedInitialTestThought();
       Thought thought2 = TestHelper.buildMultiplicationThought(thought1.getGoalNode(), 1.5f);
       List<Thought> inputs = new ArrayList<>();
@@ -588,19 +583,19 @@ public class ThoughtTest {
 
       int thought1Length = thought1.exportJson().split("\r\n|\r|\n").length;
       int thought2Length = thought2.exportJson().split("\r\n|\r|\n").length;
-      
+
       Crossover crossover = new SimpleCrossover();
       List<Thought> childThoughts = crossover.createCrossovers(inputs);
 
       assert (2 == childThoughts.size()) : childThoughts;
-      
+
       int childThought1Length = childThoughts.get(0).exportJson().split("\r\n|\r|\n").length;
       int childThought2Length = childThoughts.get(1).exportJson().split("\r\n|\r|\n").length;
-      
+
       assert (thought1Length < childThought1Length);
       assert (thought2Length < childThought2Length);
    }
-   
+
    @Test
    public void getKey_goodThought_hasKey() throws Exception {
 
@@ -610,4 +605,3 @@ public class ThoughtTest {
       assert (key.length() > 1) : key;
    }
 }
-

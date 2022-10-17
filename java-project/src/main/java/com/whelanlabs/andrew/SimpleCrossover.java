@@ -102,6 +102,8 @@ public class SimpleCrossover implements Crossover{
          App.getGardenGraph().upsert(t2cSequenceEdge);
       }
       
+      t1c.getThoughtNode().addAttribute("seedThought", false);
+      
       return t1c;
    }
 

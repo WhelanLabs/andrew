@@ -78,14 +78,16 @@
 
 * Create Evaluator.evaluateThoughts2() and obsolete Evaluator.evaluateThoughts().
 
+* add identification for seed thoughts.
+  - seed thoughts shall be tagged as seedThought==true
+  - mutations shall be tagged as seedThought==false
+  - crossovers shall be tagged as seedThought==false
+  
 ##########################################################
 # WIP
 ##########################################################
 
-* add identification for seed thoughts.
-  + seed thoughts shall be tagged as seedThought==true
-  + mutations shall be tagged as seedThought==false
-  - crossovers shall be tagged as seedThought==false
+
 
 * aggregate results of training per thought
 
