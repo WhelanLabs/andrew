@@ -99,8 +99,6 @@ public class ThoughtTest {
       Number guess = (Number) result.get("RESULT.output");
       logger.debug("guess = " + guess);
 
-      // Node answerNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_510",
-      // "LinearDatasetNode");
       Number initialValue = (Number) startingNode.getAttribute("value");
       logger.debug("initialValue = " + initialValue);
 

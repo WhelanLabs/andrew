@@ -42,6 +42,7 @@ public class App {
    
    private static Mutator mutator = new Mutator();
 
+   private static ProcessUtils processUtils = new ProcessUtils();
    
    /**
     * Instantiates a new app.
@@ -183,7 +184,7 @@ public class App {
          logger.debug("scores = " + scores);
          // cull the herd of thought/goal when limited for resources.
          // Have culling be statistical some sometimes bad thoughts survive.
-         Map<String,List<Float>> scoreGroupings = ProcessUtils.getGroupingByThoughtKey(scores);
+         Map<String,List<Float>> scoreGroupings = processUtils.getGroupingByThoughtKey(scores);
          
 
          // until things don't get better (end of repeat-until)

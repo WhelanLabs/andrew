@@ -13,6 +13,7 @@ import com.whelanlabs.andrew.ThoughtTest;
 import com.whelanlabs.andrew.dataset.DateUtilsTest;
 import com.whelanlabs.andrew.loader.LinearDatasetTest;
 import com.whelanlabs.andrew.process.EvaluatorTest;
+import com.whelanlabs.andrew.process.ProcessUtilsTest;
 import com.whelanlabs.andrew.process.ThoughtScoreTest;
 import com.whelanlabs.andrew.loader.CSVLoaderTest;
 
@@ -20,7 +21,7 @@ import com.whelanlabs.andrew.loader.CSVLoaderTest;
 
 @Suite.SuiteClasses({ AppTest.class, LinearDatasetTest.class, ThoughtTest.class, EvaluatorTest.class, OperationsTest.class,
       AveragePercentageScoringMachineTest.class, CSVLoaderTest.class, GoalTest.class, DateUtilsTest.class, ThoughtScoreTest.class,
-      MutatorTest.class, SimpleCrossoverTest.class })
+      MutatorTest.class, SimpleCrossoverTest.class, ProcessUtilsTest.class })
 
 public class FunctionalSuite {
 }

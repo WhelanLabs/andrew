@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ProcessUtils {
 
-   public static Map<String, List<Float>> getGroupingByThoughtKey(List<ThoughtScore> scores) {
+   public Map<String, List<Float>> getGroupingByThoughtKey(List<ThoughtScore> scores) {
       Map<String, List<Float>> results = new HashMap<>();
       for(ThoughtScore score : scores) {
          String thoughtKey = score.getThoughtKey();
@@ -18,10 +18,11 @@ public class ProcessUtils {
          }
          else {
             // TODO: add the value to the current list of values
-            xxxxx;
+            List<Float> values = results.get(thoughtKey);
+            values.add(score.getThoughtScore());
          }
       }
-      return null;
+      return results;
    }
 
 }
