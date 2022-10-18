@@ -14,6 +14,7 @@ import com.whelanlabs.andrew.dataset.Dataset;
 import com.whelanlabs.andrew.dataset.DateUtils;
 import com.whelanlabs.andrew.process.Evaluation;
 import com.whelanlabs.andrew.process.Evaluator;
+import com.whelanlabs.andrew.process.ProcessUtils;
 import com.whelanlabs.andrew.process.AveragePercentageScoringMachine;
 import com.whelanlabs.andrew.process.ScoringMachine;
 import com.whelanlabs.andrew.process.ThoughtScore;
@@ -182,6 +183,8 @@ public class App {
          logger.debug("scores = " + scores);
          // cull the herd of thought/goal when limited for resources.
          // Have culling be statistical some sometimes bad thoughts survive.
+         Map<String,List<Float>> scoreGroupings = ProcessUtils.getGroupingByThoughtKey(scores);
+         
 
          // until things don't get better (end of repeat-until)
       } while (i<= trainingCriteria.getNumGenerations());
