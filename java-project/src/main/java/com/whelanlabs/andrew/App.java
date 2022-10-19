@@ -3,8 +3,10 @@ package com.whelanlabs.andrew;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -151,12 +153,15 @@ public class App {
 
    public static List<ThoughtScore> train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters, TrainingCriteria trainingCriteria) throws Exception {
       
-      List<Thought> currentThoughts = new ArrayList<>();
-      currentThoughts.addAll(goal.getThoughts());
+      Map<String, Thought> currentThoughts = new HashMap<>();
+      List<Thought> goalThoughts = goal.getThoughts();
+      for(Thought goalThought : goalThoughts) {
+         currentThoughts.put(goalThought.getKey(), goalThought);
+      }
 
       ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
       List<ThoughtScore> scores = new ArrayList<>();
-      Crossover crossover = new SimpleCrossover();
+      Crossover simpleCrossover = new SimpleCrossover();
       
       // repeat
       Integer i = 0;
@@ -165,10 +170,16 @@ public class App {
          
          i++;
          // generate mutants
-         currentThoughts.addAll(mutator.createMutant(currentThoughts, 1));
+         List<Thought> mutants = mutator.createMutant(new ArrayList<>(currentThoughts.values()), 1);
+         for(Thought mutant : mutants) {
+            currentThoughts.put(mutant.getKey(), mutant);
+         }
 
          // generate crossover
-         currentThoughts.addAll(crossover.createCrossovers(currentThoughts));
+         List<Thought> crossovers = simpleCrossover.createCrossovers(new ArrayList<>(currentThoughts.values()));
+         for(Thought crossover : crossovers) {
+            currentThoughts.put(crossover.getKey(), crossover);
+         }
          
          logger.debug("currentThoughts.size() = " + currentThoughts.size());
          
@@ -186,6 +197,37 @@ public class App {
          // Have culling be statistical some sometimes bad thoughts survive.
          Map<String,List<Float>> scoreGroupings = processUtils.getGroupingByThoughtKey(scores);
          
+         Set<Thought> nextThoughts = new HashSet<>();
+         Integer nextPopSize = 0;
+         
+         // carry forward the seed thoughts
+         for(Thought t : currentThoughts.values()) {
+            if(true == (Boolean)t.getThoughtNode().getAttribute("seedThought")) {
+               nextThoughts.add(t);
+               nextPopSize++;
+            }
+         }
+         
+         // carry forward the baby thoughts
+         for(String groupKey : scoreGroupings.keySet()) {
+            Integer age = scoreGroupings.get(groupKey).size();
+            if(age < trainingCriteria.getMaturationAge()) {
+               Thought babyKey = currentThoughts.get(groupKey);
+               nextThoughts.add(babyKey);
+               nextPopSize++;
+            }
+         }
+         
+         // carry forward the remaining best thoughts
+         // TODO: make this statistical to sometimes allow bad thoughts to live
+         Map<Float, List<String>> rankings = new HashMap<>();
+         for(String scoreGroupingKey : scoreGroupings.keySet()) {
+            if(scoreGroupings.get(scoreGroupingKey).size() >= trainingCriteria.getMaturationAge()) {
+               Float average = calculateAverage(scoreGroupings.get(scoreGroupingKey));
+               xxxx;
+            }
+         }
+         
 
          // until things don't get better (end of repeat-until)
       } while (i<= trainingCriteria.getNumGenerations());
@@ -194,4 +236,15 @@ public class App {
       return scores;
 
    }
+   
+   private static Float calculateAverage(List<Float> scores) {
+      Float sum = 0f;
+      if(!scores.isEmpty()) {
+        for (Float score : scores) {
+            sum += score;
+        }
+        return sum / scores.size();
+      }
+      return sum;
+    }
 }
