@@ -2,11 +2,13 @@ package com.whelanlabs.andrew;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -162,28 +164,18 @@ public class App {
       }
 
       ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
-      List<ThoughtScore> scores = new ArrayList<>();
+      List<ThoughtScore> scores = null;
       Crossover simpleCrossover = new SimpleCrossover();
 
       // repeat
       Integer i = 0;
       do {
+         scores = new ArrayList<>();
          
          logger.info("generation " + i + " thoughts: " + currentThoughts);
          Map<String, Object> iterationParameters = goal.setTrainingParameters(trainingParameters);
 
          i++;
-         // generate mutants
-         List<Thought> mutants = mutator.createMutant(new ArrayList<>(currentThoughts.values()), 1);
-         for (Thought mutant : mutants) {
-            currentThoughts.put(mutant.getKey(), mutant);
-         }
-
-         // generate crossover
-         List<Thought> crossovers = simpleCrossover.createCrossovers(new ArrayList<>(currentThoughts.values()));
-         for (Thought crossover : crossovers) {
-            currentThoughts.put(crossover.getKey(), crossover);
-         }
 
          logger.debug("currentThoughts.size() = " + currentThoughts.size());
 
@@ -207,7 +199,10 @@ public class App {
          for (Thought t : currentThoughts.values()) {
             if (true == (Boolean) t.getThoughtNode().getAttribute("seedThought")) {
                nextThoughts.add(t);
-               nextPopSize++;
+               // generate mutant
+               Thought mutant = mutator.createMutant(t, 1);
+               nextThoughts.add(mutant);
+               nextPopSize += 2;
             }
          }
 
@@ -249,13 +244,22 @@ public class App {
                if (nextPopSize >= trainingCriteria.getMaxPopulation()) {
                   break;
                }
-               nextThoughts.add(currentThoughts.get(value));
-               nextPopSize++;
+               Thought currentThought = currentThoughts.get(value);
+               // add the smart thought
+               nextThoughts.add(currentThought);
+               // add a smart offspring
+               Thought randomSpouse = getRandom(currentThoughts.values());
+               Thought child = simpleCrossover.crossover(currentThought, randomSpouse);
+               nextThoughts.add(child);
+               // generate mutants
+               Thought mutant = mutator.createMutant(currentThought, 1);
+               nextThoughts.add(mutant);
+               nextPopSize += 3;
             }
          }
-         
+
          Map<String, Thought> nextThoughtsMap = new HashMap<>();
-         for(Thought nextThought : nextThoughts) {
+         for (Thought nextThought : nextThoughts) {
             nextThoughtsMap.put(nextThought.getKey(), nextThought);
          }
          currentThoughts = nextThoughtsMap;
@@ -278,4 +282,10 @@ public class App {
       }
       return sum;
    }
+
+   public static <T> T getRandom(Collection<T> coll) {
+      int num = (int) (Math.random() * coll.size());
+      for(T t: coll) if (--num < 0) return t;
+      throw new AssertionError();
+  }
 }
