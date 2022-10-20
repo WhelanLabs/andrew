@@ -2,6 +2,7 @@ package com.whelanlabs.andrew;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -41,11 +42,11 @@ public class App {
    private static Logger logger = LogManager.getLogger(App.class);
 
    private static Map<String, Thought> thoughtCache = new HashMap<>();
-   
+
    private static Mutator mutator = new Mutator();
 
    private static ProcessUtils processUtils = new ProcessUtils();
-   
+
    /**
     * Instantiates a new app.
     */
@@ -151,100 +152,130 @@ public class App {
       return result;
    }
 
-   public static List<ThoughtScore> train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters, TrainingCriteria trainingCriteria) throws Exception {
-      
+   public static List<ThoughtScore> train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters,
+         TrainingCriteria trainingCriteria) throws Exception {
+
       Map<String, Thought> currentThoughts = new HashMap<>();
       List<Thought> goalThoughts = goal.getThoughts();
-      for(Thought goalThought : goalThoughts) {
+      for (Thought goalThought : goalThoughts) {
          currentThoughts.put(goalThought.getKey(), goalThought);
       }
 
       ScoringMachine scoringMachine = new AveragePercentageScoringMachine();
       List<ThoughtScore> scores = new ArrayList<>();
       Crossover simpleCrossover = new SimpleCrossover();
-      
+
       // repeat
       Integer i = 0;
       do {
-         Map<String, Object> iterationParameters = goal.setTrainingParameters(trainingParameters);
          
+         logger.info("generation " + i + " thoughts: " + currentThoughts);
+         Map<String, Object> iterationParameters = goal.setTrainingParameters(trainingParameters);
+
          i++;
          // generate mutants
          List<Thought> mutants = mutator.createMutant(new ArrayList<>(currentThoughts.values()), 1);
-         for(Thought mutant : mutants) {
+         for (Thought mutant : mutants) {
             currentThoughts.put(mutant.getKey(), mutant);
          }
 
          // generate crossover
          List<Thought> crossovers = simpleCrossover.createCrossovers(new ArrayList<>(currentThoughts.values()));
-         for(Thought crossover : crossovers) {
+         for (Thought crossover : crossovers) {
             currentThoughts.put(crossover.getKey(), crossover);
          }
-         
+
          logger.debug("currentThoughts.size() = " + currentThoughts.size());
-         
+
          // loop through a set of test cases
          Evaluator evaluator = new Evaluator(goal.getNode());
-         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(trainingCriteria, iterationParameters);
+         List<Evaluation> evualationResults = evaluator.evaluateThoughts2(currentThoughts, trainingCriteria, iterationParameters);
          logger.debug("evualationResults = " + evualationResults);
 
-         
          // sum the score for each thought
          scores.addAll(scoringMachine.scoreAndRank(evualationResults));
 
          logger.debug("scores = " + scores);
          // cull the herd of thought/goal when limited for resources.
          // Have culling be statistical some sometimes bad thoughts survive.
-         Map<String,List<Float>> scoreGroupings = processUtils.getGroupingByThoughtKey(scores);
-         
+         Map<String, List<Float>> scoreGroupings = processUtils.getGroupingByThoughtKey(scores);
+
          Set<Thought> nextThoughts = new HashSet<>();
          Integer nextPopSize = 0;
-         
+
          // carry forward the seed thoughts
-         for(Thought t : currentThoughts.values()) {
-            if(true == (Boolean)t.getThoughtNode().getAttribute("seedThought")) {
+         for (Thought t : currentThoughts.values()) {
+            if (true == (Boolean) t.getThoughtNode().getAttribute("seedThought")) {
                nextThoughts.add(t);
                nextPopSize++;
             }
          }
-         
+
          // carry forward the baby thoughts
-         for(String groupKey : scoreGroupings.keySet()) {
+         for (String groupKey : scoreGroupings.keySet()) {
             Integer age = scoreGroupings.get(groupKey).size();
-            if(age < trainingCriteria.getMaturationAge()) {
+            if (age < trainingCriteria.getMaturationAge()) {
                Thought babyKey = currentThoughts.get(groupKey);
                nextThoughts.add(babyKey);
                nextPopSize++;
             }
          }
-         
+
          // carry forward the remaining best thoughts
          // TODO: make this statistical to sometimes allow bad thoughts to live
          Map<Float, List<String>> rankings = new HashMap<>();
-         for(String scoreGroupingKey : scoreGroupings.keySet()) {
-            if(scoreGroupings.get(scoreGroupingKey).size() >= trainingCriteria.getMaturationAge()) {
+         for (String scoreGroupingKey : scoreGroupings.keySet()) {
+            if (scoreGroupings.get(scoreGroupingKey).size() >= trainingCriteria.getMaturationAge()) {
                Float average = calculateAverage(scoreGroupings.get(scoreGroupingKey));
-               xxxx;
+               if (!rankings.containsKey(average)) {
+                  List<String> thoughtIDs = new ArrayList<>();
+                  thoughtIDs.add(scoreGroupingKey);
+                  rankings.put(average, thoughtIDs);
+               } else {
+                  List<String> thoughtIDs = rankings.get(average);
+                  thoughtIDs.add(scoreGroupingKey);
+                  rankings.put(average, thoughtIDs);
+               }
+            }
+         }
+         ArrayList<Float> scoresList = new ArrayList<Float>(rankings.keySet());
+         Collections.sort(scoresList, Collections.reverseOrder());
+         for (Float score : scoresList) {
+            if (nextPopSize >= trainingCriteria.getMaxPopulation()) {
+               break;
+            }
+            List<String> values = rankings.get(score);
+            for (String value : values) {
+               if (nextPopSize >= trainingCriteria.getMaxPopulation()) {
+                  break;
+               }
+               nextThoughts.add(currentThoughts.get(value));
+               nextPopSize++;
             }
          }
          
+         Map<String, Thought> nextThoughtsMap = new HashMap<>();
+         for(Thought nextThought : nextThoughts) {
+            nextThoughtsMap.put(nextThought.getKey(), nextThought);
+         }
+         currentThoughts = nextThoughtsMap;
 
          // until things don't get better (end of repeat-until)
-      } while (i<= trainingCriteria.getNumGenerations());
+      } while (i <= trainingCriteria.getNumGenerations());
 
       // write the results
       return scores;
 
    }
-   
+
    private static Float calculateAverage(List<Float> scores) {
       Float sum = 0f;
-      if(!scores.isEmpty()) {
-        for (Float score : scores) {
+      if (!scores.isEmpty()) {
+         for (Float score : scores) {
             sum += score;
-        }
-        return sum / scores.size();
+         }
+         return sum / scores.size();
       }
       return sum;
-    }
+   }
 }

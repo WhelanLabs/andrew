@@ -1,6 +1,7 @@
 package com.whelanlabs.andrew.process;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,20 +34,27 @@ public class Evaluator {
       _goal = goal;
    }
 
-   public List<Evaluation> evaluateThoughts2(TrainingCriteria trainingCriteria, Map<String, Object> initialWorkingMemory) throws Exception {
+   public List<Evaluation> evaluateThoughts2(Map<String, Thought> thoughtMap, TrainingCriteria trainingCriteria, Map<String, Object> initialWorkingMemory) throws Exception {
 
       Long minTime = trainingCriteria.getStartDateLong();
       Long maxTime = trainingCriteria.getEndDateLong();
       Integer numTests = trainingCriteria.getQuestsPerGeneration();
 
+      Collection<Thought> thoughts = thoughtMap.values();
+      List<Node> thoughtNodes = new ArrayList<>();
+      for(Thought thought : thoughts) {
+         thoughtNodes.add(thought.getThoughtNode());
+      }
+      
+      
       List<Evaluation> results = new ArrayList<>();
 
       Random random = new Random();
 
-      List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
-      logger.debug("expansions: " + expansions);
+      //List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
+      //logger.debug("expansions: " + expansions);
 
-      List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
+      //List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
 
       String otherSidePrefix = (String) _goal.getAttribute("otherSidePrefix");
 
@@ -54,7 +62,7 @@ public class Evaluator {
          Long randomTime = random.nextLong(maxTime - minTime) + minTime;
          Number forecastResult = null;
 
-         for (Node thoughtNode : thoughts) {
+         for (Node thoughtNode : thoughtNodes) {
             numEval++;
             Number actual = null;
             Map<String, Object> workingMemory = null;

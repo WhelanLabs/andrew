@@ -110,18 +110,21 @@ public class EvaluatorTest {
    
    // evaluateThoughts2_xxxx_exception
    @Test
-   public void evaluateThoughts2_xxxx_exception() throws Exception {
+   public void evaluateThoughts2_nullWorkingMemory_exception() throws Exception {
       LocalDate startDate = LocalDate.parse("1990-01-01");
       LocalDate endDate = LocalDate.parse("2020-01-01");
-      TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate);
+      TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate, 1, 3);
       
       String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
       Thought rootThought = App.loadThoughtFromJson("linear_growth_thought", content);
       Goal goal = rootThought.getGoal();
       
+      Map<String, Thought> inputThoughts = new HashMap<>();
+      inputThoughts.put(rootThought.getKey(), rootThought);
+      
       Evaluator evaluator = new Evaluator(goal.getNode());
-      List<Evaluation> evualationResults = evaluator.evaluateThoughts2(trainingCriteria, null);
+      List<Evaluation> evualationResults = evaluator.evaluateThoughts2(inputThoughts, trainingCriteria, null);
       
       boolean hasNullForecastResult = false;
       for(Evaluation evualationResult : evualationResults ) {

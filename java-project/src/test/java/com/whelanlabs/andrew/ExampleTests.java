@@ -88,10 +88,12 @@ public class ExampleTests {
       goal.setProperty("targetRel", "stockOnDate");
       goal.setProperty("otherSidePrefix", "stockSymbol/");
       
-      Integer maturationAge = 3;
-      Integer maxPopulation = 20;
+      Integer maturationAge = 2;
+      Integer maxPopulation = 10;
+      Integer numGenerations = 20;  //2
+      Integer questsPerGeneration = 3;  //2
 
-      TrainingCriteria trainingCriteria = new TrainingCriteria(2, 2, startDate, endDate, maturationAge, maxPopulation);
+      TrainingCriteria trainingCriteria = new TrainingCriteria(numGenerations, questsPerGeneration, startDate, endDate, maturationAge, maxPopulation);
       
       List<ThoughtScore> scores = App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
 
