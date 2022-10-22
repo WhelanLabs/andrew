@@ -90,7 +90,7 @@ public class ExampleTests {
       
       Integer maturationAge = 5;
       Integer maxPopulation = 10;
-      Integer numGenerations = 10;  //2
+      Integer numGenerations = 20;  //2
       Integer questsPerGeneration = 3;  //2
 
       TrainingCriteria trainingCriteria = new TrainingCriteria(numGenerations, questsPerGeneration, startDate, endDate, maturationAge, maxPopulation);

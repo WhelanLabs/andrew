@@ -90,15 +90,16 @@
   - good thoughts have children
   - good thoughts produce mutants
   
+* generate training report
+
+
 ##########################################################
 # WIP
 ##########################################################
 
 
-
-* generate training report
-
-
+* Have trend be positive
+  - have older thoughts leverage past greatness for culling score?
 
 
 
