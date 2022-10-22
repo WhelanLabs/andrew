@@ -96,9 +96,9 @@
 
 
 
-* generate training reports
+* generate training report
 
-* have weaker thoughts mutate more, and show this aids evolution?
+
 
 
 
@@ -107,6 +107,8 @@
 ##########################################################
 # backlog
 ##########################################################
+
+* have weaker thoughts mutate more, and show this aids evolution?
 
 * fix TPS defect.
   see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
