@@ -200,9 +200,10 @@ public class App {
             if (true == (Boolean) t.getThoughtNode().getAttribute("seedThought")) {
                nextThoughts.add(t);
                // generate mutant
-               Thought mutant = mutator.createMutant(t, 1);
-               nextThoughts.add(mutant);
-               nextPopSize += 2;
+               //Thought mutant = mutator.createMutant(t, 1);
+               //nextThoughts.add(mutant);
+               //nextPopSize += 2
+               nextPopSize += 1;
             }
          }
 

@@ -83,20 +83,20 @@
   - mutations shall be tagged as seedThought==false
   - crossovers shall be tagged as seedThought==false
   
+
+  
+##########################################################
+# WIP
+##########################################################
+
 * implement train() and get survivng results.
   - Kick in evolution to discard bad thoughts.
   - preserve seed thoughts.
   - good thoughts live on
   - good thoughts have children
   - good thoughts produce mutants
-  
-##########################################################
-# WIP
-##########################################################
 
-
-
-* show evulation works?
+* generate training reports
 
 * have weaker thoughts mutate more, and show this aids evolution?
 
