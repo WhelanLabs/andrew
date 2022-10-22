@@ -167,10 +167,12 @@ public class App {
       List<ThoughtScore> scores = null;
       Crossover simpleCrossover = new SimpleCrossover();
 
+      scores = new ArrayList<>();
+      
       // repeat
       Integer i = 0;
       do {
-         scores = new ArrayList<>();
+         
          
          logger.info("generation " + i + " thoughts: " + currentThoughts);
          Map<String, Object> iterationParameters = goal.setTrainingParameters(trainingParameters);
@@ -242,20 +244,23 @@ public class App {
             }
             List<String> values = rankings.get(score);
             for (String value : values) {
-               if (nextPopSize >= trainingCriteria.getMaxPopulation()) {
-                  break;
+               if(currentThoughts.containsKey(value)) {
+                  if (nextPopSize >= trainingCriteria.getMaxPopulation()) {
+                     break;
+                  }
+                  Thought currentThought = currentThoughts.get(value);
+                  // add the smart thought
+                  nextThoughts.add(currentThought);
+                  // add a smart offspring
+                  Thought randomSpouse = getRandom(currentThoughts.values());
+                  Thought child = simpleCrossover.crossover(currentThought, randomSpouse);
+                  nextThoughts.add(child);
+                  // generate mutants
+                  Thought mutant = mutator.createMutant(currentThought, 1);
+                  nextThoughts.add(mutant);
+                  nextPopSize += 3;
                }
-               Thought currentThought = currentThoughts.get(value);
-               // add the smart thought
-               nextThoughts.add(currentThought);
-               // add a smart offspring
-               Thought randomSpouse = getRandom(currentThoughts.values());
-               Thought child = simpleCrossover.crossover(currentThought, randomSpouse);
-               nextThoughts.add(child);
-               // generate mutants
-               Thought mutant = mutator.createMutant(currentThought, 1);
-               nextThoughts.add(mutant);
-               nextPopSize += 3;
+
             }
          }
 
@@ -273,7 +278,7 @@ public class App {
 
    }
 
-   private static Float calculateAverage(List<Float> scores) {
+   public static Float calculateAverage(List<Float> scores) {
       Float sum = 0f;
       if (!scores.isEmpty()) {
          for (Float score : scores) {

@@ -90,6 +90,7 @@ public class AppTest {
       long startTime = System.currentTimeMillis();
       
       // load the test data
+      CSVLoader stockLoader = new CSVLoader();
       List<File> files = new ArrayList<>();
       List<String> tickers = new ArrayList<>();
       String baseDir = "../fetchers/stock_data_fetcher/data/";
@@ -104,7 +105,6 @@ public class AppTest {
             logger.debug("adding ticker " + ticker + "(" + baseFileName + ")");
          }
       }
-      CSVLoader stockLoader = new CSVLoader();
       stockLoader.loadStocks(files);
       
       // load the seed thought
@@ -128,7 +128,7 @@ public class AppTest {
       goal.setProperty("targetRel", "stockOnDate");
       goal.setProperty("otherSidePrefix", "stockSymbol/");
       
-      Integer maturationAge = 2;
+      Integer maturationAge = 3;
       Integer maxPopulation = 10;
       Integer numGenerations = 12;  //2
       Integer questsPerGeneration = 2;  //2
@@ -146,6 +146,85 @@ public class AppTest {
       logger.info("train_happyPath_results.scores = " + scores);
       
       assert (scores.size() > 10) : scores.size();
+   }
+   
+   @Test
+   public void calculateAverage_empty_zero() throws Exception { 
+      List<Float> scores = new ArrayList<>();
+      Float result = App.calculateAverage(scores);
+      assert (result == 0f) : result;
+   }
+   
+   @Test(expected = AssertionError.class)
+   public void getRandom_empty_zero() throws Exception { 
+      List<Float> scores = new ArrayList<>();
+      App.getRandom(scores);
+   }
+   
+   @Test
+   public void train_dupScores_mergedScores() throws Exception {
+      long startTime = System.currentTimeMillis();
+      
+      // load the test data
+      CSVLoader stockLoader = new CSVLoader();
+      List<File> files = new ArrayList<>();
+      List<String> tickers = new ArrayList<>();
+      String baseDir = "../fetchers/stock_data_fetcher/data/";
+      File f = new File(baseDir);
+      String[] baseFileNames = f.list();
+      for (String baseFileName : baseFileNames) {
+         if(baseFileName.startsWith("AAPL_") || baseFileName.startsWith("AIG_") || baseFileName.startsWith("AMAT_")) {
+            String filePath = baseDir + baseFileName;
+            String ticker = baseFileName.substring(0, baseFileName.indexOf("_")-1);
+            tickers.add(ticker);
+            files.add(new File(filePath));
+            logger.debug("adding ticker " + ticker + "(" + baseFileName + ")");
+         }
+      }
+      stockLoader.loadStocks(files);
+      
+      // load the seed thought
+      String filePath = "./src/main/resources/initial_thoughts/linear_growth/linear_growth_thought.json";
+      String content = new String(Files.readAllBytes(Paths.get(filePath)));
+      Thought rootThought = App.loadThoughtFromJson("linear_growth_thought", content);
+      Goal goal = rootThought.getGoal();
+      
+      // clone the seed thought
+      rootThought.clone();
+      
+      
+      LocalDate startDate = LocalDate.parse("1990-01-01");
+      LocalDate endDate = LocalDate.parse("2020-01-01");
+
+      Map<String, List<Object>> trainingParameters = new HashMap<>();
+      List<Object> symbolValues = new ArrayList<>();
+      symbolValues.add("AIG");
+      symbolValues.add("AAPL");
+      symbolValues.add("AMAT");
+      trainingParameters.put("symbol", symbolValues);
+
+      goal.setProperty("targetDistance", 20);
+      goal.setProperty("targetRel", "stockOnDate");
+      goal.setProperty("otherSidePrefix", "stockSymbol/");
+      
+      Integer maturationAge = 1;
+      Integer maxPopulation = 3;
+      Integer numGenerations = 4;  //2
+      Integer questsPerGeneration = 1;  //2
+
+      TrainingCriteria trainingCriteria = new TrainingCriteria(numGenerations, questsPerGeneration, startDate, endDate, maturationAge, maxPopulation);
+      
+      List<ThoughtScore> scores = App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
+
+      // compare the thoughts for times in the future
+      
+      long endTime = System.currentTimeMillis();
+      long duration = (endTime - startTime)/1000;
+      logger.info("train_happyPath_results.duration = " + duration + " seconds");
+
+      logger.info("train_happyPath_results.scores = " + scores);
+      
+      assert (scores.size() > 10) : scores;
       // fail("more to do...");
    }
 }
