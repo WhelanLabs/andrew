@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
+import com.whelanlabs.andrew.process.Report;
 import com.whelanlabs.andrew.process.ThoughtScore;
 import com.whelanlabs.kgraph.engine.Node;
 

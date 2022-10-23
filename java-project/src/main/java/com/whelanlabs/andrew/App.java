@@ -26,6 +26,7 @@ import com.whelanlabs.andrew.dataset.DateUtils;
 import com.whelanlabs.andrew.process.Evaluation;
 import com.whelanlabs.andrew.process.Evaluator;
 import com.whelanlabs.andrew.process.ProcessUtils;
+import com.whelanlabs.andrew.process.Report;
 import com.whelanlabs.andrew.process.AveragePercentageScoringMachine;
 import com.whelanlabs.andrew.process.ScoringMachine;
 import com.whelanlabs.andrew.process.ThoughtScore;
@@ -163,16 +164,6 @@ public class App {
    public static List<ThoughtScore> train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters,
          TrainingCriteria trainingCriteria) throws Exception {
 
-      // File file = File.createTempFile("andrew_training_report_", ".txt");
-      String path = "./target/report/";
-      Files.createDirectories(Paths.get(path));
-      File dir = new File(path);
-      File file = new File(dir, "Andrew_training_report_" + System.currentTimeMillis() + ".txt");
-      FileWriter reportWriter = new FileWriter(file);
-      reportWriter.write("Andrew Training Report\n");
-      reportWriter.write("----------------------\n");
-      List<Float> dataList = new ArrayList<>();
-      
       Map<String, Thought> currentThoughts = new HashMap<>();
       List<Thought> goalThoughts = goal.getThoughts();
       for (Thought goalThought : goalThoughts) {
@@ -186,13 +177,13 @@ public class App {
       // repeat
       Integer currentGen = 0;
       do {
-         
+
          Map<String, Object> iterationParameters = goal.setTrainingParameters(trainingParameters);
 
          currentGen++;
 
-         logger.debug("train: processing generation " + currentGen);
-         
+         logger.info("processing generation " + currentGen);
+
          logger.debug("currentThoughts.size() = " + currentThoughts.size());
 
          // loop through a set of test cases
@@ -282,30 +273,18 @@ public class App {
          for (Thought nextThought : nextThoughts) {
             nextThoughtsMap.put(nextThought.getKey(), nextThought);
          }
-         
+
          // report results from the current generation
          Float averageGenScore = getGenerationAverage(currentThoughts, scores);
-         reportWriter.write("generation " + currentGen + " average score: \t" + averageGenScore + "\n");
-         dataList.add(averageGenScore);
-         
+         Report.registerAverageGenScore(currentGen, averageGenScore);
+
          currentThoughts = nextThoughtsMap;
 
          // until things don't get better (end of repeat-until)
       } while (currentGen < trainingCriteria.getNumGenerations());
 
-      // see: https://stackoverflow.com/a/67370754/2418261
-      SimpleRegression regression = new SimpleRegression();
-      int dataListSize = dataList.size();
-      double dataArray[][] = new double[dataListSize][2];
-      for(int k = 0; k <dataListSize; k++) {
-         dataArray[k][0] = k;
-         dataArray[k][1] = dataList.get(k);
-      }
-      regression.addData(dataArray);
-      regression.regress();
-      reportWriter.write("\n" + "overall slope = " + regression.getSlope());
-      reportWriter.close();
-      
+
+
       return scores;
    }
 
@@ -313,16 +292,26 @@ public class App {
       Set<String> currentThoughtIDs = currentThoughts.keySet();
       int size = 0;
       float sum = 0f;
-      for(ThoughtScore score : scores) {
+      for (ThoughtScore score : scores) {
          String thoughtKey = score.getThoughtKey();
-         if(currentThoughtIDs.contains(thoughtKey)) {
+         if (currentThoughtIDs.contains(thoughtKey)) {
             sum += score.getThoughtScore();
             size++;
          }
       }
-      return sum/size;
+      return sum / size;
    }
+   
 
+   public static <T> T getRandom(Collection<T> coll) {
+      int num = (int) (Math.random() * coll.size());
+      for (T t : coll)
+         if (--num < 0)
+            return t;
+      throw new AssertionError();
+   }
+   
+   
    public static Float calculateAverage(List<Float> scores) {
       Float sum = 0f;
       if (!scores.isEmpty()) {
@@ -332,13 +321,5 @@ public class App {
          return sum / scores.size();
       }
       return sum;
-   }
-
-   public static <T> T getRandom(Collection<T> coll) {
-      int num = (int) (Math.random() * coll.size());
-      for (T t : coll)
-         if (--num < 0)
-            return t;
-      throw new AssertionError();
    }
 }

@@ -58,7 +58,9 @@ public class Evaluator {
 
       String otherSidePrefix = (String) _goal.getAttribute("otherSidePrefix");
 
-      for (int i = 0; i < numTests; i++) {
+      for (Integer i = 1; i <= numTests; i++) {
+         logger.info("starting quest #" + i);
+
          Long randomTime = random.nextLong(maxTime - minTime) + minTime;
          Number forecastResult = null;
 

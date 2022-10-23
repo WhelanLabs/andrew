@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.CSVLoader;
+import com.whelanlabs.andrew.process.Report;
 import com.whelanlabs.andrew.process.ThoughtScore;
 
 public class ExampleTests {
@@ -88,10 +89,10 @@ public class ExampleTests {
       goal.setProperty("targetRel", "stockOnDate");
       goal.setProperty("otherSidePrefix", "stockSymbol/");
       
-      Integer maturationAge = 5;
+      Integer maturationAge = 2;
       Integer maxPopulation = 10;
-      Integer numGenerations = 20;  //2
-      Integer questsPerGeneration = 3;  //2
+      Integer numGenerations = 10;  //2
+      Integer questsPerGeneration = 6;  //2
 
       TrainingCriteria trainingCriteria = new TrainingCriteria(numGenerations, questsPerGeneration, startDate, endDate, maturationAge, maxPopulation);
       
@@ -104,6 +105,8 @@ public class ExampleTests {
       logger.info("train_happyPath_results.duration = " + duration + " seconds");
 
       logger.info("train_happyPath_results.scores = " + scores);
+      
+      Report.print();
       
       assert (scores.size() > 10) : scores.size();
       // fail("more to do...");
