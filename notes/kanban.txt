@@ -100,30 +100,34 @@
 * have report compare seed thought scores to descendant thoughts.
   (descendants should be better with time.)
 
-* Have trend be positive
-  - have older thoughts leverage past greatness for culling score?
-
-
-
-
 
 ##########################################################
 # backlog
 ##########################################################
 
-* have weaker thoughts mutate more, and show this aids evolution?
-
 * fix TPS defect.
   see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
-  
-* change the n^2 loops in Evaluator.evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
-  Also adjust the logging to differentiate threads.
-  
-* change loop in App.train() to be parallel threads with a thread pool.
+
+* clean up code and javadoc
+
+* write Andrew Paper
+
+* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
+  Have a graphical tool for generating thoughts that can be automatically
+  translated into JSON for input into Andrew.
+  - https://www.yworks.com/products/yed ?
+  - https://www.graphity.com/ ?
+
+* make it run faster
+  - change the n^2 loops in Evaluator.evaluateThoughts2 to be parallel threads with a thread pool. (Fast!)
+  - Also adjust the logging to differentiate threads.
+  - change loop in App.train() to be parallel threads with a thread pool.
   
 * profile and possibly improve memory usage.
   see: arangodb_warnings.txt
   then delete that file after the problem is solved.
+  
+* have weaker thoughts mutate more, and show this aids evolution?
   
 * replace getGoalNode() calls with usage of getGoal() plus Goal.getNode(), and then remove getGoalNode().
 
@@ -141,26 +145,7 @@
 * name crossovers based on parents - ex: [PID]_[PPID])
   - note: see SimpleCrossover.crossover()
 
-* Operation.getAttribute(...)
-
-* "mutation_range" : "FLOAT:any"
-
-* "mutation_range" : "Integer:<0"
-
-* "mutation_range" : "Integer:>0"
-
-* "mutation_range" : "Integer:any"
-
-* support "mutation_range" for property names of given type?
-
-
 * build seed thought - VIX influences future stock price ("other symbol influence")
-
-* thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
-  Have a graphical tool for generating thoughts that can be automatically
-  translated into JSON for input into Andrew.
-  - https://www.yworks.com/products/yed ?
-  - https://www.graphity.com/ ?
 
 * build seed thought - Buffett Indicator detirmines future stock price
 
