@@ -97,6 +97,8 @@
 # WIP
 ##########################################################
 
+* have report compare seed thought scores to descendant thoughts.
+  (descendants should be better with time.)
 
 * Have trend be positive
   - have older thoughts leverage past greatness for culling score?

@@ -1,7 +1,5 @@
 package com.whelanlabs.andrew;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +23,7 @@ import com.whelanlabs.andrew.process.ThoughtScore;
 public class ExampleTests {
 
    private static Logger logger = LogManager.getLogger(ExampleTests.class);
-   private static Level defaultLevel = null;
+   private static Level defaultLevel;
    
    @BeforeClass
    public static void setUpBeforeClass() throws Exception {
@@ -44,6 +42,7 @@ public class ExampleTests {
    public static void tearDownAfterClass() throws Exception {
       App.getDataGraph().cleanup();
       App.getGardenGraph().cleanup();
+      LogManager.getRootLogger().atLevel(defaultLevel);
    }
 
    @Test
@@ -104,8 +103,9 @@ public class ExampleTests {
       long duration = (endTime - startTime)/1000;
       logger.info("train_happyPath_results.duration = " + duration + " seconds");
 
-      logger.info("train_happyPath_results.scores = " + scores);
+      // logger.info("train_happyPath_results.scores = " + scores);
       
+      Report.setElapsedSeconds(duration);
       Report.print();
       
       assert (scores.size() > 10) : scores.size();

@@ -1,10 +1,5 @@
 package com.whelanlabs.andrew;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,21 +8,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
-import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 
 import com.whelanlabs.andrew.dataset.Dataset;
-import com.whelanlabs.andrew.dataset.DateUtils;
+import com.whelanlabs.andrew.process.AveragePercentageScoringMachine;
 import com.whelanlabs.andrew.process.Evaluation;
 import com.whelanlabs.andrew.process.Evaluator;
 import com.whelanlabs.andrew.process.ProcessUtils;
 import com.whelanlabs.andrew.process.Report;
-import com.whelanlabs.andrew.process.AveragePercentageScoringMachine;
 import com.whelanlabs.andrew.process.ScoringMachine;
 import com.whelanlabs.andrew.process.ThoughtScore;
 import com.whelanlabs.kgraph.engine.Edge;
@@ -192,7 +184,8 @@ public class App {
          logger.debug("evualationResults = " + evualationResults);
 
          // sum the score for each thought
-         scores.addAll(scoringMachine.scoreAndRank(evualationResults));
+         List<ThoughtScore> newScores = scoringMachine.scoreAndRank(evualationResults);
+         scores.addAll(newScores);
 
          logger.debug("scores = " + scores);
          // cull the herd of thought/goal when limited for resources.
@@ -276,7 +269,7 @@ public class App {
 
          // report results from the current generation
          Float averageGenScore = getGenerationAverage(currentThoughts, scores);
-         Report.registerAverageGenScore(currentGen, averageGenScore);
+         Report.registerGeneration(averageGenScore, currentThoughts, newScores);
 
          currentThoughts = nextThoughtsMap;
 

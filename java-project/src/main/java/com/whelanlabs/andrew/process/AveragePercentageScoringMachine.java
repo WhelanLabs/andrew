@@ -31,7 +31,8 @@ public class AveragePercentageScoringMachine implements ScoringMachine {
             Number actualNum = ((Number) evualationResult.getActual());
             Float actual = null;
             actual = actualNum.floatValue();
-            score = Math.min(guess, actual) / Math.max(guess, actual);
+            // see also: https://www.calculatorsoup.com/calculators/algebra/percent-error-calculator.php
+            score = 1 - (Math.abs(guess-actual) / Math.abs(actual));
 
          }
          if (runningTotals.containsKey(thoughtKey)) {
