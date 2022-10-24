@@ -115,12 +115,15 @@
   - strip dead code
   - add smart javadoc where needed
   - add smart comments where needed
+  - cleanup readme and other text files
+  - clean up kanban
   
 
 * write Andrew Paper
 
 * set up pro site
   - convert to new namespace
+  - sanitize the code
   - convert to new Git Repo
   - check for old namespace references and address
   - use new email address
@@ -216,29 +219,9 @@
   
 * speed up unit tests by reducing the number of flushes necessary.
 
-* add README content: * genetic algorithm:
-
-* add README content for "the garden"
-
-* add README content: * time-series:
-
-* add README content: * forecasting:
-
-* add README content: * graph processing:
-
-* add README content: ## Motivations
-
-* add README content: ### Under-Researched Areas
-
-* add README content: ### Interactive Capable
-
 * README content for composition of genetic solution solutions from genetic solutions.
 
-* create a median merge from a set of neighbor averaging nodes (mutation)
-
-* create a 'change node type' argument mutation
-
-* create a 'change edge type' argument mutation
+* enhance mutation point indicators - allow code to know ehere and to what extent mutations can be applied.
 
 * sanitize - whelanlabs -> new name. strip: "john", "whelan", other?
   - use name blackwalnutsoftware?
