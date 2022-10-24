@@ -98,7 +98,8 @@
 ##########################################################
 
 * have report compare seed thought scores to descendant thoughts.
-  (descendants should be better with time.)
+  Descendants should be better with time. show the slope of:
+  average(descendants.score)- average(seeds.score)
 
 
 ##########################################################
@@ -108,9 +109,23 @@
 * fix TPS defect.
   see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
 
+* update readme to mention preference for bare metal arango over docker container.
+
 * clean up code and javadoc
+  - strip dead code
+  - add smart javadoc where needed
+  - add smart comments where needed
+  
 
 * write Andrew Paper
+
+* set up pro site
+  - convert to new namespace
+  - convert to new Git Repo
+  - check for old namespace references and address
+  - use new email address
+
+* publish paper
 
 * thought modeling: diagram -> test file (json? XML? SysML?) -> kgraph
   Have a graphical tool for generating thoughts that can be automatically
