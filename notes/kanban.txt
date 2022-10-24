@@ -179,7 +179,8 @@
   - VIX causes push up or down
   - Buffett Indicator (wilshire 5000/US GDP X 100) causes push up or down
   - US GDP grows at 8%
-  Show evolution of solution accuracy.
+  
+* Show evolution of solution accuracy.
   - play with future distances
   - play with sum of fear and greed
   - play with Buffett Indicator
@@ -221,7 +222,10 @@
 
 * README content for composition of genetic solution solutions from genetic solutions.
 
-* enhance mutation point indicators - allow code to know ehere and to what extent mutations can be applied.
+* enhance mutation point indicators in edges - allow code to know ehere and to what extent mutations can be applied.
+
+* have evolution play a role in scoring machines
+  - example: can ((2)X(1 mouth forcast)) be better than ((1)X(2 mouth forcast))?
 
 * sanitize - whelanlabs -> new name. strip: "john", "whelan", other?
   - use name blackwalnutsoftware?
