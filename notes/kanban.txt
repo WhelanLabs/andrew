@@ -228,8 +228,11 @@
   - example: can ((2)X(1 mouth forcast)) be better than ((1)X(2 mouth forcast))?
 
 * sanitize - whelanlabs -> new name. strip: "john", "whelan", other?
-  - use name blackwalnutsoftware?
+  - use name blackwalnutsoftware.com?
   - use name thinker-garden.com?
+  - use name thinkerfarms.com?
+  - use name thoughttinker.com?
+  - use name thoughsoup.com?
 
 
   
