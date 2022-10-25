@@ -92,15 +92,21 @@
   
 * generate training report
 
+* have report compare seed thought scores to descendant thoughts.
+  Descendants should be better with time. show the slope of:
+  average(non-seeds.score)- average(seeds.score)
 
 ##########################################################
 # WIP
 ##########################################################
 
-* have report compare seed thought scores to descendant thoughts.
-  Descendants should be better with time. show the slope of:
-  average(descendants.score)- average(seeds.score)
+* replace startDate & endDate in App.train() with trainingParameters values
 
+* Add to report:
+  - guess
+  - actual
+  - trainingCriteria (one per report)
+  - trainingParameters (chosen values per generation)
 
 ##########################################################
 # backlog

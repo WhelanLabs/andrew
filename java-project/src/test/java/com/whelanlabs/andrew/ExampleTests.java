@@ -84,7 +84,7 @@ public class ExampleTests {
       symbolValues.add("AMAT");
       trainingParameters.put("symbol", symbolValues);
 
-      goal.setProperty("targetDistance", 20);
+      goal.setProperty("targetDistance", 182);  // ~six months & divisible by 7
       goal.setProperty("targetRel", "stockOnDate");
       goal.setProperty("otherSidePrefix", "stockSymbol/");
       
