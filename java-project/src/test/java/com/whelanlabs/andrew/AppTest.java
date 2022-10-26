@@ -117,12 +117,14 @@ public class AppTest {
       LocalDate startDate = LocalDate.parse("1990-01-01");
       LocalDate endDate = LocalDate.parse("2020-01-01");
 
-      Map<String, List<Object>> trainingParameters = new HashMap<>();
+      Map<String, List<Object>> trainingParametersMap = new HashMap<>();
       List<Object> symbolValues = new ArrayList<>();
       symbolValues.add("AIG");
       symbolValues.add("AAPL");
       symbolValues.add("AMAT");
-      trainingParameters.put("symbol", symbolValues);
+      trainingParametersMap.put("symbol", symbolValues);
+      TrainingParameters trainingParameters = new TrainingParameters(trainingParametersMap);
+
 
       goal.setProperty("targetDistance", 20);
       goal.setProperty("targetRel", "stockOnDate");
@@ -135,7 +137,7 @@ public class AppTest {
 
       TrainingCriteria trainingCriteria = new TrainingCriteria(numGenerations, questsPerGeneration, startDate, endDate, maturationAge, maxPopulation);
       
-      List<ThoughtScore> scores = App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
+      List<ThoughtScore> scores = App.train(goal, trainingParameters, trainingCriteria);
 
       // compare the thoughts for times in the future
       
@@ -196,12 +198,14 @@ public class AppTest {
       LocalDate startDate = LocalDate.parse("1990-01-01");
       LocalDate endDate = LocalDate.parse("2020-01-01");
 
-      Map<String, List<Object>> trainingParameters = new HashMap<>();
+      Map<String, List<Object>> trainingParametersMap = new HashMap<>();
       List<Object> symbolValues = new ArrayList<>();
       symbolValues.add("AIG");
       symbolValues.add("AAPL");
       symbolValues.add("AMAT");
-      trainingParameters.put("symbol", symbolValues);
+      trainingParametersMap.put("symbol", symbolValues);
+      TrainingParameters trainingParameters = new TrainingParameters(trainingParametersMap);
+
 
       goal.setProperty("targetDistance", 20);
       goal.setProperty("targetRel", "stockOnDate");
@@ -214,7 +218,7 @@ public class AppTest {
 
       TrainingCriteria trainingCriteria = new TrainingCriteria(numGenerations, questsPerGeneration, startDate, endDate, maturationAge, maxPopulation);
       
-      List<ThoughtScore> scores = App.train(goal, startDate, endDate, trainingParameters, trainingCriteria);
+      List<ThoughtScore> scores = App.train(goal, trainingParameters, trainingCriteria);
 
       // compare the thoughts for times in the future
       

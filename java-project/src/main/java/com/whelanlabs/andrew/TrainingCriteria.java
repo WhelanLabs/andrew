@@ -4,6 +4,12 @@ import java.time.LocalDate;
 
 import com.whelanlabs.andrew.dataset.DateUtils;
 
+/**
+ * The Class TrainingCriteria.
+ * <P>
+ * Training criteria specifies specific values that are to be used in
+ * the training of thoughts for a given goal.
+ */
 public class TrainingCriteria {
 
    private static DateUtils dateUtils = new DateUtils();

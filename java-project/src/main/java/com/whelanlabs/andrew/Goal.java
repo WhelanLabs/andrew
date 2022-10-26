@@ -1,7 +1,6 @@
 package com.whelanlabs.andrew;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +33,11 @@ public class Goal {
       return results;
    }
 
-   public Map<String, Object> setTrainingParameters(Map<String, List<Object>> trainingParameters) {
+   public Map<String, Object> setTrainingParameters(TrainingParameters trainingParameters) {
       Map<String, Object> workingMemory = new HashMap<>();
-      for(String key : trainingParameters.keySet() ) {
-         List<Object> values = trainingParameters.get(key);
-         Collections.shuffle(values);
-         workingMemory.put("GOAL." + key, values.get(0));
+      for(String key : trainingParameters.getGoalAttributes() ) {
+         Object value = trainingParameters.getRandomValue(key);
+         workingMemory.put("GOAL." + key, value);
       }
       return workingMemory;
    }

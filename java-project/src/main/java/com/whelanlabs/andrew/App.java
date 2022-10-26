@@ -1,6 +1,5 @@
 package com.whelanlabs.andrew;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -153,7 +152,7 @@ public class App {
       return result;
    }
 
-   public static List<ThoughtScore> train(Goal goal, LocalDate startDate, LocalDate endDate, Map<String, List<Object>> trainingParameters,
+   public static List<ThoughtScore> train(Goal goal, TrainingParameters trainingParameters,
          TrainingCriteria trainingCriteria) throws Exception {
 
       Map<String, Thought> currentThoughts = new HashMap<>();

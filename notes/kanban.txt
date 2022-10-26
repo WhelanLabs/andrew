@@ -96,11 +96,13 @@
   Descendants should be better with time. show the slope of:
   average(non-seeds.score)- average(seeds.score)
 
+* replace startDate & endDate in App.train() with trainingParameters values
+
+
 ##########################################################
 # WIP
 ##########################################################
 
-* replace startDate & endDate in App.train() with trainingParameters values
 
 * Add to report:
   - guess

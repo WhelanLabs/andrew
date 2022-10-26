@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.whelanlabs.andrew.process.Evaluation;
-
 public class AveragePercentageScoringMachine implements ScoringMachine {
 
    @Override
