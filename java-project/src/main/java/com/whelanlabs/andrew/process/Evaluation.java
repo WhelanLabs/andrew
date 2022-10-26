@@ -35,10 +35,10 @@ public class Evaluation {
    }
    
    public String toString(){
-      return "{ " + 
+      return "   { " + 
          "guess:\"" + getGuess() +
          "\", actual:\"" + getActual() +
-         "\", thought:\"" + getThought() +
-       "\"}";
+         "\", thoughtKey:\"" + getThought().getKey() +
+       "\"}\n";
      }
 }

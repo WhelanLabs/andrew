@@ -24,6 +24,7 @@ public class Report {
    private static List<Map<String, Thought>> _generationThoughtsList = new ArrayList<>();
    private static List<List<ThoughtScore>> _generationScoresList = new ArrayList<>();
    private static List<Float> _generationSeedMinusNonSeedScoreAverageList = new ArrayList<>();
+   private static List<List<Evaluation>> _generationEvualationResultsList = new ArrayList<>();
 
    
    private static Long _durationSeconds = null;
@@ -64,7 +65,9 @@ public class Report {
 
       for (int i = 0; i < _generationScoresList.size(); i++) {
          Integer genNum = i + 1;
-         reportWriter.write("\n" + "details for generation " + genNum + ": \n" + _generationScoresList.get(i) + "\n");
+         reportWriter.write("\n" + "details for generation " + genNum + ": \n" +"   scores : " +  _generationScoresList.get(i) + "\n");
+         reportWriter.write("\n" + "   evaluation_results : " +  _generationEvualationResultsList.get(i) + "\n");
+
       }
 
       reportWriter.close();
@@ -85,11 +88,13 @@ public class Report {
       return overallSlope;
    }
 
-   public static void registerGeneration(Float averageGenScore, Map<String, Thought> genThoughts, List<ThoughtScore> genScores) {
+   public static void registerGeneration(Float averageGenScore, Map<String, Thought> genThoughts, List<ThoughtScore> genScores, List<Evaluation> evualationResults) {
       _generationAverageScoreList.add(averageGenScore);
       _generationThoughtsList.add(genThoughts);
       _generationScoresList.add(genScores);
+      _generationEvualationResultsList.add(evualationResults);
 
+      
       Collection<Thought> allThoughts = genThoughts.values();
       Set<String> seedThoughtKeys = new HashSet<>();
       Set<String> nonseedThoughtKeys = new HashSet<>();
@@ -104,9 +109,6 @@ public class Report {
             seedThoughtKeys.add(t.getKey());
          }
       }
-      logger.info("generation : " + _generationAverageScoreList.size());
-      logger.info("   seedThoughtKeys = " + seedThoughtKeys);
-      logger.info("   nonseedThoughtKeys = " + nonseedThoughtKeys);
       
       for(ThoughtScore score : genScores) {
          if(nonseedThoughtKeys.contains(score.getThoughtKey())) {

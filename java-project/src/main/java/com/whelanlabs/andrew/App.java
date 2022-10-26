@@ -198,10 +198,6 @@ public class App {
          for (Thought t : currentThoughts.values()) {
             if (true == (Boolean) t.getThoughtNode().getAttribute("seedThought")) {
                nextThoughts.add(t);
-               // generate mutant
-               // Thought mutant = mutator.createMutant(t, 1);
-               // nextThoughts.add(mutant);
-               // nextPopSize += 2
                nextPopSize += 1;
             }
          }
@@ -268,7 +264,7 @@ public class App {
 
          // report results from the current generation
          Float averageGenScore = getGenerationAverage(currentThoughts, scores);
-         Report.registerGeneration(averageGenScore, currentThoughts, newScores);
+         Report.registerGeneration(averageGenScore, currentThoughts, newScores, evualationResults);
 
          currentThoughts = nextThoughtsMap;
 

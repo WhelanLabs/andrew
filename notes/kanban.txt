@@ -103,10 +103,9 @@
 # WIP
 ##########################################################
 
-
-* Add to report:
-  - guess
-  - actual
+* augment report:
+  + guess
+  + actual
   - trainingCriteria (one per report)
   - trainingParameters (chosen values per generation)
 
@@ -114,7 +113,7 @@
 # backlog
 ##########################################################
 
-* fix TPS defect.
+* fix TPS defect. (note: temp fix of dep override in POM is in place)
   see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
 
 * update readme to mention preference for bare metal arango over docker container.
