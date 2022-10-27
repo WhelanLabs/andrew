@@ -26,8 +26,8 @@ public class Report {
    private static List<List<ThoughtScore>> _generationScoresList = new ArrayList<>();
    private static List<Float> _generationSeedMinusNonSeedScoreAverageList = new ArrayList<>();
    private static List<List<Evaluation>> _generationEvualationResultsList = new ArrayList<>();
+   private static List<Map<String, Object>> _generationIterationParametersList  = new ArrayList<>();
 
-   
    private static Long _durationSeconds = null;
 
    private static Logger logger = LogManager.getLogger(Report.class);
@@ -50,9 +50,7 @@ public class Report {
       reportWriter.write("training criteria : " + _trainingCriteria + "\n\n");
 
       reportWriter.write("processing time : " + _durationSeconds + " seconds" + "\n\n");
-      
-      
-      
+
       Integer numGens = _generationAverageScoreList.size();
       for (int i = 0; i < numGens; i++) {
          Integer genNumber = i + 1;
@@ -65,13 +63,15 @@ public class Report {
 
       double evolutionSlope = getSlope(_generationSeedMinusNonSeedScoreAverageList);
       reportWriter.write("\n" + "evolution slope = " + evolutionSlope + "\n");
-      
+
       reportWriter.write("\n" + "-------------------------------------------" + "\n");
 
       for (int i = 0; i < _generationScoresList.size(); i++) {
          Integer genNum = i + 1;
-         reportWriter.write("\n" + "details for generation " + genNum + ": \n" +"   scores : " +  _generationScoresList.get(i) + "\n");
-         reportWriter.write("\n" + "   evaluation_results : " +  _generationEvualationResultsList.get(i) + "\n");
+         reportWriter.write("\n" + "details for generation " + genNum + ": \n" + "   scores : " + _generationScoresList.get(i) + "\n");
+         reportWriter.write("\n" + "   evaluation_results : " + _generationEvualationResultsList.get(i) + "\n");
+         //iterationParameters
+         reportWriter.write("\n" + "   iteration_parameters : " + _generationIterationParametersList.get(i) + "\n");
 
       }
 
@@ -93,13 +93,14 @@ public class Report {
       return overallSlope;
    }
 
-   public static void registerGeneration(Float averageGenScore, Map<String, Thought> genThoughts, List<ThoughtScore> genScores, List<Evaluation> evualationResults) {
+   public static void registerGeneration(Float averageGenScore, Map<String, Thought> genThoughts, List<ThoughtScore> genScores,
+         List<Evaluation> evualationResults, Map<String, Object> iterationParameters) {
       _generationAverageScoreList.add(averageGenScore);
       _generationThoughtsList.add(genThoughts);
       _generationScoresList.add(genScores);
       _generationEvualationResultsList.add(evualationResults);
+      _generationIterationParametersList.add(iterationParameters);
 
-      
       Collection<Thought> allThoughts = genThoughts.values();
       Set<String> seedThoughtKeys = new HashSet<>();
       Set<String> nonseedThoughtKeys = new HashSet<>();
@@ -114,19 +115,18 @@ public class Report {
             seedThoughtKeys.add(t.getKey());
          }
       }
-      
-      for(ThoughtScore score : genScores) {
-         if(nonseedThoughtKeys.contains(score.getThoughtKey())) {
+
+      for (ThoughtScore score : genScores) {
+         if (nonseedThoughtKeys.contains(score.getThoughtKey())) {
             nonSeedScores.add(score.getThoughtScore());
-         }
-         else {
+         } else {
             seedScores.add(score.getThoughtScore());
          }
       }
-      
+
       Float seedAverageScore = App.calculateAverage(seedScores);
       Float nonSeedAverageScore = App.calculateAverage(nonSeedScores);
-      
+
       _generationSeedMinusNonSeedScoreAverageList.add(seedAverageScore - nonSeedAverageScore);
    }
 
@@ -136,7 +136,7 @@ public class Report {
 
    public static void setTrainingCriteria(TrainingCriteria trainingCriteria) {
       // TODO Auto-generated method stub
-      _trainingCriteria  = trainingCriteria;
+      _trainingCriteria = trainingCriteria;
    }
 
    public static void clear() {
@@ -150,7 +150,7 @@ public class Report {
    }
 
    public static void setName(String name) {
-      _name  = name;
+      _name = name;
    }
 
 }

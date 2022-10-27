@@ -39,14 +39,7 @@ public class Evaluation {
          "guess\" : " + getGuess() +
          "\", actual\" : " + getActual() +
          "\", thoughtKey\" : " + getThought().getKey() +
-         "\" ";
-      for ( String memoryKey : _workingMemory.keySet()) {
-         if(memoryKey.startsWith("GOAL.")) {
-            result += ", \"" + memoryKey + "\" : \"" + _workingMemory.get(memoryKey) + "\" ";
-         }
-      }
-         
-      result +=  "}\n";
+         "\" }\n";
       return result;
      }
 }

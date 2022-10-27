@@ -265,7 +265,7 @@ public class App {
 
          // report results from the current generation
          Float averageGenScore = getGenerationAverage(currentThoughts, scores);
-         Report.registerGeneration(averageGenScore, currentThoughts, newScores, evualationResults);
+         Report.registerGeneration(averageGenScore, currentThoughts, newScores, evualationResults, iterationParameters);
 
          currentThoughts = nextThoughtsMap;
 

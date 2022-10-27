@@ -61,6 +61,6 @@ public class TrainingCriteria {
             "   \"startDateLong\" : " + getStartDateLong() +", \n" +
             "   \"endDateLong\" : " + getEndDateLong() +", \n" +
             "   \"maturationAge\" : " + getMaturationAge() +", \n" +
-            "   \"maxPopulation\" : " + getMaxPopulation() +", \n" ;
+            "   \"maxPopulation\" : " + getMaxPopulation() +" \n" ;
    }
 }
