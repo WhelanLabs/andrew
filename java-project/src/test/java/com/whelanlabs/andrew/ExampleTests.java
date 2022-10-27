@@ -48,6 +48,8 @@ public class ExampleTests {
    @Test
    public void train_happyPath_results() throws Exception {
       long startTime = System.currentTimeMillis();
+      Report.clear();
+      Report.setName("train_happyPath_results");
       
       // load the test data
       List<File> files = new ArrayList<>();

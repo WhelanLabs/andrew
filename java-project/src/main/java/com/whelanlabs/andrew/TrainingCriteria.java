@@ -54,4 +54,13 @@ public class TrainingCriteria {
    public Integer getMaxPopulation() {
       return _maxPopulation;
    }
+   
+   public String toString() {
+      return "   \"numGenerations\" : " + getNumGenerations() +", \n" +
+            "   \"questsPerGeneration\" : " + getQuestsPerGeneration() +", \n" +
+            "   \"startDateLong\" : " + getStartDateLong() +", \n" +
+            "   \"endDateLong\" : " + getEndDateLong() +", \n" +
+            "   \"maturationAge\" : " + getMaturationAge() +", \n" +
+            "   \"maxPopulation\" : " + getMaxPopulation() +", \n" ;
+   }
 }

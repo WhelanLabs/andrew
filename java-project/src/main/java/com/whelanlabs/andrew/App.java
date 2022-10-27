@@ -155,6 +155,7 @@ public class App {
    public static List<ThoughtScore> train(Goal goal, TrainingParameters trainingParameters,
          TrainingCriteria trainingCriteria) throws Exception {
 
+      Report.setTrainingCriteria(trainingCriteria);
       Map<String, Thought> currentThoughts = new HashMap<>();
       List<Thought> goalThoughts = goal.getThoughts();
       for (Thought goalThought : goalThoughts) {

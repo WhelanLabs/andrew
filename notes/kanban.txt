@@ -106,7 +106,7 @@
 * augment report:
   + guess
   + actual
-  - trainingCriteria (one per report)
+  + trainingCriteria (one per report)
   - trainingParameters (chosen values per generation)
 
 ##########################################################

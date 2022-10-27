@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Thought;
+import com.whelanlabs.andrew.TrainingCriteria;
 
 public class Report {
 
@@ -30,6 +31,8 @@ public class Report {
    private static Long _durationSeconds = null;
 
    private static Logger logger = LogManager.getLogger(Report.class);
+   private static TrainingCriteria _trainingCriteria = null;
+   private static String _name = null;
 
    private Report() {
       // do nothing. Static global class.
@@ -40,11 +43,13 @@ public class Report {
       String path = "./target/report/";
       Files.createDirectories(Paths.get(path));
       File dir = new File(path);
-      File file = new File(dir, "Andrew_training_report_" + System.currentTimeMillis() + ".txt");
+      File file = new File(dir, "Andrew_training_report-" + _name + "-" + System.currentTimeMillis() + ".txt");
       FileWriter reportWriter = new FileWriter(file);
       reportWriter.write("Andrew Training Report" + "\n");
       reportWriter.write("----------------------" + "\n");
-      reportWriter.write("processing time: " + _durationSeconds + " seconds" + "\n\n");
+      reportWriter.write("training criteria : " + _trainingCriteria + "\n\n");
+
+      reportWriter.write("processing time : " + _durationSeconds + " seconds" + "\n\n");
       
       
       
@@ -127,6 +132,25 @@ public class Report {
 
    public static void setElapsedSeconds(long duration) {
       _durationSeconds = duration;
+   }
+
+   public static void setTrainingCriteria(TrainingCriteria trainingCriteria) {
+      // TODO Auto-generated method stub
+      _trainingCriteria  = trainingCriteria;
+   }
+
+   public static void clear() {
+      _generationAverageScoreList = new ArrayList<>();
+      _generationThoughtsList = new ArrayList<>();
+      _generationScoresList = new ArrayList<>();
+      _generationSeedMinusNonSeedScoreAverageList = new ArrayList<>();
+      _generationEvualationResultsList = new ArrayList<>();
+      _durationSeconds = null;
+      _trainingCriteria = null;
+   }
+
+   public static void setName(String name) {
+      _name  = name;
    }
 
 }
