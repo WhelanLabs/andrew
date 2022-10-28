@@ -38,6 +38,7 @@ public class Goal {
       for(String key : trainingParameters.getGoalAttributes() ) {
          Object value = trainingParameters.getRandomValue(key);
          workingMemory.put("GOAL." + key, value);
+         _goal.addAttribute(key, value);
       }
       return workingMemory;
    }

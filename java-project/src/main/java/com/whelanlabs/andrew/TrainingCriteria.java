@@ -58,8 +58,8 @@ public class TrainingCriteria {
    public String toString() {
       return "   \"numGenerations\" : " + getNumGenerations() +", \n" +
             "   \"questsPerGeneration\" : " + getQuestsPerGeneration() +", \n" +
-            "   \"startDateLong\" : " + getStartDateLong() +", \n" +
-            "   \"endDateLong\" : " + getEndDateLong() +", \n" +
+            "   \"startDate\" : \"" + dateUtils.getDateFromNumber(getStartDateLong()) +"\", \n" +
+            "   \"endDate\" : \"" + dateUtils.getDateFromNumber(getEndDateLong()) +"\", \n" +
             "   \"maturationAge\" : " + getMaturationAge() +", \n" +
             "   \"maxPopulation\" : " + getMaxPopulation() +" \n" ;
    }

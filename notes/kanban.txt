@@ -98,16 +98,17 @@
 
 * replace startDate & endDate in App.train() with trainingParameters values
 
-
+* augment report:
+  - guess
+  - actual
+  - trainingCriteria (one per report)
+  - trainingParameters (chosen values per generation)
+  
 ##########################################################
 # WIP
 ##########################################################
 
-* augment report:
-  + guess
-  + actual
-  + trainingCriteria (one per report)
-  - trainingParameters (chosen values per generation)
+* update readme to mention preference for bare metal arango over docker container.
 
 ##########################################################
 # backlog
@@ -115,8 +116,6 @@
 
 * fix TPS defect. (note: temp fix of dep override in POM is in place)
   see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
-
-* update readme to mention preference for bare metal arango over docker container.
 
 * clean up code and javadoc
   - strip dead code

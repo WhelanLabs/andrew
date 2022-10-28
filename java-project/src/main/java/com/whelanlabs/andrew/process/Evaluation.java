@@ -2,6 +2,7 @@ package com.whelanlabs.andrew.process;
 
 import java.util.Map;
 
+import com.whelanlabs.andrew.dataset.DateUtils;
 import com.whelanlabs.kgraph.engine.Node;
 
 public class Evaluation {
@@ -10,6 +11,8 @@ public class Evaluation {
    private Number _guess;
    private Number _actual;
    private Map<String, Object> _workingMemory;
+
+   private static DateUtils dateUtils = new DateUtils();
 
    public Evaluation(Node thought, Number guess, Number actual, Map<String, Object> workingMemory) {
       _thought = thought;
@@ -35,11 +38,15 @@ public class Evaluation {
    }
    
    public String toString(){
-      String result =  "   { " + 
-         "guess\" : " + getGuess() +
-         "\", actual\" : " + getActual() +
-         "\", thoughtKey\" : " + getThought().getKey() +
-         "\" }\n";
+      Long startDateLong = (Long)_workingMemory.get("GOAL.startDate");
+      String startDateString = dateUtils.getDateFromNumber(startDateLong);
+      
+      String result =  "\n   { " + 
+         "\"guess\" : \"" + getGuess() +
+         "\", \"actual\" : \"" + getActual() +
+         "\", \"thoughtKey\" : \"" + getThought().getKey() +
+         "\", \"startDate\" : \"" + startDateString +
+         "\" }";
       return result;
      }
 }

@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.andrew.TrainingCriteria;
+import com.whelanlabs.andrew.dataset.DateUtils;
 
 public class Report {
 
@@ -47,7 +48,7 @@ public class Report {
       FileWriter reportWriter = new FileWriter(file);
       reportWriter.write("Andrew Training Report" + "\n");
       reportWriter.write("----------------------" + "\n");
-      reportWriter.write("training criteria : " + _trainingCriteria + "\n\n");
+      reportWriter.write("training criteria : \n" + _trainingCriteria + "\n\n");
 
       reportWriter.write("processing time : " + _durationSeconds + " seconds" + "\n\n");
 
@@ -65,14 +66,13 @@ public class Report {
       reportWriter.write("\n" + "evolution slope = " + evolutionSlope + "\n");
 
       reportWriter.write("\n" + "-------------------------------------------" + "\n");
-
+      
       for (int i = 0; i < _generationScoresList.size(); i++) {
+
          Integer genNum = i + 1;
          reportWriter.write("\n" + "details for generation " + genNum + ": \n" + "   scores : " + _generationScoresList.get(i) + "\n");
-         reportWriter.write("\n" + "   evaluation_results : " + _generationEvualationResultsList.get(i) + "\n");
-         //iterationParameters
          reportWriter.write("\n" + "   iteration_parameters : " + _generationIterationParametersList.get(i) + "\n");
-
+         reportWriter.write("\n" + "   evaluation_results : " + _generationEvualationResultsList.get(i) + "\n");
       }
 
       reportWriter.close();

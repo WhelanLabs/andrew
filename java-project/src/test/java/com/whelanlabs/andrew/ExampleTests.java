@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,12 +86,15 @@ public class ExampleTests {
       symbolValues.add("AAPL");
       symbolValues.add("AMAT");
       trainingParametersMap.put("symbol", symbolValues);
+      trainingParametersMap.put("targetDistance", Arrays.asList(182)); // ~six months & divisible by 7
+      trainingParametersMap.put("targetRel", Arrays.asList("stockOnDate"));
+      trainingParametersMap.put("otherSidePrefix", Arrays.asList("stockSymbol/"));
       
       TrainingParameters trainingParameters = new TrainingParameters(trainingParametersMap);
 
-      goal.setProperty("targetDistance", 182);  // ~six months & divisible by 7
-      goal.setProperty("targetRel", "stockOnDate");
-      goal.setProperty("otherSidePrefix", "stockSymbol/");
+//      goal.setProperty("targetDistance", 182);  // ~six months & divisible by 7
+//      goal.setProperty("targetRel", "stockOnDate");
+//      goal.setProperty("otherSidePrefix", "stockSymbol/");
       
       Integer maturationAge = 2;
       Integer maxPopulation = 10;
