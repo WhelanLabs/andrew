@@ -104,11 +104,14 @@
   - trainingCriteria (one per report)
   - trainingParameters (chosen values per generation)
   
+* update readme to mention preference for bare metal arango over docker container.
+
+
 ##########################################################
 # WIP
 ##########################################################
 
-* update readme to mention preference for bare metal arango over docker container.
+
 
 ##########################################################
 # backlog
