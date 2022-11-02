@@ -229,6 +229,5 @@ public class AppTest {
       logger.info("train_happyPath_results.scores = " + scores);
       
       assert (scores.size() > 10) : scores;
-      // fail("more to do...");
    }
 }

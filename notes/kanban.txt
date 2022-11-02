@@ -111,7 +111,12 @@
 # WIP
 ##########################################################
 
-
+* clean up code and javadoc
+  + strip commented out code ( see: https://stackoverflow.com/a/7677471/2418261 )
+  - add smart javadoc where needed
+  - add smart comments where needed
+  - cleanup readme and other text files
+  - clean up kanban
 
 ##########################################################
 # backlog
@@ -119,14 +124,8 @@
 
 * fix TPS defect. (note: temp fix of dep override in POM is in place)
   see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
-
-* clean up code and javadoc
-  - strip dead code
-  - add smart javadoc where needed
-  - add smart comments where needed
-  - cleanup readme and other text files
-  - clean up kanban
-  
+  - Change a direct dep to a new non-RC version
+  - remove the temp fix
 
 * write Andrew Paper
 

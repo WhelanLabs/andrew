@@ -51,11 +51,6 @@ public class Evaluator {
 
       Random random = new Random();
 
-      //List<Triple<Node, Edge, Node>> expansions = App.getGardenGraph().expandRight(_goal, "approach", null, null);
-      //logger.debug("expansions: " + expansions);
-
-      //List<Node> thoughts = expansions.stream().map(object -> object.getRight()).collect(Collectors.toList());
-
       String otherSidePrefix = (String) _goal.getAttribute("otherSidePrefix");
 
       for (Integer i = 1; i <= numTests; i++) {
@@ -96,7 +91,6 @@ public class Evaluator {
    }
 
    public Number getActual(Long startingTime, String otherSideID) {
-      // String targetType = (String) _goal.getAttribute("targetType");
       Integer distance = (Integer) _goal.getAttribute("targetDistance");
       String targetProperty = (String) _goal.getAttribute("targetProperty");
       String relType = (String) _goal.getAttribute("targetRel");
@@ -128,8 +122,6 @@ public class Evaluator {
          // stockSymbol/AAPL
          relClauses.add(new QueryClause("_from", Operator.EQUALS, otherSideID));
          expansions = App.getDataGraph().expandLeft(dateNode, relType, relClauses, null);
-
-         // fixmeHere;
 
          // get the target object
          targetEdge = expansions.get(0).getMiddle();

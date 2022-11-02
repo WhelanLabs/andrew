@@ -54,30 +54,26 @@ public class ThoughtTest {
 
       LogCaptor logCaptor = LogCaptor.forClass(Thought.class);
 
+      Thought thought = TestHelper.buildModifiedInitialTestThought();
+
+      Map<String, Object> workingMemory = new HashMap<>();
       try {
-         Thought thought = TestHelper.buildModifiedInitialTestThought();
-
-         Map<String, Object> workingMemory = new HashMap<>();
-         try {
-            thought.forecast2(workingMemory);
-         } catch (Exception e) {
-            // expected. ignore.
-         }
-
-         Boolean msgFound = false;
-
-         List<String> errorMessages = logCaptor.getErrorLogs();
-         for (String errorMessage : errorMessages) {
-            if (errorMessage.contains("Edge input value is NULL for")) {
-               msgFound = true;
-               break;
-            }
-         }
-
-         assert (true == msgFound);
-      } finally {
-         // appLogger.detachAppender(appender);
+         thought.forecast2(workingMemory);
+      } catch (Exception e) {
+         // expected. ignore.
       }
+
+      Boolean msgFound = false;
+
+      List<String> errorMessages = logCaptor.getErrorLogs();
+      for (String errorMessage : errorMessages) {
+         if (errorMessage.contains("Edge input value is NULL for")) {
+            msgFound = true;
+            break;
+         }
+      }
+
+      assert (true == msgFound);
 
    }
 
@@ -461,8 +457,6 @@ public class ThoughtTest {
       String filePath = "./src/test/resources/test_load_data.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
 
-      // logger.debug("content = "+ content);
-
       Thought t = App.loadThoughtFromJson("test_load_data", content);
 
       Node startingNode = App.getDataGraph().getNodeByKey("LinearDatasetNode_500", "LinearDatasetNode");
@@ -486,7 +480,6 @@ public class ThoughtTest {
 
       // load the test data
       // flushing should not be necessary
-      // App.getDataGraph().flush();
       List<File> files = new ArrayList<>();
       files.add(new File("../fetchers/stock_data_fetcher/data/AACG_2020-05-07.txt"));
       files.add(new File("../fetchers/stock_data_fetcher/data/AAPL_2020-05-07.txt"));

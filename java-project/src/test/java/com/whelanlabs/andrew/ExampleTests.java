@@ -91,10 +91,6 @@ public class ExampleTests {
       trainingParametersMap.put("otherSidePrefix", Arrays.asList("stockSymbol/"));
       
       TrainingParameters trainingParameters = new TrainingParameters(trainingParametersMap);
-
-//      goal.setProperty("targetDistance", 182);  // ~six months & divisible by 7
-//      goal.setProperty("targetRel", "stockOnDate");
-//      goal.setProperty("otherSidePrefix", "stockSymbol/");
       
       Integer maturationAge = 2;
       Integer maxPopulation = 10;
@@ -110,14 +106,11 @@ public class ExampleTests {
       long endTime = System.currentTimeMillis();
       long duration = (endTime - startTime)/1000;
       logger.info("train_happyPath_results.duration = " + duration + " seconds");
-
-      // logger.info("train_happyPath_results.scores = " + scores);
       
       Report.setElapsedSeconds(duration);
       Report.print();
       
       assert (scores.size() > 10) : scores.size();
-      // fail("more to do...");
    }
 
 }

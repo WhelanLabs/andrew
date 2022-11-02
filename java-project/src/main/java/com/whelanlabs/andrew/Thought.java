@@ -71,7 +71,6 @@ public class Thought {
       for (Set<Node> currentOperations : layeredOperations) {
 
          // process the nodes of a layer
-         //logger.debug("layer contents = " + currentOperations);
          Set<String> nextLevelInputNodeKeys = new HashSet<>();
          for (Node node : currentOperations) {
             logger.debug("add nextLevelInputNodeKeys: " + node);
@@ -351,7 +350,7 @@ public class Thought {
       App.getGardenGraph().upsert(clonedThoughtNode);
       idMapping.put(_thoughtNode.getId(), clonedThoughtNode.getId());
 
-      // clone the "approach" edge;
+      // clone the "approach" edge
       QueryClause thoughtKeyQueryClause = new QueryClause("thought_key", QueryClause.Operator.EQUALS, _thoughtNode.getKey());
       List<Edge> approachEdges = App.getGardenGraph().queryEdges("approach", thoughtKeyQueryClause);
       if (approachEdges.size() != 1) {
