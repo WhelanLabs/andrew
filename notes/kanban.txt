@@ -114,6 +114,9 @@
 * clean up code and javadoc
   + strip commented out code ( see: https://stackoverflow.com/a/7677471/2418261 )
   - add smart javadoc where needed
+    - add autodoc everywhere
+    - class-level documentation
+	- document key methods
   - add smart comments where needed
   - cleanup readme and other text files
   - clean up kanban
