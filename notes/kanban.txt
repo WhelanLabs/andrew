@@ -118,6 +118,10 @@
   - cleanup readme and other text files
   - clean up kanban
 
+* write Andrew Paper
+
+* clarify "World Graph" in code
+
 ##########################################################
 # backlog
 ##########################################################
