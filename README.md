@@ -15,6 +15,13 @@ click here to see a full sized image</a>
 
 Andrew operates using two separate graph repositories.  The internal thought-related elements exist in the Garden Graph; This graph changes as Andrew runs.  The external world data on which forecasts are based is contained in a static graph called the World Graph.
 
+<kbd>
+<a href="./readme_files/two_db.jpg" alt="example thought" target="_blank">
+<img src="./readme_files/two_db.jpg" alt="two databases" width="600"/>
+</kbd><br/>
+click here to see a full sized image</a>
+<p/>
+
 ## Motivations
 
 ### Under-Researched Topics
