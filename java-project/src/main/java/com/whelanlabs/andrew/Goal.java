@@ -10,18 +10,37 @@ import org.apache.commons.lang3.tuple.Triple;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.Node;
 
+/**
+ * The Class Goal.
+ */
 public class Goal {
 
+   /** The goal. */
    private Node _goal;
 
+   /**
+    * Instantiates a new goal.
+    *
+    * @param goal the goal
+    */
    public Goal(Node goal) {
       _goal = goal;
    }
 
+   /**
+    * Gets the node.
+    *
+    * @return the node
+    */
    public Node getNode() {
       return _goal;
    }
 
+   /**
+    * Gets the thoughts.
+    *
+    * @return the thoughts
+    */
    public List<Thought> getThoughts() {
       List<Thought> results = new ArrayList<>();
       List<Triple<Node, Edge, Node>> triples = App.getGardenGraph().expandRight(_goal, "approach", null, null);
@@ -33,6 +52,12 @@ public class Goal {
       return results;
    }
 
+   /**
+    * Sets the training parameters.
+    *
+    * @param trainingParameters the training parameters
+    * @return the map
+    */
    public Map<String, Object> setTrainingParameters(TrainingParameters trainingParameters) {
       Map<String, Object> workingMemory = new HashMap<>();
       for(String key : trainingParameters.getGoalAttributes() ) {
@@ -43,6 +68,12 @@ public class Goal {
       return workingMemory;
    }
 
+   /**
+    * Sets the property.
+    *
+    * @param key the key
+    * @param value the value
+    */
    public void setProperty(String key, Object value) {
       _goal.addAttribute(key, value);     
    }

@@ -12,10 +12,24 @@ import com.whelanlabs.kgraph.engine.ElementHelper;
 import com.whelanlabs.kgraph.engine.Node;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
+/**
+ * The Class SimpleCrossover.
+ * <p/>
+ * A simple crossover is the combination of two thoughts that runs both
+ * parent thoughts in parallel and then averages the result. 
+ */
 public class SimpleCrossover implements Crossover{
 
+   /** The logger. */
    private static Logger logger = LogManager.getLogger(SimpleCrossover.class);
 
+   /**
+    * Crossover.
+    *
+    * @param t1 the t 1
+    * @param t2 the t 2
+    * @return the thought
+    */
    @Override
    public Thought crossover(Thought t1, Thought t2) {
       logger.debug("t1.id = " + t1.getThoughtNode().getId());
@@ -107,6 +121,12 @@ public class SimpleCrossover implements Crossover{
       return t1c;
    }
 
+   /**
+    * Creates the crossovers.
+    *
+    * @param currentThoughts the current thoughts
+    * @return the list
+    */
    @Override
    public List<Thought> createCrossovers(List<Thought> currentThoughts) {
       List<Thought> results = new ArrayList<>();

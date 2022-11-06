@@ -29,6 +29,9 @@ import com.whelanlabs.kgraph.engine.QueryClause;
 
 /**
  * The Class App.
+ * <p/>
+ * This is the main class for Andrew.
+ * 
  */
 public class App {
 
@@ -41,10 +44,13 @@ public class App {
    /** The logger. */
    private static Logger logger = LogManager.getLogger(App.class);
 
+   /** The thought cache. */
    private static Map<String, Thought> thoughtCache = new HashMap<>();
 
+   /** The mutator. */
    private static Mutator mutator = new Mutator();
 
+   /** The process utils. */
    private static ProcessUtils processUtils = new ProcessUtils();
 
    /**
@@ -117,6 +123,13 @@ public class App {
       }
    }
 
+   /**
+    * Load thought from json.
+    *
+    * @param thoughtName the thought name
+    * @param content the content
+    * @return the thought
+    */
    public static Thought loadThoughtFromJson(String thoughtName, String content) {
       if (thoughtCache.containsKey(thoughtName)) {
          return thoughtCache.get(thoughtName);
@@ -152,6 +165,15 @@ public class App {
       return result;
    }
 
+   /**
+    * Train.
+    *
+    * @param goal the goal
+    * @param trainingParameters the training parameters
+    * @param trainingCriteria the training criteria
+    * @return the list
+    * @throws Exception the exception
+    */
    public static List<ThoughtScore> train(Goal goal, TrainingParameters trainingParameters,
          TrainingCriteria trainingCriteria) throws Exception {
 
@@ -246,7 +268,7 @@ public class App {
                   // add the smart thought
                   nextThoughts.add(currentThought);
                   // add a smart offspring
-                  Thought randomSpouse = getRandom(currentThoughts.values());
+                  Thought randomSpouse = getRandomMember(currentThoughts.values());
                   Thought child = simpleCrossover.crossover(currentThought, randomSpouse);
                   nextThoughts.add(child);
                   // generate mutants
@@ -277,6 +299,13 @@ public class App {
       return scores;
    }
 
+   /**
+    * Gets the generation average.
+    *
+    * @param currentThoughts the current thoughts
+    * @param scores the scores
+    * @return the generation average
+    */
    private static Float getGenerationAverage(Map<String, Thought> currentThoughts, List<ThoughtScore> scores) {
       Set<String> currentThoughtIDs = currentThoughts.keySet();
       int size = 0;
@@ -292,15 +321,28 @@ public class App {
    }
    
 
-   public static <T> T getRandom(Collection<T> coll) {
-      int num = (int) (Math.random() * coll.size());
-      for (T t : coll)
+   /**
+    * Gets a random member of the input collection..
+    *
+    * @param <T> the generic type
+    * @param collection the coll
+    * @return the random
+    */
+   public static <T> T getRandomMember(Collection<T> collection) {
+      int num = (int) (Math.random() * collection.size());
+      for (T t : collection)
          if (--num < 0)
             return t;
       throw new AssertionError();
    }
    
    
+   /**
+    * Calculate average.
+    *
+    * @param scores the scores
+    * @return the float
+    */
    public static Float calculateAverage(List<Float> scores) {
       Float sum = 0f;
       if (!scores.isEmpty()) {

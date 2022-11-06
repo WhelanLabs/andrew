@@ -10,10 +10,23 @@ import org.apache.logging.log4j.Logger;
 import com.whelanlabs.kgraph.engine.Edge;
 import com.whelanlabs.kgraph.engine.QueryClause;
 
+/**
+ * The Class Mutator.
+ * <p/>
+ * 
+ */
 public class Mutator {
 
+   /** The logger. */
    private static Logger logger = LogManager.getLogger(Mutator.class);
 
+   /**
+    * Creates a new  thought that contains mutations from the input thought.
+    *
+    * @param thought the thought
+    * @param numMutations the num mutations
+    * @return the thought
+    */
    public Thought createMutant(Thought thought, Integer numMutations) {
 
       // start with a clone
@@ -43,6 +56,13 @@ public class Mutator {
       return clone;
    }
 
+   /**
+    * Creates the mutant.
+    *
+    * @param currentThoughts the current thoughts
+    * @param numMutations the num mutations
+    * @return the list
+    */
    public List<Thought> createMutant(List<Thought> currentThoughts, int numMutations) {
       List<Thought> mutantThoughts = new ArrayList<>();
       

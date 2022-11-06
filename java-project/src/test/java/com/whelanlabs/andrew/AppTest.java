@@ -160,7 +160,7 @@ public class AppTest {
    @Test(expected = AssertionError.class)
    public void getRandom_empty_zero() throws Exception { 
       List<Float> scores = new ArrayList<>();
-      App.getRandom(scores);
+      App.getRandomMember(scores);
    }
    
    @Test
