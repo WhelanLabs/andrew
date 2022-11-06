@@ -113,13 +113,8 @@
 
 * clean up code and javadoc
   + strip commented out code ( see: https://stackoverflow.com/a/7677471/2418261 )
-  - add smart javadoc where needed
-    - add autodoc everywhere
-    - class-level documentation
-	- document key methods
-  - add smart comments where needed
-  - cleanup readme and other text files
-  - clean up kanban
+  + add smart javadoc where needed
+  + add smart comments where needed
 
 * write Andrew Paper (README.md)
 
@@ -136,16 +131,17 @@
   - Change a direct dep to a new non-RC version
   - remove the temp fix
 
-* write Andrew Paper
-
 * set up pro site
   - convert to new namespace
   - sanitize the code
   - convert to new Git Repo
   - check for old namespace references and address
   - use new email address
+  - add paper to site
+  - promote v1 of KGraph
+  - promote v1 of Andrew
 
-* publish paper
+* publish paper to reddit r/
 
 
 
