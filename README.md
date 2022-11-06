@@ -1,4 +1,4 @@
-# Andrew
+# Andrew v1.0
 
 ## Introduction
 
@@ -10,7 +10,7 @@ Thoughts are mainly composed of Thought Operations (nodes) and Thought Sequences
 <a href="./readme_files/thought_example.jpg" alt="example thought" target="_blank">
 <img src="./readme_files/thought_example.jpg" alt="example thought" width="600"/>
 </kbd><br/>
-click here to see a full sized image</a>
+Click here to see a full-sized image</a>
 <p/>
 
 Andrew operates using two separate graph repositories.  The internal thought-related elements exist in the Garden Graph; This graph changes as Andrew runs.  The external world data on which forecasts are based is contained in a static graph called the World Graph.
@@ -19,7 +19,7 @@ Andrew operates using two separate graph repositories.  The internal thought-rel
 <a href="./readme_files/two_db.jpg" alt="example thought" target="_blank">
 <img src="./readme_files/two_db.jpg" alt="two databases" width="600"/>
 </kbd><br/>
-click here to see a full sized image</a>
+Click here to see a full-sized image</a>
 <p/>
 
 ## Motivations
@@ -31,10 +31,6 @@ click here to see a full sized image</a>
 -----
 
 ## unstructured thoughts
-
-
-
-
 
 Besides producing outputs for consumption for downstream Thought Operations, Thought Operations may also produce side effects.  For example, having a Thought Operation that sends out e-mail should be considered a valid operation.
 
@@ -48,11 +44,24 @@ Future: fitness functions may also be subject to evolution via genetic algorithm
 
 ## Current Prototype
 
-missing some concepts mentioned above
+### Seed Thought Generation
 
-### current crossover logic
+### Crossover Logic
 
-### current mutation logic
+The current crossover logic of Andrew creates crossovers using the SimpleCrossover implementation of Crossover.  This implementation produces a result that is the average of the two parent results.  This crossover approach is simple in that for each subsequent iteration a contributing ancestor's impact on the overall result on descendants is split in half.
+
+Future Crossover implementations will be more complex.  A leading candidate for the next Crossover implementation is a crossover that merges all ancestors into a single averaging Thought Operation where the input value weights can be mutated, thus allowing individual ancestors to have a variety of weights of impact beyond what is dictated by the number of generations that have passed. 
+
+### mutation logic
+
+...
+
+### Thought Operations
+
+The current Thought Operation types supported are minimal.  In a rush to produce an initial release, some of the operations created are overly complex, and will be replaced with combinations of smaller thought operation subgraphs.  For example, the getSymbolDateRel Operation type makes assumptions as to the Node and Edge types on which it operates.  These assumptions should be removed and pushed to Thought Sequence inputs to the Operation, thus allowing more general use and situations where a mutation can be leveraged.
+
+
+Like future Crossover implementations leverage an averaging operation that supports mutation
 
 ### Fitness Functions
 In addition to supporting genetic operations in the genetic solutions, the fitness functions also support genetic operations within their defined ranges.  This allows fitness functions to compete.  As an example, imagine a base fitness function that looks to identify stocks that will do the best in 1-year period; it may be that a fitness function that scores quarterly will be able to identify higher annualized rates of return.  As long as the underlying scoring criterion is correct (in this case: rate of return), changing the parameters of the fitness functions might produce improved overall results. <P/>
@@ -81,6 +90,11 @@ Andrew currently only supports non-cyclic Thoughts.
 ### additional crossover options
 
 ### horizontally scaled test environment
+
+
+## Motivations
+
+Andrew was developed out of the desire to make something new and interesting.  Some of the initial ideas for Andrew came from an old version of a lecture from MIT OpenCourseWare 6.034 where little focus was given to Genetic Algorithms and Neural Nets due to a variety of issues.  Later, based on advancements in Neural Nets, those sections were modified to have more focus.  While Neural Nets have now hit the mainstream, Genetic Algorithms seem to have underexplored frontiers.  Andrew looks to investigate some of these frontiers.
 
 
 
