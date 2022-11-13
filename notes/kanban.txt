@@ -117,6 +117,8 @@
 ##########################################################
 
 * write Andrew Paper (README.md)
+  - replace NOTEs with content in the associated paragraphs.
+  - review readability (text to speech)
 
 * clarify "World Graph" in code
 
@@ -136,6 +138,7 @@
   - sanitize the code
   - convert to new Git Repo
   - check for old namespace references and address
+  - update GitHub Desktop to use new account and name (Snow Elf)
   - use new email address
   - add paper to site
   - promote v1 of KGraph
