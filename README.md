@@ -2,15 +2,33 @@
 
 ## Introduction
 
-Andrew is a time-series forecasting AI application that uses a genetic algorithm on graphs of code-block-based genes. These graphs are referred to as Thought Graphs.  Thought Graphs are associated with a specific target Goal.  As Andrew runs, the Thoughts are combined and mutated into new thoughts.  Andrew starts with a given set of initial Thoughts, referred to as Seed Thoughts, which can represent a process for solving a problem.  In general, Seed Thoughts model basic ideas, such as linear movement, and correlation.
+Andrew is a time-series forecasting AI application that uses a genetic algorithm on graphs of code-block-based genes. These graphs are referred to as Thought Graphs.  Thought Graphs are associated with a specific target Goal.  As Andrew runs, the Thoughts are combined and mutated into new thoughts.  Andrew starts with a given set of initial Thoughts, referred to as Seed Thoughts, representing a process for solving a problem.  Seed Thoughts generally model basic ideas, such as linear movement, and correlation.
 
 Thoughts are mainly composed of Thought Operations (nodes) and Thought Sequences (edges).  The Thought Sequences are edges that pass data between Thought Operations. The Thought Operations run simple processes based on their defined operation type.  Besides the passing of data between Thought Operations, Thought Sequences also contain properties that support mutation on the passed data.  These mutation-related properties identify the range of mutations supported, and specify the amount of current mutation.  Mutations may be supported for virtually any data type, from simple mutations in Integer values to more complex mutations within sets of valid value sets; for example, changing the name of a target object or relation name used as input to a Thought Operation
+
+<kbd>
+<a href="./readme_files/thought_snippet.jpg" alt="thought snippet" target="_blank">
+<img src="./readme_files/thought_snippet.jpg" alt="example thought" width="400"/>
+</kbd><br/>
+figure: a snippet of a thought containing two operations connected via a sequence</a>
+<p/>
+
+Thoughts start with a connection from the target Goal via an Approach relation to a Thought node.  The Thought node then connects to layers of Thought Sequences and Thought Operations.  At the end, there is a final single Thought Operation that then connects via a Thought Sequence to a Thought Result node.  The processing of the Thought Result node completes the processing of a Thought for a given context.
 
 <kbd>
 <a href="./readme_files/thought_example.jpg" alt="example thought" target="_blank">
 <img src="./readme_files/thought_example.jpg" alt="example thought" width="600"/>
 </kbd><br/>
-Click here to see a full-sized image</a>
+figure: a seed thought for linear rates of change</a>
+<p/>
+
+Andrew may leverage different implementations of Crossover.  Crossover works by cloning the parent Thoughts and then merging the clones.  The first Crossover implementation simply works by having the Crossover Thought Node connect to all the first layer Thought Sequences, and then at the aft end replacing the cloned Thought Result nodes with a single aggregating Thought Operation that is then connected to the Thought Result node.  The Simple Crossover implementation produces a result that is the average of the two parents.
+
+<kbd>
+<a href="./readme_files/crossover.jpg" alt="example thought" target="_blank">
+<img src="./readme_files/crossover.jpg" alt="example thought" width="600"/>
+</kbd><br/>
+figure: an overview of a Simple Crossover</a>
 <p/>
 
 Andrew operates using two separate graph repositories.  The internal thought-related elements exist in the Garden Graph; This graph changes as Andrew runs.  The external world data on which forecasts are based is contained in a static graph called the World Graph.
@@ -96,6 +114,7 @@ Andrew currently only supports non-cyclic Thoughts.
 ## Motivations
 
 Andrew was developed out of the desire to make something new and interesting.  Some of the initial ideas for Andrew came from an old version of a lecture from MIT OpenCourseWare 6.034 where little focus was given to Genetic Algorithms and Neural Nets due to a variety of issues.  Later, based on advancements in Neural Nets, those sections were modified to have more focus.  While Neural Nets have now hit the mainstream, Genetic Algorithms seem to have underexplored frontiers.  Andrew looks to investigate some of these frontiers.
+
 
 
 

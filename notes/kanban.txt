@@ -106,15 +106,15 @@
   
 * update readme to mention preference for bare metal arango over docker container.
 
-
+* clean up code and javadoc
+  - strip commented out code ( see: https://stackoverflow.com/a/7677471/2418261 )
+  - add smart javadoc where needed
+  - add smart comments where needed
+  
+  
 ##########################################################
 # WIP
 ##########################################################
-
-* clean up code and javadoc
-  + strip commented out code ( see: https://stackoverflow.com/a/7677471/2418261 )
-  + add smart javadoc where needed
-  + add smart comments where needed
 
 * write Andrew Paper (README.md)
 
