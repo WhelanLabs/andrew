@@ -118,6 +118,8 @@
 
 * write Andrew Paper (README.md)
   - replace NOTEs with content in the associated paragraphs.
+  - add reference to build process
+  - add reference to running the example
   - review readability (text to speech)
 
 * clarify "World Graph" in code
@@ -140,9 +142,13 @@
   - check for old namespace references and address
   - update GitHub Desktop to use new account and name (Snow Elf)
   - use new email address
-  - add paper to site
-  - promote v1 of KGraph
-  - promote v1 of Andrew
+  
+  - promote v1 of KGraph (private)
+    - set license
+  - promote v1 of Andrew (private)
+    - set license
+    - add paper to site
+  - make projects public
 
 * publish paper to reddit r/
 
