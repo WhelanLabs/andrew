@@ -21,7 +21,7 @@ Andrew currently only supports non-cyclic Thoughts.
 <a href="./readme_files/thought_snippet.jpg" target="_blank">
 <img src="./readme_files/thought_snippet.jpg" width="400"/>
 </kbd><br/>
-<font face ="Arial">figure: a snippet of a thought containing two operations connected via a sequence</font></a> 
+figure: a snippet of a thought containing two operations connected via a sequence</a> 
 <p/>
 
 The current Thought Operation types supported are minimal.  In a rush to produce an initial release, some of the operations created are overly complex, and will be replaced with combinations of smaller thought operation subgraphs.  For example, the getSymbolDateRel Operation type makes assumptions as to the Node and Edge types on which it operates.  These assumptions should be removed and pushed to Thought Sequence inputs to the Operation, thus allowing more general use and situations where mutations can be leveraged.
