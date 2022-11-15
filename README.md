@@ -89,7 +89,7 @@ Besides producing outputs for consumption for downstream Thought Operations, Tho
 
 ---
 **NOTE** 
-: Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
+Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
 ---
 
 Andrew is designed to support horizontal scaling for both its graph data sources and its processing power. The current graph databases used by Andrew are built on top of Arango DB, thus allowing the database to horizontally scale on commodity hardware.  Andrew has plans to support the horizontal scalability of training logic by incorporating parallel message processing for individual evaluations within the training routine, most likely by using RabbitMQ.
