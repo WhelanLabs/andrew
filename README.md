@@ -89,7 +89,7 @@ Besides producing outputs for consumption for downstream Thought Operations, Tho
 
 ---
 
-**Note** 
+**Note:** 
 Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
 
 ---
