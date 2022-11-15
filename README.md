@@ -88,8 +88,10 @@ figure: sample report snippet</a>
 Besides producing outputs for consumption for downstream Thought Operations, Thought Operations may also produce side effects.  For example, having a Thought Operation that sends out e-mail is considered a valid operation.  Future work will be required to accurately model the impacts of side effects; currently, the external nature of side-effect impacts on results is not modeled in the training logic.
 
 ---
-**NOTE** 
+
+**Note** 
 Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
+
 ---
 
 Andrew is designed to support horizontal scaling for both its graph data sources and its processing power. The current graph databases used by Andrew are built on top of Arango DB, thus allowing the database to horizontally scale on commodity hardware.  Andrew has plans to support the horizontal scalability of training logic by incorporating parallel message processing for individual evaluations within the training routine, most likely by using RabbitMQ.
