@@ -117,12 +117,9 @@
 ##########################################################
 
 * write Andrew Paper (README.md)
-  - replace NOTEs with content in the associated paragraphs.
   + add reference to build process
   + add reference to running the example
   - review readability (text to speech)
-
-* update notes/users_manual.md
 
 ##########################################################
 # backlog
@@ -134,6 +131,8 @@
   - remove the temp fix
 
 * set up pro site
+  - buy pro site
+  - create private project in pro site
   - convert to new namespace
   - sanitize the code
   - convert to new Git Repo
