@@ -10,7 +10,7 @@ Andrew was developed out of the desire to make something new and interesting.  S
 
 Thoughts are mainly composed of Thought Operations (nodes) and Thought Sequences (edges).  The Thought Sequences are edges that pass data between Thought Operations. The Thought Operations run simple processes based on their defined operation type.  Besides the passing of data between Thought Operations, Thought Sequences also contain properties that support mutation on the passed data.  These mutation-related properties identify the range of mutations supported, and specify the amount of current mutation.  Mutations may be supported for virtually any data type, from simple mutations in Integer values to more complex mutations within sets of valid value sets; for example, changing the name of a target object or relation name used as input to a Thought Operation
 
-[Note: Andrew currently only supports non-cyclic Thoughts.]
+**_NOTE:_** Andrew currently only supports non-cyclic Thoughts.
 
 <kbd>
 <a href="./readme_files/thought_snippet.jpg" target="_blank">
@@ -43,11 +43,11 @@ Andrew plans for future Crossover implementations to be more complex.  A leading
 
 Andrew's current fitness function is a basic error percentage calculation.  In the future, the fitness functions may also be subject to evolution via genetic algorithms within defined parameters, thus allowing them to compete.  For example, Fitness Functions that measure stock-picking Thoughts every quarter for a year may prove to be more fit at finding profit than a once-a-year Fitness Function even after accounting for transaction fees.  As long as the underlying scoring criterion is correct (in this case, annualized rate of return), changing the parameters of the fitness functions might produce improved overall results.
 
-[Note: A program may have the ability to somewhat change its goals.]
+**_NOTE:_** A program may have the ability to somewhat change its goals.
 
 Andrew has an overall training process that implements the genetic algorithm.  This process is currently hard coded.  Future training processes may be genetic algorithms, where their seed implementations include mutation points that adjust the amount of mutation for each Thought, both the number of mutations and the magnitude of each mutation, in inverse proportion to the general fitness of the thought.
 
-[Note: over time, Andrew will evolve to replace most of its hardcoded control functions to being genetic algorithms, basically turning Andrew into layers of genetic algorithms producing genetic algorithms.]
+**_NOTE:_** over time, Andrew will evolve to replace most of its hardcoded control functions to being genetic algorithms, basically turning Andrew into layers of genetic algorithms producing genetic algorithms.
 
 Andrew operates using two separate graph repositories.  The internal thought-related elements exist in the Garden Graph; This graph changes as Andrew runs.  The external world data on which forecasts are based is contained in a static graph called either the World Graph or the Data Graph.
 
@@ -78,7 +78,7 @@ figure: sample report snippet</a>
 
 Besides producing outputs for consumption for downstream Thought Operations, Thought Operations may also produce side effects.  For example, having a Thought Operation that sends out e-mail is considered a valid operation.  Future work will be required to accurately model the impacts of side effects; currently, the external nature of side-effect impacts on results is not modeled in the training logic.
 
-[Note: Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.]
+**_NOTE:_** Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
 
 Andrew is designed to support horizontal scaling for both its graph data sources and its processing power. The current graph databases used by Andrew are built on top of Arango DB, thus allowing the database access to horizontally scale on commodity hardware.  Andrew has plans to support the horizontal scalability of training logic by incorporating parallel messaging processing for individual evaluations within the training routine.
 
