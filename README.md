@@ -8,7 +8,7 @@ Andrew is a time-series forecasting AI application that uses a genetic algorithm
 
 Andrew was developed out of the desire to make something new and interesting.  Some of the initial ideas for Andrew came from an old version of a lecture from MIT OpenCourseWare 6.034 where little focus was given to Genetic Algorithms and Neural Nets due to a variety of issues.  Later, based on advancements in Neural Nets, those sections were modified to have more focus.  While Neural Nets have now hit the mainstream, Genetic Algorithms seem to have underexplored frontiers.  Andrew looks to investigate some of these less-studied frontiers.
 
-Thoughts are mainly composed of Thought Operations (nodes) and Thought Sequences (edges).  The Thought Sequences are edges that pass data between Thought Operations. The Thought Operations run simple processes based on their defined operation type.  Besides the passing of data between Thought Operations, Thought Sequences also contain properties that support mutation on the passed data.  These mutation-related properties identify the range of mutations supported, and specify the amount of current mutation.  Mutations may be supported for virtually any data type, from simple mutations in Integer values to more complex mutations within sets of valid value sets; for example, changing the name of a target object or relation name used as input to a Thought Operation
+Thoughts are mainly composed of Thought Operations (nodes) and Thought Sequences (edges).  The Thought Sequences are edges that pass data between Thought Operations. The Thought Operations run simple processes based on their defined operation type.  Besides the passing of data between Thought Operations, Thought Sequences also contain properties that support mutation on the passed data.  These mutation-related properties identify the range of mutations supported, and specify the amount of current mutation.  Mutations may be supported for virtually any data type, from simple mutations in Integer values to more complex mutations of a value within a set of valid values; for example, changing the name of an other-side object or relation name used as input to a Thought Operation.
 
 ---
 **_NOTE:_** 
@@ -22,7 +22,7 @@ Andrew currently only supports non-cyclic Thoughts.
 figure: a snippet of a thought containing two operations connected via a sequence</a>
 <p/>
 
-The current Thought Operation types supported are minimal.  In a rush to produce an initial release, some of the operations created are overly complex, and will be replaced with combinations of smaller thought operation subgraphs.  For example, the getSymbolDateRel Operation type makes assumptions as to the Node and Edge types on which it operates.  These assumptions should be removed and pushed to Thought Sequence inputs to the Operation, thus allowing more general use and situations where a mutation can be leveraged.
+The current Thought Operation types supported are minimal.  In a rush to produce an initial release, some of the operations created are overly complex, and will be replaced with combinations of smaller thought operation subgraphs.  For example, the getSymbolDateRel Operation type makes assumptions as to the Node and Edge types on which it operates.  These assumptions should be removed and pushed to Thought Sequence inputs to the Operation, thus allowing more general use and situations where mutations can be leveraged.
 
 Thoughts start with a connection from the target Goal via an Approach Relation to a Thought node.  The Thought node then connects to layers of Thought Sequences and Thought Operations.  At the end of each thought graph, there is a final thought operation that connects via a Thought Sequence to a Thought Result node.  The processing of the Thought Result node completes the processing of a Thought for a given context.
 
@@ -42,7 +42,7 @@ Andrew may leverage different implementations of Crossover.  Crossover works by 
 figure: an overview of a Simple Crossover</a>
 <p/>
 
-Andrew plans for future Crossover implementations to be more complex.  A leading candidate for the next Crossover implementation is a crossover that merges all ancestors into a single averaging Thought Operation where the input value weights can be mutated, thus allowing individual ancestors to have a variety of weights of impact beyond what is dictated by the number of generations that have passed.  Additional thought complexity may allow variable weights to be determined by variable input;  for example, a high VIX value may feed a higher weight for a given input than a low VIX value.
+Andrew plans for future Crossover implementations to be more complex.  A leading candidate for the next Crossover implementation is a crossover that merges all ancestors into a single averaging Thought Operation where the input value weights can be mutated, thus allowing individual ancestors to have a variety of weights of impact beyond what is dictated by the number of generations that have passed.  Additional thought complexity may allow variable weights to be determined by variable input;  for example, in the domain of stock market prediction, a high VIX value may feed a higher weight for a given input than a low VIX value.
 
 Andrew's current fitness function is a basic error percentage calculation.  In the future, the fitness functions may also be subject to evolution via genetic algorithms within defined parameters, thus allowing them to compete.  For example, Fitness Functions that measure stock-picking Thoughts every quarter for a year may prove to be more fit at finding profit than a once-a-year Fitness Function even after accounting for transaction fees.  As long as the underlying scoring criterion is correct (in this case, annualized rate of return), changing the parameters of the fitness functions might produce improved overall results.
 
@@ -76,7 +76,7 @@ The initial World Graph for Andrew is populated with stock price data.  However,
 figure: a snippet of data within the World Graph</a>
 <p/>
 
-Andrew generates a report for the results of training.  This report describes the inputs used in training and the results.  The report shows the resulting Overall Slope and the Evolution Slope for the training process.  Both slopes are computed using linear regression.  The Overall Slope shows the slope of the average scores of each training generation over the generations.  The Evolution Slope shows improvement of non-seed thoughts over seed thoughts over the generations.
+Andrew generates a report for the results of training.  This report describes the inputs used in training and the results.  The report shows the resulting Overall Slope and the Evolution Slope for the training process.  Both slopes are computed using linear regression.  The Overall Slope shows the slope of the average scores of each training generation over the generations.  The Evolution Slope shows improvement of non-seed thoughts over seed thoughts over the generations; put another way, the Evolution Slope tells you if the descendent thoughts are getting smarter than the seed thoughts.
 
 <kbd>
 <a href="./readme_files/sample_report.jpg" target="_blank">
@@ -92,7 +92,7 @@ Besides producing outputs for consumption for downstream Thought Operations, Tho
 Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
 ---
 
-Andrew is designed to support horizontal scaling for both its graph data sources and its processing power. The current graph databases used by Andrew are built on top of Arango DB, thus allowing the database access to horizontally scale on commodity hardware.  Andrew has plans to support the horizontal scalability of training logic by incorporating parallel messaging processing for individual evaluations within the training routine.
+Andrew is designed to support horizontal scaling for both its graph data sources and its processing power. The current graph databases used by Andrew are built on top of Arango DB, thus allowing the database to horizontally scale on commodity hardware.  Andrew has plans to support the horizontal scalability of training logic by incorporating parallel message processing for individual evaluations within the training routine, most likely by using RabbitMQ.
 
 ## Running the Example Code
 

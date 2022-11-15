@@ -111,15 +111,17 @@
   - add smart javadoc where needed
   - add smart comments where needed
   
+* write Andrew Paper (README.md)
+  - add reference to build process
+  - add reference to running the example
+  - review readability (text to speech)
+  
   
 ##########################################################
 # WIP
 ##########################################################
 
-* write Andrew Paper (README.md)
-  + add reference to build process
-  + add reference to running the example
-  - review readability (text to speech)
+
 
 ##########################################################
 # backlog
