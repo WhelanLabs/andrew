@@ -47,14 +47,14 @@ Andrew plans for future Crossover implementations to be more complex.  A leading
 Andrew's current fitness function is a basic error percentage calculation.  In the future, the fitness functions may also be subject to evolution via genetic algorithms within defined parameters, thus allowing them to compete.  For example, Fitness Functions that measure stock-picking Thoughts every quarter for a year may prove to be more fit at finding profit than a once-a-year Fitness Function even after accounting for transaction fees.  As long as the underlying scoring criterion is correct (in this case, annualized rate of return), changing the parameters of the fitness functions might produce improved overall results.
 
 ---
-**_NOTE:_** 
+**NOTE:** 
 A program may have the ability to somewhat change its goals.
 ---
 
 Andrew has an overall training process that implements the genetic algorithm.  This process is currently hard coded.  Future training processes may be genetic algorithms, where their seed implementations include mutation points that adjust the amount of mutation for each Thought, both the number of mutations and the magnitude of each mutation, in inverse proportion to the general fitness of the thought.
 
 ---
-**_NOTE:_**
+**NOTE:** 
 Over time, Andrew will evolve to replace most of its hardcoded control functions to being genetic algorithms, basically turning Andrew into layers of genetic algorithms producing genetic algorithms.
 ---
 
@@ -88,7 +88,7 @@ figure: sample report snippet</a>
 Besides producing outputs for consumption for downstream Thought Operations, Thought Operations may also produce side effects.  For example, having a Thought Operation that sends out e-mail is considered a valid operation.  Future work will be required to accurately model the impacts of side effects; currently, the external nature of side-effect impacts on results is not modeled in the training logic.
 
 ---
-**_NOTE:_** 
+**NOTE:** 
 Given that side effects are allowed, a research topic on the difference between predicting and causing results should be considered.
 ---
 

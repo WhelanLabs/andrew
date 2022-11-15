@@ -121,17 +121,6 @@
 # WIP
 ##########################################################
 
-
-
-##########################################################
-# backlog
-##########################################################
-
-* fix TPS defect. (note: temp fix of dep override in POM is in place)
-  see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
-  - Change a direct dep to a new non-RC version
-  - remove the temp fix
-
 * set up pro site
   - buy pro site
   - create private project in pro site
@@ -141,6 +130,16 @@
   - check for old namespace references and address
   - update GitHub Desktop to use new account and name (Snow Elf)
   - use new email address
+
+##########################################################
+# backlog
+##########################################################
+
+* fix TPS defect. (note: temp fix of dep override in POM is in place)
+  see: https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426
+  - Change a direct dep to a new non-RC version
+  - remove the temp fix
+  
   
   - promote v1 of KGraph (private)
     - set license
