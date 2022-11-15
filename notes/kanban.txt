@@ -118,11 +118,9 @@
 
 * write Andrew Paper (README.md)
   - replace NOTEs with content in the associated paragraphs.
-  - add reference to build process
-  - add reference to running the example
+  + add reference to build process
+  + add reference to running the example
   - review readability (text to speech)
-
-* clarify "World Graph" in code
 
 * update notes/users_manual.md
 

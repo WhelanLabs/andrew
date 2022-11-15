@@ -1,5 +1,9 @@
 # Andrew v1.0
 
+## Overview
+
+Andrew is like a blend of a genetic algorithm implementation and Scratch programming.
+
 Andrew is a time-series forecasting AI application that uses a genetic algorithm on graphs of code-block-based genes. These graphs are referred to as Thought Graphs.  Thought Graphs are associated with a specific target Goal.  As Andrew runs, the Thoughts are combined and mutated into new thoughts.  Andrew starts with a given set of initial Thoughts, referred to as Seed Thoughts, representing a process for solving a problem.  Seed Thoughts generally model basic ideas, such as linear movement, and correlation.
 
 Andrew was developed out of the desire to make something new and interesting.  Some of the initial ideas for Andrew came from an old version of a lecture from MIT OpenCourseWare 6.034 where little focus was given to Genetic Algorithms and Neural Nets due to a variety of issues.  Later, based on advancements in Neural Nets, those sections were modified to have more focus.  While Neural Nets have now hit the mainstream, Genetic Algorithms seem to have underexplored frontiers.  Andrew looks to investigate some of these less-studied frontiers.
@@ -45,13 +49,22 @@ Andrew has an overall training process that implements the genetic algorithm.  T
 
 [Note: over time, Andrew will evolve to replace most of its hardcoded control functions to being genetic algorithms, basically turning Andrew into layers of genetic algorithms producing genetic algorithms.]
 
-Andrew operates using two separate graph repositories.  The internal thought-related elements exist in the Garden Graph; This graph changes as Andrew runs.  The external world data on which forecasts are based is contained in a static graph called the World Graph.
+Andrew operates using two separate graph repositories.  The internal thought-related elements exist in the Garden Graph; This graph changes as Andrew runs.  The external world data on which forecasts are based is contained in a static graph called either the World Graph or the Data Graph.
 
 <kbd>
 <a href="./readme_files/two_db.jpg" target="_blank">
 <img src="./readme_files/two_db.jpg" width="600"/>
 </kbd><br/>
 figure: the databases used by Andrew</a>
+<p/>
+
+The initial World Graph for Andrew is populated with stock price data.  However, the World Graph can be easily extended to contain other types of data.  The basic structure for the World Graph is to show the relationship of elements on dates.  An example of an extension of the World Graph would be to add tweets; there would be a tweet edge containing the content of the tweet, and it would connect a date to a sender.  Possible uses for this data would be to test if tweets by people such as Elon Musk or Donald Trump have an impact on stock prices, and which ones.
+
+<kbd>
+<a href="./readme_files/world_graph_snippet.jpg" target="_blank">
+<img src="./readme_files/world_graph_snippet.jpg" width="600"/>
+</kbd><br/>
+figure: a snippet of data within the World Graph</a>
 <p/>
 
 Andrew generates a report for the results of training.  This report describes the inputs used in training and the results.  The report shows the resulting Overall Slope and the Evolution Slope for the training process.  Both slopes are computed using linear regression.  The Overall Slope shows the slope of the average scores of each training generation over the generations.  The Evolution Slope shows improvement of non-seed thoughts over seed thoughts over the generations.
@@ -69,10 +82,9 @@ Besides producing outputs for consumption for downstream Thought Operations, Tho
 
 Andrew is designed to support horizontal scaling for both its graph data sources and its processing power. The current graph databases used by Andrew are built on top of Arango DB, thus allowing the database access to horizontally scale on commodity hardware.  Andrew has plans to support the horizontal scalability of training logic by incorporating parallel messaging processing for individual evaluations within the training routine.
 
+## Running the Example Code
 
-
-
-
+General information on how to compile and run the example can be found in <a href="./notes/dev_notes.md" target="_blank">the dev_notes.</a>
 
 
 
