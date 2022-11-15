@@ -11,7 +11,7 @@ Andrew was developed out of the desire to make something new and interesting.  S
 Thoughts are mainly composed of Thought Operations (nodes) and Thought Sequences (edges).  The Thought Sequences are edges that pass data between Thought Operations. The Thought Operations run simple processes based on their defined operation type.  Besides the passing of data between Thought Operations, Thought Sequences also contain properties that support mutation on the passed data.  These mutation-related properties identify the range of mutations supported, and specify the amount of current mutation.  Mutations may be supported for virtually any data type, from simple mutations in Integer values to more complex mutations of a value within a set of valid values; for example, changing the name of an other-side object or relation name used as input to a Thought Operation.
 
 ---
-**_NOTE:_** 
+**NOTE** 
 Andrew currently only supports non-cyclic Thoughts.
 ---
 
