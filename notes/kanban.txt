@@ -122,8 +122,8 @@
 ##########################################################
 
 * set up pro site
-  - buy pro site
-  - create private project in pro site
+  + buy pro site
+  + create private projects in pro site
   - convert to new namespace
   - sanitize the code
   - convert to new Git Repo
