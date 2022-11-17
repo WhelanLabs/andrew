@@ -116,20 +116,22 @@
   - add reference to running the example
   - review readability (text to speech)
   
+* set up pro site
+  - buy pro site
+  - create private projects in pro site
+  - convert to new namespace
+  - sanitize the code
+  - convert to new Git Repo
+  - check for old namespace references and address
+  - update GitHub Desktop to use new account
+  - use new email address
+  
   
 ##########################################################
 # WIP
 ##########################################################
 
-* set up pro site
-  + buy pro site
-  + create private projects in pro site
-  - convert to new namespace
-  - sanitize the code
-  - convert to new Git Repo
-  - check for old namespace references and address
-  - update GitHub Desktop to use new account and name (Snow Elf)
-  - use new email address
+
 
 ##########################################################
 # backlog
