@@ -5,7 +5,7 @@
 
 	<groupId>com.whelanlabs.andrew</groupId>
 	<artifactId>andrew</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>andrew</name>
 	<url>http://www.whelanlabs.com/andrew</url>
