@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>com.whelanlabs.pgraph</groupId>
 			<artifactId>pgraph</artifactId>
-			<version>1.0.0</version>
+			<version>7.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
