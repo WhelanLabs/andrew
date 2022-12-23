@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.LinearDataset;
-import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.Node;
 
 public class GoalTest {
 
@@ -21,6 +21,8 @@ public class GoalTest {
    public static void setUpBeforeClass() throws Exception {
       String databaseName = "andrew_test_database";
       App.initialize(databaseName);
+      App.getDataGraph().flush();
+      App.getGardenGraph().flush();
       App.loadDatasetToDataGraph(new LinearDataset());
    }
 

@@ -21,11 +21,11 @@ import com.whelanlabs.andrew.process.ProcessUtils;
 import com.whelanlabs.andrew.process.Report;
 import com.whelanlabs.andrew.process.ScoringMachine;
 import com.whelanlabs.andrew.process.ThoughtScore;
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.Element;
-import com.whelanlabs.kgraph.engine.KnowledgeGraph;
-import com.whelanlabs.kgraph.engine.Node;
-import com.whelanlabs.kgraph.engine.QueryClause;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.Element;
+import com.whelanlabs.pgraph.engine.PropertyGraph;
+import com.whelanlabs.pgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.QueryClause;
 
 /**
  * The Class App.
@@ -36,10 +36,10 @@ import com.whelanlabs.kgraph.engine.QueryClause;
 public class App {
 
    /** The data graph. */
-   private static KnowledgeGraph _dataGraph = null;
+   private static PropertyGraph _dataGraph = null;
 
    /** The garden graph. */
-   private static KnowledgeGraph _gardenGraph = null;
+   private static PropertyGraph _gardenGraph = null;
 
    /** The logger. */
    private static Logger logger = LogManager.getLogger(App.class);
@@ -67,8 +67,8 @@ public class App {
     * @throws Exception the exception
     */
    public static void initialize(String databaseName) throws Exception {
-      _dataGraph = new KnowledgeGraph(databaseName);
-      _gardenGraph = new KnowledgeGraph(databaseName + "_garden");
+      _dataGraph = new PropertyGraph(databaseName);
+      _gardenGraph = new PropertyGraph(databaseName + "_garden");
       thoughtCache = new HashMap<>();
       mutator = new Mutator();
    }
@@ -78,7 +78,7 @@ public class App {
     *
     * @return the data graph
     */
-   public static KnowledgeGraph getDataGraph() {
+   public static PropertyGraph getDataGraph() {
       return _dataGraph;
    }
 
@@ -87,7 +87,7 @@ public class App {
     *
     * @return the garden graph
     */
-   public static KnowledgeGraph getGardenGraph() {
+   public static PropertyGraph getGardenGraph() {
       return _gardenGraph;
    }
 

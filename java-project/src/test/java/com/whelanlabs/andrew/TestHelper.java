@@ -1,9 +1,9 @@
 package com.whelanlabs.andrew;
 
 import com.arangodb.model.TraversalOptions.Direction;
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.ElementHelper;
-import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.ElementHelper;
+import com.whelanlabs.pgraph.engine.Node;
 
 public class TestHelper {
 

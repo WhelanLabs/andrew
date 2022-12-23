@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.dataset.LinearDataset;
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.Node;
 
 public class LinearDatasetTest {
 

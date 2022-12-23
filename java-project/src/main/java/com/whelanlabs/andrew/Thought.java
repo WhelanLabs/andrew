@@ -14,11 +14,11 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.Element;
-import com.whelanlabs.kgraph.engine.ElementHelper;
-import com.whelanlabs.kgraph.engine.Node;
-import com.whelanlabs.kgraph.engine.QueryClause;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.Element;
+import com.whelanlabs.pgraph.engine.ElementHelper;
+import com.whelanlabs.pgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.QueryClause;
 
 /**
  * The Class Thought.

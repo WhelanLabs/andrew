@@ -2,8 +2,8 @@ package com.whelanlabs.andrew.dataset;
 
 import java.util.List;
 
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.Node;
 
 /**
  * The Interface Dataset.

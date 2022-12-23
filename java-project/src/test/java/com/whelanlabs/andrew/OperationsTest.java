@@ -16,8 +16,8 @@ import org.junit.Test;
 import com.arangodb.model.TraversalOptions.Direction;
 import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
-import com.whelanlabs.kgraph.engine.ElementHelper;
-import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.ElementHelper;
+import com.whelanlabs.pgraph.engine.Node;
 
 public class OperationsTest {
 

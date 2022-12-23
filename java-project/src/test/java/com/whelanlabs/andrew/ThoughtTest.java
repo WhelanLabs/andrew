@@ -21,9 +21,9 @@ import org.junit.Test;
 
 import com.whelanlabs.andrew.dataset.CSVLoader;
 import com.whelanlabs.andrew.dataset.LinearDataset;
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.ElementHelper;
-import com.whelanlabs.kgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.ElementHelper;
+import com.whelanlabs.pgraph.engine.Node;
 
 import nl.altindag.log.LogCaptor;
 

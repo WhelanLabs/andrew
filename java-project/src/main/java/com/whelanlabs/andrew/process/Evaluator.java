@@ -17,10 +17,10 @@ import com.whelanlabs.andrew.App;
 import com.whelanlabs.andrew.Operations;
 import com.whelanlabs.andrew.Thought;
 import com.whelanlabs.andrew.TrainingCriteria;
-import com.whelanlabs.kgraph.engine.Edge;
-import com.whelanlabs.kgraph.engine.Node;
-import com.whelanlabs.kgraph.engine.QueryClause;
-import com.whelanlabs.kgraph.engine.QueryClause.Operator;
+import com.whelanlabs.pgraph.engine.Edge;
+import com.whelanlabs.pgraph.engine.Node;
+import com.whelanlabs.pgraph.engine.QueryClause;
+import com.whelanlabs.pgraph.engine.QueryClause.Operator;
 
 public class Evaluator {
 

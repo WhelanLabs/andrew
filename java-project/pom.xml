@@ -24,9 +24,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.whelanlabs.kgraph</groupId>
-			<artifactId>kgraph</artifactId>
-			<version>5.0.2</version>
+			<groupId>com.whelanlabs.pgraph</groupId>
+			<artifactId>pgraph</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
