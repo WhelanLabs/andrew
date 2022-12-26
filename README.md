@@ -106,5 +106,24 @@ Andrew is designed to support horizontal scaling for both its graph data sources
 
 General information on how to compile and run the example can be found in <a href="./notes/dev_notes.md" target="_blank">the dev_notes.</a>
 
+## The future...
 
+Andrew is currently taking a pause.  There are several big problems that it needs to address in order to move forward in a meaningful way.  Those problems are:
+
+1. Generation of the seed thoughts is prohibitively expensive. The current process involves generating diagrams for an outline of the approach and then translating those diagrams into JSON code.  The process is slow and error-prone.  Without making seed thought generation much easier, it is impractical to think that there will be a good catalog of seed thoughts.  The current leading idea for making seed thoughts simple to generate is to have something similar to SysML Inner Block Diagrams where each Thought operation has ports on it that are populated via Thought Sequence Edges and to have graphical tools for generating these diagrams, and then having them programmatically translated into JSON to be loaded into Andrew.
+
+2. Processing speed is slow.  It is assumed that augmenting Andrew to horizontally scale is necessary in order to get the number of quests per generation raised and the number of generations raised in order to get positive evolution.
+
+
+3. New crossover algorithms.  The current "merge two thoughts algorithm is decent and can be made better by allowing for variable weighting of ancestor contributions.  However, in order to really evolve, additional crossover operations are likely to be needed.  Adding support for the chaining of operations will likely improve results.
+
+<pre>
+Today for crossover, we basically have:
+child_result = Average(parent_A_reslt, parent_B_reslt)
+
+Weighting these gives us:
+child_result = (parent_A_reslt * rand) + (parent_B_reslt * (1-rand))
+</pre>
+
+However, with chaining strands of code together, results can be quite different, and more complex than just weighted averaging.  At the extreme, chaining would involve children being composed of individual thought operations being added together; this would be similar to merging single-cell organisms.  One interesting aspect of this is that it might remove the need to start with complex seed thoughts.  While this approach has great promise, the processing power to evolve from simple single-operation thoughts to valuable thoughts is likely to be prohibitive.  Starting with a mix of complex seed thoughts and simple single-operation seed thoughts is more practical unless processing power is improved by several orders of magnitude. (4 or more?)
 
